@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1b2b03ecdc7c4eabaa6a8e3fd0baab3a" Name="Diagram1">
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_ActualPurchaseTaxAndPrice" Width="1.5" PointX="30" PointY="98.875" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_ActualSalesTaxAndPrice" Width="1.5" PointX="33" PointY="98.5" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_batch" Width="1.5" PointX="13.5" PointY="95.125" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_branch" Width="1.5" PointX="5.25" PointY="86" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_category" Width="1.5" PointX="16.5" PointY="94.625" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_company" Width="1.5" PointX="8.25" PointY="85.5" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_country" Width="1.5" PointX="0.75" PointY="77.75" />
+        <EntityTypeShape EntityType="IMS_TESTModel.Tbl_EmailVerify" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_error_log" Width="1.5" PointX="10.5" PointY="81" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_expense" Width="1.5" PointX="16.5" PointY="83.625" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_expenseentry" Width="1.5" PointX="21.75" PointY="88.5" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_financialyear" Width="1.5" PointX="19.5" PointY="94.125" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_godown" Width="1.5" PointX="10.5" PointY="94.25" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_mony" Width="1.5" PointX="19.5" PointY="84.5" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_monytransaction" Width="1.5" PointX="15.75" PointY="88.25" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_paidpayment" Width="1.5" PointX="16.5" PointY="99.375" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_party" Width="1.5" PointX="10.5" PointY="99.375" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_paymentmode" Width="1.5" PointX="13.5" PointY="84.25" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_plan" Width="1.5" PointX="17.25" PointY="79.875" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_product" Width="1.5" PointX="21.75" PointY="93.125" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_productTaxGroup" Width="1.5" PointX="24" PointY="99" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_purchase" Width="1.5" PointX="24.75" PointY="91.5" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_purchasedetails" Width="1.5" PointX="30" PointY="92.5" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_purchasedetailsHistory" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_purchaseHistory" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_PurchasePaymentDetials" Width="1.5" PointX="27" PointY="104.25" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_PurchasePaymentDetialsHistory" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_purchasereturn" Width="1.5" PointX="36" PointY="92.25" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_purchasereturndetails" Width="1.5" PointX="30" PointY="86.5" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_purchasereturndetailsHistory" Width="1.5" PointX="2.75" PointY="5.75" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_purchasereturnHistory" Width="1.5" PointX="4.75" PointY="5.75" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_purchasetaxdetails" Width="1.5" PointX="38.25" PointY="86.5" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_purchasetaxgroup" Width="1.5" PointX="33" PointY="88.625" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_rack" Width="1.5" PointX="18.75" PointY="100" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_role" Width="1.5" PointX="11.25" PointY="77.125" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_sale" Width="1.5" PointX="27.75" PointY="92" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_saledetails" Width="1.5" PointX="33" PointY="92.5" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_saledetailsHistory" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_saleHistory" Width="1.5" PointX="6.75" PointY="5.75" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_SalePaymentDetails" Width="1.5" PointX="30" PointY="104.25" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_SalePaymentDetailsHistory" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_salereturn" Width="1.5" PointX="36" PointY="86.25" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_salereturndetails" Width="1.5" PointX="27" PointY="98.5" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_salereturndetailsHistory" Width="1.5" PointX="8.75" PointY="5.75" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_salereturnHistory" Width="1.5" PointX="10.75" PointY="0.75" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_state" Width="1.5" PointX="3" PointY="101.625" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_stock" Width="1.5" PointX="27" PointY="87.125" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_stocktransaction" Width="1.5" PointX="24" PointY="85.75" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_subscription" Width="1.5" PointX="19.5" PointY="79.375" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_tax" Width="1.5" PointX="10.5" PointY="89.25" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_taxdetails" Width="1.5" PointX="21.75" PointY="84.375" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_taxgroup" Width="1.5" PointX="18.5" PointY="89.5" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_taxtype" Width="1.5" PointX="10.5" PointY="84.625" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_unit" Width="1.5" PointX="13.5" PointY="89.25" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_User" Width="1.5" PointX="11.25" PointY="70.625" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_userbranch" Width="1.5" PointX="13.5" PointY="79.5" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_userrole" Width="1.5" PointX="13.5" PointY="73.75" />
+        <EntityTypeShape EntityType="IMS_TESTModel.Tbl_VerifyResetPass" Width="1.5" PointX="0.75" PointY="10.75" />
+        <EntityTypeShape EntityType="IMS_TESTModel.View_PurchaseDetails" Width="1.5" PointX="2.75" PointY="10.75" />
+        <EntityTypeShape EntityType="IMS_TESTModel.View_SaleDetails" Width="1.5" PointX="4.75" PointY="10.75" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_Actua__produ__4FD1D5C8" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_Actua__purch__0A888742" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_Actua__purch__4EDDB18F" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_ActualPurchaseTaxAndPrice_tbl_batch" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_Actua__produ__5E1FF51F" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_Actua__sale___5D2BD0E6" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_batch__branc__3B75D760" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_batch__compa__3A81B327" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_purch__batch__797309D9" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_stock__batch__619B8048" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_stock__batch__6754599E" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_purchasereturndetails_tbl_batch" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_saledetails_tbl_batch" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_salereturndetails_tbl_batch" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_branc__compa__20C1E124" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_branc__count__21B6055D" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_branc__state__22AA2996" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_categ__branc__2B3F6F97" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_error__branc__2645B050" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_expen__branc__571DF1D5" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_expen__branc__5BE2A6F2" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_finan__branc__534D60F1" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_godow__branc__32E0915F" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_mony__branch__6B24EA82" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_monyt__branc__6FE99F9F" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_party__branc__3F466844" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_payme__branc__4F7CD00D" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_produ__branc__46E78A0C" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_purch__branc__2B0A656D" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_purch__branc__60FC61CA" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_rack__branch__36B12243" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_stock__branc__5FB337D6" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_stock__branc__656C112C" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_tax__branch___4316F928" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_taxgr__branc__3F3159AB" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_taxty__branc__2D12A970" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_unit__branch__2F10007B" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_userb__branc__276EDEB3" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_purchasereturn_tbl_branch" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_sale_tbl_branch" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_salereturn_tbl_branch" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_categ__compa__2A4B4B5E" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_produ__categ__47DBAE45" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_compa__count__1CF15040" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_compa__state__1DE57479" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_error__compa__25518C17" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_expen__compa__5629CD9C" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_expen__compa__5AEE82B9" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_finan__compa__52593CB8" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_godow__compa__31EC6D26" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_mony__compan__6A30C649" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_monyt__compa__6EF57B66" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_paidp__compa__395884C4" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_party__compa__3E52440B" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_payme__compa__4E88ABD4" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_produ__compa__45F365D3" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_purch__compa__2A164134" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_purch__compa__61F08603" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_rack__compan__35BCFE0A" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_stock__compa__5EBF139D" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_stock__compa__6477ECF3" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_subsc__compa__28ED12D1" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_tax__company__4222D4EF" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_taxgr__compa__3E3D3572" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_taxty__compa__2C1E8537" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_unit__compan__2E1BDC42" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_userb__compa__29221CFB" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_purchasereturn_tbl_company" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_sale_tbl_company" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_salereturn_tbl_company" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_state__count__1273C1CD" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_expen__expen__59FA5E80" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_purch__finan__62E4AA3C" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_purch__finan__74AE54BC" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_purchasereturn_tbl_financialyear" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_sale_tbl_financialyear" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_salereturn_tbl_financialyear" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_produ__godow__49C3F6B7" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_rack__godown__37A5467C" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_mony__party___6C190EBB" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_monyt__party__2DE6D218" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_monyt__payme__70DDC3D8" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_paidp__subsc__37703C52" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_paidp__user___3864608B" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_party__state__251C81ED" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_purch__party__63D8CE75" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_purch__party__73BA3083" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_purchasereturn_tbl_party" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_sale_tbl_party" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_salereturn_tbl_party" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_purchase_tbl_paymentmode" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_purchasereturn_tbl_paymentmode" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_sale_tbl_paymentmode" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_salereturn_tbl_paymentmode" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_subsc__plan___339FAB6E" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_produ__produ__76818E95" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_produ__rack___4AB81AF0" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_produ__unit___48CFD27E" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_purch__produ__787EE5A0" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_purch__produ__7A521F79" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_stock__produ__60A75C0F" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_stock__produ__66603565" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_purchasereturndetails_tbl_product" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_saledetails_tbl_product" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_salereturndetails_tbl_product" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_produ__group__7775B2CE" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_purch__purch__09946309" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_purch__purch__778AC167" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_PurchasePaymentDetials_tbl_PurchasePaymentDetials" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_purchasereturn_tbl_purchasereturn" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_purch__tax_i__7A672E12" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_purch__unit___7B5B524B" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_purchasereturndetails_tbl_purchasereturn" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_purchasereturndetails_tbl_tax" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_purchasereturndetails_tbl_unit" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_purch__purch__7E22B05D" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_purch__type___7F16D496" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_purch__group__7B4643B2" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_userb__role___25869641" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_userr__role___1920BF5C" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_saledetails_tbl_sale" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_SalePaymentDetails_tbl_sale" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_salereturn_tbl_sale" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_saledetails_tbl_tax" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_saledetails_tbl_unit" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_salereturndetails_tbl_salereturn" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_salereturndetails_tbl_tax" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_salereturndetails_tbl_unit" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_subsc__user___3493CFA7" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_taxde__group__420DC656" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_taxde__type___4301EA8F" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_userb__user___267ABA7A" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_userr__user___1A14E395" />
+        <AssociationConnector Association="IMS_TESTModel.FK__tbl_purch__purch__42CCE065" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

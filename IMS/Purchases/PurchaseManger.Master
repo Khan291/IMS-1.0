@@ -1,0 +1,149 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="PurchaseManger.master.cs" Inherits="IMS.PurchaseManger" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Management System</title>
+    <!-- Core CSS - Include with every page -->
+    <link href="../assets/plugins/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="../assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <%--<link href="assets/plugins/pace/pace-theme-big-counter.css" rel="stylesheet" />--%>
+    <link href="../assets/css/style.css" rel="stylesheet" />
+    <%-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>--%>
+    <link href="../assets/css/main-style.css" rel="stylesheet" />
+
+    <!-- Page-Level CSS -->
+    <link href="../assets/plugins/morris/morris-0.4.3.min.css" rel="stylesheet" />
+     <%--Create Common Function repository to handle Javascript Code--%>
+    <script src="../assets/src/CommonFuntion.js"></script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server" autocomplete="off">
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        <div id="wrapper">
+            <!-- navbar top -->
+            <nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="navbar">
+                <!-- navbar-header -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                        <span class="icon-bar">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <asp:Label ID="lblIms" runat="server" Font-Bold="true" Style="padding: 0; font-size: 55px; color: white;" Text="!MSB!ZZ" Visible="false"></asp:Label>
+                    <asp:Image ID="imglogo" runat="server" Height="80px" Width="200px" />
+                    <%-- <a class="navbar-brand" href="index.html">
+                        <img src="assets/img/logo.png" alt="" />
+                    </a>--%>
+                </div>
+
+
+                <ul class="nav navbar-top-links navbar-right">
+
+                    <!-- main dropdown -->
+                    <li id="lidashboard" runat="server" visible="false"><a href="../Home.aspx"><i class="fa fa-dashboard fa-3x"></i></a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-user fa-3x"></i>
+                        </a>
+                        <!-- dropdown user-->
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a href="#"><i class="fa fa-user fa-fw"></i>User Profile</a>
+                            </li>
+
+
+                            <li class="divider"></li>
+                            <li>
+                                <div class="col-sm-3" style="right: -8px;"><i class="fa fa-sign-out fa-fw"></i></div>
+                                <div class="col-sm-9" style="padding-left: 0px; left: -16px;">
+                                    <asp:LinkButton ID="btnLogout" runat="server" Text="Logout" OnClick="btnLogout_Click" />
+                                </div>
+                            </li>
+                        </ul>
+                        <!-- end dropdown-user -->
+                    </li>
+                    <!-- end main dropdown -->
+                </ul>
+                <!-- end navbar-top-links -->
+
+            </nav>
+            <!-- end navbar top -->
+
+            <!-- navbar side -->
+            <nav class="navbar-default navbar-static-side" role="navigation">
+                <!-- sidebar-collapse -->
+                <div class="sidebar-collapse">
+                    <!-- side-menu -->
+                    <ul class="nav" id="side-menu">
+                        <li>
+                            <!-- user image section-->
+                            <div class="user-section">
+                                <div class="user-section-inner">
+                                    <img src="../assets/img/user.jpg" alt="">
+                                </div>
+                                <div class="user-info">
+                                    <div>
+                                        <asp:Label ID="lblusername" runat="server" Font-Bold="true"></asp:Label></div>
+                                    <div class="user-text-online">
+                                        <span class="user-circle-online btn btn-success btn-circle "></span>&nbsp;Online
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end user image section-->
+                        </li>
+
+                        <li id="li2" runat="server" visible="false">
+                            <a href="../Home.aspx"><i class="fa fa-dashboard fa-fw"></i>Dashboard</a>
+
+                        </li>
+                        <li id="lipurchase" runat="server">
+                            <a href="Purchase.aspx"><i class="fa fa-cart-arrow-down fa-fw"></i>Purchase</a>
+                        </li>
+                        <li id="lipurchasereturn" runat="server">
+                            <a href="PurchaseReturn.aspx"><i class="fa fa-cart-plus fa-fw"></i>Purchase Return</a>
+
+                        </li>
+                        <li id="li1" runat="server">
+                            <a href="PurchaseReport.aspx"><i class="fa fa-cart-arrow-down fa-fw"></i>Purchase Report</a>
+                        </li>
+
+
+                    </ul>
+                    <!-- end side-menu -->
+                </div>
+                <!-- end sidebar-collapse -->
+            </nav>
+            <!-- end navbar side -->
+            <div id="page-wrapper">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+            <div class="footer ">
+
+                <div class="text-center ">
+                    Copyrights © 2017 All Rights Reserved by <a href="http://www.vttechnologies.co/">VT Technology</a>
+
+                </div>
+            </div>
+
+
+            <%--    <script src="../assets/plugins/jquery-1.10.2.js"></script>
+            <script src="../assets/plugins/bootstrap/bootstrap.min.js"></script>
+            <script src="../assets/plugins/metisMenu/jquery.metisMenu.js"></script>
+            <script src="../assets/plugins/pace/pace.js"></script>
+            <script src="../assets/scripts/siminta.js"></script>
+            <!-- Page-Level Plugin Scripts-->
+            <script src="../assets/plugins/morris/raphael-2.1.0.min.js"></script>
+            <script src="../assets/plugins/morris/morris.js"></script>
+            <script src="../assets/scripts/dashboard-demo.js"></script>--%>
+        </div>
+
+    </form>
+</body>
+</html>
