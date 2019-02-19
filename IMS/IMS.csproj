@@ -300,6 +300,13 @@
     <Content Include="Masters\Tax.aspx" />
     <Content Include="Masters\Unit.aspx" />
     <Content Include="Branch.aspx" />
+    <Content Include="Web.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\css\main-style.css" />
@@ -768,9 +775,6 @@
     <Content Include="Uploads\down.png" />
     <Content Include="Uploads\mony.png" />
     <Content Include="Uploads\up.png" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Main.Master" />
     <Content Include="packages.config" />
     <Content Include="Registration\Site.Master" />
@@ -809,12 +813,6 @@
     <Content Include="Reports\CommonDataSet.xss">
       <DependentUpon>CommonDataSet.xsd</DependentUpon>
     </Content>
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\IMSBLL\IMSBLL.csproj">

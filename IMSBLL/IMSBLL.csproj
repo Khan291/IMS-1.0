@@ -427,11 +427,11 @@
     <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
     <EntityDeploy Include="EntityModel\IMSModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>IMSModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="App.Config" />
     <None Include="EntityModel\IMSModel.edmx.diagram">
       <DependentUpon>IMSModel.edmx</DependentUpon>
     </None>
