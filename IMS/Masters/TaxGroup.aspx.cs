@@ -198,7 +198,7 @@ namespace IMS.Masters
                     string txtpercentage = gvtaxdetails.Rows[i].Cells[2].Text;
                     tbl_taxdetails taxDetailes = new tbl_taxdetails();
                     taxDetailes.type_id = Convert.ToInt32(gvtaxdetails.Rows[i].Cells[2].Text);
-                    taxDetailes.tax_percentage = Convert.ToInt32(gvtaxdetails.Rows[i].Cells[1].Text);
+                    taxDetailes.tax_percentage = Convert.ToDecimal(gvtaxdetails.Rows[i].Cells[1].Text);
                     taxDetailes.status = true;
                     taxDetailes.created_by = User_id;
                     taxDetailes.created_date = DateTime.Now;
