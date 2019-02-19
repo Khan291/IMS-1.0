@@ -142,6 +142,9 @@ namespace IMS
                     int batchId = Convert.ToInt32(gvpurchasedetails.Rows[i].Cells[4].Text);
                     tbl_product product = context.tbl_product.Where(w => w.product_id == productId).FirstOrDefault();
                     var qty = Convert.ToInt32(gvpurchasedetails.Rows[i].Cells[5].Text);
+                    var groupId = Convert.ToInt32(gvpurchasedetails.Rows[i].Cells[11].Text);
+
+
                     //Add into Purchase Details table for each product
                     tbl_purchasedetails purchaseDetails = new tbl_purchasedetails();
                     purchaseDetails.product_id = productId;
@@ -156,7 +159,6 @@ namespace IMS
                     purchaseDetails.created_date = DateTime.Now;
                     purchaseDetails.status = true;
 
-                    var groupId = Convert.ToInt32(gvpurchasedetails.Rows[i].Cells[11].Text);
                     //insert into tax group purchase
                     tbl_purchasetaxgroup purchaseTaxGroup = new tbl_purchasetaxgroup();
                     purchaseTaxGroup.group_id = groupId;
@@ -165,10 +167,10 @@ namespace IMS
                     purchase.tbl_purchasetaxgroup.Add(purchaseTaxGroup);
 
                     //Get the Tax type saved from db 
-                    //insert into tax group detailes
-                    // var taxGroupTypes = context.tbl_productTaxGroup.Join(context.tbl_taxgroup, t => t.group_id, pt => pt.group_id, (t, pt) => new { t.group_id, pt.group_name, t.product_id }).Where(t => t.product_id == productId).ToList();
+                  
                     DataTable taxgroupTypes1 = helper.LINQToDataTable(context.SelectProductTaxGroup(groupId, productId, qty));
 
+                    //insert into tax group detailes
 
                     for (int j = 0; j <= taxgroupTypes1.Rows.Count - 1; j++)
                     {
@@ -226,7 +228,7 @@ namespace IMS
                     purchase.tbl_purchasedetails.Add(purchaseDetails);
                 }
 
-
+                //Map the data into context
                 context.tbl_purchase.Add(purchase);
                 context.SaveChanges();
                 string order = purchase.InvoiceNumber;
@@ -245,6 +247,8 @@ namespace IMS
             return context.tbl_stock.Where(w => w.company_id == companyId && w.branch_id == branchId && w.product_id == productId && w.batch_id == batchId).Any();
         }
 
+
+        //Get All Sesseion Values
         private void SessionValue()
         {
             if (Session["UserID"] == null || Session["company_id"] == null || Session["branch_id"] == null || Session["financialyear_id"] == null)
@@ -257,7 +261,7 @@ namespace IMS
             financialYearId = Convert.ToInt32(Session["financialyear_id"]);
         }
 
-
+        
         public void clr()
         {
             ddlBatch.SelectedIndex = 0;
@@ -270,6 +274,7 @@ namespace IMS
             txtPaidAmt.Text = string.Empty;
             txtBalanceAmt.Text = string.Empty;
         }
+        //Clear All the fields on the page
         public void ClearAll()
         {
             txtdate.Text = string.Empty;
@@ -285,6 +290,8 @@ namespace IMS
             txtPaidAmt.Text = string.Empty;
         }
 
+
+        //Update Calculation
         public void updatecal()
         {
             decimal a1 = Convert.ToDecimal(lblsubtotal.Text) - Convert.ToDecimal(ViewState["subtot"]);
@@ -296,6 +303,8 @@ namespace IMS
             decimal d = (a1 + c) - b1;
             lblGrandTotal.Text = d.ToString();
         }
+
+        //Vendore Bind To the dropdown
         public void ddlVendorbind()
         {
 
@@ -306,17 +315,17 @@ namespace IMS
             ddlVendor.DataBind();
             ddlVendor.Items.Insert(0, new ListItem("--Select Vendor--", "0"));
         }
-
+        //Product bind to the dropdown
         public void ddlproductbind()
         {
-            //context.tbl_product.Where(x => x.status == true && x.company_id == c_id).ToList();
+            ddlproduct.DataSource = context.tbl_product.Where(x => x.status == true && x.company_id == companyId).ToList();
             ddlproduct.DataTextField = "product_name";
             ddlproduct.DataValueField = "product_id";
-            ddlproduct.DataSource = context.tbl_product.Where(x => x.status == true && x.company_id == companyId).ToList();
             ddlproduct.DataBind();
             ddlproduct.Items.Insert(0, new ListItem("--Select Product--", "0"));
         }
 
+        //Batch bind to the batch dropdown
         public void ddlbatchbind()
         {
             List<tbl_batch> cd = context.tbl_batch.Where(x => x.status == true && x.company_id == companyId).ToList();
@@ -326,6 +335,8 @@ namespace IMS
             ddlBatch.DataBind();
             ddlBatch.Items.Insert(0, new ListItem("--Select Batch--", "0"));
         }
+
+        //Payment Mode bind to the dropdown
         public void ddlpaymentmodebind()
         {
             List<tbl_paymentmode> cd = context.tbl_paymentmode.Where(x => x.status == true).ToList();
@@ -347,6 +358,8 @@ namespace IMS
             }
 
         }
+
+        //Bind DataTable to GridView Of Product Detailes
         protected void BindGrid()
         {
             try
@@ -360,6 +373,7 @@ namespace IMS
             }
         }
 
+        //Bind DataTable to GridView Of Tax Group Detailes
         protected void BindTaxGrid()
         {
             try
@@ -372,6 +386,8 @@ namespace IMS
                 ErrorLog.saveerror(ex);
             }
         }
+
+        //Calculate the subtotal, tax amount ,Discount and Grand|Total
         public void calculation(decimal amt, decimal tax, decimal dis)
         {
             decimal tot = 0;
@@ -391,6 +407,8 @@ namespace IMS
 
         }
 
+
+        //Tax Dropdown Bind
         public void ddltaxBind(int p_id)
         {
             var taxGroup = context.tbl_productTaxGroup.Join(context.tbl_taxgroup, t => t.group_id, pt => pt.group_id, (t, pt) => new { t.group_id, pt.group_name, t.product_id }).Where(t => t.product_id == p_id).ToList();
@@ -400,6 +418,8 @@ namespace IMS
             ddlTaxGroup.DataBind();
             ddlTaxGroup.Items.Insert(0, new ListItem("--Select tax--", "0"));
         }
+
+        //Get financial Year Date
         public void getdate()
         {
             try
@@ -420,6 +440,8 @@ namespace IMS
         }
 
         //Events-----
+
+        // Add Button Event Code
         protected void btnAdd_Click(object sender, EventArgs e)
         {
             lblcheckDoubleError.Text = string.Empty;
@@ -489,7 +511,7 @@ namespace IMS
             }
         }
 
-
+        //validate Quantity
         public bool ValidateQuantity(int productId, int batchId)
         {
             bool isfail = false;
@@ -534,6 +556,8 @@ namespace IMS
             }
             return isfail;
         }
+
+        //Update Button Logic and code
         protected void btnUpdate_Click(object sender, System.EventArgs e)
         {
             txtPaidAmt.Text = string.Empty;
@@ -628,14 +652,15 @@ namespace IMS
 
         }
 
+
+        //Save Button coding
         protected void btnSave_Click(object sender, System.EventArgs e)
         {
             //savelogic();
             Save();
 
         }
-        //public string a_date;
-        //public string b_date;
+        //Purchase Detailes GridView Row Command Event
         protected void gvpurchasedetails_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             try
