@@ -24,6 +24,7 @@ namespace IMS
         int counter = 0;
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["TestDBConnection"].ConnectionString);
 
+        SqlHelper helper = new SqlHelper();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -140,33 +141,54 @@ namespace IMS
                     int productId = Convert.ToInt32(gvpurchasedetails.Rows[i].Cells[2].Text);
                     int batchId = Convert.ToInt32(gvpurchasedetails.Rows[i].Cells[4].Text);
                     tbl_product product = context.tbl_product.Where(w => w.product_id == productId).FirstOrDefault();
-
+                    var qty = Convert.ToInt32(gvpurchasedetails.Rows[i].Cells[5].Text);
                     //Add into Purchase Details table for each product
                     tbl_purchasedetails purchaseDetails = new tbl_purchasedetails();
                     purchaseDetails.product_id = productId;
                     purchaseDetails.batch_id = batchId;
                     // purchaseDetails.tax_id = product.tax_id;
                     purchaseDetails.unit_id = product.unit_id;
-                    purchaseDetails.tax_amt = Convert.ToDecimal(gvpurchasedetails.Rows[i].Cells[11].Text);
+                    purchaseDetails.tax_amt = Convert.ToDecimal(gvpurchasedetails.Rows[i].Cells[13].Text);
                     purchaseDetails.dicount_amt = Convert.ToDecimal(gvpurchasedetails.Rows[i].Cells[9].Text);
-                    purchaseDetails.quantity = Convert.ToInt32(gvpurchasedetails.Rows[i].Cells[5].Text);
-                    purchaseDetails.amount = Convert.ToDecimal(gvpurchasedetails.Rows[i].Cells[12].Text);
+                    purchaseDetails.quantity = qty;
+                    purchaseDetails.amount = Convert.ToDecimal(gvpurchasedetails.Rows[i].Cells[10].Text);
                     purchaseDetails.created_by = Convert.ToString(user_id);
                     purchaseDetails.created_date = DateTime.Now;
                     purchaseDetails.status = true;
 
+                    var groupId = Convert.ToInt32(gvpurchasedetails.Rows[i].Cells[11].Text);
+                    //insert into tax group purchase
                     tbl_purchasetaxgroup purchaseTaxGroup = new tbl_purchasetaxgroup();
-                    purchaseTaxGroup.group_id = Convert.ToInt32(gvpurchasedetails.Rows[i].Cells[11].Text);
+                    purchaseTaxGroup.group_id = groupId;
                     purchaseTaxGroup.product_id = productId;
                     purchaseTaxGroup.group_name = gvpurchasedetails.Rows[i].Cells[12].Text;
                     purchase.tbl_purchasetaxgroup.Add(purchaseTaxGroup);
-                    
+
+                    //Get the Tax type saved from db 
+                    //insert into tax group detailes
+                    // var taxGroupTypes = context.tbl_productTaxGroup.Join(context.tbl_taxgroup, t => t.group_id, pt => pt.group_id, (t, pt) => new { t.group_id, pt.group_name, t.product_id }).Where(t => t.product_id == productId).ToList();
+                    DataTable taxgroupTypes1 = helper.LINQToDataTable(context.SelectProductTaxGroup(groupId, productId, qty));
+
+
+                    for (int j = 0; j <= taxgroupTypes1.Rows.Count - 1; j++)
+                    {
+                        tbl_purchasetaxdetails purchaseTaxDetails = new tbl_purchasetaxdetails();
+                        purchaseTaxDetails.purchasetaxgroup_id = purchaseTaxGroup.purchasetaxgroup_id;
+                        purchaseTaxDetails.type_id = taxgroupTypes1.Rows[j].Field<int>("type_id");
+                        purchaseTaxDetails.tax_percentage = taxgroupTypes1.Rows[j].Field<decimal>("tax_percentage");
+                        purchaseTaxDetails.created_by = Convert.ToString(user_id);
+                        purchaseTaxDetails.created_date = DateTime.Now;
+                        purchaseTaxDetails.status = true;
+                        purchase.tbl_purchasetaxdetails.Add(purchaseTaxDetails);
+                    }
+
 
                     //Enter Details In tbl_ActualPurchaseTaxAndPrice : to get the original Values at the time of Purchase Return
                     tbl_ActualPurchaseTaxAndPrice actualPurchase = new tbl_ActualPurchaseTaxAndPrice();
                     actualPurchase.product_id = productId;
+                    actualPurchase.purchaseTaxId = purchaseTaxGroup.purchasetaxgroup_id;
                     actualPurchase.status = true;
-                    
+
                     //actualPurchase.tax_percent = Convert.ToDecimal(gvpurchasedetails.Rows[i].Cells[10].Text);
                     actualPurchase.purchase_rate = Convert.ToDecimal(gvpurchasedetails.Rows[i].Cells[6].Text);
                     actualPurchase.discount_percent = Convert.ToDecimal(gvpurchasedetails.Rows[i].Cells[8].Text);
@@ -204,19 +226,8 @@ namespace IMS
                     purchase.tbl_purchasedetails.Add(purchaseDetails);
                 }
 
-                for (int j = 0; j <= gvTaxDetailsNew.Rows.Count - 1; j++)
-                {
 
-                    tbl_purchasetaxdetails purchaseTaxDetails = new tbl_purchasetaxdetails();
-                    purchaseTaxDetails.type_id = Convert.ToInt32(gvTaxDetailsNew.Rows[j].Cells[8].Text);
-                    purchaseTaxDetails.tax_percentage = Convert.ToDecimal(gvTaxDetailsNew.Rows[j].Cells[5]);
-                    purchaseTaxDetails.created_by = Convert.ToString(user_id);
-                    purchaseTaxDetails.created_date = DateTime.Now;
-                    purchaseTaxDetails.status = true;
-
-                    purchase.tbl_purchasetaxdetails.Add(purchaseTaxDetails);
-                }
-                    context.tbl_purchase.Add(purchase);
+                context.tbl_purchase.Add(purchase);
                 context.SaveChanges();
                 string order = purchase.InvoiceNumber;
                 Session["p_id"] = purchase.purchase_id;
@@ -430,15 +441,14 @@ namespace IMS
                     int groupTaxId = int.Parse(ddlTaxGroup.SelectedValue);
 
 
-                    
+
 
                     //Pouct Tax Group details Gridview Code
 
-                    
+
                     decimal qty = Convert.ToDecimal(txtquantity.Text);
-                    SqlHelper helper = new SqlHelper();
                     DataTable taxDetailesGV = helper.LINQToDataTable(context.SelectProductTaxGroup(groupTaxId, productId, qty));
-                    decimal tax_amnt=0;
+                    decimal tax_amnt = 0;
                     DataTable dt2 = (DataTable)ViewState["TaxDetails"];
                     if (taxDetailesGV.Rows.Count > 0)
                     {
@@ -464,7 +474,7 @@ namespace IMS
 
                     DataTable dt = (DataTable)ViewState["Details"];
                     dt.Rows.Add(ddlVendor.SelectedItem.Text.Trim(), productId, txtPONo.Text.Trim(), txtdate.Text.Trim(), ddlproduct.SelectedItem.Text.Trim(), ddlBatch.SelectedItem.Text.Trim(),
-                                      batchId, txtquantity.Text.Trim(), txtprice.Text.Trim(), discount, discountamt, txtsalesprice.Text.Trim(), subTotal, groupTaxId,tax_amnt,ddlTaxGroup.SelectedItem.Text);
+                                      batchId, txtquantity.Text.Trim(), txtprice.Text.Trim(), discount, discountamt, txtsalesprice.Text.Trim(), subTotal, groupTaxId, tax_amnt, ddlTaxGroup.SelectedItem.Text);
                     ViewState["Details"] = dt;
                     this.BindGrid();
                     lblcheckDoubleError.Text = string.Empty;
@@ -582,7 +592,7 @@ namespace IMS
                         decimal a = subTotal / 100;
                         //decimal discount_percent = (Convert.ToDecimal(discount) * 100) / Convert.ToDecimal(dr["Sub Total"]);
                         decimal discountamt = a * Convert.ToDecimal(discount);
-                        decimal tax_amount =tax_amnt;
+                        decimal tax_amount = tax_amnt;
 
                         dr["Quantity"] = txtquantity.Text;
                         //dr["Tax"] = txtTaxpercentage.Text;
@@ -635,7 +645,7 @@ namespace IMS
                 decimal a = subTotal / 100;
                 decimal discount_percent = Convert.ToDecimal(grv.Cells[8].Text);
                 decimal discountamt = a * Convert.ToDecimal(discount_percent.ToString("0.##"));
-                decimal tax_amount =  decimal.Parse(grv.Cells[12].Text);
+                decimal tax_amount = decimal.Parse(grv.Cells[12].Text);
 
                 if (e.CommandName == "Delete row")
                 {
@@ -667,7 +677,7 @@ namespace IMS
                     if (!btnUpdate.Visible)
                     {
                         ViewState["id"] = grv.RowIndex;
-                        int productId=Convert.ToInt32(grv.Cells[2].Text.ToString());
+                        int productId = Convert.ToInt32(grv.Cells[2].Text.ToString());
                         ddlproduct.SelectedValue = productId.ToString();
                         ddlBatch.SelectedValue = grv.Cells[4].Text.ToString();
                         txtquantity.Text = grv.Cells[5].Text.ToString();
