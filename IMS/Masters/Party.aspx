@@ -133,12 +133,12 @@
                             <div class="form-group">
                                 <div class="col-sm-4 leftpadd0">
                                     <label class="control-label   ">
-                                        GSTIN No:<asp:Label ID="Label3" runat="server" Text="*" ForeColor="Red"></asp:Label>
+                                        GSTIN No:<asp:Label ID="Label3" runat="server"></asp:Label>
                                     </label>
                                 </div>
                                 <div class="col-sm-8">
                                     <asp:TextBox ID="txtGSTIN" runat="server" CssClass="form-control"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ValidationGroup="abc" Display="Dynamic" ErrorMessage="GSTIN is required" ControlToValidate="txtGSTIN" ForeColor="Red"></asp:RequiredFieldValidator>
+                                    <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ValidationGroup="abc" Display="Dynamic" ErrorMessage="GSTIN is required" ControlToValidate="txtGSTIN" ForeColor="Red"></asp:RequiredFieldValidator>--%>
                                     <asp:Label ID="lblgstinerror" ForeColor="Red" runat="server"></asp:Label>
                                     <asp:HiddenField ID="hd2" runat="server" />
                                     <asp:RegularExpressionValidator ID="rxgst" runat="server" ErrorMessage="Invalid GSTIN" ForeColor="Red" Display="Dynamic" ValidationExpression="\d{2}[A-Z]{5}\d{4}[A-Z]{1}\d[Z]{1}[A-Z\d]{1}" ControlToValidate="txtGSTIN" ValidationGroup="abc"></asp:RegularExpressionValidator>
