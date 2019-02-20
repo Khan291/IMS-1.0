@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using IMSBLL.EntityModel;
 using IMSBLL.DAL;
 using System.Configuration;
+using System.Globalization;
 
 namespace IMS
 {
@@ -25,6 +26,7 @@ namespace IMS
         int companyId;
         int branchId;
         string User_id;
+        SqlHelper helper = new SqlHelper();
         #endregion
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -56,10 +58,38 @@ namespace IMS
         #region Methods
         public void statebind()
         {
+
+            TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+
+            var title = "WAR AND PEACE";
+
+            title = textInfo.ToTitleCase(title);
+            //Console.WriteLine(title); //WAR AND PEACE
+
+            ////You need to call ToLower to make it work
+            //title = textInfo.ToTitleCase(title.ToLower());
+            //Console.WriteLine(title);
+
+
             List<tbl_state> gd = context.tbl_state.Where(x => x.status == true).ToList();
+            DataTable dt = new DataTable();
+            dt = helper.LINQToDataTable(gd);
+            IEnumerable<DataRow> rows = dt.Rows.Cast<DataRow>();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                var lowerValue = row["state_name"].ToString();
+                lowerValue = textInfo.ToTitleCase(lowerValue.ToLower());
+                row["state_name"] = lowerValue;
+                //row.SetField(row["state_name"].ToString(), row["state_name"][lowerValue]);
+            }
+
+            ddlState.DataSource = dt;
             ddlState.DataTextField = "state_name";
             ddlState.DataValueField = "state_id";
-            ddlState.DataSource = gd;
+            //gd.ConvertAll(r => textInfo.ToTitleCase(r.state_name.ToLower())).ToList();
+            //ddlState.DataSource = textInfo.ToTitleCase(title.ToLower());
+            //ddlState.DataSource = dt;
             ddlState.DataBind();
             ddlState.Items.Insert(0, new ListItem("--Select State--", "0"));
         }
