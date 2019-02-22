@@ -118,7 +118,8 @@ namespace IMS
                 purchase.PaymentMode_id = Convert.ToInt32(ddlPaymentMode.SelectedValue);
                 purchase.status = true;
                 purchase.party_id = Convert.ToInt32(ddlVendor.SelectedValue);
-                purchase.Po_Date = DateTime.Parse(txtdate.Text, new CultureInfo("en-US"));
+                //purchase.Po_Date = DateTime.Parse(txtdate.Text, new CultureInfo("en-US"));
+                purchase.Po_Date = DateTime.ParseExact(txtdate.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 purchase.po_no = txtPONo.Text;
 
                 purchase.created_by = user_id;
@@ -471,10 +472,16 @@ namespace IMS
                     ViewState["TaxDetails"] = dt2;
                     this.BindTaxGrid();
 
+                    //changed by ather
+                    var taxGrp = "NA";
+                    if (ddlTaxGroup.SelectedItem.Value != "0")
+                    {
+                        taxGrp = ddlTaxGroup.SelectedItem.Text;
+                    }
 
                     DataTable dt = (DataTable)ViewState["Details"];
                     dt.Rows.Add(ddlVendor.SelectedItem.Text.Trim(), productId, txtPONo.Text.Trim(), txtdate.Text.Trim(), ddlproduct.SelectedItem.Text.Trim(), ddlBatch.SelectedItem.Text.Trim(),
-                                      batchId, txtquantity.Text.Trim(), txtprice.Text.Trim(), discount, discountamt, txtsalesprice.Text.Trim(), subTotal, groupTaxId, tax_amnt, ddlTaxGroup.SelectedItem.Text);
+                                      batchId, txtquantity.Text.Trim(), txtprice.Text.Trim(), discount, discountamt, txtsalesprice.Text.Trim(), subTotal, groupTaxId, tax_amnt, taxGrp);
                     ViewState["Details"] = dt;
                     this.BindGrid();
                     lblcheckDoubleError.Text = string.Empty;

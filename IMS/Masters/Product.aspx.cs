@@ -13,7 +13,7 @@ using System.Reflection;
 
 namespace IMS
 {
-    public partial class Product : System.Web.UI.Page
+    public partial class clsProduct : System.Web.UI.Page
     {
         /// <summary>
         /// All The objects That are used in coding

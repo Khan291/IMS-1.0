@@ -57,9 +57,6 @@
         }
 
 
-
-
-
         $(document).ready(function () {
             $(".main-content").click(function () {
                 $(".container").toggleClass("open-sidebar");
@@ -438,9 +435,9 @@
                         <li>
                             <!-- user image section-->
                             <div class="user-section">
-                                <div class="user-section-inner">
-                                    <img src="../assets/img/user.jpg" alt="">
-                                </div>
+                                <!--<div class="user-section-inner">
+                                   <!-- <img src="../assets/img/user.jpg" alt="">
+                                </div>-->
                                 <div class="user-info">
                                     <div>
                                         <asp:Label ID="lblusername" runat="server" Font-Bold="true"></asp:Label>
