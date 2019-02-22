@@ -150,6 +150,7 @@
                                             <asp:ListItem Text="Inventory Report" Value="1" />
                                             <asp:ListItem Text="Stock Report" Value="2" />
                                              <asp:ListItem Text="Balance Report" Value="3" />
+                                            <asp:ListItem Text="Low Stock Report" Value="4" />
                                         </asp:DropDownList>
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" InitialValue="0" ControlToValidate="ddlReportType" ErrorMessage="Please Select Report Type" ForeColor="Red" ValidationGroup="except"></asp:RequiredFieldValidator>
                                     </div>

@@ -15,6 +15,15 @@ using System.Web.UI.WebControls;
 
 namespace IMS
 {
+    public partial class clsProduct
+    {
+        public int product_id { get; set; }
+        public int? reorder_level { get; set; }
+        public string product_name { get; set; }
+        public int? qty { get; set; }
+    }
+    
+    
     public partial class MasterReports : System.Web.UI.Page
     {
         string Connectionstring = ConfigurationManager.ConnectionStrings["TestDBConnection"].ToString();
@@ -46,7 +55,13 @@ namespace IMS
         }
         private void BindProducts()
         {
-            var products = context.tbl_product.Where(w => w.company_id == companyId).ToList();
+            var products = context.tbl_product.Where(w => w.company_id == companyId).Select(s => new clsProduct { product_id = s.product_id, product_name = s.product_name, reorder_level = s.reorder_level }).ToList();
+
+            if (ddlReportType.SelectedItem.Text == "Low Stock Report")
+            {
+                products = products.Join(context.tbl_stock, p => p.product_id, s => s.product_id, (p, s) => new clsProduct { qty = s.qty, reorder_level = p.reorder_level, product_id = p.product_id, product_name = p.product_name }).Where(w => w.qty < w.reorder_level).ToList();
+            }
+
             lstProduct.DataTextField = "product_name";
             lstProduct.DataValueField = "product_id";          
             lstProduct.DataSource = products;
@@ -203,6 +218,38 @@ namespace IMS
                             ReportViewer1.LocalReport.Refresh();
                             break;
 
+
+                        case "Low Stock Report": isReportTypeStockReport = true;
+                            
+                            if (ddlFilerBy.SelectedItem.Text == "Product Wise")
+                            {
+                                reportType = "LOWSTOCKREPORT";
+                                isReportTypeproductInventory = true;
+                                
+                                reportDataSet = "ProductWiseStockDataSet";
+                                dataTable = "ProductWiseStockReport";
+                            }
+                            
+                            sqlParams = new SqlParameter[] {
+                         new SqlParameter("@ReportType",reportType),
+                         new SqlParameter("@CompanyId", companyId),
+                          new SqlParameter("@start_date",txtStartDate.Text),
+                           new SqlParameter("@end_date",txtenddate.Text),
+                          new SqlParameter("@FilterIds",filterIds)
+                    };
+                            ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/Reports/ProductWiseStockReport.rdlc");
+                            ReportViewer1.LocalReport.EnableExternalImages = true;
+
+                            reportParam = new ReportParameter("LogoPath", logoPath);
+                            ReportViewer1.LocalReport.SetParameters(reportParam);
+                            CreateReport(Connectionstring, "CommonReport", sqlParams, ref ReportViewer1, reportDataSet, dataTable);
+
+                            ReportViewer1.LocalReport.Refresh();
+                            break;
+
+
+
+  
                         case "Inventory Report": 
                             if (ddlFilerBy.SelectedItem.Text == "Product Wise")
                             {
@@ -282,10 +329,27 @@ namespace IMS
 
         protected void ddlReportType_SelectedIndexChanged(object sender, EventArgs e)
         {
+
             try
             {
                 cbEnable.Checked = false;
-                if (ddlReportType.SelectedItem.Text == "Stock Report")
+                if (ddlReportType.SelectedItem.Text == "Low Stock Report")
+                {
+                    ddlFilerBy.Items[1].Enabled = true;
+                    ddlFilerBy.Items[2].Enabled = false;
+                    ddlFilerBy.Items[3].Enabled = false;
+                    ddlFilerBy.Items[4].Enabled = false;
+                    //ddlFilerBy.Items[5].Enabled = false;
+
+                }
+                //else
+                //{
+                //    ddlFilerBy.Items[2].Enabled = true;
+                //    ddlFilerBy.Items[3].Enabled = true;
+                //    ddlFilerBy.Items[4].Enabled = true;
+                //    ddlFilerBy.Items[5].Enabled = true;
+                //}
+                else if (ddlReportType.SelectedItem.Text == "Stock Report")
                 {
                     ddlFilerBy.Items[2].Enabled = false;
                     ddlFilerBy.Items[3].Enabled = false;
@@ -295,24 +359,34 @@ namespace IMS
                     //txtStartDate.Enabled = false;
 
                 }
-                else
+                //else
+                //{
+                //    ddlFilerBy.Items[2].Enabled = true;
+                //    ddlFilerBy.Items[3].Enabled = true;
+                //    ddlFilerBy.Items[4].Enabled = false;
+                //    txtenddate.Enabled = true;
+                //    txtStartDate.Enabled = true;
+                //}
+                else if (ddlReportType.SelectedItem.Text == "Balance Report")
                 {
+                    ddlFilerBy.Items[1].Enabled = false;
                     ddlFilerBy.Items[2].Enabled = true;
                     ddlFilerBy.Items[3].Enabled = true;
                     ddlFilerBy.Items[4].Enabled = false;
-                    txtenddate.Enabled = true;
-                    txtStartDate.Enabled = true;
-                }
-                if (ddlReportType.SelectedItem.Text == "Balance Report")
-                {
-                    ddlFilerBy.Items[1].Enabled = false;
                 }
                 else
                 {
                     ddlFilerBy.Items[1].Enabled = true;
+                    ddlFilerBy.Items[2].Enabled = true;
+                    ddlFilerBy.Items[3].Enabled = true;
+                    ddlFilerBy.Items[4].Enabled = true;
+                    txtenddate.Enabled = true;
+                    txtStartDate.Enabled = true;
                 }
             }
             catch (Exception ex)
+
+
             {
                 ErrorLog.saveerror(ex);
             }
@@ -361,7 +435,7 @@ namespace IMS
 
             try
             {
-                if (ddlFilerBy.SelectedItem.Text == "Product Wise")
+                if (ddlFilerBy.SelectedItem.Text == "Product Wise" || ddlFilerBy.SelectedItem.Text == "Low Stock Report")
                 {
                     BindProducts();
                     Products.Visible = true;
@@ -400,6 +474,9 @@ namespace IMS
                 ErrorLog.saveerror(ex);
             }
         }
+
+
+
 
 
         protected void cbEnable_CheckedChanged(object sender, EventArgs e)

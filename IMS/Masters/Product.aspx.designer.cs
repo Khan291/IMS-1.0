@@ -10,7 +10,7 @@
 namespace IMS {
     
     
-    public partial class Product {
+    public partial class clsProduct {
         
         /// <summary>
         /// bMaster control.

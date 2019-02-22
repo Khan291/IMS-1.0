@@ -145,7 +145,7 @@
                                 <asp:HiddenField ID="hd1" runat="server" />
                                 <asp:HiddenField ID="hd2" runat="server" />
                                 <asp:TextBox ID="txtdate" runat="server" CssClass="form-control"></asp:TextBox>
-                                <ajaxToolkit:CalendarExtender ID="CalendarExtender1" TargetControlID="txtdate" runat="server" />
+                                <ajaxToolkit:CalendarExtender ID="CalendarExtender1" Format="dd/MM/yyyy" TargetControlID="txtdate" runat="server" />
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Date is Required " ForeColor="Red" Text="Please Select Date" ValidationGroup="grop" ControlToValidate="txtdate"></asp:RequiredFieldValidator>
                             </div>
                         </div>
@@ -245,6 +245,7 @@
                                     </label>
                                     <asp:DropDownList runat="server" ID="ddlTaxGroup" CssClass="form-control">
                                     </asp:DropDownList>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" InitialValue="0" ControlToValidate="ddlTaxGroup" ErrorMessage="Please Select TAX Group" ForeColor="Red" ValidationGroup="grop"></asp:RequiredFieldValidator>
 
                                     <%--<asp:TextBox ID="txtTaxpercentage" runat="server" CssClass="form-control"></asp:TextBox>--%>
                                     <%-- <asp:RegularExpressionValidator ID="RegularExpressionValidator7" ValidationExpression="^\s*(?=.*[0-9])\d*(?:\.\d{1,5})?\s*$" runat="server" ValidationGroup="adf" Display="Dynamic" ForeColor="Red" ControlToValidate="txtTaxpercentage" ErrorMessage="Discount could not be negative"></asp:RegularExpressionValidator>--%>
@@ -257,7 +258,7 @@
                                     </label>
                                     <asp:TextBox ID="txtsalesprice" runat="server" CssClass="form-control"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ForeColor="Red" ErrorMessage="Please Enter Sales Price" Text="" ValidationGroup="grop" ControlToValidate="txtsalesprice"></asp:RequiredFieldValidator>
-                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ValidationExpression="^\s*(?=.*[1-9])\d*(?:\.\d{1,5})?\s*$" runat="server" ValidationGroup="adf" Display="Dynamic" ForeColor="Red" ControlToValidate="txtsalesprice" ErrorMessage="Sales Price should b greater then 0"></asp:RegularExpressionValidator>
+                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ValidationExpression="^\s*(?=.*[1-9])\d*(?:\.\d{1,5})?\s*$" runat="server" ValidationGroup="grop" Display="Dynamic" ForeColor="Red" ControlToValidate="txtsalesprice" ErrorMessage="Sales Price should b greater then 0"></asp:RegularExpressionValidator>
                                 </div>
                             </div>
 

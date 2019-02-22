@@ -231,6 +231,7 @@
     <Content Include="ErrorPages\DefaultError.aspx" />
     <Content Include="ErrorPages\index.html" />
     <Content Include="Global.asax" />
+    <Content Include="LowStockReport.aspx" />
     <Content Include="MasterModals\BatchMasterModel.aspx" />
     <Content Include="MasterModals\CategoryMasterModal.aspx" />
     <Content Include="MasterModals\ExpenseMasterModel.aspx" />
@@ -419,6 +420,13 @@
     </Compile>
     <Compile Include="imagehandler.ashx.cs">
       <DependentUpon>imagehandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="LowStockReport.aspx.cs">
+      <DependentUpon>LowStockReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LowStockReport.aspx.designer.cs">
+      <DependentUpon>LowStockReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="MasterModals\BatchMasterModel.aspx.cs">
       <DependentUpon>BatchMasterModel.aspx</DependentUpon>
@@ -866,6 +874,7 @@
     <EmbeddedResource Include="Reports\CombineReport.rdlc" />
     <EmbeddedResource Include="Reports\GodownWiseStockReport.rdlc" />
     <EmbeddedResource Include="Reports\InventoryReport.rdlc" />
+    <EmbeddedResource Include="Reports\LowStockReport.rdlc" />
     <EmbeddedResource Include="Reports\ProductWiseStockReport.rdlc" />
     <EmbeddedResource Include="Reports\PurchaseSaleReturnReport.rdlc" />
   </ItemGroup>
@@ -880,7 +889,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>3667</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

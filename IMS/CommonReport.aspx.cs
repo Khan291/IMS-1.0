@@ -14,6 +14,13 @@ using IMS.Reports;
 
 namespace IMS.Reports
 {
+    public class Product
+    {
+        public int product_id { get; set; }
+        public int? reorder_level { get; set; }
+        public string product_name { get; set; }
+        public int? qty { get; set; }
+    }
     public partial class CommonReport : System.Web.UI.Page
     {
         IMS_TESTEntities context = new IMS_TESTEntities();
@@ -39,8 +46,15 @@ namespace IMS.Reports
         }
 
         private void BindProducts()
+        
         {
-            var products = context.tbl_product.Where(w => w.company_id == companyId).ToList();
+            var products = context.tbl_product.Where(w => w.company_id == companyId).Select(s => new Product {product_id= s.product_id,product_name= s.product_name, reorder_level= s.reorder_level }).ToList();
+
+            if (ddlReportType.SelectedItem.Text == "Low Stock Report")
+            {
+                products = products.Join(context.tbl_stock, p => p.product_id, s => s.product_id, (p, s) => new Product { qty = s.qty, reorder_level = p.reorder_level, product_id = p.product_id ,product_name=p.product_name}).Where(w => w.qty < w.reorder_level).ToList();
+            }
+
             lstProduct.DataTextField = "product_name";
             lstProduct.DataValueField = "product_id";
             lstProduct.DataSource = products;
@@ -179,7 +193,22 @@ namespace IMS.Reports
                             CreateReport(connectionstring, "CommonReport", sqlParams);
                             break;
 
-
+                        case "Low Stock Report":
+                           
+                            
+                                reportType = "LOWSTOCKREPORT";
+                                isReportTypeproductInventory = true;
+                           
+                           
+                            sqlParams = new SqlParameter[] {
+                         new SqlParameter("@ReportType",reportType),
+                         new SqlParameter("@CompanyId", companyId),
+                          new SqlParameter("@start_date",txtStartDate.Text),
+                           new SqlParameter("@end_date",txtenddate.Text),
+                          new SqlParameter("@FilterIds",filterIds)
+                    };
+                            CreateReport(connectionstring, "CommonReport", sqlParams);
+                            break;
                         case "Inventory Report":
 
                             //string reportType = string.Empty;
@@ -250,8 +279,24 @@ namespace IMS.Reports
             try
             {
                 cbEnable.Checked = false;
-                if (ddlReportType.SelectedItem.Text == "Stock Report")
+                if (ddlReportType.SelectedItem.Text == "Low Stock Report")
                 {
+                    ddlFilerBy.Items[1].Enabled = true;
+                    ddlFilerBy.Items[2].Enabled = false;
+                    ddlFilerBy.Items[3].Enabled = false;
+                    ddlFilerBy.Items[4].Enabled = false;
+                    //ddlFilerBy.Items[5].Enabled = false;
+
+                }
+                //else
+                //{
+                //    ddlFilerBy.Items[2].Enabled = true;
+                //    ddlFilerBy.Items[3].Enabled = true;
+                //    ddlFilerBy.Items[4].Enabled = true;
+                //    ddlFilerBy.Items[5].Enabled = true;
+                //}
+                else if (ddlReportType.SelectedItem.Text == "Stock Report")
+                {   
                     ddlFilerBy.Items[2].Enabled = false;
                     ddlFilerBy.Items[3].Enabled = false;
                     ddlFilerBy.Items[4].Enabled = true;
@@ -260,21 +305,29 @@ namespace IMS.Reports
                     //txtStartDate.Enabled = false;
                     
                 }
-                else
+                //else
+                //{
+                //    ddlFilerBy.Items[2].Enabled = true;
+                //    ddlFilerBy.Items[3].Enabled = true;
+                //    ddlFilerBy.Items[4].Enabled = false;
+                //    txtenddate.Enabled = true;
+                //    txtStartDate.Enabled = true;
+                //}
+                else if (ddlReportType.SelectedItem.Text == "Balance Report")
                 {
+                    ddlFilerBy.Items[1].Enabled = false;
                     ddlFilerBy.Items[2].Enabled = true;
                     ddlFilerBy.Items[3].Enabled = true;
                     ddlFilerBy.Items[4].Enabled = false;
-                    txtenddate.Enabled = true;
-                    txtStartDate.Enabled = true;
-                }
-                if (ddlReportType.SelectedItem.Text == "Balance Report")
-                {
-                    ddlFilerBy.Items[1].Enabled = false;
                 }
                 else
                 {
-                    ddlFilerBy.Items[1].Enabled = true;
+                    ddlFilerBy.Items[1].Enabled = true; 
+                    ddlFilerBy.Items[2].Enabled = true;
+                    ddlFilerBy.Items[3].Enabled = true;
+                    ddlFilerBy.Items[4].Enabled = true;
+                    txtenddate.Enabled = true;
+                    txtStartDate.Enabled = true;
                 }
             }
             catch (Exception ex)
@@ -305,6 +358,8 @@ namespace IMS.Reports
                     {
                         ds.Tables["Table"].Columns.Remove("Date");
                     }
+
+                    
                     if (!isReportTypeproductInventory && !isReportTypeBalance && !isReportTypeStockReport)
                     {
                         ds.Tables["Table"].Columns.Remove("PartyId");
@@ -341,7 +396,7 @@ namespace IMS.Reports
         {
             try
             {
-                if (ddlFilerBy.SelectedItem.Text == "Product Wise")
+                if (ddlFilerBy.SelectedItem.Text == "Product Wise" || ddlFilerBy.SelectedItem.Text == "Low Stock Report")
                 {
                     BindProducts();
                     Products.Visible = true;
