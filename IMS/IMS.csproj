@@ -21,6 +21,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -47,6 +48,9 @@
     <Reference Include="DropDownListChosen, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DropDownListChosen.1.0.2\lib\DropDownListChosen.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -98,6 +102,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Readme\Elmah.txt" />
     <Content Include="assets\alert\alertify.js" />
     <Content Include="assets\alert\alertify.min.js" />
     <Content Include="assets\alert\css\alertify.css" />
@@ -116,6 +121,7 @@
     <Content Include="assets\alert\css\themes\semantic.min.css" />
     <Content Include="assets\alert\css\themes\semantic.rtl.css" />
     <Content Include="assets\alert\css\themes\semantic.rtl.min.css" />
+    <Content Include="assets\css\404Css.css" />
     <Content Include="assets\css\bootstrap-multiselect.css" />
     <Content Include="assets\css\chosen.css" />
     <Content Include="assets\font-awesome1\fonts\font-awesome-4.7.0.zip" />
@@ -219,6 +225,11 @@
     <Content Include="assets\src\jquery-customselect.css" />
     <Content Include="assets\src\jquery-customselect.js" />
     <Content Include="Barcode.aspx" />
+    <Content Include="ErrorPages\403.aspx" />
+    <Content Include="ErrorPages\404.aspx" />
+    <Content Include="ErrorPages\500.aspx" />
+    <Content Include="ErrorPages\DefaultError.aspx" />
+    <Content Include="ErrorPages\index.html" />
     <Content Include="Global.asax" />
     <Content Include="MasterModals\BatchMasterModel.aspx" />
     <Content Include="MasterModals\CategoryMasterModal.aspx" />
@@ -293,6 +304,7 @@
     <Content Include="Sales\SalesReport.aspx" />
     <Content Include="Sales\SalesReturn.aspx" />
     <Content Include="Sales\ViewORPayBalanceSale.aspx" />
+    <Content Include="ErrorPages\Web.config" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
@@ -373,6 +385,35 @@
     <Compile Include="Barcode.aspx.designer.cs">
       <DependentUpon>Barcode.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ErrorPages\403.aspx.cs">
+      <DependentUpon>403.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorPages\403.aspx.designer.cs">
+      <DependentUpon>403.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorPages\404.aspx.cs">
+      <DependentUpon>404.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorPages\404.aspx.designer.cs">
+      <DependentUpon>404.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorPages\500.aspx.cs">
+      <DependentUpon>500.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorPages\500.aspx.designer.cs">
+      <DependentUpon>500.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorPages\DefaultError.aspx.cs">
+      <DependentUpon>DefaultError.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorPages\DefaultError.aspx.designer.cs">
+      <DependentUpon>DefaultError.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorPages\ErrorLog.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
