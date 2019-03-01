@@ -434,7 +434,8 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label for="MobileNo" class="control-label">Mobile No : +91</label>
-                                                <input type="text" name="txtMobileNo" runat="server" onchange="CheckMobileDouble()" id="txtmobile" maxlength="10" onkeypress="return /\d/.test(String.fromCharCode(((event||window.event).which||(event||window.event).which)));" class="form-control" required="required" autocomplete="off" placeholder="Mobile No" pattern="^[0-9 ]{10}$"
+                                                <input type="text" name="txtMobileNo" runat="server" onchange="CheckMobileDouble()" id="txtmobile" maxlength="10" onkeypress="return /\d/.test(String.fromCharCode(((event||w
+                                                    ow.event).which||(event||window.event).which)));" class="form-control" required="required" autocomplete="off" placeholder="Mobile No" pattern="^[0-9 ]{10}$"
                                                     title="Please enter ten digit mobile number" />
                                                 <asp:Label ID="lblmobilemsg" runat="server"></asp:Label>
                                             </div>
