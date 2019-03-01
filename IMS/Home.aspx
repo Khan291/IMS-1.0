@@ -1,9 +1,46 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="IMS.Index" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-
     <style>
-     
+     .project-tab {
+    padding: 10%;
+    margin-top: -8%;
+}
+.project-tab #tabs{
+    background: #007b5e;
+    color: #eee;
+}
+.project-tab #tabs h6.section-title{
+    color: #eee;
+}
+.project-tab #tabs .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #0062cc;
+    background-color: transparent;
+    border-color: transparent transparent #f3f3f3;
+    border-bottom: 3px solid !important;
+    font-size: 16px;
+    font-weight: bold;
+}
+.project-tab .nav-link {
+    border: 1px solid transparent;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+    color: #0062cc;
+    font-size: 16px;
+    font-weight: 600;
+}
+.project-tab .nav-link:hover {
+    border: none;
+}
+.project-tab thead{
+    background: #f3f3f3;
+    color: #333;
+}
+.project-tab a{
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+}
     </style>
 
     <script>
@@ -74,6 +111,39 @@
         </div>
 
         <div class="row">
+
+            <div class="col-lg-3">
+
+                 <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+                        <nav>
+                           <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist" >
+						        <a class="nav-item nav-link active" style="text-decoration:none" id="nav-home-tab"  data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Today's</a>
+						        <a class="nav-item nav-link " style="text-decoration:none" id="nav-profile-tab"  data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">This month </a>
+                          </div>
+                        </nav>
+                              
+                             <div class="tab-content" id="nav-tabContent" style="max-height:38px;min-height:38px">
+                                <div class="" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" >
+                                    <br/>
+                                    <i class="fa fa-dollar fa-2x"><asp:Label ID="lbldailysale" runat="server"></asp:Label></i>
+                                  
+                                </div>
+                                <div class="tab-pane fade  " id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" > 
+                                    <br/>
+                                    <i class="fa fa-dollar fa-2x"><asp:Label ID="Label1" runat="server">20000</asp:Label></i>
+                                    
+                                </div>
+                            
+                            </div>
+                        
+                        
+                    <%--<nav class="nav justify-content-center">
+                        <a href="#home">Home</a>
+                        <a  href="#menu1">One</a>
+                     </nav>--%>
+                </div>
+            </div>
+ 
             <!--quick info section -->
             <div class="col-lg-3">
                  <asp:Button ID="PurchaseOrderList" runat="server" OnClick="PurchaseOrderList_Click" style="display:none"></asp:Button>
@@ -90,7 +160,7 @@
                 </div>
             </div>
              
-            <div class="col-lg-3">
+            <div class="col-lg-3"  style="display:none">
                  <asp:Button ID="SalesOrderList" runat="server" OnClick="SalesOrderList_Click" style="display:none"></asp:Button>
                 <div class="alert alert-success col-lg-12 col-md-12 col-sm-12 col-xs-12" onclick="document.getElementById('<%= SalesOrderList.ClientID %>').click()">
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
@@ -664,6 +734,26 @@
             <asp:HiddenField ID="hd" runat="server" />
         </div>
     </div>
+
+
+<script>
+ 
+    $(function () {
+        $("#nav-home-tab").click(function () {
+            // remove classes from all
+            $("#nav-home-tab").addClass("active");
+            // add class to the one we clicked
+            $("#nav-profile-tab").removeClass("active");
+        });
+        $("#nav-profile-tab").click(function () {
+            // remove classes from all
+            $("#nav-profile-tab").addClass("active");
+            // add class to the one we clicked
+            $("#nav-home").addClass("tab-pane fade");
+            $("#nav-home-tab").removeClass("active"); 
+        });
+    });
+</script>
 
 </asp:Content>
 

@@ -31,6 +31,8 @@ namespace IMS.Registration
             {
                 if (!IsPostBack)
                 {
+                    Session["regisFlag"] = true;
+
                     List<tbl_country> gd = context.tbl_country.Where(x => x.status == true).ToList();
 
                     ddlcountry.DataTextField = "country_name";
@@ -40,7 +42,7 @@ namespace IMS.Registration
                     if (ddlcountry.Items.Count > 0)
                     {
                         ddlcountry.SelectedItem.Text = "India";
-                        ddlcountry.Enabled = false;
+                        ddlcountry.Enabled = true;
                     }
                 }
             }
@@ -214,6 +216,7 @@ namespace IMS.Registration
                     dt = r.Insert(r);
                     Session["userdetails"] = dt;
                     SendMail();
+                    Session["regisFlag"] = null;
                     ClientScript.RegisterStartupScript(this.GetType(), "Pop", "openalert('Thank you for signing up please confirm your E-mail','True');", true);
                 }
             }

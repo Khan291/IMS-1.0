@@ -35,19 +35,29 @@ namespace IMS
             message += Environment.NewLine;
             message += "-----------------------------------------------------------";
             message += Environment.NewLine;
-            
-           
+
+            //Code done by afrozz for dropdown and companyid and branch id
             using (SqlConnection con = new SqlConnection(CONNECTION_STRING))
             {
                 using (SqlCommand cmd = new System.Data.SqlClient.SqlCommand())
                 {
+                    var company = 0;
+                    var branch = 0;
+                    var createdby = "Auto Generated";
+                    if (HttpContext.Current.Session["regisFlag"] == null)
+                    {
+                        company = Convert.ToInt32(HttpContext.Current.Session["company_id"]);
+                        branch = Convert.ToInt32(HttpContext.Current.Session["branch_id"]);
+                        createdby = HttpContext.Current.Session["UserID"].ToString();
+                    }
+
                     cmd.CommandText = "sp_saveerror";
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@company_id", HttpContext.Current.Session["company_id"]);
-                    cmd.Parameters.AddWithValue("@branch_id", HttpContext.Current.Session["branch_id"]);
+                    cmd.Parameters.AddWithValue("@company_id", company);
+                    cmd.Parameters.AddWithValue("@branch_id", branch);
                     cmd.Parameters.AddWithValue("@error_type", ex.GetType().Name.ToString());
                     cmd.Parameters.AddWithValue("@error_msg", message.ToString());
-                    cmd.Parameters.AddWithValue("@created_by", HttpContext.Current.Session["UserID"]);
+                    cmd.Parameters.AddWithValue("@created_by", createdby);
                     cmd.Parameters.AddWithValue("@created_date", DateTime.Now);
                     con.Open();
                     cmd.Connection = con;
