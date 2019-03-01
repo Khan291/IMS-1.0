@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="1b2b03ecdc7c4eabaa6a8e3fd0baab3a" Name="Diagram1">
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_ActualPurchaseTaxAndPrice" Width="1.5" PointX="30" PointY="98.875" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_ActualPurchaseTaxAndPrice" Width="1.75" PointX="30" PointY="98.875" />
         <EntityTypeShape EntityType="IMS_TESTModel.tbl_ActualSalesTaxAndPrice" Width="1.5" PointX="33" PointY="98.5" />
         <EntityTypeShape EntityType="IMS_TESTModel.tbl_batch" Width="1.5" PointX="13.5" PointY="95.125" />
         <EntityTypeShape EntityType="IMS_TESTModel.tbl_branch" Width="1.5" PointX="5.25" PointY="86" />
@@ -37,7 +37,7 @@
         <EntityTypeShape EntityType="IMS_TESTModel.tbl_purchasereturndetailsHistory" Width="1.5" PointX="2.75" PointY="5.75" />
         <EntityTypeShape EntityType="IMS_TESTModel.tbl_purchasereturnHistory" Width="1.5" PointX="4.75" PointY="5.75" />
         <EntityTypeShape EntityType="IMS_TESTModel.tbl_purchasetaxdetails" Width="1.5" PointX="38.25" PointY="86.5" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_purchasetaxgroup" Width="1.5" PointX="33" PointY="88.625" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_purchasetaxgroup" Width="1.875" PointX="33" PointY="88.625" />
         <EntityTypeShape EntityType="IMS_TESTModel.tbl_rack" Width="1.5" PointX="18.75" PointY="100" />
         <EntityTypeShape EntityType="IMS_TESTModel.tbl_role" Width="1.5" PointX="11.25" PointY="77.125" />
         <EntityTypeShape EntityType="IMS_TESTModel.tbl_sale" Width="1.5" PointX="27.75" PointY="92" />
@@ -199,6 +199,7 @@
         <AssociationConnector Association="IMS_TESTModel.FK__tbl_userb__user___267ABA7A" />
         <AssociationConnector Association="IMS_TESTModel.FK__tbl_userr__user___1A14E395" />
         <AssociationConnector Association="IMS_TESTModel.FK__tbl_purch__purch__42CCE065" />
+        <EntityTypeShape EntityType="IMS_TESTModel.ELMAH_Error" Width="1.5" PointX="7.375" PointY="10.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

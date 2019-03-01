@@ -13,6 +13,33 @@ namespace IMS {
     public partial class Purchase {
         
         /// <summary>
+        /// btnSaveHeader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSaveHeader;
+        
+        /// <summary>
+        /// btnCancelHeader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCancelHeader;
+        
+        /// <summary>
+        /// btnSavePrintHeader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSavePrintHeader;
+        
+        /// <summary>
         /// lblInvoice control.
         /// </summary>
         /// <remarks>

@@ -38,6 +38,7 @@ namespace IMSBLL.EntityModel
         public Nullable<int> branch_id { get; set; }
         public string InvoiceNumber { get; set; }
         public Nullable<int> PaymentMode_id { get; set; }
+        public string Note { get; set; }
     
         public virtual ICollection<tbl_ActualPurchaseTaxAndPrice> tbl_ActualPurchaseTaxAndPrice { get; set; }
         public virtual tbl_branch tbl_branch { get; set; }

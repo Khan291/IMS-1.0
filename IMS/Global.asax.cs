@@ -64,7 +64,7 @@ namespace IMS
                 {
                     ErrorLog.saveerror(Server.GetLastError());
                     Server.ClearError();
-                    Response.Redirect("../Registration/Login.aspx");
+                    Response.Redirect("~/Registration/Login.aspx");
                 }
             }
             catch (Exception ex)

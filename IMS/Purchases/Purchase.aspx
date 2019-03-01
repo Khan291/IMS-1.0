@@ -91,15 +91,28 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="panel panel-default ">
+    <div class="panel panel-primary ">
         <div class="panel-heading text-center">
             <h1>Purchase</h1>
         </div>
         <div class="panel-body">
+            <div class="row ">
+                <div class="col-md-6">
+
+                    <asp:Button ID="btnSaveHeader" runat="server" CssClass="btn btn-success " Width="100px" Text="Save" OnClick="btnSave_Click" ValidationGroup="savesale" OnClientClick="DisableOnSave(this,'savesale');" UseSubmitBehavior="false" />
+                    <asp:Button ID="btnCancelHeader" runat="server" CssClass="btn btn-danger " Width="100px" Text="Cancel" OnClick="btnclear_Click" />
+                    <asp:Button runat="server" ID="btnSavePrintHeader" CssClass="btn btn-primary" Width="150px" Text="Save & Print" OnClick="btnPrint_Click" />
+                </div>
+                <div class="col-md-6">
+                    <b style="float: right">
+                        <asp:Label ID="lblInvoice" runat="server" ForeColor="Red" Font-Size="21px"></asp:Label>
+                    </b>
+                </div>
+            </div>
+            <br />
             <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                 <div class="row">
                     <div class="text-center">
-                        <asp:Label ID="lblInvoice" runat="server" ForeColor="Red"></asp:Label>
                     </div>
                     <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px;">
                         <div class="form-horizontal Fhorizontal">
@@ -280,7 +293,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left: 0px; margin-top: 10px">
-                        <asp:GridView ID="gvpurchasedetails" runat="server" CssClass="table table-bordered" AutoGenerateColumns="false" BorderStyle="None" GridLines="Horizontal" OnRowCommand="gvpurchasedetails_RowCommand">
+                        <asp:GridView ID="gvpurchasedetails" runat="server" CssClass="table table-bordered" AutoGenerateColumns="false" BorderStyle="None" GridLines="Horizontal" Height="100px" OnRowCommand="gvpurchasedetails_RowCommand">
                             <Columns>
                                 <asp:TemplateField HeaderText="Sr.No">
                                     <ItemTemplate>
@@ -297,7 +310,7 @@
                                 <asp:BoundField DataField="Discount" HeaderText="Discount" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
                                 <asp:BoundField DataField="Discount Amount" HeaderText="Discount Amount" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
                                 <asp:BoundField DataField="Sub Total" HeaderText="Total" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
-                                <asp:BoundField DataField="group_id" HeaderText="Product id" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField> 
+                                <asp:BoundField DataField="group_id" HeaderText="Product id" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
                                 <asp:BoundField DataField="group_name" HeaderText="Tax Group" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
                                 <asp:BoundField DataField="totalTaxAmnt" HeaderText="Tax Amount" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
                                 <asp:TemplateField HeaderText="Update">
@@ -361,7 +374,7 @@
                                         <asp:BoundField DataField="tax_percentage" HeaderText="Tax Type Percent" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
                                         <asp:BoundField DataField="totalTaxPercetage" HeaderText="Total Percentage" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
                                         <asp:BoundField DataField="totalTaxAmnt" HeaderText="Total Tax Amount" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
-                                         <asp:BoundField DataField="type_id" HeaderText="Product id" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
+                                        <asp:BoundField DataField="type_id" HeaderText="Product id" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
                                     </Columns>
                                     <HeaderStyle BackColor="#428BCA" ForeColor="White" />
                                 </asp:GridView>

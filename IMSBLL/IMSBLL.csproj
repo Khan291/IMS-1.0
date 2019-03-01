@@ -65,6 +65,9 @@
       <DependentUpon>IMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\Company.cs" />
+    <Compile Include="EntityModel\ELMAH_Error.cs">
+      <DependentUpon>IMSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityModel\Expense.cs" />
     <Compile Include="EntityModel\FinancialYear.cs" />
     <Compile Include="EntityModel\Godown.cs" />

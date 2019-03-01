@@ -5,6 +5,22 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="IMS_TESTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ELMAH_Error">
+          <Key>
+            <PropertyRef Name="ErrorId" />
+          </Key>
+          <Property Name="ErrorId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Application" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="Host" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Source" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="Message" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="User" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="StatusCode" Type="int" Nullable="false" />
+          <Property Name="TimeUtc" Type="datetime" Nullable="false" />
+          <Property Name="Sequence" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AllXml" Type="ntext" Nullable="false" />
+        </EntityType>
         <EntityType Name="tbl_ActualPurchaseTaxAndPrice">
           <Key>
             <PropertyRef Name="ID" />
@@ -379,6 +395,7 @@
           <Property Name="branch_id" Type="int" />
           <Property Name="InvoiceNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="PaymentMode_id" Type="int" />
+          <Property Name="Note" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="tbl_purchasedetails">
           <Key>
@@ -582,6 +599,7 @@
           <Property Name="product_id" Type="int" />
           <Property Name="group_id" Type="int" />
           <Property Name="purchaseId" Type="int" />
+          <Property Name="totalTaxPercentage" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="tbl_rack">
           <Key>
@@ -1000,7 +1018,7 @@
           <Property Name="created_date" Type="smalldatetime" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'IMS_DEV.dbo.View_PurchaseDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'IMS1.0.dbo.View_PurchaseDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="View_PurchaseDetails">
           <Key>
             <PropertyRef Name="company_id" />
@@ -1035,7 +1053,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_PurchaseDetails' does not have a 
           <Property Name="FromTable" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="View_SaleDetails">
           <Key>
             <PropertyRef Name="company_id" />
@@ -1231,30 +1249,6 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
             </Principal>
             <Dependent Role="tbl_company">
               <PropertyRef Name="state_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tbl_error__branc__2645B050">
-          <End Role="tbl_branch" Type="Self.tbl_branch" Multiplicity="0..1" />
-          <End Role="tbl_error_log" Type="Self.tbl_error_log" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_branch">
-              <PropertyRef Name="branch_id" />
-            </Principal>
-            <Dependent Role="tbl_error_log">
-              <PropertyRef Name="branch_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tbl_error__compa__25518C17">
-          <End Role="tbl_company" Type="Self.tbl_company" Multiplicity="0..1" />
-          <End Role="tbl_error_log" Type="Self.tbl_error_log" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_company">
-              <PropertyRef Name="company_id" />
-            </Principal>
-            <Dependent Role="tbl_error_log">
-              <PropertyRef Name="company_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2681,6 +2675,28 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <Parameter Name="start_date" Type="datetime" Mode="In" />
           <Parameter Name="end_date" Type="datetime" Mode="In" />
         </Function>
+        <Function Name="ELMAH_GetErrorsXml" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Application" Type="nvarchar" Mode="In" />
+          <Parameter Name="PageIndex" Type="int" Mode="In" />
+          <Parameter Name="PageSize" Type="int" Mode="In" />
+          <Parameter Name="TotalCount" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="ELMAH_GetErrorXml" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Application" Type="nvarchar" Mode="In" />
+          <Parameter Name="ErrorId" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="ELMAH_LogError" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ErrorId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="Application" Type="nvarchar" Mode="In" />
+          <Parameter Name="Host" Type="nvarchar" Mode="In" />
+          <Parameter Name="Type" Type="nvarchar" Mode="In" />
+          <Parameter Name="Source" Type="nvarchar" Mode="In" />
+          <Parameter Name="Message" Type="nvarchar" Mode="In" />
+          <Parameter Name="User" Type="nvarchar" Mode="In" />
+          <Parameter Name="AllXml" Type="ntext" Mode="In" />
+          <Parameter Name="StatusCode" Type="int" Mode="In" />
+          <Parameter Name="TimeUtc" Type="datetime" Mode="In" />
+        </Function>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="GetBatchwiseQuantity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="batch_id" Type="int" Mode="In" />
@@ -3619,6 +3635,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           </ReturnType>
         </Function>
         <EntityContainer Name="IMS_TESTModelStoreContainer">
+          <EntitySet Name="ELMAH_Error" EntityType="Self.ELMAH_Error" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_ActualPurchaseTaxAndPrice" EntityType="Self.tbl_ActualPurchaseTaxAndPrice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_ActualSalesTaxAndPrice" EntityType="Self.tbl_ActualSalesTaxAndPrice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_batch" EntityType="Self.tbl_batch" Schema="dbo" store:Type="Tables" />
@@ -3791,14 +3808,6 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <AssociationSet Name="FK__tbl_compa__state__1DE57479" Association="Self.FK__tbl_compa__state__1DE57479">
             <End Role="tbl_state" EntitySet="tbl_state" />
             <End Role="tbl_company" EntitySet="tbl_company" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tbl_error__branc__2645B050" Association="Self.FK__tbl_error__branc__2645B050">
-            <End Role="tbl_branch" EntitySet="tbl_branch" />
-            <End Role="tbl_error_log" EntitySet="tbl_error_log" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tbl_error__compa__25518C17" Association="Self.FK__tbl_error__compa__25518C17">
-            <End Role="tbl_company" EntitySet="tbl_company" />
-            <End Role="tbl_error_log" EntitySet="tbl_error_log" />
           </AssociationSet>
           <AssociationSet Name="FK__tbl_expen__branc__571DF1D5" Association="Self.FK__tbl_expen__branc__571DF1D5">
             <End Role="tbl_branch" EntitySet="tbl_branch" />
@@ -5813,6 +5822,29 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
             <End Role="tbl_purchase" EntitySet="tbl_purchase" />
             <End Role="tbl_purchasetaxdetails" EntitySet="tbl_purchasetaxdetails" />
           </AssociationSet>
+          <EntitySet Name="ELMAH_Error" EntityType="IMS_TESTModel.ELMAH_Error" />
+          <FunctionImport Name="ELMAH_GetErrorsXml" ReturnType="Collection(String)">
+            <Parameter Name="Application" Mode="In" Type="String" />
+            <Parameter Name="PageIndex" Mode="In" Type="Int32" />
+            <Parameter Name="PageSize" Mode="In" Type="Int32" />
+            <Parameter Name="TotalCount" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ELMAH_GetErrorXml" ReturnType="Collection(String)">
+            <Parameter Name="Application" Mode="In" Type="String" />
+            <Parameter Name="ErrorId" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="ELMAH_LogError">
+            <Parameter Name="ErrorId" Mode="In" Type="Guid" />
+            <Parameter Name="Application" Mode="In" Type="String" />
+            <Parameter Name="Host" Mode="In" Type="String" />
+            <Parameter Name="Type" Mode="In" Type="String" />
+            <Parameter Name="Source" Mode="In" Type="String" />
+            <Parameter Name="Message" Mode="In" Type="String" />
+            <Parameter Name="User" Mode="In" Type="String" />
+            <Parameter Name="AllXml" Mode="In" Type="String" />
+            <Parameter Name="StatusCode" Mode="In" Type="Int32" />
+            <Parameter Name="TimeUtc" Mode="In" Type="DateTime" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CommonReport_Result">
           <Property Type="Int32" Name="company_id" Nullable="false" />
@@ -6835,6 +6867,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <NavigationProperty Name="tbl_PurchasePaymentDetials" Relationship="IMS_TESTModel.FK_tbl_PurchasePaymentDetials_tbl_PurchasePaymentDetials" FromRole="tbl_purchase" ToRole="tbl_PurchasePaymentDetials" />
           <NavigationProperty Name="tbl_purchasereturn" Relationship="IMS_TESTModel.FK_tbl_purchasereturn_tbl_purchasereturn" FromRole="tbl_purchase" ToRole="tbl_purchasereturn" />
           <NavigationProperty Name="tbl_purchasetaxdetails" Relationship="IMS_TESTModel.FK__tbl_purch__purch__42CCE065" FromRole="tbl_purchase" ToRole="tbl_purchasetaxdetails" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="tbl_purchasedetails">
           <Key>
@@ -7064,6 +7097,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <NavigationProperty Name="tbl_purchase" Relationship="IMS_TESTModel.FK__tbl_purch__purch__09946309" FromRole="tbl_purchasetaxgroup" ToRole="tbl_purchase" />
           <NavigationProperty Name="tbl_purchasetaxdetails" Relationship="IMS_TESTModel.FK__tbl_purch__purch__7E22B05D" FromRole="tbl_purchasetaxgroup" ToRole="tbl_purchasetaxdetails" />
           <NavigationProperty Name="tbl_taxgroup" Relationship="IMS_TESTModel.FK__tbl_purch__group__7B4643B2" FromRole="tbl_purchasetaxgroup" ToRole="tbl_taxgroup" />
+          <Property Name="totalTaxPercentage" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="tbl_rack">
           <Key>
@@ -9247,6 +9281,22 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ELMAH_Error">
+          <Key>
+            <PropertyRef Name="ErrorId" />
+          </Key>
+          <Property Name="ErrorId" Type="Guid" Nullable="false" />
+          <Property Name="Application" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="Host" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Source" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="User" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StatusCode" Type="Int32" Nullable="false" />
+          <Property Name="TimeUtc" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AllXml" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -10411,6 +10461,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <EntitySetMapping Name="tbl_purchase">
             <EntityTypeMapping TypeName="IMS_TESTModel.tbl_purchase">
               <MappingFragment StoreEntitySet="tbl_purchase">
+                <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="PaymentMode_id" ColumnName="PaymentMode_id" />
                 <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
                 <ScalarProperty Name="branch_id" ColumnName="branch_id" />
@@ -10634,6 +10685,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <EntitySetMapping Name="tbl_purchasetaxgroup">
             <EntityTypeMapping TypeName="IMS_TESTModel.tbl_purchasetaxgroup">
               <MappingFragment StoreEntitySet="tbl_purchasetaxgroup">
+                <ScalarProperty Name="totalTaxPercentage" ColumnName="totalTaxPercentage" />
                 <ScalarProperty Name="purchaseId" ColumnName="purchaseId" />
                 <ScalarProperty Name="group_id" ColumnName="group_id" />
                 <ScalarProperty Name="product_id" ColumnName="product_id" />
@@ -11162,6 +11214,26 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="ELMAH_Error">
+            <EntityTypeMapping TypeName="IMS_TESTModel.ELMAH_Error">
+              <MappingFragment StoreEntitySet="ELMAH_Error">
+                <ScalarProperty Name="AllXml" ColumnName="AllXml" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="TimeUtc" ColumnName="TimeUtc" />
+                <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
+                <ScalarProperty Name="User" ColumnName="User" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Host" ColumnName="Host" />
+                <ScalarProperty Name="Application" ColumnName="Application" />
+                <ScalarProperty Name="ErrorId" ColumnName="ErrorId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ELMAH_GetErrorsXml" FunctionName="IMS_TESTModel.Store.ELMAH_GetErrorsXml" />
+          <FunctionImportMapping FunctionImportName="ELMAH_GetErrorXml" FunctionName="IMS_TESTModel.Store.ELMAH_GetErrorXml" />
+          <FunctionImportMapping FunctionImportName="ELMAH_LogError" FunctionName="IMS_TESTModel.Store.ELMAH_LogError" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
