@@ -3,7 +3,9 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <style>
-     
+      .pointer{
+          cursor:pointer;
+      }
     </style>
 
     <script>
@@ -75,13 +77,13 @@
 
         <div class="row">
             <!--quick info section -->
-            <div class="col-lg-3">
-                 <asp:Button ID="PurchaseOrderList" runat="server" OnClick="PurchaseOrderList_Click" style="display:none"></asp:Button>
-                <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 col-xs-12" id="1" onclick="document.getElementById('<%= PurchaseOrderList.ClientID %>').click()" >
+            <div class="col-lg-3 pointer">
+                <asp:Button ID="PurchaseOrderList" Class="purchase" runat="server" OnClick="PurchaseOrderList_Click" Style="display: none; cursor:pointer"></asp:Button>
+                <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 col-xs-12" id="1" onclick="document.getElementById('<%= PurchaseOrderList.ClientID %>').click()">
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
                         <i class="fa fa-calendar fa-3x"></i><b>
                             <%--<button type="button" ID="PurchaseOrderList" runat="server" class="btn btn-info btn-lg" data-toggle="modal" data-target="#OrderModel" onclick="loadorderlist('Purchase')"></button>--%>
-                           <asp:Label ID="po" runat="server"></asp:Label>
+                            <asp:Label ID="po" runat="server"></asp:Label>
                         </b>
                     </div>
                     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
@@ -89,9 +91,9 @@
                     </div>
                 </div>
             </div>
-             
-            <div class="col-lg-3">
-                 <asp:Button ID="SalesOrderList" runat="server" OnClick="SalesOrderList_Click" style="display:none"></asp:Button>
+
+            <div class="col-lg-3 pointer">
+                <asp:Button ID="SalesOrderList" runat="server" OnClick="SalesOrderList_Click" Style="display: none"></asp:Button>
                 <div class="alert alert-success col-lg-12 col-md-12 col-sm-12 col-xs-12" onclick="document.getElementById('<%= SalesOrderList.ClientID %>').click()">
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
                         <i class="fa fa-address-card fa-3x"></i><b>
@@ -287,7 +289,7 @@
                                                     <asp:Label ID="lblproduct_name" runat="server" Text='<%# Eval("product_name") %>'></asp:Label>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
-                                             <asp:TemplateField HeaderText="Batch" HeaderStyle-ForeColor="Black" ItemStyle-Width="100px" HeaderStyle-Width="100px">
+                                            <asp:TemplateField HeaderText="Batch" HeaderStyle-ForeColor="Black" ItemStyle-Width="100px" HeaderStyle-Width="100px">
                                                 <ItemTemplate>
                                                     <asp:Label ID="lblbatch_name" runat="server" Text='<%# Eval("batch_name") %>'></asp:Label>
                                                 </ItemTemplate>
@@ -372,13 +374,6 @@
                         </span>
                     </div>
                 </div>--%>
-
-
-
-
-
-
-
             </div>
 
         </div>
@@ -584,7 +579,8 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title"><asp:Label ID="lblModelHeader" runat="server"></asp:Label></h4>
+                        <h4 class="modal-title">
+                            <asp:Label ID="lblModelHeader" runat="server"></asp:Label></h4>
                     </div>
                     <div class="modal-body">
                         <div class="row">
