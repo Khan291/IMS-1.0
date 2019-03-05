@@ -20,5 +20,6 @@ namespace IMSBLL.DAL
         public decimal? BalanceAmnt { get; set; }
         public DateTime? Date { get; set; }
 
+        public decimal? LastMonthTotal { get; set; }
     }
 }

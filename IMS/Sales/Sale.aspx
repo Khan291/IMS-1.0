@@ -248,8 +248,20 @@
                                     <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ValidationExpression="^\s*(?=.*[0-9])\d*(?:\.\d{1,5})?\s*$" runat="server" ValidationGroup="adf" Display="Dynamic" ForeColor="Red" ControlToValidate="txtTaxpercentage" ErrorMessage="Discount could not be negative"></asp:RegularExpressionValidator>
 
                                 </div>
+                            </div>                       
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px;">
+                                <div class="col-sm-10 leftpadd0">
+                                    <label class="control-label">
+                                        Note
+                                    </label>
+                                     <asp:TextBox ID="txtnote" runat="server" TextMode="MultiLine" CssClass="form-control" style="display:block;resize:none"></asp:TextBox>
+                                </div>
                             </div>
                         </div>
+         
+                        
                     </ContentTemplate>
 
                 </asp:UpdatePanel>

@@ -12,6 +12,7 @@ using System.Text;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Web.Security;
+using System.Data.Entity;
 namespace IMS
 {
     public partial class Index : System.Web.UI.Page
@@ -24,6 +25,7 @@ namespace IMS
         IMS_TESTEntities context = new IMS_TESTEntities();
         SqlHelper sh = new SqlHelper();
         List<DashboardOrderTableViewModel> details = new List<DashboardOrderTableViewModel>();
+
         int companyId;
         int branchId;
         #endregion
@@ -35,6 +37,7 @@ namespace IMS
                 GetcompanyInfo();
                 FillDashboardInfo();
                 fypopup();
+                getSaleAmount();
             }
         }
 
@@ -48,7 +51,35 @@ namespace IMS
             companyId = Convert.ToInt32(Session["company_id"]);
             branchId = Convert.ToInt32(Session["branch_id"]);
         }
+                //LINQ Method 
+        private void getSaleAmount()
+        {
+            string todays = "", thisMonth = "";
+            DateTime indate = DateTime.Today;
+                indate=indate.AddDays(-30);
+          // var today =  (from spd in context.tbl_SalePaymentDetails 
+                           // join s in context.tbl_sale on spd.SaleId equals s.sale_id
+                            //where s.created_date <= indate && s.company_id == companyId 
+                            //select new DashboardOrderTableViewModel
+                              // {
+                                //   LastMonthTotal=spd.GrandTotal
+                                   
+                               //});.
+                var grand = context.tbl_SalePaymentDetails.Join(context.tbl_sale, pd => pd.SaleId, s => s.sale_id, (pd, s) => new { pd.GrandTotal, s.company_id, s.created_date }).Where(w => w.company_id == companyId && w.created_date == DateTime.Now).GroupBy(g => g.company_id).Select(se => new { GrandTotl = se.Sum(x => x.GrandTotal) });
+                var d = grand.Select(s => s.GrandTotl);
+            var grandTotal = from spd in context.tbl_SalePaymentDetails
+            join s in context.tbl_sale on spd.SaleId equals s.sale_id
+            where s.created_date >= indate && s.company_id == companyId 
+            group spd by new { s.sale_id} into g
+            select new {                
+                Amount = g.Sum(t3 => t3.GrandTotal).Value
+            }.Amount;
 
+            //lbldailysale.Text = grandTotal.ToString();
+            //lblthismonth.Text = thisMonth;
+        }
+
+       
         public void BindGrid(List<DashboardOrderTableViewModel> list)
         {
 

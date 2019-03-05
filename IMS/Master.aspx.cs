@@ -26,7 +26,7 @@ namespace IMS
         {
             try
             {
-                Response.Redirect("~/Masters/Category.aspx");
+                Response.Redirect("~/Masters/Category.aspx", false);
                 //ifm.Visible = true;
                 //ifm.Attributes.Add("src", "../Masters/Category.aspx");
                 //main.Visible = false;

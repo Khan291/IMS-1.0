@@ -9,7 +9,6 @@ using IMSBLL.EntityModel;
 using IMSBLL.DAL;
 
 
-
 namespace IMS
 {
     public class Global : System.Web.HttpApplication
@@ -29,7 +28,6 @@ namespace IMS
         {
 
         }
-
         protected void Application_AuthenticateRequest(object sender, EventArgs e)
         {
             try
@@ -60,11 +58,27 @@ namespace IMS
         {
             try
             {
-                if (Server.GetLastError() != null)
+                var error = Server.GetLastError();
+                Server.ClearError();
+                if (error != null)
                 {
-                    ErrorLog.saveerror(Server.GetLastError());
-                    Server.ClearError();
-                    Response.Redirect("../Registration/Login.aspx");
+                    HttpException httpException = (HttpException)error;
+                    var httpCode = httpException.GetHttpCode();
+                    switch (httpCode)
+                    {
+                        case 403:
+                            Response.Redirect("~/ErrorPages/403.aspx");
+                            break;
+                        case 404:
+                            Response.Redirect("~/ErrorPages/404.aspx");
+                            break;
+                        case 500:
+                            Response.Redirect("~/ErrorPages/DefaultError.aspx");
+                            break;
+                        default:
+                            Response.Redirect("~/ErrorPages/DefaultError.aspx");
+                            break;
+                    }
                 }
             }
             catch (Exception ex)
@@ -78,9 +92,8 @@ namespace IMS
             // Code that runs when a new session is started  
             if (Session["UserID"] == null)
             {
-                //Redirect to Welcome Page if Session is not null  
-               // Response.Redirect("../Registration/Login.aspx");
-
+                //Redirect to Welcome Page if Session is not null
+                //Response.Redirect("../Registration/Login.aspx");
             }           
         }
 

@@ -25,7 +25,7 @@ namespace IMS
         {
             try
             {
-
+                throw new NullReferenceException();
                 companyId = Convert.ToInt32(HttpContext.Current.Session["company_id"]);
                 branchId = Convert.ToInt32(HttpContext.Current.Session["branch_id"]);
                 if (!IsPostBack)

@@ -157,18 +157,26 @@ namespace IMS
                     purchaseDetails.status = true;
 
                     var groupId = Convert.ToInt32(gvpurchasedetails.Rows[i].Cells[11].Text);
+
+                    DataTable taxgroupTypes1 = helper.LINQToDataTable(context.SelectProductTaxGroup(groupId, productId, qty));
+                    ViewState["TotalTaxPercent"] = null;
+                    for (int j = 0; j <= taxgroupTypes1.Rows.Count - 1; j++)
+                    {
+                        ViewState["TotalTaxPercent"] = taxgroupTypes1.Rows[j].Field<decimal>("totalTaxPercetage");
+                    }
+
                     //insert into tax group purchase
                     tbl_purchasetaxgroup purchaseTaxGroup = new tbl_purchasetaxgroup();
                     purchaseTaxGroup.group_id = groupId;
                     purchaseTaxGroup.product_id = productId;
+                    purchaseTaxGroup.totalTaxPercentage = (Decimal)ViewState["TotalTaxPercent"];
                     purchaseTaxGroup.group_name = gvpurchasedetails.Rows[i].Cells[12].Text;
                     purchase.tbl_purchasetaxgroup.Add(purchaseTaxGroup);
 
                     //Get the Tax type saved from db 
                     //insert into tax group detailes
                     // var taxGroupTypes = context.tbl_productTaxGroup.Join(context.tbl_taxgroup, t => t.group_id, pt => pt.group_id, (t, pt) => new { t.group_id, pt.group_name, t.product_id }).Where(t => t.product_id == productId).ToList();
-                    DataTable taxgroupTypes1 = helper.LINQToDataTable(context.SelectProductTaxGroup(groupId, productId, qty));
-
+                    
 
                     for (int j = 0; j <= taxgroupTypes1.Rows.Count - 1; j++)
                     {
@@ -176,6 +184,7 @@ namespace IMS
                         purchaseTaxDetails.purchasetaxgroup_id = purchaseTaxGroup.purchasetaxgroup_id;
                         purchaseTaxDetails.type_id = taxgroupTypes1.Rows[j].Field<int>("type_id");
                         purchaseTaxDetails.tax_percentage = taxgroupTypes1.Rows[j].Field<decimal>("tax_percentage");
+                        
                         purchaseTaxDetails.created_by = Convert.ToString(user_id);
                         purchaseTaxDetails.created_date = DateTime.Now;
                         purchaseTaxDetails.status = true;
@@ -513,19 +522,24 @@ namespace IMS
                 }
                 decimal salePrice = Convert.ToDecimal(txtsalesprice.Text);
                 decimal purchasePrice = Convert.ToDecimal(txtprice.Text);
+                int taxGroupId = Convert.ToInt32(ddlTaxGroup.SelectedValue);
                 //decimal tax= Convert.ToDecimal(txtTaxpercentage.Text);
-                var isProductExsits = context.tbl_ActualPurchaseTaxAndPrice.Where(w => w.product_id == productId && w.batch_id == batchId).FirstOrDefault();
+                //var isProductExsits = context.tbl_ActualPurchaseTaxAndPrice.Where(w => w.product_id == productId && w.batch_id == batchId).FirstOrDefault();
+                var isProductExsits = context.tbl_ActualPurchaseTaxAndPrice.Join(context.tbl_productTaxGroup, t => t.product_id, pt => pt.product_id,
+                        (t, pt) => new { t.product_id, pt.group_id, t.batch_id, t.sale_price, t.purchase_rate, t.purchaseTaxId }
+                        ).Where(t => t.product_id == productId && t.batch_id == batchId).FirstOrDefault();
                 if (isProductExsits != null)
                 {
+                    
                     // var samePriceExists = context.tbl_ActualPurchaseTaxAndPrice.Where(w => w.product_id == productId && w.batch_id == batchId && w.sale_price== salePrice && w.purchase_rate==purchasePrice && w.tax_percent== tax).Any();
-                    //if (isProductExsits.sale_price!=salePrice || isProductExsits.purchase_rate!=purchasePrice || isProductExsits.tax_percent!=tax)
-                    //{
-                    //    isfail = true;
-                    //    lblcheckDoubleError.Visible = true;
-                    //    lblcheckDoubleError.Text = "Please change batch, As per configuration Purchase Price, Sale Price Or Tax has been changed.";
-                    //    return isfail;
+                    if (isProductExsits.sale_price != salePrice || isProductExsits.purchase_rate != purchasePrice || isProductExsits.group_id != taxGroupId)
+                    {
+                        isfail = true;
+                        lblcheckDoubleError.Visible = true;
+                        lblcheckDoubleError.Text = "Please change batch, As per configuration Purchase Price, Sale Price Or Tax has been changed.";
+                        return isfail;
 
-                    //}
+                    }
                 }
             }
             catch (Exception ex)
@@ -793,8 +807,6 @@ namespace IMS
         {
             try
             {
-                //decimal a = Convert.ToDecimal(lblGrandTotal.Text) - Convert.ToDecimal(txtGivenAmt.Text);
-                //txtBalanceAmt.Text = a.ToString();
                 decimal a = Convert.ToDecimal(lblGrandTotal.Text);
                 decimal b = Convert.ToDecimal(txtPaidAmt.Text);
                 if (a < b)
