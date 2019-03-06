@@ -680,7 +680,7 @@ namespace IMS
                             dr.Delete();
                     }
 
-                    ViewState["TaxDetails"] = dt;
+                    ViewState["TaxDetails"] = taxDetails;
                     this.BindTaxGrid();
                     DeleteCalculation(subTotal, tax_amount, discountamt);
                     clr();
