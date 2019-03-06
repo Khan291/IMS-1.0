@@ -137,7 +137,56 @@ namespace IMS
             }
             return "true";
         }
-
+        [System.Web.Services.WebMethod]
+        public static string checkGstinNo(string useroremail)
+        {
+            try
+            {
+                if (HttpContext.Current.Session["company_id"] != null)
+                {
+                    SqlHelper helper = new SqlHelper();
+                    DataTable data = helper.CheckDoubleValues(Convert.ToInt32(HttpContext.Current.Session["company_id"]), Convert.ToInt32(HttpContext.Current.Session["branch_id"]), "tbl_party", "gstin_no", useroremail);
+                    if (data.Rows.Count > 0)
+                    {
+                        return "true";
+                    }
+                    else
+                    {
+                        return "false";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.saveerror(ex);
+            }
+            return "true";
+        }
+        [System.Web.Services.WebMethod]
+        public static string checkContactNo(string useroremail)
+        {
+            try
+            {
+                if (HttpContext.Current.Session["company_id"] != null)
+                {
+                    SqlHelper helper = new SqlHelper();
+                    DataTable data = helper.CheckDoubleValues(Convert.ToInt32(HttpContext.Current.Session["company_id"]), Convert.ToInt32(HttpContext.Current.Session["branch_id"]), "tbl_party", "contact_no", useroremail);
+                    if (data.Rows.Count > 0)
+                    {
+                        return "true";
+                    }
+                    else
+                    {
+                        return "false";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.saveerror(ex);
+            }
+            return "true";
+        }
         private string CheckDoubleFromDb(string ValueToCheck)
         {
             return "";
