@@ -256,22 +256,22 @@ namespace IMS {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator6;
         
         /// <summary>
-        /// txtTaxpercentage control.
+        /// ddlTaxGroup control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTaxpercentage;
+        protected global::System.Web.UI.WebControls.DropDownList ddlTaxGroup;
         
         /// <summary>
-        /// RegularExpressionValidator5 control.
+        /// RequiredFieldValidator6 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator5;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator6;
         
         /// <summary>
         /// txtnote control.
@@ -346,15 +346,6 @@ namespace IMS {
         protected global::System.Web.UI.WebControls.Label lblDiscountAmt;
         
         /// <summary>
-        /// GridView1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView1;
-        
-        /// <summary>
         /// lblGrandTotal control.
         /// </summary>
         /// <remarks>
@@ -362,6 +353,15 @@ namespace IMS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblGrandTotal;
+        
+        /// <summary>
+        /// gvTaxDetailsNew control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvTaxDetailsNew;
         
         /// <summary>
         /// ddlPaymentMode control.
