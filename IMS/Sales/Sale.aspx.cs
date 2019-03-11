@@ -94,11 +94,12 @@ namespace IMS
             var taxGroup = context.tbl_ActualPurchaseTaxAndPrice.Join(
                 context.tbl_purchasetaxgroup, t => t.purchaseTaxId, pt => pt.purchasetaxgroup_id,
                 (t, pt) => new { pt.group_id, pt.group_name, t.product_id, t.batch_id,pt.purchasetaxgroup_id 
-                }).Where(t => t.batch_id == batchId && t.product_id == p_id).ToList();
-
+                }).Where(t => t.batch_id == batchId && t.product_id == p_id).Select(a => new { a.group_name, a.group_id }).Distinct().ToList();
+          //  var distTaxGroup = taxGroup.Select(a => new { a.group_name,a.group_id }).Distinct().ToList();
             ddlTaxGroup.DataValueField = "group_id";
             ddlTaxGroup.DataTextField = "group_name";
-            ddlTaxGroup.DataSource = taxGroup.Select(a=> a.group_name).Distinct();
+            ddlTaxGroup.DataSource = taxGroup;
+
             ddlTaxGroup.DataBind();
             ddlTaxGroup.Items.Insert(0, new ListItem("--Select tax--", "0"));
         }
