@@ -45,7 +45,21 @@ namespace IMS.Sales
                     dataTable.Columns.Add("batch_name");
                     dataTable.Columns.Add("tax_percentage");
                     ViewState["Details"] = dataTable;
+                } 
+                
+                if (ViewState["TaxDetails"] == null)
+                {
+                    DataTable dataTable2 = new DataTable();
+
+                    dataTable2.Columns.Add("product_id");
+                    dataTable2.Columns.Add("group_id");
+                    dataTable2.Columns.Add("group_name");
+                    dataTable2.Columns.Add("type_name");
+                    dataTable2.Columns.Add("tax_percentage");
+                    dataTable2.Columns.Add("type_id");
+                    ViewState["TaxDetails"] = dataTable2;
                 }
+                this.BindTaxGrid();
                 ddlpaymentmodebind();
             }
         }
@@ -88,6 +102,21 @@ namespace IMS.Sales
             branchId = Convert.ToInt32(Session["branch_id"]);
             financialYearId = Convert.ToInt32(Session["financialyear_id"]);
         }
+
+
+        private void BindTaxGrid()
+        {
+            try
+            {
+                gvTaxDetailsNew.DataSource = (DataTable)ViewState["TaxDetails"];
+                gvTaxDetailsNew.DataBind();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.saveerror(ex);
+            }
+        }
+
         public void ddlpaymentmodebind()
         {
             List<tbl_paymentmode> cd = context.tbl_paymentmode.Where(x => x.status == true).ToList();
@@ -516,34 +545,34 @@ namespace IMS.Sales
 
             try
             {
-                var productDetails = context.sp_GetSaleDetailsById(saleId).ToList();
-                if (productDetails != null)
-                {
-                    var oneproductDetail = productDetails.Where(w => w.product_id == productId);
-                    if (!Convert.ToBoolean(ValidateQuantity(enteredQuantity, productId, saleId)[0]))
-                    {
-                        decimal subTotal = Convert.ToDecimal(txtquantity.Text) * Convert.ToDecimal(oneproductDetail.FirstOrDefault().sale_rate);
-                        decimal a = subTotal / 100;
-                        decimal discount_percent = (Convert.ToDecimal(oneproductDetail.FirstOrDefault().dicount_amt) * 100) / Convert.ToDecimal(oneproductDetail.FirstOrDefault().amount);
-                        decimal discountamt = a * Convert.ToDecimal(discount_percent.ToString("0.##"));
-                        decimal tax_amount = a * Convert.ToDecimal(oneproductDetail.FirstOrDefault().tax_percentage);
+                //var productDetails = context.sp_GetSaleDetailsById(saleId).ToList();
+                //if (productDetails != null)
+                //{
+                //    var oneproductDetail = productDetails.Where(w => w.product_id == productId);
+                //    if (!Convert.ToBoolean(ValidateQuantity(enteredQuantity, productId, saleId)[0]))
+                //    {
+                //        decimal subTotal = Convert.ToDecimal(txtquantity.Text) * Convert.ToDecimal(oneproductDetail.FirstOrDefault().sale_rate);
+                //        decimal a = subTotal / 100;
+                //        decimal discount_percent = (Convert.ToDecimal(oneproductDetail.FirstOrDefault().dicount_amt) * 100) / Convert.ToDecimal(oneproductDetail.FirstOrDefault().amount);
+                //        decimal discountamt = a * Convert.ToDecimal(discount_percent.ToString("0.##"));
+                //        decimal tax_amount = a * Convert.ToDecimal(oneproductDetail.FirstOrDefault().tax_percentage);
 
-                        clr();
-                        calculation(subTotal, tax_amount, discountamt);                        
-                        txtPaidAmt.Enabled = true;
+                //        clr();
+                //        calculation(subTotal, tax_amount, discountamt);                        
+                //        txtPaidAmt.Enabled = true;
 
-                        DataTable tbl = (DataTable)ViewState["Details"];
+                //        DataTable tbl = (DataTable)ViewState["Details"];
 
-                        tbl.Rows.Add(oneproductDetail.FirstOrDefault().saledetails_id, productId, oneproductDetail.FirstOrDefault().batch_id, oneproductDetail.FirstOrDefault().unit_id,
-                            oneproductDetail.FirstOrDefault().tax_id, subTotal, discountamt, tax_amount, oneproductDetail.FirstOrDefault().sale_rate, enteredQuantity,
-                            oneproductDetail.FirstOrDefault().product_name, oneproductDetail.FirstOrDefault().unit_name, oneproductDetail.FirstOrDefault().batch_name,
-                            oneproductDetail.FirstOrDefault().tax_percentage);
-                        ViewState["Details"] = tbl;
-                        this.BindGrid();
-                        ddlproduct.Items.FindByValue(productId.ToString()).Enabled = false;
+                //        tbl.Rows.Add(oneproductDetail.FirstOrDefault().saledetails_id, productId, oneproductDetail.FirstOrDefault().batch_id, oneproductDetail.FirstOrDefault().unit_id,
+                //            oneproductDetail.FirstOrDefault().tax_id, subTotal, discountamt, tax_amount, oneproductDetail.FirstOrDefault().sale_rate, enteredQuantity,
+                //            oneproductDetail.FirstOrDefault().product_name, oneproductDetail.FirstOrDefault().unit_name, oneproductDetail.FirstOrDefault().batch_name,
+                //            oneproductDetail.FirstOrDefault().tax_percentage);
+                //        ViewState["Details"] = tbl;
+                //        this.BindGrid();
+                //        ddlproduct.Items.FindByValue(productId.ToString()).Enabled = false;
 
-                    }                    
-                }
+                //    }                    
+                //}
             }
             catch (Exception ex)
             {

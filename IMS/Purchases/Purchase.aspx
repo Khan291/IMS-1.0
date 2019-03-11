@@ -247,8 +247,6 @@
                                     </asp:DropDownList>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" InitialValue="0" ControlToValidate="ddlTaxGroup" ErrorMessage="Please Select TAX Group" ForeColor="Red" ValidationGroup="grop"></asp:RequiredFieldValidator>
 
-                                    <%--<asp:TextBox ID="txtTaxpercentage" runat="server" CssClass="form-control"></asp:TextBox>--%>
-                                    <%-- <asp:RegularExpressionValidator ID="RegularExpressionValidator7" ValidationExpression="^\s*(?=.*[0-9])\d*(?:\.\d{1,5})?\s*$" runat="server" ValidationGroup="adf" Display="Dynamic" ForeColor="Red" ControlToValidate="txtTaxpercentage" ErrorMessage="Discount could not be negative"></asp:RegularExpressionValidator>--%>
                                 </div>
                             </div>
                             <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px;">
