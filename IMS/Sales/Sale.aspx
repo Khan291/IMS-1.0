@@ -258,12 +258,12 @@
                                     <label class="control-label">
                                         Note
                                     </label>
-                                    <asp:TextBox ID="txtnote" runat="server" TextMode="MultiLine" CssClass="form-control" Style="display: block; resize: none"></asp:TextBox>
+                                     <asp:TextBox ID="txtnote" runat="server" TextMode="MultiLine" CssClass="form-control" style="display:block;resize:none"></asp:TextBox>
                                 </div>
                             </div>
                         </div>
-
-
+         
+                        
                     </ContentTemplate>
 
                 </asp:UpdatePanel>
