@@ -65,6 +65,9 @@
       <DependentUpon>IMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\Company.cs" />
+    <Compile Include="EntityModel\ELMAH_Error.cs">
+      <DependentUpon>IMSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityModel\Expense.cs" />
     <Compile Include="EntityModel\FinancialYear.cs" />
     <Compile Include="EntityModel\Godown.cs" />
@@ -199,9 +202,6 @@
     <Compile Include="EntityModel\sp_SelectProductbyid_Result.cs">
       <DependentUpon>IMSModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="EntityModel\sp_SelectProduct_Result.cs">
-      <DependentUpon>IMSModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="EntityModel\sp_selectpurchasebatch_Result.cs">
       <DependentUpon>IMSModel.tt</DependentUpon>
     </Compile>
@@ -224,9 +224,6 @@
       <DependentUpon>IMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\sp_selectspurchaseproduct_Result.cs">
-      <DependentUpon>IMSModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EntityModel\sp_SelectTaxpercent_Result.cs">
       <DependentUpon>IMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\sp_SelectTax_Result.cs">

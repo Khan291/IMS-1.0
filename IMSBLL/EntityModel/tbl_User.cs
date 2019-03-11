@@ -38,6 +38,7 @@ namespace IMSBLL.EntityModel
         public Nullable<System.DateTime> modified_date { get; set; }
         public string first_name { get; set; }
         public string last_name { get; set; }
+        public string Ref_Mobile { get; set; }
     
         public virtual ICollection<tbl_paidpayment> tbl_paidpayment { get; set; }
         public virtual ICollection<tbl_subscription> tbl_subscription { get; set; }

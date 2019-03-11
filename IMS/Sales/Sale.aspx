@@ -250,18 +250,7 @@
                                 </div>
                             </div>                       
                         </div>
-                        <div class="row">
-                            <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px;">
-                                <div class="col-sm-10 leftpadd0">
-                                    <label class="control-label">
-                                        Note
-                                    </label>
-                                     <asp:TextBox ID="txtnote" runat="server" TextMode="MultiLine" CssClass="form-control" style="display:block;resize:none"></asp:TextBox>
-                                </div>
-                            </div>
-                        </div>
-         
-                        
+          
                     </ContentTemplate>
 
                 </asp:UpdatePanel>
@@ -315,6 +304,7 @@
                     </asp:GridView>
                 </div>
             </div>
+
 
             <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
@@ -421,6 +411,18 @@
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>
+       
+            <!--=====================================================Note field ====================================================================-->
+                <div class="row">
+                <div class="col-md-2 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px; margin-left:25px;">
+                        <div class="col-sm-10 leftpadd0">
+                              <label class="control-label">Note</label>
+                                    <asp:TextBox ID="txtSaleNote" runat="server" TextMode="MultiLine" CssClass="form-control" style="display:block; resize:none"></asp:TextBox>
+                        </div>
+               </div>
+               </div><br />
+
+
 
         <div class="panel-footer leftpadd0">
 

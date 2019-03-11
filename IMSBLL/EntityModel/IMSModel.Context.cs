@@ -27,6 +27,7 @@ namespace IMSBLL.EntityModel
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<ELMAH_Error> ELMAH_Error { get; set; }
         public virtual DbSet<tbl_ActualPurchaseTaxAndPrice> tbl_ActualPurchaseTaxAndPrice { get; set; }
         public virtual DbSet<tbl_ActualSalesTaxAndPrice> tbl_ActualSalesTaxAndPrice { get; set; }
         public virtual DbSet<tbl_batch> tbl_batch { get; set; }
@@ -88,20 +89,6 @@ namespace IMSBLL.EntityModel
         public virtual DbSet<View_PurchaseDetails> View_PurchaseDetails { get; set; }
         public virtual DbSet<View_SaleDetails> View_SaleDetails { get; set; }
     
-        [DbFunction("IMS_TESTEntities", "Split")]
-        public virtual IQueryable<Split_Result> Split(string list, string splitOn)
-        {
-            var listParameter = list != null ?
-                new ObjectParameter("List", list) :
-                new ObjectParameter("List", typeof(string));
-    
-            var splitOnParameter = splitOn != null ?
-                new ObjectParameter("SplitOn", splitOn) :
-                new ObjectParameter("SplitOn", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<Split_Result>("[IMS_TESTEntities].[Split](@List, @SplitOn)", listParameter, splitOnParameter);
-        }
-    
         public virtual ObjectResult<CommonReport_Result> CommonReport(string reportType, Nullable<int> companyId, string filterIds, Nullable<System.DateTime> start_date, Nullable<System.DateTime> end_date)
         {
             var reportTypeParameter = reportType != null ?
@@ -125,6 +112,81 @@ namespace IMSBLL.EntityModel
                 new ObjectParameter("end_date", typeof(System.DateTime));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CommonReport_Result>("CommonReport", reportTypeParameter, companyIdParameter, filterIdsParameter, start_dateParameter, end_dateParameter);
+        }
+    
+        public virtual ObjectResult<string> ELMAH_GetErrorsXml(string application, Nullable<int> pageIndex, Nullable<int> pageSize, ObjectParameter totalCount)
+        {
+            var applicationParameter = application != null ?
+                new ObjectParameter("Application", application) :
+                new ObjectParameter("Application", typeof(string));
+    
+            var pageIndexParameter = pageIndex.HasValue ?
+                new ObjectParameter("PageIndex", pageIndex) :
+                new ObjectParameter("PageIndex", typeof(int));
+    
+            var pageSizeParameter = pageSize.HasValue ?
+                new ObjectParameter("PageSize", pageSize) :
+                new ObjectParameter("PageSize", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("ELMAH_GetErrorsXml", applicationParameter, pageIndexParameter, pageSizeParameter, totalCount);
+        }
+    
+        public virtual ObjectResult<string> ELMAH_GetErrorXml(string application, Nullable<System.Guid> errorId)
+        {
+            var applicationParameter = application != null ?
+                new ObjectParameter("Application", application) :
+                new ObjectParameter("Application", typeof(string));
+    
+            var errorIdParameter = errorId.HasValue ?
+                new ObjectParameter("ErrorId", errorId) :
+                new ObjectParameter("ErrorId", typeof(System.Guid));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("ELMAH_GetErrorXml", applicationParameter, errorIdParameter);
+        }
+    
+        public virtual int ELMAH_LogError(Nullable<System.Guid> errorId, string application, string host, string type, string source, string message, string user, string allXml, Nullable<int> statusCode, Nullable<System.DateTime> timeUtc)
+        {
+            var errorIdParameter = errorId.HasValue ?
+                new ObjectParameter("ErrorId", errorId) :
+                new ObjectParameter("ErrorId", typeof(System.Guid));
+    
+            var applicationParameter = application != null ?
+                new ObjectParameter("Application", application) :
+                new ObjectParameter("Application", typeof(string));
+    
+            var hostParameter = host != null ?
+                new ObjectParameter("Host", host) :
+                new ObjectParameter("Host", typeof(string));
+    
+            var typeParameter = type != null ?
+                new ObjectParameter("Type", type) :
+                new ObjectParameter("Type", typeof(string));
+    
+            var sourceParameter = source != null ?
+                new ObjectParameter("Source", source) :
+                new ObjectParameter("Source", typeof(string));
+    
+            var messageParameter = message != null ?
+                new ObjectParameter("Message", message) :
+                new ObjectParameter("Message", typeof(string));
+    
+            var userParameter = user != null ?
+                new ObjectParameter("User", user) :
+                new ObjectParameter("User", typeof(string));
+    
+            var allXmlParameter = allXml != null ?
+                new ObjectParameter("AllXml", allXml) :
+                new ObjectParameter("AllXml", typeof(string));
+    
+            var statusCodeParameter = statusCode.HasValue ?
+                new ObjectParameter("StatusCode", statusCode) :
+                new ObjectParameter("StatusCode", typeof(int));
+    
+            var timeUtcParameter = timeUtc.HasValue ?
+                new ObjectParameter("TimeUtc", timeUtc) :
+                new ObjectParameter("TimeUtc", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ELMAH_LogError", errorIdParameter, applicationParameter, hostParameter, typeParameter, sourceParameter, messageParameter, userParameter, allXmlParameter, statusCodeParameter, timeUtcParameter);
         }
     
         public virtual ObjectResult<Nullable<decimal>> GetBatchwiseQuantity(Nullable<int> batch_id, Nullable<int> product_id)
@@ -267,6 +329,23 @@ namespace IMSBLL.EntityModel
                 new ObjectParameter("saledetails_id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SaleReport_Result>("SaleReport", saledetails_idParameter);
+        }
+    
+        public virtual ObjectResult<SelectProductTaxGroup_Result> SelectProductTaxGroup(Nullable<int> groupId, Nullable<int> productId, Nullable<decimal> qty)
+        {
+            var groupIdParameter = groupId.HasValue ?
+                new ObjectParameter("groupId", groupId) :
+                new ObjectParameter("groupId", typeof(int));
+    
+            var productIdParameter = productId.HasValue ?
+                new ObjectParameter("productId", productId) :
+                new ObjectParameter("productId", typeof(int));
+    
+            var qtyParameter = qty.HasValue ?
+                new ObjectParameter("qty", qty) :
+                new ObjectParameter("qty", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SelectProductTaxGroup_Result>("SelectProductTaxGroup", groupIdParameter, productIdParameter, qtyParameter);
         }
     
         public virtual ObjectResult<sp_ActiveUser_Result> sp_ActiveUser(Nullable<int> userid, string uniqueid)
@@ -1940,7 +2019,7 @@ namespace IMSBLL.EntityModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_SalesreturnProduct", salereturnmain_idParameter);
         }
     
-        public virtual int sp_saveerror(Nullable<int> company_id, Nullable<int> branch_id, string error_type, string error_msg, string created_by, Nullable<System.DateTime> created_date)
+        public virtual ObjectResult<Nullable<int>> sp_saveerror(Nullable<int> company_id, Nullable<int> branch_id, string error_type, string error_msg, string created_by, Nullable<System.DateTime> created_date)
         {
             var company_idParameter = company_id.HasValue ?
                 new ObjectParameter("company_id", company_id) :
@@ -1966,7 +2045,7 @@ namespace IMSBLL.EntityModel
                 new ObjectParameter("created_date", created_date) :
                 new ObjectParameter("created_date", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_saveerror", company_idParameter, branch_idParameter, error_typeParameter, error_msgParameter, created_byParameter, created_dateParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_saveerror", company_idParameter, branch_idParameter, error_typeParameter, error_msgParameter, created_byParameter, created_dateParameter);
         }
     
         public virtual ObjectResult<sp_SelectBatch_Result> sp_SelectBatch(Nullable<int> company_id, Nullable<int> branch_id)
@@ -2166,7 +2245,7 @@ namespace IMSBLL.EntityModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_SelectPrice_Result>("sp_SelectPrice", company_idParameter, product_idParameter);
         }
     
-        public virtual ObjectResult<sp_SelectProduct_Result> sp_SelectProduct(Nullable<int> company_id, Nullable<int> branch_id)
+        public virtual int sp_SelectProduct(Nullable<int> company_id, Nullable<int> branch_id)
         {
             var company_idParameter = company_id.HasValue ?
                 new ObjectParameter("company_id", company_id) :
@@ -2176,7 +2255,7 @@ namespace IMSBLL.EntityModel
                 new ObjectParameter("branch_id", branch_id) :
                 new ObjectParameter("branch_id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_SelectProduct_Result>("sp_SelectProduct", company_idParameter, branch_idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_SelectProduct", company_idParameter, branch_idParameter);
         }
     
         public virtual ObjectResult<sp_SelectProductbyid_Result> sp_SelectProductbyid(Nullable<int> purchsae_id)
@@ -2348,7 +2427,7 @@ namespace IMSBLL.EntityModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_SelectTax_Result>("sp_SelectTax", company_idParameter, branch_idParameter);
         }
     
-        public virtual ObjectResult<sp_SelectTaxpercent_Result> sp_SelectTaxpercent(Nullable<int> company_id, Nullable<int> product_id)
+        public virtual int sp_SelectTaxpercent(Nullable<int> company_id, Nullable<int> product_id)
         {
             var company_idParameter = company_id.HasValue ?
                 new ObjectParameter("company_id", company_id) :
@@ -2358,7 +2437,7 @@ namespace IMSBLL.EntityModel
                 new ObjectParameter("product_id", product_id) :
                 new ObjectParameter("product_id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_SelectTaxpercent_Result>("sp_SelectTaxpercent", company_idParameter, product_idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_SelectTaxpercent", company_idParameter, product_idParameter);
         }
     
         public virtual ObjectResult<sp_SelectUnit_Result> sp_SelectUnit(Nullable<int> company_id, Nullable<int> branch_id)
@@ -3364,21 +3443,18 @@ namespace IMSBLL.EntityModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SpGetExistsMobile", mobilenoParameter);
         }
     
-        public virtual ObjectResult<SelectProductTaxGroup_Result> SelectProductTaxGroup(Nullable<int> groupId, Nullable<int> productId, Nullable<decimal> qty)
+        [DbFunction("IMS_TESTEntities", "Split")]
+        public virtual IQueryable<Split_Result> Split(string list, string splitOn)
         {
-            var groupIdParameter = groupId.HasValue ?
-                new ObjectParameter("groupId", groupId) :
-                new ObjectParameter("groupId", typeof(int));
+            var listParameter = list != null ?
+                new ObjectParameter("List", list) :
+                new ObjectParameter("List", typeof(string));
     
-            var productIdParameter = productId.HasValue ?
-                new ObjectParameter("productId", productId) :
-                new ObjectParameter("productId", typeof(int));
+            var splitOnParameter = splitOn != null ?
+                new ObjectParameter("SplitOn", splitOn) :
+                new ObjectParameter("SplitOn", typeof(string));
     
-            var qtyParameter = qty.HasValue ?
-                new ObjectParameter("qty", qty) :
-                new ObjectParameter("qty", typeof(decimal));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SelectProductTaxGroup_Result>("SelectProductTaxGroup", groupIdParameter, productIdParameter, qtyParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<Split_Result>("[IMS_TESTEntities].[Split](@List, @SplitOn)", listParameter, splitOnParameter);
         }
     }
 }

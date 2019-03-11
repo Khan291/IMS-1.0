@@ -25,6 +25,7 @@ namespace IMSBLL.EntityModel
         public Nullable<int> product_id { get; set; }
         public Nullable<int> group_id { get; set; }
         public Nullable<int> purchaseId { get; set; }
+        public Nullable<decimal> totalTaxPercentage { get; set; }
     
         public virtual ICollection<tbl_ActualPurchaseTaxAndPrice> tbl_ActualPurchaseTaxAndPrice { get; set; }
         public virtual tbl_product tbl_product { get; set; }

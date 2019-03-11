@@ -38,6 +38,7 @@ namespace IMS
                 FillDashboardInfo();
                 fypopup();
                 getSaleAmount();
+                getPurchaseAmount();
             }
         }
 
@@ -51,35 +52,99 @@ namespace IMS
             companyId = Convert.ToInt32(Session["company_id"]);
             branchId = Convert.ToInt32(Session["branch_id"]);
         }
-                //LINQ Method 
+        //LINQ Method done by Shakeeb Bhai for sale
         private void getSaleAmount()
         {
-            string todays = "", thisMonth = "";
-            DateTime indate = DateTime.Today;
-                indate=indate.AddDays(-30);
-          // var today =  (from spd in context.tbl_SalePaymentDetails 
-                           // join s in context.tbl_sale on spd.SaleId equals s.sale_id
-                            //where s.created_date <= indate && s.company_id == companyId 
-                            //select new DashboardOrderTableViewModel
-                              // {
-                                //   LastMonthTotal=spd.GrandTotal
-                                   
-                               //});.
-                var grand = context.tbl_SalePaymentDetails.Join(context.tbl_sale, pd => pd.SaleId, s => s.sale_id, (pd, s) => new { pd.GrandTotal, s.company_id, s.created_date }).Where(w => w.company_id == companyId && w.created_date == DateTime.Now).GroupBy(g => g.company_id).Select(se => new { GrandTotl = se.Sum(x => x.GrandTotal) });
-                var d = grand.Select(s => s.GrandTotl);
-            var grandTotal = from spd in context.tbl_SalePaymentDetails
-            join s in context.tbl_sale on spd.SaleId equals s.sale_id
-            where s.created_date >= indate && s.company_id == companyId 
-            group spd by new { s.sale_id} into g
-            select new {                
-                Amount = g.Sum(t3 => t3.GrandTotal).Value
-            }.Amount;
+            
+            DateTime startDate = DateTime.Today.AddDays(-30).Date;
+            DateTime endDate = DateTime.Now.Date;
 
-            //lbldailysale.Text = grandTotal.ToString();
-            //lblthismonth.Text = thisMonth;
+            decimal last30DaysSale = 0;
+            decimal todaysSale = 0;
+            var totalSaleOfLast30Dasys = (from spd in context.tbl_SalePaymentDetails
+                             join s in context.tbl_sale on spd.SaleId equals s.sale_id
+                             where (DbFunctions.TruncateTime(s.created_date)  >= startDate.Date && DbFunctions.TruncateTime(s.created_date) <= endDate.Date) && s.company_id == companyId
+                             group spd by new { s.sale_id } into g
+                             select new
+                             {
+                                 Amount = g.Sum(t3 => t3.GrandTotal).Value
+                             }).FirstOrDefault();
+
+            if(totalSaleOfLast30Dasys!=null)
+            {
+                last30DaysSale = totalSaleOfLast30Dasys.Amount;
+            }
+            
+
+            var totalSaleOfToday = (from spd in context.tbl_SalePaymentDetails
+                                          join s in context.tbl_sale on spd.SaleId equals s.sale_id
+                                          where DbFunctions.TruncateTime(s.created_date) == endDate.Date && s.company_id == companyId
+                                          group spd by new { s.sale_id } into g
+                                          select new
+                                          {
+                                              Amount = g.Sum(t3 => t3.GrandTotal).Value
+                                          }).FirstOrDefault();
+            
+
+            if (totalSaleOfToday != null)
+            {
+                todaysSale = totalSaleOfToday.Amount;
+            }
+
+
+            lbldailysale.Text = todaysSale.ToString();
+            lblMonthlySale.Text = last30DaysSale.ToString();
         }
 
-       
+
+        //LINQ Method Code for Purchase
+
+
+        private void getPurchaseAmount()
+        {
+            DateTime startDate = DateTime.Today.AddDays(-30).Date;
+            DateTime endDate = DateTime.Now.Date;
+
+            decimal last30DaysPurchase = 0;
+            decimal todaysPurchase = 0;
+            var totalPurchaseOfLast30Dasys = (from ppd in context.tbl_PurchasePaymentDetials
+                                          join p in context.tbl_purchase on ppd.PurchaseId equals p.purchase_id
+                                          where (DbFunctions.TruncateTime(p.created_date) >= startDate.Date && DbFunctions.TruncateTime(p.created_date) <= endDate.Date) && p.company_id == companyId
+                                          group ppd by new { p.purchase_id } into g
+                                          select new
+                                          {
+                                              Amount = g.Sum(t3 => t3.GrandTotal).Value
+                                          }).FirstOrDefault();
+
+            if (totalPurchaseOfLast30Dasys != null)
+            {
+                last30DaysPurchase = totalPurchaseOfLast30Dasys.Amount;
+            }
+
+
+            var totalPurchaseOfToday = (from ppd in context.tbl_PurchasePaymentDetials
+                                    join s in context.tbl_purchase on ppd.PurchaseId equals s.purchase_id
+                                        where DbFunctions.TruncateTime(s.created_date) == endDate.Date && s.company_id == companyId
+                                    group ppd by new { s.purchase_id } into g
+                                    select new
+                                    {
+                                        Amount = g.Sum(t3 => t3.GrandTotal).Value
+                                    }).FirstOrDefault();
+
+
+            if (totalPurchaseOfToday != null)
+            {
+                todaysPurchase = totalPurchaseOfToday.Amount;
+            }
+
+
+            lblDailyPurchase.Text = todaysPurchase.ToString();
+            lblMonthlyPurchase.Text = last30DaysPurchase.ToString();
+
+
+
+        }
+
         public void BindGrid(List<DashboardOrderTableViewModel> list)
         {
 
@@ -119,7 +184,7 @@ namespace IMS
                 else if (orderTypeFlag == "Sale")
                 {
                     details = (from s in context.tbl_sale
-                               join p in context.tbl_party on s.company_id equals p.    company_id
+                               join p in context.tbl_party on s.company_id equals p.company_id
                                join sd in context.tbl_SalePaymentDetails on s.sale_id equals sd.SaleId
                                where s.company_id == companyId && s.company_id == companyId && s.party_id == p.party_id && s.status == true && s.created_date >= startdate
                                && s.created_date <= DateTime.Now
@@ -143,7 +208,7 @@ namespace IMS
                 gvorderDeatils.DataBind();
                 lblModelHeader.Text = orderTypeFlag + " Order In Last 30 Days";
                 return details;
-               
+
 
             }
             catch (Exception ex)
@@ -409,7 +474,7 @@ namespace IMS
                 if (dt_purchase.Rows.Count > 0)
                 {
                     po.Text = dt_purchase.Rows[0][0].ToString();
-                    lblpurchaseamount.Text = dt_purchase.Rows[0][1].ToString();
+                   // lblpurchaseamount.Text = dt_purchase.Rows[0][1].ToString();
                 }
                 if (dt_parties.Rows.Count > 0)
                 {
@@ -444,7 +509,7 @@ namespace IMS
             }
         }
 
-        private void openModel( string flag)
+        private void openModel(string flag)
         {
             try
             {

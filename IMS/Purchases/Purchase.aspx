@@ -262,12 +262,6 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px;">
-                                <div class="col-sm-10 leftpadd0">
-                                    <label class="control-label">Note</label>
-                                    <asp:TextBox ID="txtnote" runat="server" TextMode="MultiLine" CssClass="form-control" style="display:block; resize:none"></asp:TextBox>
-                                </div>
-                            </div>
                             <div class="col-md-4 col-lg-2 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px; margin-top: 20px">
                                 <%-- <div class="col-sm-10 leftpadd0">
                             <asp:CheckBox ID="chk" runat="server" Text="If IGST" Font-Bold="true" CssClass="checkbox" />
@@ -322,6 +316,9 @@
                         </asp:GridView>
                     </div>
                 </div>
+                <br />
+              
+
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     </div>
@@ -443,6 +440,15 @@
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </div>
+             <!--=====================================================Note field ====================================================================-->
+                <div class="row">
+                <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px; margin-left:15px;">
+                                <div class="col-sm-10 leftpadd0">
+                                    <label class="control-label">Note</label>
+                                    <asp:TextBox ID="txtNotePurchase" runat="server" TextMode="MultiLine" CssClass="form-control" style="display:block; resize:none;"></asp:TextBox>
+                                </div>
+                            </div>
+                        </div>
             <%--<div style="border:1px solid black"></div>--%>
         </div>
         <div class="panel-footer ">

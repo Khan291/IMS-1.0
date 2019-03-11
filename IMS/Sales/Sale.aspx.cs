@@ -287,6 +287,7 @@ namespace IMS
                 sale.sale_date = DateTime.Parse(txtdate.Text, new CultureInfo("en-US"));               
                 sale.created_by = User_id;
                 sale.created_date = DateTime.Now;
+                sale.Note = txtSaleNote.Text;
 
                 //insert into Sale Payment Details 
                 tbl_SalePaymentDetails salePaymentDetails = new tbl_SalePaymentDetails();

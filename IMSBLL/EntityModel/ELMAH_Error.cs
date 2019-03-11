@@ -12,14 +12,18 @@ namespace IMSBLL.EntityModel
     using System;
     using System.Collections.Generic;
     
-    public partial class tbl_error_log
+    public partial class ELMAH_Error
     {
-        public int error_log_id { get; set; }
-        public Nullable<int> company_id { get; set; }
-        public Nullable<int> branch_id { get; set; }
-        public string error_type { get; set; }
-        public string error_msg { get; set; }
-        public string created_by { get; set; }
-        public Nullable<System.DateTime> created_date { get; set; }
+        public System.Guid ErrorId { get; set; }
+        public string Application { get; set; }
+        public string Host { get; set; }
+        public string Type { get; set; }
+        public string Source { get; set; }
+        public string Message { get; set; }
+        public string User { get; set; }
+        public int StatusCode { get; set; }
+        public System.DateTime TimeUtc { get; set; }
+        public int Sequence { get; set; }
+        public string AllXml { get; set; }
     }
 }

@@ -120,7 +120,8 @@ namespace IMS
                 purchase.party_id = Convert.ToInt32(ddlVendor.SelectedValue);
                 purchase.Po_Date = DateTime.Parse(txtdate.Text, new CultureInfo("en-US"));
                 purchase.po_no = txtPONo.Text;
-
+                purchase.Note = txtNotePurchase.Text;
+                
                 purchase.created_by = user_id;
                 purchase.created_date = DateTime.Now;
 
@@ -135,6 +136,7 @@ namespace IMS
                 purchasePaymentDetail.BalanceAmnt = Convert.ToDecimal(txtBalanceAmt.Text);
                 purchasePaymentDetail.FromTable = "Purchase";
                 purchase.tbl_PurchasePaymentDetials.Add(purchasePaymentDetail);
+                
 
                 for (int i = 0; i <= gvpurchasedetails.Rows.Count - 1; i++)
                 {

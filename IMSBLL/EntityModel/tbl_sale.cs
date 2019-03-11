@@ -35,6 +35,7 @@ namespace IMSBLL.EntityModel
         public string InvoiceNumber { get; set; }
         public Nullable<int> paymentmode_id { get; set; }
         public Nullable<System.DateTime> sale_date { get; set; }
+        public string Note { get; set; }
     
         public virtual ICollection<tbl_ActualSalesTaxAndPrice> tbl_ActualSalesTaxAndPrice { get; set; }
         public virtual tbl_branch tbl_branch { get; set; }

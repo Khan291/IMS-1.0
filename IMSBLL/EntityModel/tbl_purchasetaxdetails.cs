@@ -25,8 +25,8 @@ namespace IMSBLL.EntityModel
         public Nullable<System.DateTime> modified_date { get; set; }
         public Nullable<int> purchaseId { get; set; }
     
+        public virtual tbl_purchase tbl_purchase { get; set; }
         public virtual tbl_purchasetaxgroup tbl_purchasetaxgroup { get; set; }
         public virtual tbl_taxtype tbl_taxtype { get; set; }
-        public virtual tbl_purchase tbl_purchase { get; set; }
     }
 }

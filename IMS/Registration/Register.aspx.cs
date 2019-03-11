@@ -108,11 +108,11 @@ namespace IMS.Registration
                 dt = (DataTable)Session["userdetails"];
                 MailMessage mail = new MailMessage();
                 //SmtpClient SmtpServer = new SmtpClient("relay-hosting.secureserver.net");
-                SmtpClient SmtpServer = new SmtpClient("webmail.imsbizz.com", 25);
+                SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com", 587);
                 StringBuilder sb = new StringBuilder();
-                mail.From = new MailAddress("no-reply@imsbizz.com", "IMS Bizz");
+                mail.From = new MailAddress("imsbizz@gmail.com", "IMS Bizz");
                 mail.To.Add(email.Value);
-                mail.Subject = "Test Mail";
+                mail.Subject = "Verify Your Account";
                 string body = string.Empty;
                 using (StreamReader reader = new StreamReader(Server.MapPath("~/Registration/EmailVerification.html")))
                 {
@@ -123,7 +123,7 @@ namespace IMS.Registration
                 body = body.Replace("{uid}", dt.Rows[0]["uniqueidentifier"].ToString());
                 mail.Body = body;
                 mail.IsBodyHtml = true;
-                NetworkCredential NetCrd = new NetworkCredential("no-reply@imsbizz.com", "Vtt@!123");
+                NetworkCredential NetCrd = new NetworkCredential("imsbizz@gmail.com", "Vtt@1234");
                 SmtpServer.EnableSsl = false;
                 SmtpServer.UseDefaultCredentials = false;
                 SmtpServer.Credentials = NetCrd;
