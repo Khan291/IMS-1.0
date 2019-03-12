@@ -68,27 +68,27 @@ namespace IMS
                              select new
                              {
                                  Amount = g.Sum(t3 => t3.GrandTotal).Value
-                             }).FirstOrDefault();
+                             }).ToList();
 
-            if(totalSaleOfLast30Dasys!=null)
+            if(totalSaleOfLast30Dasys.Count>0)
             {
-                last30DaysSale = totalSaleOfLast30Dasys.Amount;
+                last30DaysSale = totalSaleOfLast30Dasys.Sum(s=>s.Amount);
             }
-            
+
 
             var totalSaleOfToday = (from spd in context.tbl_SalePaymentDetails
-                                          join s in context.tbl_sale on spd.SaleId equals s.sale_id
-                                          where DbFunctions.TruncateTime(s.created_date) == endDate.Date && s.company_id == companyId
-                                          group spd by new { s.sale_id } into g
-                                          select new
-                                          {
-                                              Amount = g.Sum(t3 => t3.GrandTotal).Value
-                                          }).FirstOrDefault();
+                                    join s in context.tbl_sale on spd.SaleId equals s.sale_id
+                                    where DbFunctions.TruncateTime(s.created_date) == endDate.Date && s.company_id == companyId
+                                    group spd by new { s.sale_id } into g
+                                    select new
+                                    {
+                                        Amount = g.Sum(t3 => t3.GrandTotal).Value
+                                    }).ToList();
             
 
-            if (totalSaleOfToday != null)
+            if (totalSaleOfToday.Count>0)
             {
-                todaysSale = totalSaleOfToday.Amount;
+                todaysSale = totalSaleOfToday.Sum(s=>s.Amount);
             }
 
 
@@ -108,33 +108,33 @@ namespace IMS
             decimal last30DaysPurchase = 0;
             decimal todaysPurchase = 0;
             var totalPurchaseOfLast30Dasys = (from ppd in context.tbl_PurchasePaymentDetials
-                                          join p in context.tbl_purchase on ppd.PurchaseId equals p.purchase_id
-                                          where (DbFunctions.TruncateTime(p.created_date) >= startDate.Date && DbFunctions.TruncateTime(p.created_date) <= endDate.Date) && p.company_id == companyId
-                                          group ppd by new { p.purchase_id } into g
-                                          select new
-                                          {
-                                              Amount = g.Sum(t3 => t3.GrandTotal).Value
-                                          }).FirstOrDefault();
+                                              join p in context.tbl_purchase on ppd.PurchaseId equals p.purchase_id
+                                              where (DbFunctions.TruncateTime(p.created_date) >= startDate.Date && DbFunctions.TruncateTime(p.created_date) <= endDate.Date) && p.company_id == companyId
+                                              group ppd by new { p.purchase_id } into g
+                                              select new
+                                              {
+                                                  Amount = g.Sum(t3 => t3.GrandTotal).Value
+                                              }).ToList();
 
-            if (totalPurchaseOfLast30Dasys != null)
+            if (totalPurchaseOfLast30Dasys.Count>0)
             {
-                last30DaysPurchase = totalPurchaseOfLast30Dasys.Amount;
+               last30DaysPurchase = totalPurchaseOfLast30Dasys.Sum(s=>s.Amount);
             }
 
 
             var totalPurchaseOfToday = (from ppd in context.tbl_PurchasePaymentDetials
-                                    join s in context.tbl_purchase on ppd.PurchaseId equals s.purchase_id
+                                        join s in context.tbl_purchase on ppd.PurchaseId equals s.purchase_id
                                         where DbFunctions.TruncateTime(s.created_date) == endDate.Date && s.company_id == companyId
-                                    group ppd by new { s.purchase_id } into g
-                                    select new
-                                    {
-                                        Amount = g.Sum(t3 => t3.GrandTotal).Value
-                                    }).FirstOrDefault();
+                                        group ppd by new { s.purchase_id } into g
+                                        select new
+                                        {
+                                            Amount = g.Sum(t3 => t3.GrandTotal).Value
+                                        }).ToList();
 
 
-            if (totalPurchaseOfToday != null)
+            if (totalPurchaseOfToday.Count>0)
             {
-                todaysPurchase = totalPurchaseOfToday.Amount;
+                todaysPurchase = totalPurchaseOfToday.Sum(s=>s.Amount);
             }
 
 
