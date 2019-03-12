@@ -136,9 +136,6 @@
     <Compile Include="EntityModel\sp_GetPurchaseDetailsById_Result.cs">
       <DependentUpon>IMSModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="EntityModel\sp_GetSaleDetailsById_Result.cs">
-      <DependentUpon>IMSModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="EntityModel\Sp_InsertResetPass_Result.cs">
       <DependentUpon>IMSModel.tt</DependentUpon>
     </Compile>
