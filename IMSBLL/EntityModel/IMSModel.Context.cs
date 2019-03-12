@@ -3477,5 +3477,22 @@ namespace IMSBLL.EntityModel
     
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<Split_Result>("[IMS_TESTEntities].[Split](@List, @SplitOn)", listParameter, splitOnParameter);
         }
+    
+        public virtual ObjectResult<SelectPurcahseProductTaxGroup_Result> SelectPurcahseProductTaxGroup(Nullable<int> purchaseTaxgroupId, Nullable<int> productId, Nullable<decimal> qty)
+        {
+            var purchaseTaxgroupIdParameter = purchaseTaxgroupId.HasValue ?
+                new ObjectParameter("purchaseTaxgroupId", purchaseTaxgroupId) :
+                new ObjectParameter("purchaseTaxgroupId", typeof(int));
+    
+            var productIdParameter = productId.HasValue ?
+                new ObjectParameter("productId", productId) :
+                new ObjectParameter("productId", typeof(int));
+    
+            var qtyParameter = qty.HasValue ?
+                new ObjectParameter("qty", qty) :
+                new ObjectParameter("qty", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SelectPurcahseProductTaxGroup_Result>("SelectPurcahseProductTaxGroup", purchaseTaxgroupIdParameter, productIdParameter, qtyParameter);
+        }
     }
 }

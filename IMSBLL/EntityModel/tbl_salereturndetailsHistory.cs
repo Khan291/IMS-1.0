@@ -19,7 +19,6 @@ namespace IMSBLL.EntityModel
         public Nullable<int> batch_id { get; set; }
         public Nullable<int> product_id { get; set; }
         public Nullable<int> unit_id { get; set; }
-        public Nullable<int> tax_id { get; set; }
         public Nullable<decimal> tax_amt { get; set; }
         public Nullable<decimal> quantity { get; set; }
         public Nullable<decimal> amount { get; set; }
@@ -30,5 +29,6 @@ namespace IMSBLL.EntityModel
         public Nullable<System.DateTime> modified_date { get; set; }
         public Nullable<decimal> dicount_amt { get; set; }
         public Nullable<int> salereturn_id { get; set; }
+        public Nullable<int> Sales_taxGroupId { get; set; }
     }
 }
