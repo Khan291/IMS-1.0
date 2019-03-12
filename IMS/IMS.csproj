@@ -278,6 +278,7 @@
     <Content Include="Registration\Login.aspx" />
     <Content Include="Registration\ResetPassword.aspx" />
     <Content Include="Registration\Register.aspx" />
+    <Content Include="Registration\USerVerification.aspx" />
     <Content Include="Registration\WelcomePage.aspx" />
     <Content Include="MasterReports.aspx" />
     <Content Include="CommonReport.aspx" />
@@ -718,6 +719,14 @@
     <Compile Include="Registration\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Registration\USerVerification.aspx.cs">
+      <DependentUpon>USerVerification.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Registration\USerVerification.aspx.designer.cs">
+      <DependentUpon>USerVerification.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Registration\VerifyUser.cs" />
     <Compile Include="Registration\WelcomePage.aspx.cs">
       <DependentUpon>WelcomePage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

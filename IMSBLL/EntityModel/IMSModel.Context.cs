@@ -1797,7 +1797,7 @@ namespace IMSBLL.EntityModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_rackInsert", company_idParameter, branch_idParameter, godown_idParameter, rack_nameParameter, statusParameter, created_byParameter, created_dateParameter, modified_byParameter, modified_dateParameter);
         }
     
-        public virtual ObjectResult<sp_Register_Result> sp_Register(string company_name, string first_name, string last_name, string owner_emailid, string owner_mobileno, string user_password, Nullable<int> country_id, string pincode, string created_by, Nullable<System.DateTime> created_date, string start_date, string end_date, string uniqueidentity)
+        public virtual ObjectResult<sp_Register_Result> sp_Register(string company_name, string first_name, string last_name, string owner_emailid, string owner_mobileno, string user_password, Nullable<int> country_id, string pincode, string created_by, Nullable<System.DateTime> created_date, string start_date, string end_date, string uniqueidentity, Nullable<bool> isVerified, string ref_Mobile)
         {
             var company_nameParameter = company_name != null ?
                 new ObjectParameter("company_name", company_name) :
@@ -1851,7 +1851,15 @@ namespace IMSBLL.EntityModel
                 new ObjectParameter("uniqueidentity", uniqueidentity) :
                 new ObjectParameter("uniqueidentity", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Register_Result>("sp_Register", company_nameParameter, first_nameParameter, last_nameParameter, owner_emailidParameter, owner_mobilenoParameter, user_passwordParameter, country_idParameter, pincodeParameter, created_byParameter, created_dateParameter, start_dateParameter, end_dateParameter, uniqueidentityParameter);
+            var isVerifiedParameter = isVerified.HasValue ?
+                new ObjectParameter("IsVerified", isVerified) :
+                new ObjectParameter("IsVerified", typeof(bool));
+    
+            var ref_MobileParameter = ref_Mobile != null ?
+                new ObjectParameter("Ref_Mobile", ref_Mobile) :
+                new ObjectParameter("Ref_Mobile", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Register_Result>("sp_Register", company_nameParameter, first_nameParameter, last_nameParameter, owner_emailidParameter, owner_mobilenoParameter, user_passwordParameter, country_idParameter, pincodeParameter, created_byParameter, created_dateParameter, start_dateParameter, end_dateParameter, uniqueidentityParameter, isVerifiedParameter, ref_MobileParameter);
         }
     
         public virtual int sp_renamediagram(string diagramname, Nullable<int> owner_id, string new_diagramname)
