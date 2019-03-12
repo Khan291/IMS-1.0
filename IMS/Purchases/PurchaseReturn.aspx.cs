@@ -602,12 +602,7 @@ namespace IMS
         {
             Save();
         }
-
-
-
-
-
-
+        
         protected void gvpurchasedetails_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             try
