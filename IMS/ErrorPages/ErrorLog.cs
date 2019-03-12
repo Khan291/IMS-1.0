@@ -44,7 +44,8 @@ namespace IMS
                     var company = 0;
                     var branch = 0;
                     var createdby = "Auto Generated";
-                    if (HttpContext.Current.Session["regisFlag"] == null)
+                    if ((HttpContext.Current.Session["regisFlag"] == null) && (HttpContext.Current.Session["company_id"] != null
+                        || HttpContext.Current.Session["branch_id"] != null || HttpContext.Current.Session["UserID"] != null))
                     {
                         company = Convert.ToInt32(HttpContext.Current.Session["company_id"]);
                         branch = Convert.ToInt32(HttpContext.Current.Session["branch_id"]);
