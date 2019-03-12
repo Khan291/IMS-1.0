@@ -1,8 +1,25 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Settings.aspx.cs" Inherits="IMS.Setting" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-     <div class="panel panel-default ">
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("ddlCurrency").searchable({
+                maxListSize: 200, // if list size are less than maxListSize, show them all
+                maxMultiMatch: 300, // how many matching entries should be displayed
+                exactMatch: false, // Exact matching on search
+                wildcards: true, // Support for wildcard characters (*, ?)
+                ignoreCase: true, // Ignore case sensitivity
+                latency: 200, // how many millis to wait until starting search
+                warnMultiMatch: 'top {0} matches ...',
+                warnNoMatch: 'no matches ...',
+                zIndex: 'auto'
+            });
+        });
+
+    </script>
+    <div class="panel panel-default ">
         <div class="panel-heading text-center">
             <h1>Settings</h1>
 
@@ -22,7 +39,7 @@
                                     <label class="" style="font-size: 12px; font-weight: lighter">Specify the number of digits after decimal for amounts.</label>
                                 </div>
                                 <div class="col-xs-4 " style="margin-top: 15px">
-                                    <asp:TextBox ID="txtdecimalplaces" runat="server" CssClass="form-control" Text="2"></asp:TextBox>
+                                    <asp:TextBox ID="txtdecimalplaces" runat="server" CssClass="form-control" Text="2" Enabled="false"></asp:TextBox>
                                 </div>
                             </div>
                         </div>
@@ -33,7 +50,20 @@
                                     <label class="" style="font-size: 12px; font-weight: lighter">Specify the number of digits after decimal for amounts.</label>
                                 </div>
                                 <div class="col-xs-4 leftpadd0" style="margin-top: 15px">
-                                    <asp:DropDownList ID="ddlState" runat="server" CssClass="form-control"></asp:DropDownList>
+                                    <asp:DropDownList ID="ddlCurrency" runat="server" CssClass="form-control">
+                                    </asp:DropDownList>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ValidationGroup="adf" InitialValue="0" Display="Dynamic" runat="server" ErrorMessage="Select Currency" ControlToValidate="ddlCurrency" ForeColor="Red"></asp:RequiredFieldValidator>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="bludiv col-md-8 col-sm-12 col-xs-12  padd20 ">
+                                <div class="col-xs-8 ">
+                                    <label class="control-label">Print Address</label>
+                                    <label class="" style="font-size: 12px; font-weight: lighter">Adress will display on bill</label>
+                                </div>
+                                <div class="col-xs-4 leftpadd0" style="margin-top: 15px">
+                                    <asp:CheckBox ID="chbprintaddress" runat="server" CssClass="checkbox" />
                                 </div>
                             </div>
                         </div>
@@ -41,26 +71,35 @@
                     <div class="col-md-6">
                         <div class="row">
                             <div class="bludiv col-md-8 col-sm-12 col-xs-12  padd20">
-                                <div class="col-xs-8 ">
-                                    <label class="control-label">Enable Invoice Tax Billing</label>
-                                    <label class="" style="font-size: 12px; font-weight: lighter">Tax will countable on the bill </label>
+                                <div class="col-xs-9 ">
+                                    <label class="control-label">Invoice Wise Tax</label>
+                                    <label class="" style="font-size: 12px; font-weight: lighter">Tax will countable on the grand total of invoice </label>
                                 </div>
-                                <div class="col-xs-4 leftpadd0" style="margin-top: 15px">
-                                    <asp:CheckBox ID="chbEnableInvoiceTax" runat="server" CssClass="checkbox" />
+                                <div class="col-xs-3 leftpadd0" style="margin-top: 15px">
+                                    <asp:RadioButton runat="server" ID="rbinvoicetax" GroupName="tax" />
                                 </div>
+                                    <div class="col-xs-9 ">
+                                        <label class="control-label">Product wise tax</label>
+                                        <label class="" style="font-size: 12px; font-weight: lighter">Tax will countable on the product price</label>
+                                    </div>
+                                    <div class="col-xs-3 leftpadd0" style="margin-top: 15px">
+                                        <asp:RadioButton runat="server" ID="rbproducttax" GroupName="tax" />
+                                    </div>
                             </div>
+
                         </div>
                         <div class="row">
                             <div class="bludiv col-md-8 col-sm-12 col-xs-12  padd20 ">
                                 <div class="col-xs-8 ">
                                     <label class="control-label">Print Tin on Invoice</label>
-                                    <label class="" style="font-size: 12px; font-weight: lighter">Specify the number of digits after decimal for amounts.</label>
+                                    <label class="" style="font-size: 12px; font-weight: lighter">Tin Number will display on bill</label>
                                 </div>
                                 <div class="col-xs-4 leftpadd0" style="margin-top: 15px">
-                                    <asp:CheckBox ID="CheckBox1" runat="server" CssClass="checkbox" />
+                                    <asp:CheckBox ID="chbPrintTin" runat="server" CssClass="checkbox" />
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
                 <div id="AccountSetting" class="tab-pane fade">
@@ -90,10 +129,17 @@
             </div>
         </div>
         <div class="panel-footer">
-            <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary " Text="Save" OnClientClick="this.disabled='true'; this.value='Processing...';" UseSubmitBehavior="false"/>
+            <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary" OnClick="btnSave_Click" Text="Save" ValidationGroup="adf"  />
             <asp:Button ID="btnCancel" runat="server" CssClass="btn btn-primary " Text="Cancel" />
         </div>
+
     </div>
+    <div class="row">
+            <div class="alert alert-success" id="divalert" runat="server" visible="false">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <asp:Label ID="lblAlert" runat="server" ></asp:Label>
+            </div>
+        </div>
      <div>
     
 

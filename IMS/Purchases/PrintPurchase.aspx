@@ -71,10 +71,13 @@
                             <div class="street-address">
                                 <asp:Label ID="lblAddress" runat="server"></asp:Label>
                             </div>
-                            <div class="locality">Locality</div>
+                            <div class="locality"></div>
                             <div id="company-postcode">
                                 <asp:Label ID="lblzipcode" runat="server"></asp:Label>
                             </div>
+                        </div>
+                        <div class="Tin">
+                            <asp:Label ID="lbltin" runat="server"></asp:Label>
                         </div>
                         <div class="email">
                             <asp:Label ID="lblemail" runat="server"></asp:Label>
@@ -118,7 +121,7 @@
                                 <asp:BoundField DataField="Quantity" HeaderText="Quantity"></asp:BoundField>
                                 <asp:BoundField DataField="purchase_rate" HeaderText="Price"></asp:BoundField>
                                 <asp:BoundField DataField="dicount_amt" HeaderText="Discount Amount"></asp:BoundField>
-                                <asp:BoundField DataField="tax_percentage" HeaderText="Tax"></asp:BoundField>
+                                <asp:BoundField DataField="totalTaxPercentage" HeaderText="Tax"></asp:BoundField>
                                 <asp:BoundField DataField="tax_amt" HeaderText="Tax Amount"></asp:BoundField>
                                 <asp:BoundField DataField="amount" HeaderText="Total"></asp:BoundField>
 
