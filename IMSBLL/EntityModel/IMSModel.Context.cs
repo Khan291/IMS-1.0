@@ -1006,13 +1006,13 @@ namespace IMSBLL.EntityModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetPurchaseDetailsById_Result>("sp_GetPurchaseDetailsById", purchsae_idParameter);
         }
     
-        public virtual int sp_GetSaleDetailsById(Nullable<int> saleId)
+        public virtual ObjectResult<sp_GetSaleDetailsById_Result> sp_GetSaleDetailsById(Nullable<int> saleId)
         {
             var saleIdParameter = saleId.HasValue ?
                 new ObjectParameter("saleId", saleId) :
                 new ObjectParameter("saleId", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_GetSaleDetailsById", saleIdParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetSaleDetailsById_Result>("sp_GetSaleDetailsById", saleIdParameter);
         }
     
         public virtual int sp_godowninsert(Nullable<int> company_id, Nullable<int> branch_id, string godown_name, string godown_address, string contact_no, string contact_person, Nullable<bool> status, string created_by, Nullable<System.DateTime> created_date, string modified_by, Nullable<System.DateTime> modified_date)
@@ -3484,23 +3484,6 @@ namespace IMSBLL.EntityModel
                 new ObjectParameter("SplitOn", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<Split_Result>("[IMS_TESTEntities].[Split](@List, @SplitOn)", listParameter, splitOnParameter);
-        }
-    
-        public virtual ObjectResult<SelectPurcahseProductTaxGroup_Result> SelectPurcahseProductTaxGroup(Nullable<int> purchaseTaxgroupId, Nullable<int> productId, Nullable<decimal> qty)
-        {
-            var purchaseTaxgroupIdParameter = purchaseTaxgroupId.HasValue ?
-                new ObjectParameter("purchaseTaxgroupId", purchaseTaxgroupId) :
-                new ObjectParameter("purchaseTaxgroupId", typeof(int));
-    
-            var productIdParameter = productId.HasValue ?
-                new ObjectParameter("productId", productId) :
-                new ObjectParameter("productId", typeof(int));
-    
-            var qtyParameter = qty.HasValue ?
-                new ObjectParameter("qty", qty) :
-                new ObjectParameter("qty", typeof(decimal));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SelectPurcahseProductTaxGroup_Result>("SelectPurcahseProductTaxGroup", purchaseTaxgroupIdParameter, productIdParameter, qtyParameter);
         }
     }
 }

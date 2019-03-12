@@ -28,5 +28,6 @@ namespace IMSBLL.EntityModel
         public string InvoiceNumber { get; set; }
         public Nullable<int> paymentmode_id { get; set; }
         public string Note { get; set; }
+        public string other_expenses { get; set; }
     }
 }

@@ -11,9 +11,9 @@ namespace IMSBLL.EntityModel
 {
     using System;
     
-    public partial class sp_SelectProductbyid_Result
+    public partial class sp_GetSaleDetailsById_Result
     {
-        public int purchasedetails_id { get; set; }
+        public int saledetails_id { get; set; }
         public Nullable<int> product_id { get; set; }
         public Nullable<int> batch_id { get; set; }
         public Nullable<int> unit_id { get; set; }
@@ -21,12 +21,18 @@ namespace IMSBLL.EntityModel
         public Nullable<decimal> amount { get; set; }
         public Nullable<decimal> dicount_amt { get; set; }
         public Nullable<decimal> tax_amt { get; set; }
-        public Nullable<decimal> purchase_rate { get; set; }
-        public Nullable<decimal> sale_price { get; set; }
+        public Nullable<decimal> sale_rate { get; set; }
         public Nullable<decimal> quantity { get; set; }
         public string product_name { get; set; }
         public string unit_name { get; set; }
         public string batch_name { get; set; }
-        public Nullable<decimal> totalTaxPercentage { get; set; }
+        public Nullable<decimal> tax_percentage { get; set; }
+        public Nullable<decimal> discount_percent { get; set; }
+        public Nullable<decimal> given_amnt { get; set; }
+        public Nullable<decimal> balance_amnt { get; set; }
+        public Nullable<decimal> total_amnt { get; set; }
+        public Nullable<decimal> total_discount { get; set; }
+        public Nullable<decimal> total_tax { get; set; }
+        public Nullable<decimal> grand_total { get; set; }
     }
 }

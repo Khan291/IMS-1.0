@@ -16,7 +16,7 @@ namespace IMSBLL.EntityModel
     {
         public int setting_id { get; set; }
         public Nullable<int> Decimal_Places { get; set; }
-        public string Currency { get; set; }
+        public Nullable<int> currency_id { get; set; }
         public Nullable<bool> Enable_Invoice_Tax { get; set; }
         public Nullable<bool> Print_Tin_on_Invoice { get; set; }
         public Nullable<bool> Print_address { get; set; }

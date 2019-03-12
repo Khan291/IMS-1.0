@@ -15,7 +15,7 @@ namespace IMSBLL.DAL
 
         public string CONNECTION_STRING = ConfigurationManager.ConnectionStrings["TestDBConnection"].ConnectionString;
 
-        public DataTable    (string procName, Dictionary<string, object> @params)
+        public DataTable GetDataTablebyProc(string procName, Dictionary<string, object> @params)
         {
             DataTable dt = new DataTable("table0");
             SqlTransaction transaction;

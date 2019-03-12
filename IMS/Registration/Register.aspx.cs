@@ -177,7 +177,7 @@ namespace IMS.Registration
         /// </summary>
 
         #region Events
-        protected void btnSubmit_Click(object sender, EventArgs e)
+        protected void Register()
         {
             try
             {
@@ -191,7 +191,7 @@ namespace IMS.Registration
                     r.company_name = txtcompanyname.Value;
                     r.owner_emailid = email.Value;
                     r.owner_mobileno = txtmobile.Value;
-                    string enPswd = EncryptionHelper.GetSwcSHA1(myInput.Value);
+                    string enPswd = EncryptionHelper.GetSwcSHA1(password.Value);
                     r.password = enPswd;
                     r.pincode = txtzip.Value;
                     r.created_by = txtfirstname.Value;
