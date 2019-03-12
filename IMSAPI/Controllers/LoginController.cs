@@ -7,6 +7,7 @@ using System.Web.Http;
 using IMSBLL.EntityModel;
 using System.Security.Cryptography;
 using System.Text;
+using IMSBLL.DAL;
 
 namespace IMSAPI.Controllers
 {
@@ -22,7 +23,7 @@ namespace IMSAPI.Controllers
         [Route("Validate/{userName}/{password}")]
         public HttpResponseMessage ValidatedUser(int userName, string password)
         {
-            string enPswd = GetSwcSHA1(password);
+            string enPswd = EncryptionHelper.GetSwcSHA1(password);
             var authenticate = context.tbl_User.Where(g => g.user_id == userName && g.password == enPswd && g.status == true).FirstOrDefault();
             var role = context.spAuthenticateUserRole(authenticate.user_id).FirstOrDefault();
             //return Request.CreateResponse(HttpStatusCode.OK, "Request send successfully.");
@@ -41,17 +42,6 @@ namespace IMSAPI.Controllers
             {
                 return Request.CreateResponse(HttpStatusCode.Forbidden, "You are not having access to the application, Please contact to administrator.");
             }
-        }
-        public static string GetSwcSHA1(string value)
-        {
-            SHA1 algorithm = SHA1.Create();
-            byte[] data = algorithm.ComputeHash(Encoding.UTF8.GetBytes(value));
-            string sh1 = "";
-            for (int i = 0; i < data.Length; i++)
-            {
-                sh1 += data[i].ToString("x2").ToUpperInvariant();
-            }
-            return sh1;
         }
     }
 }

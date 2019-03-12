@@ -170,17 +170,6 @@ namespace IMS.Registration
             }
             return true;
         }
-        public static string GetSwcSHA1(string value)
-        {
-            SHA1 algorithm = SHA1.Create();
-            byte[] data = algorithm.ComputeHash(Encoding.UTF8.GetBytes(value));
-            string sh1 = "";
-            for (int i = 0; i < data.Length; i++)
-            {
-                sh1 += data[i].ToString("x2").ToUpperInvariant();
-            }
-            return sh1;
-        }
         #endregion
 
         /// <summary>
@@ -202,7 +191,7 @@ namespace IMS.Registration
                     r.company_name = txtcompanyname.Value;
                     r.owner_emailid = email.Value;
                     r.owner_mobileno = txtmobile.Value;
-                    string enPswd = GetSwcSHA1(myInput.Value);
+                    string enPswd = EncryptionHelper.GetSwcSHA1(myInput.Value);
                     r.password = enPswd;
                     r.pincode = txtzip.Value;
                     r.created_by = txtfirstname.Value;

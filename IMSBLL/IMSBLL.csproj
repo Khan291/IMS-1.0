@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAL\DashboardOrderTableViewModel.cs" />
+    <Compile Include="DAL\EncryptionHelper.cs" />
     <Compile Include="DAL\ErrorLog.cs" />
     <Compile Include="DAL\Constants.cs" />
     <Compile Include="DAL\Common.cs" />

@@ -68,17 +68,7 @@ namespace IMS
         }
 
 
-        public static string GetSwcSHA1(string value)
-        {
-            SHA1 algorithm = SHA1.Create();
-            byte[] data = algorithm.ComputeHash(Encoding.UTF8.GetBytes(value));
-            string sh1 = "";
-            for (int i = 0; i < data.Length; i++)
-            {
-                sh1 += data[i].ToString("x2").ToUpperInvariant();
-            }
-            return sh1;
-        }
+      
         [System.Web.Services.WebMethod]
         public static string CheckDouble1(string useroremail)
         {
@@ -162,7 +152,7 @@ namespace IMS
                             ////Shakeeb
                             ////r.Insert(r);
                             context.sp_AddUser2(txtUserEmail.Text, txtUserEmail.Text, txtContactNo.Text,
-                                GetSwcSHA1(txtPassword.Text), Convert.ToInt32(ddlRole.SelectedValue)
+                                EncryptionHelper.GetSwcSHA1(txtPassword.Text), Convert.ToInt32(ddlRole.SelectedValue)
                                 , branchId, companyId, true, User_id, DateTime.Now, txtFirstName.Text, txtLastname.Text);
                             divalert.Visible = true;
                             lblAlert.ForeColor = System.Drawing.Color.Green;

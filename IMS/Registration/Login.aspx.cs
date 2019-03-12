@@ -208,7 +208,7 @@ namespace IMS.Registration
         {
             //UserRol r = new UserRol();
             //r.user_name = txtEmail.Text;
-            string enPswd = GetSwcSHA1(txtPassword.Text);
+            string enPswd = EncryptionHelper.GetSwcSHA1(txtPassword.Text);
             //r.password = enPswd;
             ////Shakeeb
             var r = context.tbl_User.Where(g => g.user_name == txtEmail.Text && g.password == enPswd && g.status==true).FirstOrDefault();
@@ -233,18 +233,6 @@ namespace IMS.Registration
             Session["financialyear_id"] = context.tbl_financialyear.Where(w => w.company_id == r.company_id && w.status == true).Select(s => s.financialyear_id).FirstOrDefault();
             Session["branch_id"] = r.branch_id;
             Session["LoginuserName"] = r.Name;
-        }
-
-        public static string GetSwcSHA1(string value)
-        {
-            SHA1 algorithm = SHA1.Create();
-            byte[] data = algorithm.ComputeHash(Encoding.UTF8.GetBytes(value));
-            string sh1 = "";
-            for (int i = 0; i < data.Length; i++)
-            {
-                sh1 += data[i].ToString("x2").ToUpperInvariant();
-            }
-            return sh1;
         }
         #endregion
 
