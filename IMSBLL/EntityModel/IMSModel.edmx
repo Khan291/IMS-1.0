@@ -5,6 +5,22 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="IMS_TESTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ELMAH_Error">
+          <Key>
+            <PropertyRef Name="ErrorId" />
+          </Key>
+          <Property Name="ErrorId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Application" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="Host" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Source" Type="nvarchar" MaxLength="60" Nullable="false" />
+          <Property Name="Message" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="User" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="StatusCode" Type="int" Nullable="false" />
+          <Property Name="TimeUtc" Type="datetime" Nullable="false" />
+          <Property Name="Sequence" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AllXml" Type="ntext" Nullable="false" />
+        </EntityType>
         <EntityType Name="tbl_ActualPurchaseTaxAndPrice">
           <Key>
             <PropertyRef Name="ID" />
@@ -31,7 +47,6 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="sale_id" Type="int" />
           <Property Name="product_id" Type="int" />
-          <Property Name="tax_percent" Type="decimal" Precision="18" Scale="2" />
           <Property Name="sale_rate" Type="decimal" Precision="18" Scale="2" />
           <Property Name="discount_amnt" Type="decimal" Precision="18" Scale="2" />
           <Property Name="status" Type="bit" />
@@ -40,6 +55,7 @@
           <Property Name="modified_by" Type="nvarchar" MaxLength="500" />
           <Property Name="modified_date" Type="smalldatetime" />
           <Property Name="discount_percent" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="saleTaxGroupID" Type="int" />
         </EntityType>
         <EntityType Name="tbl_batch">
           <Key>
@@ -140,6 +156,15 @@
           <Property Name="created_date" Type="smalldatetime" />
           <Property Name="modified_by" Type="nvarchar" MaxLength="500" />
           <Property Name="modified_date" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="tbl_currency">
+          <Key>
+            <PropertyRef Name="currency_id" />
+          </Key>
+          <Property Name="currency_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="country_name" Type="nvarchar(max)" />
+          <Property Name="currency_code" Type="nvarchar(max)" />
+          <Property Name="currency_symbol" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Tbl_EmailVerify">
           <Key>
@@ -379,6 +404,7 @@
           <Property Name="branch_id" Type="int" />
           <Property Name="InvoiceNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="PaymentMode_id" Type="int" />
+          <Property Name="Note" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="tbl_purchasedetails">
           <Key>
@@ -440,6 +466,7 @@
           <Property Name="branch_id" Type="int" />
           <Property Name="InvoiceNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="PaymentMode_id" Type="int" />
+          <Property Name="Note" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="tbl_PurchasePaymentDetials">
           <Key>
@@ -506,7 +533,6 @@
           <Property Name="batch_id" Type="int" />
           <Property Name="product_id" Type="int" />
           <Property Name="unit_id" Type="int" />
-          <Property Name="tax_id" Type="int" />
           <Property Name="tax_amt" Type="nvarchar" MaxLength="100" />
           <Property Name="quantity" Type="decimal" Precision="18" Scale="0" />
           <Property Name="amount" Type="decimal" Precision="18" Scale="0" />
@@ -517,6 +543,7 @@
           <Property Name="modified_date" Type="smalldatetime" />
           <Property Name="purchasereturn_id" Type="int" />
           <Property Name="discount_amnt" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Purchase_taxGroupId" Type="int" />
         </EntityType>
         <EntityType Name="tbl_purchasereturndetailsHistory">
           <Key>
@@ -527,7 +554,6 @@
           <Property Name="batch_id" Type="int" />
           <Property Name="product_id" Type="int" />
           <Property Name="unit_id" Type="int" />
-          <Property Name="tax_id" Type="int" />
           <Property Name="tax_amt" Type="nvarchar" MaxLength="100" />
           <Property Name="quantity" Type="decimal" Precision="18" Scale="0" />
           <Property Name="amount" Type="decimal" Precision="18" Scale="0" />
@@ -538,6 +564,7 @@
           <Property Name="modified_date" Type="smalldatetime" />
           <Property Name="purchasereturn_id" Type="int" />
           <Property Name="discount_amnt" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Purchase_taxGroupId" Type="int" />
         </EntityType>
         <EntityType Name="tbl_purchasereturnHistory">
           <Key>
@@ -582,6 +609,7 @@
           <Property Name="product_id" Type="int" />
           <Property Name="group_id" Type="int" />
           <Property Name="purchaseId" Type="int" />
+          <Property Name="totalTaxPercentage" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="tbl_rack">
           <Key>
@@ -627,6 +655,7 @@
           <Property Name="InvoiceNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="paymentmode_id" Type="int" />
           <Property Name="sale_date" Type="smalldatetime" />
+          <Property Name="Note" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="tbl_saledetails">
           <Key>
@@ -686,6 +715,7 @@
           <Property Name="branch_id" Type="int" />
           <Property Name="InvoiceNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="paymentmode_id" Type="int" />
+          <Property Name="Note" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="tbl_SalePaymentDetails">
           <Key>
@@ -752,7 +782,6 @@
           <Property Name="batch_id" Type="int" />
           <Property Name="product_id" Type="int" />
           <Property Name="unit_id" Type="int" />
-          <Property Name="tax_id" Type="int" />
           <Property Name="tax_amt" Type="decimal" Precision="18" Scale="0" />
           <Property Name="quantity" Type="decimal" Precision="18" Scale="0" />
           <Property Name="amount" Type="decimal" Precision="18" Scale="0" />
@@ -763,6 +792,7 @@
           <Property Name="modified_date" Type="smalldatetime" />
           <Property Name="dicount_amt" Type="decimal" Precision="18" Scale="0" />
           <Property Name="salereturn_id" Type="int" />
+          <Property Name="Sales_taxGroupId" Type="int" />
         </EntityType>
         <EntityType Name="tbl_salereturndetailsHistory">
           <Key>
@@ -773,7 +803,6 @@
           <Property Name="batch_id" Type="int" />
           <Property Name="product_id" Type="int" />
           <Property Name="unit_id" Type="int" />
-          <Property Name="tax_id" Type="int" />
           <Property Name="tax_amt" Type="decimal" Precision="18" Scale="0" />
           <Property Name="quantity" Type="decimal" Precision="18" Scale="0" />
           <Property Name="amount" Type="decimal" Precision="18" Scale="0" />
@@ -784,6 +813,7 @@
           <Property Name="modified_date" Type="smalldatetime" />
           <Property Name="dicount_amt" Type="decimal" Precision="18" Scale="0" />
           <Property Name="salereturn_id" Type="int" />
+          <Property Name="Sales_taxGroupId" Type="int" />
         </EntityType>
         <EntityType Name="tbl_salereturnHistory">
           <Key>
@@ -803,6 +833,51 @@
           <Property Name="paymentmode_id" Type="int" />
           <Property Name="InvoiceNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="party_id" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_saleTaxGroup">
+          <Key>
+            <PropertyRef Name="SaleTaxGroupId" />
+          </Key>
+          <Property Name="SaleTaxGroupId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="group_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="product_id" Type="int" />
+          <Property Name="group_id" Type="int" />
+          <Property Name="sale_id" Type="int" />
+          <Property Name="totalTaxPercentage" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="tbl_saleTaxGroupDetailes">
+          <Key>
+            <PropertyRef Name="saleTaxGroupDetail_Id" />
+          </Key>
+          <Property Name="saleTaxGroupDetail_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SaleTaxGroupId" Type="int" />
+          <Property Name="type_id" Type="int" />
+          <Property Name="tax_percentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="sale_id" Type="int" />
+          <Property Name="status" Type="bit" />
+          <Property Name="created_by" Type="nvarchar" MaxLength="50" />
+          <Property Name="created_date" Type="smalldatetime" />
+          <Property Name="modified_by" Type="nvarchar" MaxLength="50" />
+          <Property Name="modified_date" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="tbl_setting">
+          <Key>
+            <PropertyRef Name="setting_id" />
+          </Key>
+          <Property Name="setting_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Decimal_Places" Type="int" />
+          <Property Name="Currency" Type="nvarchar(max)" />
+          <Property Name="Enable_Invoice_Tax" Type="bit" />
+          <Property Name="Print_Tin_on_Invoice" Type="bit" />
+          <Property Name="Print_address" Type="bit" />
+          <Property Name="status" Type="bit" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="branch_id" Type="int" />
+          <Property Name="company_id" Type="int" />
+          <Property Name="created_by" Type="nvarchar(max)" />
+          <Property Name="created_date" Type="datetime" />
+          <Property Name="modify_by" Type="nvarchar(max)" />
+          <Property Name="modifydate" Type="datetime" />
         </EntityType>
         <EntityType Name="tbl_state">
           <Key>
@@ -960,6 +1035,9 @@
           <Property Name="modified_date" Type="smalldatetime" />
           <Property Name="first_name" Type="nvarchar" MaxLength="100" />
           <Property Name="last_name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Ref_Mobile" Type="nvarchar(max)" />
+          <Property Name="OTP" Type="nvarchar(max)" />
+          <Property Name="IsVerified" Type="bit" />
         </EntityType>
         <EntityType Name="tbl_userbranch">
           <Key>
@@ -1000,7 +1078,7 @@
           <Property Name="created_date" Type="smalldatetime" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'IMS_DEV.dbo.View_PurchaseDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'IMS1.0.dbo.View_PurchaseDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="View_PurchaseDetails">
           <Key>
             <PropertyRef Name="company_id" />
@@ -1035,7 +1113,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_PurchaseDetails' does not have a 
           <Property Name="FromTable" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="View_SaleDetails">
           <Key>
             <PropertyRef Name="company_id" />
@@ -1231,30 +1309,6 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
             </Principal>
             <Dependent Role="tbl_company">
               <PropertyRef Name="state_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tbl_error__branc__2645B050">
-          <End Role="tbl_branch" Type="Self.tbl_branch" Multiplicity="0..1" />
-          <End Role="tbl_error_log" Type="Self.tbl_error_log" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_branch">
-              <PropertyRef Name="branch_id" />
-            </Principal>
-            <Dependent Role="tbl_error_log">
-              <PropertyRef Name="branch_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tbl_error__compa__25518C17">
-          <End Role="tbl_company" Type="Self.tbl_company" Multiplicity="0..1" />
-          <End Role="tbl_error_log" Type="Self.tbl_error_log" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_company">
-              <PropertyRef Name="company_id" />
-            </Principal>
-            <Dependent Role="tbl_error_log">
-              <PropertyRef Name="company_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2254,6 +2308,18 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tbl_ActualSalesTaxAndPrice_tbl_saleTaxGroup">
+          <End Role="tbl_saleTaxGroup" Type="Self.tbl_saleTaxGroup" Multiplicity="0..1" />
+          <End Role="tbl_ActualSalesTaxAndPrice" Type="Self.tbl_ActualSalesTaxAndPrice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_saleTaxGroup">
+              <PropertyRef Name="SaleTaxGroupId" />
+            </Principal>
+            <Dependent Role="tbl_ActualSalesTaxAndPrice">
+              <PropertyRef Name="saleTaxGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tbl_purchase_tbl_paymentmode">
           <End Role="tbl_paymentmode" Type="Self.tbl_paymentmode" Multiplicity="0..1" />
           <End Role="tbl_purchase" Type="Self.tbl_purchase" Multiplicity="*" />
@@ -2383,18 +2449,6 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
             </Principal>
             <Dependent Role="tbl_purchasereturndetails">
               <PropertyRef Name="purchasereturn_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_purchasereturndetails_tbl_tax">
-          <End Role="tbl_tax" Type="Self.tbl_tax" Multiplicity="0..1" />
-          <End Role="tbl_purchasereturndetails" Type="Self.tbl_purchasereturndetails" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_tax">
-              <PropertyRef Name="tax_id" />
-            </Principal>
-            <Dependent Role="tbl_purchasereturndetails">
-              <PropertyRef Name="tax_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2650,15 +2704,15 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tbl_salereturndetails_tbl_tax">
-          <End Role="tbl_tax" Type="Self.tbl_tax" Multiplicity="0..1" />
+        <Association Name="FK_tbl_salereturndetails_tbl_saleTaxGroup">
+          <End Role="tbl_saleTaxGroup" Type="Self.tbl_saleTaxGroup" Multiplicity="0..1" />
           <End Role="tbl_salereturndetails" Type="Self.tbl_salereturndetails" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tbl_tax">
-              <PropertyRef Name="tax_id" />
+            <Principal Role="tbl_saleTaxGroup">
+              <PropertyRef Name="SaleTaxGroupId" />
             </Principal>
             <Dependent Role="tbl_salereturndetails">
-              <PropertyRef Name="tax_id" />
+              <PropertyRef Name="Sales_taxGroupId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2674,12 +2728,106 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tbl_saleTaxGroup_tbl_product">
+          <End Role="tbl_product" Type="Self.tbl_product" Multiplicity="0..1" />
+          <End Role="tbl_saleTaxGroup" Type="Self.tbl_saleTaxGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_product">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="tbl_saleTaxGroup">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_saleTaxGroup_tbl_sale">
+          <End Role="tbl_sale" Type="Self.tbl_sale" Multiplicity="0..1" />
+          <End Role="tbl_saleTaxGroup" Type="Self.tbl_saleTaxGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_sale">
+              <PropertyRef Name="sale_id" />
+            </Principal>
+            <Dependent Role="tbl_saleTaxGroup">
+              <PropertyRef Name="sale_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_saleTaxGroup_tbl_taxgroup">
+          <End Role="tbl_taxgroup" Type="Self.tbl_taxgroup" Multiplicity="0..1" />
+          <End Role="tbl_saleTaxGroup" Type="Self.tbl_saleTaxGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_taxgroup">
+              <PropertyRef Name="group_id" />
+            </Principal>
+            <Dependent Role="tbl_saleTaxGroup">
+              <PropertyRef Name="group_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_saleTaxGroupDetailes_tbl_sale">
+          <End Role="tbl_sale" Type="Self.tbl_sale" Multiplicity="0..1" />
+          <End Role="tbl_saleTaxGroupDetailes" Type="Self.tbl_saleTaxGroupDetailes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_sale">
+              <PropertyRef Name="sale_id" />
+            </Principal>
+            <Dependent Role="tbl_saleTaxGroupDetailes">
+              <PropertyRef Name="sale_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_saleTaxGroupDetailes_tbl_saleTaxGroup">
+          <End Role="tbl_saleTaxGroup" Type="Self.tbl_saleTaxGroup" Multiplicity="0..1" />
+          <End Role="tbl_saleTaxGroupDetailes" Type="Self.tbl_saleTaxGroupDetailes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_saleTaxGroup">
+              <PropertyRef Name="SaleTaxGroupId" />
+            </Principal>
+            <Dependent Role="tbl_saleTaxGroupDetailes">
+              <PropertyRef Name="SaleTaxGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_saleTaxGroupDetailes_tbl_taxtype">
+          <End Role="tbl_taxtype" Type="Self.tbl_taxtype" Multiplicity="0..1" />
+          <End Role="tbl_saleTaxGroupDetailes" Type="Self.tbl_saleTaxGroupDetailes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_taxtype">
+              <PropertyRef Name="type_id" />
+            </Principal>
+            <Dependent Role="tbl_saleTaxGroupDetailes">
+              <PropertyRef Name="type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="CommonReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ReportType" Type="nvarchar" Mode="In" />
           <Parameter Name="CompanyId" Type="int" Mode="In" />
           <Parameter Name="FilterIds" Type="nvarchar" Mode="In" />
           <Parameter Name="start_date" Type="datetime" Mode="In" />
           <Parameter Name="end_date" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="ELMAH_GetErrorsXml" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Application" Type="nvarchar" Mode="In" />
+          <Parameter Name="PageIndex" Type="int" Mode="In" />
+          <Parameter Name="PageSize" Type="int" Mode="In" />
+          <Parameter Name="TotalCount" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="ELMAH_GetErrorXml" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Application" Type="nvarchar" Mode="In" />
+          <Parameter Name="ErrorId" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="ELMAH_LogError" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ErrorId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="Application" Type="nvarchar" Mode="In" />
+          <Parameter Name="Host" Type="nvarchar" Mode="In" />
+          <Parameter Name="Type" Type="nvarchar" Mode="In" />
+          <Parameter Name="Source" Type="nvarchar" Mode="In" />
+          <Parameter Name="Message" Type="nvarchar" Mode="In" />
+          <Parameter Name="User" Type="nvarchar" Mode="In" />
+          <Parameter Name="AllXml" Type="ntext" Mode="In" />
+          <Parameter Name="StatusCode" Type="int" Mode="In" />
+          <Parameter Name="TimeUtc" Type="datetime" Mode="In" />
         </Function>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="GetBatchwiseQuantity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -2727,6 +2875,11 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
         </Function>
         <Function Name="SelectProductTaxGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="groupId" Type="int" Mode="In" />
+          <Parameter Name="productId" Type="int" Mode="In" />
+          <Parameter Name="qty" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="SelectPurcahseProductTaxGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="purchaseTaxgroupId" Type="int" Mode="In" />
           <Parameter Name="productId" Type="int" Mode="In" />
           <Parameter Name="qty" Type="decimal" Mode="In" />
         </Function>
@@ -3156,6 +3309,8 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <Parameter Name="start_date" Type="nvarchar" Mode="In" />
           <Parameter Name="end_date" Type="nvarchar" Mode="In" />
           <Parameter Name="uniqueidentity" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="IsVerified" Type="bit" Mode="In" />
+          <Parameter Name="Ref_Mobile" Type="nvarchar(max)" Mode="In" />
         </Function>
         <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -3619,6 +3774,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           </ReturnType>
         </Function>
         <EntityContainer Name="IMS_TESTModelStoreContainer">
+          <EntitySet Name="ELMAH_Error" EntityType="Self.ELMAH_Error" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_ActualPurchaseTaxAndPrice" EntityType="Self.tbl_ActualPurchaseTaxAndPrice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_ActualSalesTaxAndPrice" EntityType="Self.tbl_ActualSalesTaxAndPrice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_batch" EntityType="Self.tbl_batch" Schema="dbo" store:Type="Tables" />
@@ -3626,6 +3782,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <EntitySet Name="tbl_category" EntityType="Self.tbl_category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_company" EntityType="Self.tbl_company" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_country" EntityType="Self.tbl_country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_currency" EntityType="Self.tbl_currency" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tbl_EmailVerify" EntityType="Self.Tbl_EmailVerify" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_error_log" EntityType="Self.tbl_error_log" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_expense" EntityType="Self.tbl_expense" Schema="dbo" store:Type="Tables" />
@@ -3664,6 +3821,9 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <EntitySet Name="tbl_salereturndetails" EntityType="Self.tbl_salereturndetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_salereturndetailsHistory" EntityType="Self.tbl_salereturndetailsHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_salereturnHistory" EntityType="Self.tbl_salereturnHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_saleTaxGroup" EntityType="Self.tbl_saleTaxGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_saleTaxGroupDetailes" EntityType="Self.tbl_saleTaxGroupDetailes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_setting" EntityType="Self.tbl_setting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_state" EntityType="Self.tbl_state" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_stock" EntityType="Self.tbl_stock" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_stocktransaction" EntityType="Self.tbl_stocktransaction" Schema="dbo" store:Type="Tables" />
@@ -3791,14 +3951,6 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <AssociationSet Name="FK__tbl_compa__state__1DE57479" Association="Self.FK__tbl_compa__state__1DE57479">
             <End Role="tbl_state" EntitySet="tbl_state" />
             <End Role="tbl_company" EntitySet="tbl_company" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tbl_error__branc__2645B050" Association="Self.FK__tbl_error__branc__2645B050">
-            <End Role="tbl_branch" EntitySet="tbl_branch" />
-            <End Role="tbl_error_log" EntitySet="tbl_error_log" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tbl_error__compa__25518C17" Association="Self.FK__tbl_error__compa__25518C17">
-            <End Role="tbl_company" EntitySet="tbl_company" />
-            <End Role="tbl_error_log" EntitySet="tbl_error_log" />
           </AssociationSet>
           <AssociationSet Name="FK__tbl_expen__branc__571DF1D5" Association="Self.FK__tbl_expen__branc__571DF1D5">
             <End Role="tbl_branch" EntitySet="tbl_branch" />
@@ -4132,6 +4284,10 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
             <End Role="tbl_batch" EntitySet="tbl_batch" />
             <End Role="tbl_ActualPurchaseTaxAndPrice" EntitySet="tbl_ActualPurchaseTaxAndPrice" />
           </AssociationSet>
+          <AssociationSet Name="FK_tbl_ActualSalesTaxAndPrice_tbl_saleTaxGroup" Association="Self.FK_tbl_ActualSalesTaxAndPrice_tbl_saleTaxGroup">
+            <End Role="tbl_saleTaxGroup" EntitySet="tbl_saleTaxGroup" />
+            <End Role="tbl_ActualSalesTaxAndPrice" EntitySet="tbl_ActualSalesTaxAndPrice" />
+          </AssociationSet>
           <AssociationSet Name="FK_tbl_purchase_tbl_paymentmode" Association="Self.FK_tbl_purchase_tbl_paymentmode">
             <End Role="tbl_paymentmode" EntitySet="tbl_paymentmode" />
             <End Role="tbl_purchase" EntitySet="tbl_purchase" />
@@ -4174,10 +4330,6 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           </AssociationSet>
           <AssociationSet Name="FK_tbl_purchasereturndetails_tbl_purchasereturn" Association="Self.FK_tbl_purchasereturndetails_tbl_purchasereturn">
             <End Role="tbl_purchasereturn" EntitySet="tbl_purchasereturn" />
-            <End Role="tbl_purchasereturndetails" EntitySet="tbl_purchasereturndetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_purchasereturndetails_tbl_tax" Association="Self.FK_tbl_purchasereturndetails_tbl_tax">
-            <End Role="tbl_tax" EntitySet="tbl_tax" />
             <End Role="tbl_purchasereturndetails" EntitySet="tbl_purchasereturndetails" />
           </AssociationSet>
           <AssociationSet Name="FK_tbl_purchasereturndetails_tbl_unit" Association="Self.FK_tbl_purchasereturndetails_tbl_unit">
@@ -4264,34 +4416,72 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
             <End Role="tbl_salereturn" EntitySet="tbl_salereturn" />
             <End Role="tbl_salereturndetails" EntitySet="tbl_salereturndetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbl_salereturndetails_tbl_tax" Association="Self.FK_tbl_salereturndetails_tbl_tax">
-            <End Role="tbl_tax" EntitySet="tbl_tax" />
+          <AssociationSet Name="FK_tbl_salereturndetails_tbl_saleTaxGroup" Association="Self.FK_tbl_salereturndetails_tbl_saleTaxGroup">
+            <End Role="tbl_saleTaxGroup" EntitySet="tbl_saleTaxGroup" />
             <End Role="tbl_salereturndetails" EntitySet="tbl_salereturndetails" />
           </AssociationSet>
           <AssociationSet Name="FK_tbl_salereturndetails_tbl_unit" Association="Self.FK_tbl_salereturndetails_tbl_unit">
             <End Role="tbl_unit" EntitySet="tbl_unit" />
             <End Role="tbl_salereturndetails" EntitySet="tbl_salereturndetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_tbl_saleTaxGroup_tbl_product" Association="Self.FK_tbl_saleTaxGroup_tbl_product">
+            <End Role="tbl_product" EntitySet="tbl_product" />
+            <End Role="tbl_saleTaxGroup" EntitySet="tbl_saleTaxGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_saleTaxGroup_tbl_sale" Association="Self.FK_tbl_saleTaxGroup_tbl_sale">
+            <End Role="tbl_sale" EntitySet="tbl_sale" />
+            <End Role="tbl_saleTaxGroup" EntitySet="tbl_saleTaxGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_saleTaxGroup_tbl_taxgroup" Association="Self.FK_tbl_saleTaxGroup_tbl_taxgroup">
+            <End Role="tbl_taxgroup" EntitySet="tbl_taxgroup" />
+            <End Role="tbl_saleTaxGroup" EntitySet="tbl_saleTaxGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_saleTaxGroupDetailes_tbl_sale" Association="Self.FK_tbl_saleTaxGroupDetailes_tbl_sale">
+            <End Role="tbl_sale" EntitySet="tbl_sale" />
+            <End Role="tbl_saleTaxGroupDetailes" EntitySet="tbl_saleTaxGroupDetailes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_saleTaxGroupDetailes_tbl_saleTaxGroup" Association="Self.FK_tbl_saleTaxGroupDetailes_tbl_saleTaxGroup">
+            <End Role="tbl_saleTaxGroup" EntitySet="tbl_saleTaxGroup" />
+            <End Role="tbl_saleTaxGroupDetailes" EntitySet="tbl_saleTaxGroupDetailes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_saleTaxGroupDetailes_tbl_taxtype" Association="Self.FK_tbl_saleTaxGroupDetailes_tbl_taxtype">
+            <End Role="tbl_taxtype" EntitySet="tbl_taxtype" />
+            <End Role="tbl_saleTaxGroupDetailes" EntitySet="tbl_saleTaxGroupDetailes" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="IMS_TESTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <ComplexType Name="Split_Result">
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Value" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-        </ComplexType>
         <EntityContainer Name="IMS_TESTEntities" annotation:LazyLoadingEnabled="true">
-          <FunctionImport Name="Split" ReturnType="Collection(IMS_TESTModel.Split_Result)" IsComposable="true">
-            <Parameter Name="List" Mode="In" Type="String" />
-            <Parameter Name="SplitOn" Mode="In" Type="String" />
-          </FunctionImport>
           <FunctionImport Name="CommonReport" ReturnType="Collection(IMS_TESTModel.CommonReport_Result)">
             <Parameter Name="ReportType" Mode="In" Type="String" />
             <Parameter Name="CompanyId" Mode="In" Type="Int32" />
             <Parameter Name="FilterIds" Mode="In" Type="String" />
             <Parameter Name="start_date" Mode="In" Type="DateTime" />
             <Parameter Name="end_date" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="ELMAH_GetErrorsXml" ReturnType="Collection(String)">
+            <Parameter Name="Application" Mode="In" Type="String" />
+            <Parameter Name="PageIndex" Mode="In" Type="Int32" />
+            <Parameter Name="PageSize" Mode="In" Type="Int32" />
+            <Parameter Name="TotalCount" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ELMAH_GetErrorXml" ReturnType="Collection(String)">
+            <Parameter Name="Application" Mode="In" Type="String" />
+            <Parameter Name="ErrorId" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="ELMAH_LogError">
+            <Parameter Name="ErrorId" Mode="In" Type="Guid" />
+            <Parameter Name="Application" Mode="In" Type="String" />
+            <Parameter Name="Host" Mode="In" Type="String" />
+            <Parameter Name="Type" Mode="In" Type="String" />
+            <Parameter Name="Source" Mode="In" Type="String" />
+            <Parameter Name="Message" Mode="In" Type="String" />
+            <Parameter Name="User" Mode="In" Type="String" />
+            <Parameter Name="AllXml" Mode="In" Type="String" />
+            <Parameter Name="StatusCode" Mode="In" Type="Int32" />
+            <Parameter Name="TimeUtc" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="GetBatchwiseQuantity" ReturnType="Collection(Decimal)">
             <Parameter Name="batch_id" Mode="In" Type="Int32" />
@@ -4335,6 +4525,11 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           </FunctionImport>
           <FunctionImport Name="SaleReport" ReturnType="Collection(IMS_TESTModel.SaleReport_Result)">
           <Parameter Name="saledetails_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SelectProductTaxGroup" ReturnType="Collection(IMS_TESTModel.SelectProductTaxGroup_Result)">
+            <Parameter Name="groupId" Mode="In" Type="Int32" />
+            <Parameter Name="productId" Mode="In" Type="Int32" />
+            <Parameter Name="qty" Mode="In" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="sp_ActiveUser" ReturnType="Collection(IMS_TESTModel.sp_ActiveUser_Result)">
             <Parameter Name="userid" Mode="In" Type="Int32" />
@@ -4762,6 +4957,8 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
             <Parameter Name="start_date" Mode="In" Type="String" />
             <Parameter Name="end_date" Mode="In" Type="String" />
             <Parameter Name="uniqueidentity" Mode="In" Type="String" />
+            <Parameter Name="IsVerified" Mode="In" Type="Boolean" />
+            <Parameter Name="Ref_Mobile" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_renamediagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
@@ -4811,7 +5008,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <FunctionImport Name="sp_SalesreturnProduct">
           <Parameter Name="salereturnmain_id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="sp_saveerror">
+          <FunctionImport Name="sp_saveerror" ReturnType="Collection(Int32)">
             <Parameter Name="company_id" Mode="In" Type="Int32" />
             <Parameter Name="branch_id" Mode="In" Type="Int32" />
             <Parameter Name="error_type" Mode="In" Type="String" />
@@ -4880,7 +5077,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
             <Parameter Name="company_id" Mode="In" Type="Int32" />
             <Parameter Name="product_id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="sp_SelectProduct" ReturnType="Collection(IMS_TESTModel.sp_SelectProduct_Result)">
+          <FunctionImport Name="sp_SelectProduct">
             <Parameter Name="company_id" Mode="In" Type="Int32" />
             <Parameter Name="branch_id" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -4935,7 +5132,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
             <Parameter Name="company_id" Mode="In" Type="Int32" />
             <Parameter Name="branch_id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="sp_SelectTaxpercent" ReturnType="Collection(IMS_TESTModel.sp_SelectTaxpercent_Result)">
+          <FunctionImport Name="sp_SelectTaxpercent">
             <Parameter Name="company_id" Mode="In" Type="Int32" />
             <Parameter Name="product_id" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -5212,6 +5409,16 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <FunctionImport Name="SpGetExistsMobile" ReturnType="Collection(String)">
           <Parameter Name="mobileno" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="Split" IsComposable="true" ReturnType="Collection(IMS_TESTModel.Split_Result)">
+            <Parameter Name="List" Mode="In" Type="String" />
+            <Parameter Name="SplitOn" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SelectPurcahseProductTaxGroup" ReturnType="Collection(IMS_TESTModel.SelectPurcahseProductTaxGroup_Result)">
+            <Parameter Name="purchaseTaxgroupId" Mode="In" Type="Int32" />
+            <Parameter Name="productId" Mode="In" Type="Int32" />
+            <Parameter Name="qty" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <EntitySet Name="ELMAH_Error" EntityType="IMS_TESTModel.ELMAH_Error" />
           <EntitySet Name="tbl_ActualPurchaseTaxAndPrice" EntityType="IMS_TESTModel.tbl_ActualPurchaseTaxAndPrice" />
           <EntitySet Name="tbl_ActualSalesTaxAndPrice" EntityType="IMS_TESTModel.tbl_ActualSalesTaxAndPrice" />
           <EntitySet Name="tbl_batch" EntityType="IMS_TESTModel.tbl_batch" />
@@ -5219,6 +5426,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <EntitySet Name="tbl_category" EntityType="IMS_TESTModel.tbl_category" />
           <EntitySet Name="tbl_company" EntityType="IMS_TESTModel.tbl_company" />
           <EntitySet Name="tbl_country" EntityType="IMS_TESTModel.tbl_country" />
+          <EntitySet Name="tbl_currency" EntityType="IMS_TESTModel.tbl_currency" />
           <EntitySet Name="Tbl_EmailVerify" EntityType="IMS_TESTModel.Tbl_EmailVerify" />
           <EntitySet Name="tbl_error_log" EntityType="IMS_TESTModel.tbl_error_log" />
           <EntitySet Name="tbl_expense" EntityType="IMS_TESTModel.tbl_expense" />
@@ -5257,6 +5465,9 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <EntitySet Name="tbl_salereturndetails" EntityType="IMS_TESTModel.tbl_salereturndetails" />
           <EntitySet Name="tbl_salereturndetailsHistory" EntityType="IMS_TESTModel.tbl_salereturndetailsHistory" />
           <EntitySet Name="tbl_salereturnHistory" EntityType="IMS_TESTModel.tbl_salereturnHistory" />
+          <EntitySet Name="tbl_saleTaxGroup" EntityType="IMS_TESTModel.tbl_saleTaxGroup" />
+          <EntitySet Name="tbl_saleTaxGroupDetailes" EntityType="IMS_TESTModel.tbl_saleTaxGroupDetailes" />
+          <EntitySet Name="tbl_setting" EntityType="IMS_TESTModel.tbl_setting" />
           <EntitySet Name="tbl_state" EntityType="IMS_TESTModel.tbl_state" />
           <EntitySet Name="tbl_stock" EntityType="IMS_TESTModel.tbl_stock" />
           <EntitySet Name="tbl_stocktransaction" EntityType="IMS_TESTModel.tbl_stocktransaction" />
@@ -5294,6 +5505,10 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           </AssociationSet>
           <AssociationSet Name="FK__tbl_Actua__sale___5D2BD0E6" Association="IMS_TESTModel.FK__tbl_Actua__sale___5D2BD0E6">
             <End Role="tbl_sale" EntitySet="tbl_sale" />
+            <End Role="tbl_ActualSalesTaxAndPrice" EntitySet="tbl_ActualSalesTaxAndPrice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_ActualSalesTaxAndPrice_tbl_saleTaxGroup" Association="IMS_TESTModel.FK_tbl_ActualSalesTaxAndPrice_tbl_saleTaxGroup">
+            <End Role="tbl_saleTaxGroup" EntitySet="tbl_saleTaxGroup" />
             <End Role="tbl_ActualSalesTaxAndPrice" EntitySet="tbl_ActualSalesTaxAndPrice" />
           </AssociationSet>
           <AssociationSet Name="FK__tbl_batch__branc__3B75D760" Association="IMS_TESTModel.FK__tbl_batch__branc__3B75D760">
@@ -5343,10 +5558,6 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <AssociationSet Name="FK__tbl_categ__branc__2B3F6F97" Association="IMS_TESTModel.FK__tbl_categ__branc__2B3F6F97">
             <End Role="tbl_branch" EntitySet="tbl_branch" />
             <End Role="tbl_category" EntitySet="tbl_category" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tbl_error__branc__2645B050" Association="IMS_TESTModel.FK__tbl_error__branc__2645B050">
-            <End Role="tbl_branch" EntitySet="tbl_branch" />
-            <End Role="tbl_error_log" EntitySet="tbl_error_log" />
           </AssociationSet>
           <AssociationSet Name="FK__tbl_expen__branc__571DF1D5" Association="IMS_TESTModel.FK__tbl_expen__branc__571DF1D5">
             <End Role="tbl_branch" EntitySet="tbl_branch" />
@@ -5451,10 +5662,6 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <AssociationSet Name="FK__tbl_compa__state__1DE57479" Association="IMS_TESTModel.FK__tbl_compa__state__1DE57479">
             <End Role="tbl_state" EntitySet="tbl_state" />
             <End Role="tbl_company" EntitySet="tbl_company" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tbl_error__compa__25518C17" Association="IMS_TESTModel.FK__tbl_error__compa__25518C17">
-            <End Role="tbl_company" EntitySet="tbl_company" />
-            <End Role="tbl_error_log" EntitySet="tbl_error_log" />
           </AssociationSet>
           <AssociationSet Name="FK__tbl_expen__compa__5629CD9C" Association="IMS_TESTModel.FK__tbl_expen__compa__5629CD9C">
             <End Role="tbl_company" EntitySet="tbl_company" />
@@ -5692,6 +5899,10 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
             <End Role="tbl_product" EntitySet="tbl_product" />
             <End Role="tbl_salereturndetails" EntitySet="tbl_salereturndetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_tbl_saleTaxGroup_tbl_product" Association="IMS_TESTModel.FK_tbl_saleTaxGroup_tbl_product">
+            <End Role="tbl_product" EntitySet="tbl_product" />
+            <End Role="tbl_saleTaxGroup" EntitySet="tbl_saleTaxGroup" />
+          </AssociationSet>
           <AssociationSet Name="FK__tbl_produ__group__7775B2CE" Association="IMS_TESTModel.FK__tbl_produ__group__7775B2CE">
             <End Role="tbl_taxgroup" EntitySet="tbl_taxgroup" />
             <End Role="tbl_productTaxGroup" EntitySet="tbl_productTaxGroup" />
@@ -5699,6 +5910,10 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <AssociationSet Name="FK__tbl_purch__purch__09946309" Association="IMS_TESTModel.FK__tbl_purch__purch__09946309">
             <End Role="tbl_purchase" EntitySet="tbl_purchase" />
             <End Role="tbl_purchasetaxgroup" EntitySet="tbl_purchasetaxgroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_purch__purch__42CCE065" Association="IMS_TESTModel.FK__tbl_purch__purch__42CCE065">
+            <End Role="tbl_purchase" EntitySet="tbl_purchase" />
+            <End Role="tbl_purchasetaxdetails" EntitySet="tbl_purchasetaxdetails" />
           </AssociationSet>
           <AssociationSet Name="FK__tbl_purch__purch__778AC167" Association="IMS_TESTModel.FK__tbl_purch__purch__778AC167">
             <End Role="tbl_purchase" EntitySet="tbl_purchase" />
@@ -5722,10 +5937,6 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           </AssociationSet>
           <AssociationSet Name="FK_tbl_purchasereturndetails_tbl_purchasereturn" Association="IMS_TESTModel.FK_tbl_purchasereturndetails_tbl_purchasereturn">
             <End Role="tbl_purchasereturn" EntitySet="tbl_purchasereturn" />
-            <End Role="tbl_purchasereturndetails" EntitySet="tbl_purchasereturndetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_purchasereturndetails_tbl_tax" Association="IMS_TESTModel.FK_tbl_purchasereturndetails_tbl_tax">
-            <End Role="tbl_tax" EntitySet="tbl_tax" />
             <End Role="tbl_purchasereturndetails" EntitySet="tbl_purchasereturndetails" />
           </AssociationSet>
           <AssociationSet Name="FK_tbl_purchasereturndetails_tbl_unit" Association="IMS_TESTModel.FK_tbl_purchasereturndetails_tbl_unit">
@@ -5764,6 +5975,14 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
             <End Role="tbl_sale" EntitySet="tbl_sale" />
             <End Role="tbl_salereturn" EntitySet="tbl_salereturn" />
           </AssociationSet>
+          <AssociationSet Name="FK_tbl_saleTaxGroup_tbl_sale" Association="IMS_TESTModel.FK_tbl_saleTaxGroup_tbl_sale">
+            <End Role="tbl_sale" EntitySet="tbl_sale" />
+            <End Role="tbl_saleTaxGroup" EntitySet="tbl_saleTaxGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_saleTaxGroupDetailes_tbl_sale" Association="IMS_TESTModel.FK_tbl_saleTaxGroupDetailes_tbl_sale">
+            <End Role="tbl_sale" EntitySet="tbl_sale" />
+            <End Role="tbl_saleTaxGroupDetailes" EntitySet="tbl_saleTaxGroupDetailes" />
+          </AssociationSet>
           <AssociationSet Name="FK_tbl_saledetails_tbl_tax" Association="IMS_TESTModel.FK_tbl_saledetails_tbl_tax">
             <End Role="tbl_tax" EntitySet="tbl_tax" />
             <End Role="tbl_saledetails" EntitySet="tbl_saledetails" />
@@ -5776,13 +5995,25 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
             <End Role="tbl_salereturn" EntitySet="tbl_salereturn" />
             <End Role="tbl_salereturndetails" EntitySet="tbl_salereturndetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbl_salereturndetails_tbl_tax" Association="IMS_TESTModel.FK_tbl_salereturndetails_tbl_tax">
-            <End Role="tbl_tax" EntitySet="tbl_tax" />
+          <AssociationSet Name="FK_tbl_salereturndetails_tbl_saleTaxGroup" Association="IMS_TESTModel.FK_tbl_salereturndetails_tbl_saleTaxGroup">
+            <End Role="tbl_saleTaxGroup" EntitySet="tbl_saleTaxGroup" />
             <End Role="tbl_salereturndetails" EntitySet="tbl_salereturndetails" />
           </AssociationSet>
           <AssociationSet Name="FK_tbl_salereturndetails_tbl_unit" Association="IMS_TESTModel.FK_tbl_salereturndetails_tbl_unit">
             <End Role="tbl_unit" EntitySet="tbl_unit" />
             <End Role="tbl_salereturndetails" EntitySet="tbl_salereturndetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_saleTaxGroup_tbl_taxgroup" Association="IMS_TESTModel.FK_tbl_saleTaxGroup_tbl_taxgroup">
+            <End Role="tbl_taxgroup" EntitySet="tbl_taxgroup" />
+            <End Role="tbl_saleTaxGroup" EntitySet="tbl_saleTaxGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_saleTaxGroupDetailes_tbl_saleTaxGroup" Association="IMS_TESTModel.FK_tbl_saleTaxGroupDetailes_tbl_saleTaxGroup">
+            <End Role="tbl_saleTaxGroup" EntitySet="tbl_saleTaxGroup" />
+            <End Role="tbl_saleTaxGroupDetailes" EntitySet="tbl_saleTaxGroupDetailes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_saleTaxGroupDetailes_tbl_taxtype" Association="IMS_TESTModel.FK_tbl_saleTaxGroupDetailes_tbl_taxtype">
+            <End Role="tbl_taxtype" EntitySet="tbl_taxtype" />
+            <End Role="tbl_saleTaxGroupDetailes" EntitySet="tbl_saleTaxGroupDetailes" />
           </AssociationSet>
           <AssociationSet Name="FK__tbl_subsc__user___3493CFA7" Association="IMS_TESTModel.FK__tbl_subsc__user___3493CFA7">
             <End Role="tbl_User" EntitySet="tbl_User" />
@@ -5803,15 +6034,6 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <AssociationSet Name="FK__tbl_userr__user___1A14E395" Association="IMS_TESTModel.FK__tbl_userr__user___1A14E395">
             <End Role="tbl_User" EntitySet="tbl_User" />
             <End Role="tbl_userrole" EntitySet="tbl_userrole" />
-          </AssociationSet>
-          <FunctionImport Name="SelectProductTaxGroup" ReturnType="Collection(IMS_TESTModel.SelectProductTaxGroup_Result)">
-            <Parameter Name="groupId" Mode="In" Type="Int32" />
-            <Parameter Name="productId" Mode="In" Type="Int32" />
-            <Parameter Name="qty" Mode="In" Type="Decimal" />
-          </FunctionImport>
-          <AssociationSet Name="FK__tbl_purch__purch__42CCE065" Association="IMS_TESTModel.FK__tbl_purch__purch__42CCE065">
-            <End Role="tbl_purchase" EntitySet="tbl_purchase" />
-            <End Role="tbl_purchasetaxdetails" EntitySet="tbl_purchasetaxdetails" />
           </AssociationSet>
         </EntityContainer>
         <ComplexType Name="CommonReport_Result">
@@ -5841,7 +6063,6 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <Property Type="Int32" Name="unit_id" Nullable="true" />
           <Property Type="Int32" Name="godown_id" Nullable="true" />
           <Property Type="Int32" Name="rack_id" Nullable="true" />
-          <Property Type="Int32" Name="tax_id" Nullable="true" />
           <Property Type="Decimal" Name="purchas_price" Nullable="true" Precision="18" Scale="0" />
           <Property Type="Decimal" Name="sales_price" Nullable="true" Precision="18" Scale="0" />
           <Property Type="Int32" Name="reorder_level" Nullable="true" />
@@ -5940,6 +6161,18 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <Property Type="String" Name="modified_by" Nullable="true" MaxLength="500" />
           <Property Type="DateTime" Name="modified_date" Nullable="true" Precision="16" />
         </ComplexType>
+        <ComplexType Name="SelectProductTaxGroup_Result">
+          <Property Type="Decimal" Name="totalTaxPercetage" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="totalTaxAmnt" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="group_name" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="product_id" Nullable="true" />
+          <Property Type="Int32" Name="type_id" Nullable="false" />
+          <Property Type="Decimal" Name="tax_percentage" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="product_name" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="purchas_price" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="type_name" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="group_id" Nullable="false" />
+        </ComplexType>
         <ComplexType Name="sp_ActiveUser_Result">
           <Property Type="Int32" Name="user_id" Nullable="false" />
           <Property Type="String" Name="USER_NAME" Nullable="true" MaxLength="50" />
@@ -5972,6 +6205,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <Property Type="String" Name="product_name" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="unit_name" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="batch_name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="group_id" Nullable="true" />
           <Property Type="Decimal" Name="tax_percentage" Nullable="true" Precision="18" Scale="2" />
           <Property Type="Decimal" Name="discount_percent" Nullable="true" Precision="18" Scale="2" />
           <Property Type="Decimal" Name="given_amnt" Nullable="true" Precision="18" Scale="0" />
@@ -6152,25 +6386,6 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <Property Type="Decimal" Name="purchas_price" Nullable="true" Precision="18" Scale="0" />
           <Property Type="Decimal" Name="sales_price" Nullable="true" Precision="18" Scale="0" />
         </ComplexType>
-        <ComplexType Name="sp_SelectProduct_Result">
-          <Property Type="Int32" Name="product_id" Nullable="false" />
-          <Property Type="String" Name="product_name" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="hsn_code" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="product_code" Nullable="true" MaxLength="500" />
-          <Property Type="Decimal" Name="purchas_price" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="sales_price" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="Int32" Name="reorder_level" Nullable="true" />
-          <Property Type="Int32" Name="category_id" Nullable="true" />
-          <Property Type="Int32" Name="godown_id" Nullable="true" />
-          <Property Type="Int32" Name="rack_id" Nullable="true" />
-          <Property Type="Int32" Name="tax_id" Nullable="true" />
-          <Property Type="Int32" Name="unit_id" Nullable="true" />
-          <Property Type="String" Name="category_name" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="unit_name" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="godown_name" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="rack_name" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="tax_name" Nullable="true" MaxLength="50" />
-        </ComplexType>
         <ComplexType Name="sp_SelectProductbyid_Result">
           <Property Type="Int32" Name="purchasedetails_id" Nullable="false" />
           <Property Type="Int32" Name="product_id" Nullable="true" />
@@ -6271,14 +6486,6 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <Property Type="String" Name="tax_name" Nullable="true" MaxLength="50" />
           <Property Type="Decimal" Name="tax_percentage" Nullable="true" Precision="18" Scale="2" />
         </ComplexType>
-        <ComplexType Name="sp_SelectTaxpercent_Result">
-          <Property Type="Int32" Name="tax_id" Nullable="true" />
-          <Property Type="Int32" Name="unit_id" Nullable="true" />
-          <Property Type="Decimal" Name="tax_percentage" Nullable="true" Precision="18" Scale="2" />
-          <Property Type="String" Name="unit_name" Nullable="true" MaxLength="50" />
-          <Property Type="Int32" Name="batch_id" Nullable="true" />
-          <Property Type="String" Name="batch_name" Nullable="true" MaxLength="50" />
-        </ComplexType>
         <ComplexType Name="sp_SelectUnit_Result">
           <Property Type="Int32" Name="unit_id" Nullable="false" />
           <Property Type="String" Name="unit_name" Nullable="true" MaxLength="50" />
@@ -6302,6 +6509,38 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <Property Type="String" Name="role_name" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="Name" Nullable="true" MaxLength="201" />
         </ComplexType>
+        <ComplexType Name="Split_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Value" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="SelectPurcahseProductTaxGroup_Result">
+          <Property Type="Decimal" Name="totalTaxPercetage" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="totalTaxAmnt" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="group_name" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="product_id" Nullable="true" />
+          <Property Type="Int32" Name="type_id" Nullable="false" />
+          <Property Type="Decimal" Name="tax_percentage" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="product_name" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="purchas_price" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="type_name" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="group_id" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="ELMAH_Error">
+          <Key>
+            <PropertyRef Name="ErrorId" />
+          </Key>
+          <Property Name="ErrorId" Type="Guid" Nullable="false" />
+          <Property Name="Application" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="Host" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Source" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="User" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StatusCode" Type="Int32" Nullable="false" />
+          <Property Name="TimeUtc" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Sequence" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AllXml" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="tbl_ActualPurchaseTaxAndPrice">
           <Key>
             <PropertyRef Name="ID" />
@@ -6332,7 +6571,6 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="sale_id" Type="Int32" />
           <Property Name="product_id" Type="Int32" />
-          <Property Name="tax_percent" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="sale_rate" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="discount_amnt" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="status" Type="Boolean" />
@@ -6341,8 +6579,10 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <Property Name="modified_by" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="modified_date" Type="DateTime" Precision="0" />
           <Property Name="discount_percent" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="saleTaxGroupID" Type="Int32" />
           <NavigationProperty Name="tbl_product" Relationship="IMS_TESTModel.FK__tbl_Actua__produ__5E1FF51F" FromRole="tbl_ActualSalesTaxAndPrice" ToRole="tbl_product" />
           <NavigationProperty Name="tbl_sale" Relationship="IMS_TESTModel.FK__tbl_Actua__sale___5D2BD0E6" FromRole="tbl_ActualSalesTaxAndPrice" ToRole="tbl_sale" />
+          <NavigationProperty Name="tbl_saleTaxGroup" Relationship="IMS_TESTModel.FK_tbl_ActualSalesTaxAndPrice_tbl_saleTaxGroup" FromRole="tbl_ActualSalesTaxAndPrice" ToRole="tbl_saleTaxGroup" />
         </EntityType>
         <EntityType Name="tbl_batch">
           <Key>
@@ -6398,7 +6638,6 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <NavigationProperty Name="tbl_country" Relationship="IMS_TESTModel.FK__tbl_branc__count__21B6055D" FromRole="tbl_branch" ToRole="tbl_country" />
           <NavigationProperty Name="tbl_state" Relationship="IMS_TESTModel.FK__tbl_branc__state__22AA2996" FromRole="tbl_branch" ToRole="tbl_state" />
           <NavigationProperty Name="tbl_category" Relationship="IMS_TESTModel.FK__tbl_categ__branc__2B3F6F97" FromRole="tbl_branch" ToRole="tbl_category" />
-          <NavigationProperty Name="tbl_error_log" Relationship="IMS_TESTModel.FK__tbl_error__branc__2645B050" FromRole="tbl_branch" ToRole="tbl_error_log" />
           <NavigationProperty Name="tbl_expense" Relationship="IMS_TESTModel.FK__tbl_expen__branc__571DF1D5" FromRole="tbl_branch" ToRole="tbl_expense" />
           <NavigationProperty Name="tbl_expenseentry" Relationship="IMS_TESTModel.FK__tbl_expen__branc__5BE2A6F2" FromRole="tbl_branch" ToRole="tbl_expenseentry" />
           <NavigationProperty Name="tbl_financialyear" Relationship="IMS_TESTModel.FK__tbl_finan__branc__534D60F1" FromRole="tbl_branch" ToRole="tbl_financialyear" />
@@ -6474,7 +6713,6 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <NavigationProperty Name="tbl_category" Relationship="IMS_TESTModel.FK__tbl_categ__compa__2A4B4B5E" FromRole="tbl_company" ToRole="tbl_category" />
           <NavigationProperty Name="tbl_country" Relationship="IMS_TESTModel.FK__tbl_compa__count__1CF15040" FromRole="tbl_company" ToRole="tbl_country" />
           <NavigationProperty Name="tbl_state" Relationship="IMS_TESTModel.FK__tbl_compa__state__1DE57479" FromRole="tbl_company" ToRole="tbl_state" />
-          <NavigationProperty Name="tbl_error_log" Relationship="IMS_TESTModel.FK__tbl_error__compa__25518C17" FromRole="tbl_company" ToRole="tbl_error_log" />
           <NavigationProperty Name="tbl_expense" Relationship="IMS_TESTModel.FK__tbl_expen__compa__5629CD9C" FromRole="tbl_company" ToRole="tbl_expense" />
           <NavigationProperty Name="tbl_expenseentry" Relationship="IMS_TESTModel.FK__tbl_expen__compa__5AEE82B9" FromRole="tbl_company" ToRole="tbl_expenseentry" />
           <NavigationProperty Name="tbl_financialyear" Relationship="IMS_TESTModel.FK__tbl_finan__compa__52593CB8" FromRole="tbl_company" ToRole="tbl_financialyear" />
@@ -6517,6 +6755,15 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <NavigationProperty Name="tbl_company" Relationship="IMS_TESTModel.FK__tbl_compa__count__1CF15040" FromRole="tbl_country" ToRole="tbl_company" />
           <NavigationProperty Name="tbl_state" Relationship="IMS_TESTModel.FK__tbl_state__count__1273C1CD" FromRole="tbl_country" ToRole="tbl_state" />
         </EntityType>
+        <EntityType Name="tbl_currency">
+          <Key>
+            <PropertyRef Name="currency_id" />
+          </Key>
+          <Property Name="currency_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="country_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="currency_code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="currency_symbol" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="Tbl_EmailVerify">
           <Key>
             <PropertyRef Name="emailverify_ID" />
@@ -6538,8 +6785,6 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <Property Name="error_msg" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="created_by" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="created_date" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="tbl_branch" Relationship="IMS_TESTModel.FK__tbl_error__branc__2645B050" FromRole="tbl_error_log" ToRole="tbl_branch" />
-          <NavigationProperty Name="tbl_company" Relationship="IMS_TESTModel.FK__tbl_error__compa__25518C17" FromRole="tbl_error_log" ToRole="tbl_company" />
         </EntityType>
         <EntityType Name="tbl_expense">
           <Key>
@@ -6790,6 +7035,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <NavigationProperty Name="tbl_purchasereturndetails" Relationship="IMS_TESTModel.FK_tbl_purchasereturndetails_tbl_product" FromRole="tbl_product" ToRole="tbl_purchasereturndetails" />
           <NavigationProperty Name="tbl_saledetails" Relationship="IMS_TESTModel.FK_tbl_saledetails_tbl_product" FromRole="tbl_product" ToRole="tbl_saledetails" />
           <NavigationProperty Name="tbl_salereturndetails" Relationship="IMS_TESTModel.FK_tbl_salereturndetails_tbl_product" FromRole="tbl_product" ToRole="tbl_salereturndetails" />
+          <NavigationProperty Name="tbl_saleTaxGroup" Relationship="IMS_TESTModel.FK_tbl_saleTaxGroup_tbl_product" FromRole="tbl_product" ToRole="tbl_saleTaxGroup" />
         </EntityType>
         <EntityType Name="tbl_productTaxGroup">
           <Key>
@@ -6820,6 +7066,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <Property Name="branch_id" Type="Int32" />
           <Property Name="InvoiceNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PaymentMode_id" Type="Int32" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tbl_ActualPurchaseTaxAndPrice" Relationship="IMS_TESTModel.FK__tbl_Actua__purch__4EDDB18F" FromRole="tbl_purchase" ToRole="tbl_ActualPurchaseTaxAndPrice" />
           <NavigationProperty Name="tbl_branch" Relationship="IMS_TESTModel.FK__tbl_purch__branc__2B0A656D" FromRole="tbl_purchase" ToRole="tbl_branch" />
           <NavigationProperty Name="tbl_branch1" Relationship="IMS_TESTModel.FK__tbl_purch__branc__60FC61CA" FromRole="tbl_purchase" ToRole="tbl_branch" />
@@ -6831,10 +7078,10 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <NavigationProperty Name="tbl_party1" Relationship="IMS_TESTModel.FK__tbl_purch__party__73BA3083" FromRole="tbl_purchase" ToRole="tbl_party" />
           <NavigationProperty Name="tbl_paymentmode" Relationship="IMS_TESTModel.FK_tbl_purchase_tbl_paymentmode" FromRole="tbl_purchase" ToRole="tbl_paymentmode" />
           <NavigationProperty Name="tbl_purchasetaxgroup" Relationship="IMS_TESTModel.FK__tbl_purch__purch__09946309" FromRole="tbl_purchase" ToRole="tbl_purchasetaxgroup" />
+          <NavigationProperty Name="tbl_purchasetaxdetails" Relationship="IMS_TESTModel.FK__tbl_purch__purch__42CCE065" FromRole="tbl_purchase" ToRole="tbl_purchasetaxdetails" />
           <NavigationProperty Name="tbl_purchasedetails" Relationship="IMS_TESTModel.FK__tbl_purch__purch__778AC167" FromRole="tbl_purchase" ToRole="tbl_purchasedetails" />
           <NavigationProperty Name="tbl_PurchasePaymentDetials" Relationship="IMS_TESTModel.FK_tbl_PurchasePaymentDetials_tbl_PurchasePaymentDetials" FromRole="tbl_purchase" ToRole="tbl_PurchasePaymentDetials" />
           <NavigationProperty Name="tbl_purchasereturn" Relationship="IMS_TESTModel.FK_tbl_purchasereturn_tbl_purchasereturn" FromRole="tbl_purchase" ToRole="tbl_purchasereturn" />
-          <NavigationProperty Name="tbl_purchasetaxdetails" Relationship="IMS_TESTModel.FK__tbl_purch__purch__42CCE065" FromRole="tbl_purchase" ToRole="tbl_purchasetaxdetails" />
         </EntityType>
         <EntityType Name="tbl_purchasedetails">
           <Key>
@@ -6901,6 +7148,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <Property Name="branch_id" Type="Int32" />
           <Property Name="InvoiceNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PaymentMode_id" Type="Int32" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="tbl_PurchasePaymentDetials">
           <Key>
@@ -6975,7 +7223,6 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <Property Name="batch_id" Type="Int32" />
           <Property Name="product_id" Type="Int32" />
           <Property Name="unit_id" Type="Int32" />
-          <Property Name="tax_id" Type="Int32" />
           <Property Name="tax_amt" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="quantity" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="amount" Type="Decimal" Precision="18" Scale="0" />
@@ -6986,10 +7233,10 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <Property Name="modified_date" Type="DateTime" Precision="0" />
           <Property Name="purchasereturn_id" Type="Int32" />
           <Property Name="discount_amnt" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Purchase_taxGroupId" Type="Int32" />
           <NavigationProperty Name="tbl_batch" Relationship="IMS_TESTModel.FK_tbl_purchasereturndetails_tbl_batch" FromRole="tbl_purchasereturndetails" ToRole="tbl_batch" />
           <NavigationProperty Name="tbl_product" Relationship="IMS_TESTModel.FK_tbl_purchasereturndetails_tbl_product" FromRole="tbl_purchasereturndetails" ToRole="tbl_product" />
           <NavigationProperty Name="tbl_purchasereturn" Relationship="IMS_TESTModel.FK_tbl_purchasereturndetails_tbl_purchasereturn" FromRole="tbl_purchasereturndetails" ToRole="tbl_purchasereturn" />
-          <NavigationProperty Name="tbl_tax" Relationship="IMS_TESTModel.FK_tbl_purchasereturndetails_tbl_tax" FromRole="tbl_purchasereturndetails" ToRole="tbl_tax" />
           <NavigationProperty Name="tbl_unit" Relationship="IMS_TESTModel.FK_tbl_purchasereturndetails_tbl_unit" FromRole="tbl_purchasereturndetails" ToRole="tbl_unit" />
         </EntityType>
         <EntityType Name="tbl_purchasereturndetailsHistory">
@@ -7001,7 +7248,6 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <Property Name="batch_id" Type="Int32" />
           <Property Name="product_id" Type="Int32" />
           <Property Name="unit_id" Type="Int32" />
-          <Property Name="tax_id" Type="Int32" />
           <Property Name="tax_amt" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="quantity" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="amount" Type="Decimal" Precision="18" Scale="0" />
@@ -7012,6 +7258,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <Property Name="modified_date" Type="DateTime" Precision="0" />
           <Property Name="purchasereturn_id" Type="Int32" />
           <Property Name="discount_amnt" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Purchase_taxGroupId" Type="Int32" />
         </EntityType>
         <EntityType Name="tbl_purchasereturnHistory">
           <Key>
@@ -7045,10 +7292,10 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <Property Name="created_date" Type="DateTime" Precision="0" />
           <Property Name="modified_by" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="modified_date" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="tbl_purchasetaxgroup" Relationship="IMS_TESTModel.FK__tbl_purch__purch__7E22B05D" FromRole="tbl_purchasetaxdetails" ToRole="tbl_purchasetaxgroup" />
-          <NavigationProperty Name="tbl_taxtype" Relationship="IMS_TESTModel.FK__tbl_purch__type___7F16D496" FromRole="tbl_purchasetaxdetails" ToRole="tbl_taxtype" />
           <Property Name="purchaseId" Type="Int32" />
           <NavigationProperty Name="tbl_purchase" Relationship="IMS_TESTModel.FK__tbl_purch__purch__42CCE065" FromRole="tbl_purchasetaxdetails" ToRole="tbl_purchase" />
+          <NavigationProperty Name="tbl_purchasetaxgroup" Relationship="IMS_TESTModel.FK__tbl_purch__purch__7E22B05D" FromRole="tbl_purchasetaxdetails" ToRole="tbl_purchasetaxgroup" />
+          <NavigationProperty Name="tbl_taxtype" Relationship="IMS_TESTModel.FK__tbl_purch__type___7F16D496" FromRole="tbl_purchasetaxdetails" ToRole="tbl_taxtype" />
         </EntityType>
         <EntityType Name="tbl_purchasetaxgroup">
           <Key>
@@ -7059,6 +7306,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <Property Name="product_id" Type="Int32" />
           <Property Name="group_id" Type="Int32" />
           <Property Name="purchaseId" Type="Int32" />
+          <Property Name="totalTaxPercentage" Type="Decimal" Precision="18" Scale="2" />
           <NavigationProperty Name="tbl_ActualPurchaseTaxAndPrice" Relationship="IMS_TESTModel.FK__tbl_Actua__purch__0A888742" FromRole="tbl_purchasetaxgroup" ToRole="tbl_ActualPurchaseTaxAndPrice" />
           <NavigationProperty Name="tbl_product" Relationship="IMS_TESTModel.FK__tbl_purch__produ__7A521F79" FromRole="tbl_purchasetaxgroup" ToRole="tbl_product" />
           <NavigationProperty Name="tbl_purchase" Relationship="IMS_TESTModel.FK__tbl_purch__purch__09946309" FromRole="tbl_purchasetaxgroup" ToRole="tbl_purchase" />
@@ -7115,6 +7363,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <Property Name="InvoiceNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="paymentmode_id" Type="Int32" />
           <Property Name="sale_date" Type="DateTime" Precision="0" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tbl_ActualSalesTaxAndPrice" Relationship="IMS_TESTModel.FK__tbl_Actua__sale___5D2BD0E6" FromRole="tbl_sale" ToRole="tbl_ActualSalesTaxAndPrice" />
           <NavigationProperty Name="tbl_branch" Relationship="IMS_TESTModel.FK_tbl_sale_tbl_branch" FromRole="tbl_sale" ToRole="tbl_branch" />
           <NavigationProperty Name="tbl_company" Relationship="IMS_TESTModel.FK_tbl_sale_tbl_company" FromRole="tbl_sale" ToRole="tbl_company" />
@@ -7124,6 +7373,8 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <NavigationProperty Name="tbl_saledetails" Relationship="IMS_TESTModel.FK_tbl_saledetails_tbl_sale" FromRole="tbl_sale" ToRole="tbl_saledetails" />
           <NavigationProperty Name="tbl_SalePaymentDetails" Relationship="IMS_TESTModel.FK_tbl_SalePaymentDetails_tbl_sale" FromRole="tbl_sale" ToRole="tbl_SalePaymentDetails" />
           <NavigationProperty Name="tbl_salereturn" Relationship="IMS_TESTModel.FK_tbl_salereturn_tbl_sale" FromRole="tbl_sale" ToRole="tbl_salereturn" />
+          <NavigationProperty Name="tbl_saleTaxGroup" Relationship="IMS_TESTModel.FK_tbl_saleTaxGroup_tbl_sale" FromRole="tbl_sale" ToRole="tbl_saleTaxGroup" />
+          <NavigationProperty Name="tbl_saleTaxGroupDetailes" Relationship="IMS_TESTModel.FK_tbl_saleTaxGroupDetailes_tbl_sale" FromRole="tbl_sale" ToRole="tbl_saleTaxGroupDetailes" />
         </EntityType>
         <EntityType Name="tbl_saledetails">
           <Key>
@@ -7188,6 +7439,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <Property Name="branch_id" Type="Int32" />
           <Property Name="InvoiceNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="paymentmode_id" Type="Int32" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="tbl_SalePaymentDetails">
           <Key>
@@ -7262,7 +7514,6 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <Property Name="batch_id" Type="Int32" />
           <Property Name="product_id" Type="Int32" />
           <Property Name="unit_id" Type="Int32" />
-          <Property Name="tax_id" Type="Int32" />
           <Property Name="tax_amt" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="quantity" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="amount" Type="Decimal" Precision="18" Scale="0" />
@@ -7273,10 +7524,11 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <Property Name="modified_date" Type="DateTime" Precision="0" />
           <Property Name="dicount_amt" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="salereturn_id" Type="Int32" />
+          <Property Name="Sales_taxGroupId" Type="Int32" />
           <NavigationProperty Name="tbl_batch" Relationship="IMS_TESTModel.FK_tbl_salereturndetails_tbl_batch" FromRole="tbl_salereturndetails" ToRole="tbl_batch" />
           <NavigationProperty Name="tbl_product" Relationship="IMS_TESTModel.FK_tbl_salereturndetails_tbl_product" FromRole="tbl_salereturndetails" ToRole="tbl_product" />
           <NavigationProperty Name="tbl_salereturn" Relationship="IMS_TESTModel.FK_tbl_salereturndetails_tbl_salereturn" FromRole="tbl_salereturndetails" ToRole="tbl_salereturn" />
-          <NavigationProperty Name="tbl_tax" Relationship="IMS_TESTModel.FK_tbl_salereturndetails_tbl_tax" FromRole="tbl_salereturndetails" ToRole="tbl_tax" />
+          <NavigationProperty Name="tbl_saleTaxGroup" Relationship="IMS_TESTModel.FK_tbl_salereturndetails_tbl_saleTaxGroup" FromRole="tbl_salereturndetails" ToRole="tbl_saleTaxGroup" />
           <NavigationProperty Name="tbl_unit" Relationship="IMS_TESTModel.FK_tbl_salereturndetails_tbl_unit" FromRole="tbl_salereturndetails" ToRole="tbl_unit" />
         </EntityType>
         <EntityType Name="tbl_salereturndetailsHistory">
@@ -7288,7 +7540,6 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <Property Name="batch_id" Type="Int32" />
           <Property Name="product_id" Type="Int32" />
           <Property Name="unit_id" Type="Int32" />
-          <Property Name="tax_id" Type="Int32" />
           <Property Name="tax_amt" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="quantity" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="amount" Type="Decimal" Precision="18" Scale="0" />
@@ -7299,6 +7550,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <Property Name="modified_date" Type="DateTime" Precision="0" />
           <Property Name="dicount_amt" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="salereturn_id" Type="Int32" />
+          <Property Name="Sales_taxGroupId" Type="Int32" />
         </EntityType>
         <EntityType Name="tbl_salereturnHistory">
           <Key>
@@ -7318,6 +7570,60 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <Property Name="paymentmode_id" Type="Int32" />
           <Property Name="InvoiceNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="party_id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tbl_saleTaxGroup">
+          <Key>
+            <PropertyRef Name="SaleTaxGroupId" />
+          </Key>
+          <Property Name="SaleTaxGroupId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="group_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="product_id" Type="Int32" />
+          <Property Name="group_id" Type="Int32" />
+          <Property Name="sale_id" Type="Int32" />
+          <Property Name="totalTaxPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="tbl_ActualSalesTaxAndPrice" Relationship="IMS_TESTModel.FK_tbl_ActualSalesTaxAndPrice_tbl_saleTaxGroup" FromRole="tbl_saleTaxGroup" ToRole="tbl_ActualSalesTaxAndPrice" />
+          <NavigationProperty Name="tbl_product" Relationship="IMS_TESTModel.FK_tbl_saleTaxGroup_tbl_product" FromRole="tbl_saleTaxGroup" ToRole="tbl_product" />
+          <NavigationProperty Name="tbl_sale" Relationship="IMS_TESTModel.FK_tbl_saleTaxGroup_tbl_sale" FromRole="tbl_saleTaxGroup" ToRole="tbl_sale" />
+          <NavigationProperty Name="tbl_salereturndetails" Relationship="IMS_TESTModel.FK_tbl_salereturndetails_tbl_saleTaxGroup" FromRole="tbl_saleTaxGroup" ToRole="tbl_salereturndetails" />
+          <NavigationProperty Name="tbl_taxgroup" Relationship="IMS_TESTModel.FK_tbl_saleTaxGroup_tbl_taxgroup" FromRole="tbl_saleTaxGroup" ToRole="tbl_taxgroup" />
+          <NavigationProperty Name="tbl_saleTaxGroupDetailes" Relationship="IMS_TESTModel.FK_tbl_saleTaxGroupDetailes_tbl_saleTaxGroup" FromRole="tbl_saleTaxGroup" ToRole="tbl_saleTaxGroupDetailes" />
+        </EntityType>
+        <EntityType Name="tbl_saleTaxGroupDetailes">
+          <Key>
+            <PropertyRef Name="saleTaxGroupDetail_Id" />
+          </Key>
+          <Property Name="saleTaxGroupDetail_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SaleTaxGroupId" Type="Int32" />
+          <Property Name="type_id" Type="Int32" />
+          <Property Name="tax_percentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="sale_id" Type="Int32" />
+          <Property Name="status" Type="Boolean" />
+          <Property Name="created_by" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="created_date" Type="DateTime" Precision="0" />
+          <Property Name="modified_by" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="modified_date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="tbl_sale" Relationship="IMS_TESTModel.FK_tbl_saleTaxGroupDetailes_tbl_sale" FromRole="tbl_saleTaxGroupDetailes" ToRole="tbl_sale" />
+          <NavigationProperty Name="tbl_saleTaxGroup" Relationship="IMS_TESTModel.FK_tbl_saleTaxGroupDetailes_tbl_saleTaxGroup" FromRole="tbl_saleTaxGroupDetailes" ToRole="tbl_saleTaxGroup" />
+          <NavigationProperty Name="tbl_taxtype" Relationship="IMS_TESTModel.FK_tbl_saleTaxGroupDetailes_tbl_taxtype" FromRole="tbl_saleTaxGroupDetailes" ToRole="tbl_taxtype" />
+        </EntityType>
+        <EntityType Name="tbl_setting">
+          <Key>
+            <PropertyRef Name="setting_id" />
+          </Key>
+          <Property Name="setting_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Decimal_Places" Type="Int32" />
+          <Property Name="Currency" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Enable_Invoice_Tax" Type="Boolean" />
+          <Property Name="Print_Tin_on_Invoice" Type="Boolean" />
+          <Property Name="Print_address" Type="Boolean" />
+          <Property Name="status" Type="Boolean" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="branch_id" Type="Int32" />
+          <Property Name="company_id" Type="Int32" />
+          <Property Name="created_by" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
+          <Property Name="modify_by" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="modifydate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="tbl_state">
           <Key>
@@ -7417,9 +7723,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <NavigationProperty Name="tbl_branch" Relationship="IMS_TESTModel.FK__tbl_tax__branch___4316F928" FromRole="tbl_tax" ToRole="tbl_branch" />
           <NavigationProperty Name="tbl_company" Relationship="IMS_TESTModel.FK__tbl_tax__company__4222D4EF" FromRole="tbl_tax" ToRole="tbl_company" />
           <NavigationProperty Name="tbl_purchasedetails" Relationship="IMS_TESTModel.FK__tbl_purch__tax_i__7A672E12" FromRole="tbl_tax" ToRole="tbl_purchasedetails" />
-          <NavigationProperty Name="tbl_purchasereturndetails" Relationship="IMS_TESTModel.FK_tbl_purchasereturndetails_tbl_tax" FromRole="tbl_tax" ToRole="tbl_purchasereturndetails" />
           <NavigationProperty Name="tbl_saledetails" Relationship="IMS_TESTModel.FK_tbl_saledetails_tbl_tax" FromRole="tbl_tax" ToRole="tbl_saledetails" />
-          <NavigationProperty Name="tbl_salereturndetails" Relationship="IMS_TESTModel.FK_tbl_salereturndetails_tbl_tax" FromRole="tbl_tax" ToRole="tbl_salereturndetails" />
         </EntityType>
         <EntityType Name="tbl_taxdetails">
           <Key>
@@ -7454,6 +7758,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <NavigationProperty Name="tbl_company" Relationship="IMS_TESTModel.FK__tbl_taxgr__compa__3E3D3572" FromRole="tbl_taxgroup" ToRole="tbl_company" />
           <NavigationProperty Name="tbl_productTaxGroup" Relationship="IMS_TESTModel.FK__tbl_produ__group__7775B2CE" FromRole="tbl_taxgroup" ToRole="tbl_productTaxGroup" />
           <NavigationProperty Name="tbl_purchasetaxgroup" Relationship="IMS_TESTModel.FK__tbl_purch__group__7B4643B2" FromRole="tbl_taxgroup" ToRole="tbl_purchasetaxgroup" />
+          <NavigationProperty Name="tbl_saleTaxGroup" Relationship="IMS_TESTModel.FK_tbl_saleTaxGroup_tbl_taxgroup" FromRole="tbl_taxgroup" ToRole="tbl_saleTaxGroup" />
           <NavigationProperty Name="tbl_taxdetails" Relationship="IMS_TESTModel.FK__tbl_taxde__group__420DC656" FromRole="tbl_taxgroup" ToRole="tbl_taxdetails" />
         </EntityType>
         <EntityType Name="tbl_taxtype">
@@ -7472,6 +7777,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <NavigationProperty Name="tbl_branch" Relationship="IMS_TESTModel.FK__tbl_taxty__branc__2D12A970" FromRole="tbl_taxtype" ToRole="tbl_branch" />
           <NavigationProperty Name="tbl_company" Relationship="IMS_TESTModel.FK__tbl_taxty__compa__2C1E8537" FromRole="tbl_taxtype" ToRole="tbl_company" />
           <NavigationProperty Name="tbl_purchasetaxdetails" Relationship="IMS_TESTModel.FK__tbl_purch__type___7F16D496" FromRole="tbl_taxtype" ToRole="tbl_purchasetaxdetails" />
+          <NavigationProperty Name="tbl_saleTaxGroupDetailes" Relationship="IMS_TESTModel.FK_tbl_saleTaxGroupDetailes_tbl_taxtype" FromRole="tbl_taxtype" ToRole="tbl_saleTaxGroupDetailes" />
           <NavigationProperty Name="tbl_taxdetails" Relationship="IMS_TESTModel.FK__tbl_taxde__type___4301EA8F" FromRole="tbl_taxtype" ToRole="tbl_taxdetails" />
         </EntityType>
         <EntityType Name="tbl_unit">
@@ -7515,6 +7821,9 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <Property Name="modified_date" Type="DateTime" Precision="0" />
           <Property Name="first_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="last_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Ref_Mobile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OTP" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsVerified" Type="Boolean" />
           <NavigationProperty Name="tbl_paidpayment" Relationship="IMS_TESTModel.FK__tbl_paidp__user___3864608B" FromRole="tbl_User" ToRole="tbl_paidpayment" />
           <NavigationProperty Name="tbl_subscription" Relationship="IMS_TESTModel.FK__tbl_subsc__user___3493CFA7" FromRole="tbl_User" ToRole="tbl_subscription" />
           <NavigationProperty Name="tbl_userbranch" Relationship="IMS_TESTModel.FK__tbl_userb__user___267ABA7A" FromRole="tbl_User" ToRole="tbl_userbranch" />
@@ -7699,6 +8008,18 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tbl_ActualSalesTaxAndPrice_tbl_saleTaxGroup">
+          <End Type="IMS_TESTModel.tbl_saleTaxGroup" Role="tbl_saleTaxGroup" Multiplicity="0..1" />
+          <End Type="IMS_TESTModel.tbl_ActualSalesTaxAndPrice" Role="tbl_ActualSalesTaxAndPrice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_saleTaxGroup">
+              <PropertyRef Name="SaleTaxGroupId" />
+            </Principal>
+            <Dependent Role="tbl_ActualSalesTaxAndPrice">
+              <PropertyRef Name="saleTaxGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__tbl_batch__branc__3B75D760">
           <End Type="IMS_TESTModel.tbl_branch" Role="tbl_branch" Multiplicity="0..1" />
           <End Type="IMS_TESTModel.tbl_batch" Role="tbl_batch" Multiplicity="*" />
@@ -7839,18 +8160,6 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
               <PropertyRef Name="branch_id" />
             </Principal>
             <Dependent Role="tbl_category">
-              <PropertyRef Name="branch_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tbl_error__branc__2645B050">
-          <End Type="IMS_TESTModel.tbl_branch" Role="tbl_branch" Multiplicity="0..1" />
-          <End Type="IMS_TESTModel.tbl_error_log" Role="tbl_error_log" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_branch">
-              <PropertyRef Name="branch_id" />
-            </Principal>
-            <Dependent Role="tbl_error_log">
               <PropertyRef Name="branch_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -8164,18 +8473,6 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
             </Principal>
             <Dependent Role="tbl_company">
               <PropertyRef Name="state_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tbl_error__compa__25518C17">
-          <End Type="IMS_TESTModel.tbl_company" Role="tbl_company" Multiplicity="0..1" />
-          <End Type="IMS_TESTModel.tbl_error_log" Role="tbl_error_log" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_company">
-              <PropertyRef Name="company_id" />
-            </Principal>
-            <Dependent Role="tbl_error_log">
-              <PropertyRef Name="company_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -8887,6 +9184,18 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tbl_saleTaxGroup_tbl_product">
+          <End Type="IMS_TESTModel.tbl_product" Role="tbl_product" Multiplicity="0..1" />
+          <End Type="IMS_TESTModel.tbl_saleTaxGroup" Role="tbl_saleTaxGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_product">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="tbl_saleTaxGroup">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__tbl_produ__group__7775B2CE">
           <End Type="IMS_TESTModel.tbl_taxgroup" Role="tbl_taxgroup" Multiplicity="0..1" />
           <End Type="IMS_TESTModel.tbl_productTaxGroup" Role="tbl_productTaxGroup" Multiplicity="*" />
@@ -8907,6 +9216,18 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
               <PropertyRef Name="purchase_id" />
             </Principal>
             <Dependent Role="tbl_purchasetaxgroup">
+              <PropertyRef Name="purchaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_purch__purch__42CCE065">
+          <End Type="IMS_TESTModel.tbl_purchase" Role="tbl_purchase" Multiplicity="0..1" />
+          <End Type="IMS_TESTModel.tbl_purchasetaxdetails" Role="tbl_purchasetaxdetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_purchase">
+              <PropertyRef Name="purchase_id" />
+            </Principal>
+            <Dependent Role="tbl_purchasetaxdetails">
               <PropertyRef Name="purchaseId" />
             </Dependent>
           </ReferentialConstraint>
@@ -8980,18 +9301,6 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
             </Principal>
             <Dependent Role="tbl_purchasereturndetails">
               <PropertyRef Name="purchasereturn_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_purchasereturndetails_tbl_tax">
-          <End Type="IMS_TESTModel.tbl_tax" Role="tbl_tax" Multiplicity="0..1" />
-          <End Type="IMS_TESTModel.tbl_purchasereturndetails" Role="tbl_purchasereturndetails" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_tax">
-              <PropertyRef Name="tax_id" />
-            </Principal>
-            <Dependent Role="tbl_purchasereturndetails">
-              <PropertyRef Name="tax_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -9103,6 +9412,30 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tbl_saleTaxGroup_tbl_sale">
+          <End Type="IMS_TESTModel.tbl_sale" Role="tbl_sale" Multiplicity="0..1" />
+          <End Type="IMS_TESTModel.tbl_saleTaxGroup" Role="tbl_saleTaxGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_sale">
+              <PropertyRef Name="sale_id" />
+            </Principal>
+            <Dependent Role="tbl_saleTaxGroup">
+              <PropertyRef Name="sale_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_saleTaxGroupDetailes_tbl_sale">
+          <End Type="IMS_TESTModel.tbl_sale" Role="tbl_sale" Multiplicity="0..1" />
+          <End Type="IMS_TESTModel.tbl_saleTaxGroupDetailes" Role="tbl_saleTaxGroupDetailes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_sale">
+              <PropertyRef Name="sale_id" />
+            </Principal>
+            <Dependent Role="tbl_saleTaxGroupDetailes">
+              <PropertyRef Name="sale_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tbl_saledetails_tbl_tax">
           <End Type="IMS_TESTModel.tbl_tax" Role="tbl_tax" Multiplicity="0..1" />
           <End Type="IMS_TESTModel.tbl_saledetails" Role="tbl_saledetails" Multiplicity="*" />
@@ -9139,15 +9472,15 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tbl_salereturndetails_tbl_tax">
-          <End Type="IMS_TESTModel.tbl_tax" Role="tbl_tax" Multiplicity="0..1" />
+        <Association Name="FK_tbl_salereturndetails_tbl_saleTaxGroup">
+          <End Type="IMS_TESTModel.tbl_saleTaxGroup" Role="tbl_saleTaxGroup" Multiplicity="0..1" />
           <End Type="IMS_TESTModel.tbl_salereturndetails" Role="tbl_salereturndetails" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tbl_tax">
-              <PropertyRef Name="tax_id" />
+            <Principal Role="tbl_saleTaxGroup">
+              <PropertyRef Name="SaleTaxGroupId" />
             </Principal>
             <Dependent Role="tbl_salereturndetails">
-              <PropertyRef Name="tax_id" />
+              <PropertyRef Name="Sales_taxGroupId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -9160,6 +9493,42 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
             </Principal>
             <Dependent Role="tbl_salereturndetails">
               <PropertyRef Name="unit_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_saleTaxGroup_tbl_taxgroup">
+          <End Type="IMS_TESTModel.tbl_taxgroup" Role="tbl_taxgroup" Multiplicity="0..1" />
+          <End Type="IMS_TESTModel.tbl_saleTaxGroup" Role="tbl_saleTaxGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_taxgroup">
+              <PropertyRef Name="group_id" />
+            </Principal>
+            <Dependent Role="tbl_saleTaxGroup">
+              <PropertyRef Name="group_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_saleTaxGroupDetailes_tbl_saleTaxGroup">
+          <End Type="IMS_TESTModel.tbl_saleTaxGroup" Role="tbl_saleTaxGroup" Multiplicity="0..1" />
+          <End Type="IMS_TESTModel.tbl_saleTaxGroupDetailes" Role="tbl_saleTaxGroupDetailes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_saleTaxGroup">
+              <PropertyRef Name="SaleTaxGroupId" />
+            </Principal>
+            <Dependent Role="tbl_saleTaxGroupDetailes">
+              <PropertyRef Name="SaleTaxGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_saleTaxGroupDetailes_tbl_taxtype">
+          <End Type="IMS_TESTModel.tbl_taxtype" Role="tbl_taxtype" Multiplicity="0..1" />
+          <End Type="IMS_TESTModel.tbl_saleTaxGroupDetailes" Role="tbl_saleTaxGroupDetailes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_taxtype">
+              <PropertyRef Name="type_id" />
+            </Principal>
+            <Dependent Role="tbl_saleTaxGroupDetailes">
+              <PropertyRef Name="type_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -9223,44 +9592,12 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="SelectProductTaxGroup_Result">
-          <Property Type="Decimal" Name="totalTaxPercetage" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="totalTaxAmnt" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="String" Name="group_name" Nullable="true" MaxLength="500" />
-          <Property Type="Int32" Name="product_id" Nullable="true" />
-          <Property Type="Int32" Name="type_id" Nullable="false" />
-          <Property Type="Decimal" Name="tax_percentage" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="String" Name="product_name" Nullable="true" MaxLength="50" />
-          <Property Type="Decimal" Name="purchas_price" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="String" Name="type_name" Nullable="true" MaxLength="500" />
-          <Property Type="Int32" Name="group_id" Nullable="false" />
-        </ComplexType>
-        <Association Name="FK__tbl_purch__purch__42CCE065">
-          <End Type="IMS_TESTModel.tbl_purchase" Role="tbl_purchase" Multiplicity="0..1" />
-          <End Type="IMS_TESTModel.tbl_purchasetaxdetails" Role="tbl_purchasetaxdetails" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_purchase">
-              <PropertyRef Name="purchase_id" />
-            </Principal>
-            <Dependent Role="tbl_purchasetaxdetails">
-              <PropertyRef Name="purchaseId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="IMS_TESTModelStoreContainer" CdmEntityContainer="IMS_TESTEntities">
-          <FunctionImportMapping FunctionName="IMS_TESTModel.Store.Split" FunctionImportName="Split">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="IMS_TESTModel.Split_Result">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Value" ColumnName="Value" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="CommonReport" FunctionName="IMS_TESTModel.Store.CommonReport">
             <ResultMapping>
               <ComplexTypeMapping TypeName="IMS_TESTModel.CommonReport_Result">
@@ -9284,6 +9621,9 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ELMAH_GetErrorsXml" FunctionName="IMS_TESTModel.Store.ELMAH_GetErrorsXml" />
+          <FunctionImportMapping FunctionImportName="ELMAH_GetErrorXml" FunctionName="IMS_TESTModel.Store.ELMAH_GetErrorXml" />
+          <FunctionImportMapping FunctionImportName="ELMAH_LogError" FunctionName="IMS_TESTModel.Store.ELMAH_LogError" />
           <FunctionImportMapping FunctionImportName="GetBatchwiseQuantity" FunctionName="IMS_TESTModel.Store.GetBatchwiseQuantity" />
           <FunctionImportMapping FunctionImportName="GetReturnQuantity" FunctionName="IMS_TESTModel.Store.GetReturnQuantity" />
           <FunctionImportMapping FunctionImportName="InventoryReport" FunctionName="IMS_TESTModel.Store.InventoryReport" />
@@ -9298,7 +9638,6 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
                 <ScalarProperty Name="unit_id" ColumnName="unit_id" />
                 <ScalarProperty Name="godown_id" ColumnName="godown_id" />
                 <ScalarProperty Name="rack_id" ColumnName="rack_id" />
-                <ScalarProperty Name="tax_id" ColumnName="tax_id" />
                 <ScalarProperty Name="purchas_price" ColumnName="purchas_price" />
                 <ScalarProperty Name="sales_price" ColumnName="sales_price" />
                 <ScalarProperty Name="reorder_level" ColumnName="reorder_level" />
@@ -9419,6 +9758,22 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SelectProductTaxGroup" FunctionName="IMS_TESTModel.Store.SelectProductTaxGroup">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.SelectProductTaxGroup_Result">
+                <ScalarProperty Name="totalTaxPercetage" ColumnName="totalTaxPercetage" />
+                <ScalarProperty Name="totalTaxAmnt" ColumnName="totalTaxAmnt" />
+                <ScalarProperty Name="group_name" ColumnName="group_name" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="type_id" ColumnName="type_id" />
+                <ScalarProperty Name="tax_percentage" ColumnName="tax_percentage" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="purchas_price" ColumnName="purchas_price" />
+                <ScalarProperty Name="type_name" ColumnName="type_name" />
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_ActiveUser" FunctionName="IMS_TESTModel.Store.sp_ActiveUser">
             <ResultMapping>
               <ComplexTypeMapping TypeName="IMS_TESTModel.sp_ActiveUser_Result">
@@ -9494,6 +9849,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
                 <ScalarProperty Name="product_name" ColumnName="product_name" />
                 <ScalarProperty Name="unit_name" ColumnName="unit_name" />
                 <ScalarProperty Name="batch_name" ColumnName="batch_name" />
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
                 <ScalarProperty Name="tax_percentage" ColumnName="tax_percentage" />
                 <ScalarProperty Name="discount_percent" ColumnName="discount_percent" />
                 <ScalarProperty Name="given_amnt" ColumnName="given_amnt" />
@@ -9790,29 +10146,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_SelectProduct" FunctionName="IMS_TESTModel.Store.sp_SelectProduct">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_SelectProduct_Result">
-                <ScalarProperty Name="product_id" ColumnName="product_id" />
-                <ScalarProperty Name="product_name" ColumnName="product_name" />
-                <ScalarProperty Name="hsn_code" ColumnName="hsn_code" />
-                <ScalarProperty Name="product_code" ColumnName="product_code" />
-                <ScalarProperty Name="purchas_price" ColumnName="purchas_price" />
-                <ScalarProperty Name="sales_price" ColumnName="sales_price" />
-                <ScalarProperty Name="reorder_level" ColumnName="reorder_level" />
-                <ScalarProperty Name="category_id" ColumnName="category_id" />
-                <ScalarProperty Name="godown_id" ColumnName="godown_id" />
-                <ScalarProperty Name="rack_id" ColumnName="rack_id" />
-                <ScalarProperty Name="tax_id" ColumnName="tax_id" />
-                <ScalarProperty Name="unit_id" ColumnName="unit_id" />
-                <ScalarProperty Name="category_name" ColumnName="category_name" />
-                <ScalarProperty Name="unit_name" ColumnName="unit_name" />
-                <ScalarProperty Name="godown_name" ColumnName="godown_name" />
-                <ScalarProperty Name="rack_name" ColumnName="rack_name" />
-                <ScalarProperty Name="tax_name" ColumnName="tax_name" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_SelectProduct" FunctionName="IMS_TESTModel.Store.sp_SelectProduct" />
           <FunctionImportMapping FunctionImportName="sp_SelectProductbyid" FunctionName="IMS_TESTModel.Store.sp_SelectProductbyid">
             <ResultMapping>
               <ComplexTypeMapping TypeName="IMS_TESTModel.sp_SelectProductbyid_Result">
@@ -9956,18 +10290,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_SelectTaxpercent" FunctionName="IMS_TESTModel.Store.sp_SelectTaxpercent">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_SelectTaxpercent_Result">
-                <ScalarProperty Name="tax_id" ColumnName="tax_id" />
-                <ScalarProperty Name="unit_id" ColumnName="unit_id" />
-                <ScalarProperty Name="tax_percentage" ColumnName="tax_percentage" />
-                <ScalarProperty Name="unit_name" ColumnName="unit_name" />
-                <ScalarProperty Name="batch_id" ColumnName="batch_id" />
-                <ScalarProperty Name="batch_name" ColumnName="batch_name" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_SelectTaxpercent" FunctionName="IMS_TESTModel.Store.sp_SelectTaxpercent" />
           <FunctionImportMapping FunctionImportName="sp_SelectUnit" FunctionName="IMS_TESTModel.Store.sp_SelectUnit">
             <ResultMapping>
               <ComplexTypeMapping TypeName="IMS_TESTModel.sp_SelectUnit_Result">
@@ -10031,6 +10354,47 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <FunctionImportMapping FunctionImportName="spCheckDoubleInMasters" FunctionName="IMS_TESTModel.Store.spCheckDoubleInMasters" />
           <FunctionImportMapping FunctionImportName="SpGetExistsEmail" FunctionName="IMS_TESTModel.Store.SpGetExistsEmail" />
           <FunctionImportMapping FunctionImportName="SpGetExistsMobile" FunctionName="IMS_TESTModel.Store.SpGetExistsMobile" />
+          <FunctionImportMapping FunctionImportName="Split" FunctionName="IMS_TESTModel.Store.Split">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.Split_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SelectPurcahseProductTaxGroup" FunctionName="IMS_TESTModel.Store.SelectPurcahseProductTaxGroup">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.SelectPurcahseProductTaxGroup_Result">
+                <ScalarProperty Name="totalTaxPercetage" ColumnName="totalTaxPercetage" />
+                <ScalarProperty Name="totalTaxAmnt" ColumnName="totalTaxAmnt" />
+                <ScalarProperty Name="group_name" ColumnName="group_name" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="type_id" ColumnName="type_id" />
+                <ScalarProperty Name="tax_percentage" ColumnName="tax_percentage" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="purchas_price" ColumnName="purchas_price" />
+                <ScalarProperty Name="type_name" ColumnName="type_name" />
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="ELMAH_Error">
+            <EntityTypeMapping TypeName="IMS_TESTModel.ELMAH_Error">
+              <MappingFragment StoreEntitySet="ELMAH_Error">
+                <ScalarProperty Name="AllXml" ColumnName="AllXml" />
+                <ScalarProperty Name="Sequence" ColumnName="Sequence" />
+                <ScalarProperty Name="TimeUtc" ColumnName="TimeUtc" />
+                <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
+                <ScalarProperty Name="User" ColumnName="User" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Host" ColumnName="Host" />
+                <ScalarProperty Name="Application" ColumnName="Application" />
+                <ScalarProperty Name="ErrorId" ColumnName="ErrorId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tbl_ActualPurchaseTaxAndPrice">
             <EntityTypeMapping TypeName="IMS_TESTModel.tbl_ActualPurchaseTaxAndPrice">
               <MappingFragment StoreEntitySet="tbl_ActualPurchaseTaxAndPrice">
@@ -10054,6 +10418,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <EntitySetMapping Name="tbl_ActualSalesTaxAndPrice">
             <EntityTypeMapping TypeName="IMS_TESTModel.tbl_ActualSalesTaxAndPrice">
               <MappingFragment StoreEntitySet="tbl_ActualSalesTaxAndPrice">
+                <ScalarProperty Name="saleTaxGroupID" ColumnName="saleTaxGroupID" />
                 <ScalarProperty Name="discount_percent" ColumnName="discount_percent" />
                 <ScalarProperty Name="modified_date" ColumnName="modified_date" />
                 <ScalarProperty Name="modified_by" ColumnName="modified_by" />
@@ -10062,7 +10427,6 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="discount_amnt" ColumnName="discount_amnt" />
                 <ScalarProperty Name="sale_rate" ColumnName="sale_rate" />
-                <ScalarProperty Name="tax_percent" ColumnName="tax_percent" />
                 <ScalarProperty Name="product_id" ColumnName="product_id" />
                 <ScalarProperty Name="sale_id" ColumnName="sale_id" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -10171,6 +10535,16 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
                 <ScalarProperty Name="currency_name" ColumnName="currency_name" />
                 <ScalarProperty Name="country_name" ColumnName="country_name" />
                 <ScalarProperty Name="country_id" ColumnName="country_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_currency">
+            <EntityTypeMapping TypeName="IMS_TESTModel.tbl_currency">
+              <MappingFragment StoreEntitySet="tbl_currency">
+                <ScalarProperty Name="currency_symbol" ColumnName="currency_symbol" />
+                <ScalarProperty Name="currency_code" ColumnName="currency_code" />
+                <ScalarProperty Name="country_name" ColumnName="country_name" />
+                <ScalarProperty Name="currency_id" ColumnName="currency_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -10411,6 +10785,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <EntitySetMapping Name="tbl_purchase">
             <EntityTypeMapping TypeName="IMS_TESTModel.tbl_purchase">
               <MappingFragment StoreEntitySet="tbl_purchase">
+                <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="PaymentMode_id" ColumnName="PaymentMode_id" />
                 <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
                 <ScalarProperty Name="branch_id" ColumnName="branch_id" />
@@ -10474,6 +10849,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <EntitySetMapping Name="tbl_purchaseHistory">
             <EntityTypeMapping TypeName="IMS_TESTModel.tbl_purchaseHistory">
               <MappingFragment StoreEntitySet="tbl_purchaseHistory">
+                <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="PaymentMode_id" ColumnName="PaymentMode_id" />
                 <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
                 <ScalarProperty Name="branch_id" ColumnName="branch_id" />
@@ -10555,6 +10931,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <EntitySetMapping Name="tbl_purchasereturndetails">
             <EntityTypeMapping TypeName="IMS_TESTModel.tbl_purchasereturndetails">
               <MappingFragment StoreEntitySet="tbl_purchasereturndetails">
+                <ScalarProperty Name="Purchase_taxGroupId" ColumnName="Purchase_taxGroupId" />
                 <ScalarProperty Name="discount_amnt" ColumnName="discount_amnt" />
                 <ScalarProperty Name="purchasereturn_id" ColumnName="purchasereturn_id" />
                 <ScalarProperty Name="modified_date" ColumnName="modified_date" />
@@ -10565,7 +10942,6 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
                 <ScalarProperty Name="amount" ColumnName="amount" />
                 <ScalarProperty Name="quantity" ColumnName="quantity" />
                 <ScalarProperty Name="tax_amt" ColumnName="tax_amt" />
-                <ScalarProperty Name="tax_id" ColumnName="tax_id" />
                 <ScalarProperty Name="unit_id" ColumnName="unit_id" />
                 <ScalarProperty Name="product_id" ColumnName="product_id" />
                 <ScalarProperty Name="batch_id" ColumnName="batch_id" />
@@ -10576,6 +10952,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <EntitySetMapping Name="tbl_purchasereturndetailsHistory">
             <EntityTypeMapping TypeName="IMS_TESTModel.tbl_purchasereturndetailsHistory">
               <MappingFragment StoreEntitySet="tbl_purchasereturndetailsHistory">
+                <ScalarProperty Name="Purchase_taxGroupId" ColumnName="Purchase_taxGroupId" />
                 <ScalarProperty Name="discount_amnt" ColumnName="discount_amnt" />
                 <ScalarProperty Name="purchasereturn_id" ColumnName="purchasereturn_id" />
                 <ScalarProperty Name="modified_date" ColumnName="modified_date" />
@@ -10586,7 +10963,6 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
                 <ScalarProperty Name="amount" ColumnName="amount" />
                 <ScalarProperty Name="quantity" ColumnName="quantity" />
                 <ScalarProperty Name="tax_amt" ColumnName="tax_amt" />
-                <ScalarProperty Name="tax_id" ColumnName="tax_id" />
                 <ScalarProperty Name="unit_id" ColumnName="unit_id" />
                 <ScalarProperty Name="product_id" ColumnName="product_id" />
                 <ScalarProperty Name="batch_id" ColumnName="batch_id" />
@@ -10634,6 +11010,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <EntitySetMapping Name="tbl_purchasetaxgroup">
             <EntityTypeMapping TypeName="IMS_TESTModel.tbl_purchasetaxgroup">
               <MappingFragment StoreEntitySet="tbl_purchasetaxgroup">
+                <ScalarProperty Name="totalTaxPercentage" ColumnName="totalTaxPercentage" />
                 <ScalarProperty Name="purchaseId" ColumnName="purchaseId" />
                 <ScalarProperty Name="group_id" ColumnName="group_id" />
                 <ScalarProperty Name="product_id" ColumnName="product_id" />
@@ -10674,6 +11051,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <EntitySetMapping Name="tbl_sale">
             <EntityTypeMapping TypeName="IMS_TESTModel.tbl_sale">
               <MappingFragment StoreEntitySet="tbl_sale">
+                <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="sale_date" ColumnName="sale_date" />
                 <ScalarProperty Name="paymentmode_id" ColumnName="paymentmode_id" />
                 <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
@@ -10736,6 +11114,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <EntitySetMapping Name="tbl_saleHistory">
             <EntityTypeMapping TypeName="IMS_TESTModel.tbl_saleHistory">
               <MappingFragment StoreEntitySet="tbl_saleHistory">
+                <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="paymentmode_id" ColumnName="paymentmode_id" />
                 <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
                 <ScalarProperty Name="branch_id" ColumnName="branch_id" />
@@ -10815,6 +11194,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <EntitySetMapping Name="tbl_salereturndetails">
             <EntityTypeMapping TypeName="IMS_TESTModel.tbl_salereturndetails">
               <MappingFragment StoreEntitySet="tbl_salereturndetails">
+                <ScalarProperty Name="Sales_taxGroupId" ColumnName="Sales_taxGroupId" />
                 <ScalarProperty Name="salereturn_id" ColumnName="salereturn_id" />
                 <ScalarProperty Name="dicount_amt" ColumnName="dicount_amt" />
                 <ScalarProperty Name="modified_date" ColumnName="modified_date" />
@@ -10825,7 +11205,6 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
                 <ScalarProperty Name="amount" ColumnName="amount" />
                 <ScalarProperty Name="quantity" ColumnName="quantity" />
                 <ScalarProperty Name="tax_amt" ColumnName="tax_amt" />
-                <ScalarProperty Name="tax_id" ColumnName="tax_id" />
                 <ScalarProperty Name="unit_id" ColumnName="unit_id" />
                 <ScalarProperty Name="product_id" ColumnName="product_id" />
                 <ScalarProperty Name="batch_id" ColumnName="batch_id" />
@@ -10836,6 +11215,7 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <EntitySetMapping Name="tbl_salereturndetailsHistory">
             <EntityTypeMapping TypeName="IMS_TESTModel.tbl_salereturndetailsHistory">
               <MappingFragment StoreEntitySet="tbl_salereturndetailsHistory">
+                <ScalarProperty Name="Sales_taxGroupId" ColumnName="Sales_taxGroupId" />
                 <ScalarProperty Name="salereturn_id" ColumnName="salereturn_id" />
                 <ScalarProperty Name="dicount_amt" ColumnName="dicount_amt" />
                 <ScalarProperty Name="modified_date" ColumnName="modified_date" />
@@ -10846,7 +11226,6 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
                 <ScalarProperty Name="amount" ColumnName="amount" />
                 <ScalarProperty Name="quantity" ColumnName="quantity" />
                 <ScalarProperty Name="tax_amt" ColumnName="tax_amt" />
-                <ScalarProperty Name="tax_id" ColumnName="tax_id" />
                 <ScalarProperty Name="unit_id" ColumnName="unit_id" />
                 <ScalarProperty Name="product_id" ColumnName="product_id" />
                 <ScalarProperty Name="batch_id" ColumnName="batch_id" />
@@ -10872,6 +11251,54 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
                 <ScalarProperty Name="company_id" ColumnName="company_id" />
                 <ScalarProperty Name="salereturn_id" ColumnName="salereturn_id" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_saleTaxGroup">
+            <EntityTypeMapping TypeName="IMS_TESTModel.tbl_saleTaxGroup">
+              <MappingFragment StoreEntitySet="tbl_saleTaxGroup">
+                <ScalarProperty Name="totalTaxPercentage" ColumnName="totalTaxPercentage" />
+                <ScalarProperty Name="sale_id" ColumnName="sale_id" />
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="group_name" ColumnName="group_name" />
+                <ScalarProperty Name="SaleTaxGroupId" ColumnName="SaleTaxGroupId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_saleTaxGroupDetailes">
+            <EntityTypeMapping TypeName="IMS_TESTModel.tbl_saleTaxGroupDetailes">
+              <MappingFragment StoreEntitySet="tbl_saleTaxGroupDetailes">
+                <ScalarProperty Name="modified_date" ColumnName="modified_date" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="sale_id" ColumnName="sale_id" />
+                <ScalarProperty Name="tax_percentage" ColumnName="tax_percentage" />
+                <ScalarProperty Name="type_id" ColumnName="type_id" />
+                <ScalarProperty Name="SaleTaxGroupId" ColumnName="SaleTaxGroupId" />
+                <ScalarProperty Name="saleTaxGroupDetail_Id" ColumnName="saleTaxGroupDetail_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_setting">
+            <EntityTypeMapping TypeName="IMS_TESTModel.tbl_setting">
+              <MappingFragment StoreEntitySet="tbl_setting">
+                <ScalarProperty Name="modifydate" ColumnName="modifydate" />
+                <ScalarProperty Name="modify_by" ColumnName="modify_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="company_id" ColumnName="company_id" />
+                <ScalarProperty Name="branch_id" ColumnName="branch_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="Print_address" ColumnName="Print_address" />
+                <ScalarProperty Name="Print_Tin_on_Invoice" ColumnName="Print_Tin_on_Invoice" />
+                <ScalarProperty Name="Enable_Invoice_Tax" ColumnName="Enable_Invoice_Tax" />
+                <ScalarProperty Name="Currency" ColumnName="Currency" />
+                <ScalarProperty Name="Decimal_Places" ColumnName="Decimal_Places" />
+                <ScalarProperty Name="setting_id" ColumnName="setting_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -11023,6 +11450,9 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
           <EntitySetMapping Name="tbl_User">
             <EntityTypeMapping TypeName="IMS_TESTModel.tbl_User">
               <MappingFragment StoreEntitySet="tbl_User">
+                <ScalarProperty Name="IsVerified" ColumnName="IsVerified" />
+                <ScalarProperty Name="OTP" ColumnName="OTP" />
+                <ScalarProperty Name="Ref_Mobile" ColumnName="Ref_Mobile" />
                 <ScalarProperty Name="last_name" ColumnName="last_name" />
                 <ScalarProperty Name="first_name" ColumnName="first_name" />
                 <ScalarProperty Name="modified_date" ColumnName="modified_date" />
@@ -11146,22 +11576,6 @@ warning 6002: The table/view 'IMS_DEV.dbo.View_SaleDetails' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="SelectProductTaxGroup" FunctionName="IMS_TESTModel.Store.SelectProductTaxGroup">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="IMS_TESTModel.SelectProductTaxGroup_Result">
-                <ScalarProperty Name="totalTaxPercetage" ColumnName="totalTaxPercetage" />
-                <ScalarProperty Name="totalTaxAmnt" ColumnName="totalTaxAmnt" />
-                <ScalarProperty Name="group_name" ColumnName="group_name" />
-                <ScalarProperty Name="product_id" ColumnName="product_id" />
-                <ScalarProperty Name="type_id" ColumnName="type_id" />
-                <ScalarProperty Name="tax_percentage" ColumnName="tax_percentage" />
-                <ScalarProperty Name="product_name" ColumnName="product_name" />
-                <ScalarProperty Name="purchas_price" ColumnName="purchas_price" />
-                <ScalarProperty Name="type_name" ColumnName="type_name" />
-                <ScalarProperty Name="group_id" ColumnName="group_id" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

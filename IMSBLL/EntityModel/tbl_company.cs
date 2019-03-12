@@ -19,7 +19,6 @@ namespace IMSBLL.EntityModel
             this.tbl_batch = new HashSet<tbl_batch>();
             this.tbl_branch = new HashSet<tbl_branch>();
             this.tbl_category = new HashSet<tbl_category>();
-            this.tbl_error_log = new HashSet<tbl_error_log>();
             this.tbl_expense = new HashSet<tbl_expense>();
             this.tbl_expenseentry = new HashSet<tbl_expenseentry>();
             this.tbl_financialyear = new HashSet<tbl_financialyear>();
@@ -78,7 +77,6 @@ namespace IMSBLL.EntityModel
         public virtual ICollection<tbl_category> tbl_category { get; set; }
         public virtual tbl_country tbl_country { get; set; }
         public virtual tbl_state tbl_state { get; set; }
-        public virtual ICollection<tbl_error_log> tbl_error_log { get; set; }
         public virtual ICollection<tbl_expense> tbl_expense { get; set; }
         public virtual ICollection<tbl_expenseentry> tbl_expenseentry { get; set; }
         public virtual ICollection<tbl_financialyear> tbl_financialyear { get; set; }

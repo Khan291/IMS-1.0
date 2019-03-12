@@ -2,45 +2,9 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
-     .project-tab {
-    padding: 10%;
-    margin-top: -8%;
-}
-.project-tab #tabs{
-    background: #007b5e;
-    color: #eee;
-}
-.project-tab #tabs h6.section-title{
-    color: #eee;
-}
-.project-tab #tabs .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
-    color: #0062cc;
-    background-color: transparent;
-    border-color: transparent transparent #f3f3f3;
-    border-bottom: 3px solid !important;
-    font-size: 16px;
-    font-weight: bold;
-}
-.project-tab .nav-link {
-    border: 1px solid transparent;
-    border-top-left-radius: .25rem;
-    border-top-right-radius: .25rem;
-    color: #0062cc;
-    font-size: 16px;
-    font-weight: 600;
-}
-.project-tab .nav-link:hover {
-    border: none;
-}
-.project-tab thead{
-    background: #f3f3f3;
-    color: #333;
-}
-.project-tab a{
-    text-decoration: none;
-    color: #333;
-    font-weight: 600;
-}
+        .pointer {
+            cursor: pointer;
+        }
     </style>
 
     <script>
@@ -109,71 +73,115 @@
             </div>
             <!--end  Welcome -->
         </div>
-
+        <!---=====================This block is for purchase and scale today and monthly collection =========================-->
         <div class="row">
+            <!--quick info section -->
+            <div class="col-lg-3 pointer">
+                <asp:Button ID="PurchaseOrderList" Class="purchase" runat="server" OnClick="PurchaseOrderList_Click" Style="display: none; cursor: pointer"></asp:Button>
+                <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 col-xs-12" style="background-color:#da8c10;" id="1" onclick="document.getElementById('<%= PurchaseOrderList.ClientID %>').click()">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center" style="color:white;">
+                        <i class="fa fa-calendar fa-3x"></i><b>
+                            <%--<button type="button" ID="PurchaseOrderList" runat="server" class="btn btn-info btn-lg" data-toggle="modal" data-target="#OrderModel" onclick="loadorderlist('Purchase')"></button>--%>
+                            <asp:Label ID="po" runat="server" ForeColor="White"></asp:Label>
+                        </b>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12" style="color:white;">
+                        Purchase order in last 30 Days
+                    </div>
+                </div>
+            </div>
 
+
+            <div class="col-lg-3 pointer">
+                <asp:Button ID="SalesOrderList" runat="server" OnClick="SalesOrderList_Click" Style="display: none"></asp:Button>
+
+                <div class="alert  col-lg-12 col-md-12 col-sm-12 col-xs-12" style="background-color:#dd4b39;"  onclick="document.getElementById('<%= SalesOrderList.ClientID %>').click()">
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
+                        <i class="fa fa-address-card fa-3x" style="color:white;"></i><b>
+                            <asp:Label ID="lblsalorder" runat="server" ForeColor="White"></asp:Label>
+                        </b>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12" style="color:white"; >
+                        Sales order in last 30 Days
+                    </div>
+                </div>
+            </div>
+            <!--===================================This block is for today sale and monthly sale====================================-->
             <div class="col-lg-3">
 
-                 <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-                        <nav>
-                           <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist" >
-						        <a class="nav-item nav-link active" style="text-decoration:none" id="nav-home-tab"  data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Today's</a>
-						        <a class="nav-item nav-link " style="text-decoration:none" id="nav-profile-tab"  data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">This month </a>
-                          </div>
-                        </nav>
-                              
-                             <div class="tab-content" id="nav-tabContent" style="max-height:38px;min-height:38px">
-                                <div class="" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" >
-                                    <br/>
-                                    <i class="fa fa-dollar fa-2x"><asp:Label ID="lbldailysale" runat="server"></asp:Label></i>
-                                  
-                                </div>
-                                <div class="tab-pane fade  " id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" > 
-                                    <br/>
-                                    <i class="fa fa-dollar fa-2x"><asp:Label ID="Label1" runat="server">20000</asp:Label></i>
-                                    
-                                </div>
-                            
-                            </div>
-                        
-                        
+                <div class="alert col-lg-12 col-md-12 col-sm-12 col-xs-12" style="background-color: #00a65a">
+                    <nav>
+                        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" style="text-decoration: none; color:white;" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Today's</a>
+                            <a class="nav-item nav-link " style="text-decoration: none;color:white;" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">This Month </a>
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent" style="max-height: 38px; min-height: 38px">
+                        <div class="" style="color:white;" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <br />
+
+                            Total Sale Rs
+                                    <asp:Label ID="lbldailysale" runat="server"></asp:Label>
+
+                        </div>
+                        <div class="tab-pane fade" style="color:white;" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <br />
+                            Total Sale Rs
+                                    <asp:Label ID="lblMonthlySale" runat="server"></asp:Label>
+
+                        </div>
+
+                    </div>
+
+
                     <%--<nav class="nav justify-content-center">
                         <a href="#home">Home</a>
                         <a  href="#menu1">One</a>
                      </nav>--%>
                 </div>
             </div>
- 
-            <!--quick info section -->
+
+            <!--===================================This block is for today Purchase and monthly Purchase====================================-->
             <div class="col-lg-3">
-                 <asp:Button ID="PurchaseOrderList" runat="server" OnClick="PurchaseOrderList_Click" style="display:none"></asp:Button>
-                <div class="alert alert-danger col-lg-12 col-md-12 col-sm-12 col-xs-12" id="1" onclick="document.getElementById('<%= PurchaseOrderList.ClientID %>').click()" >
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
-                        <i class="fa fa-calendar fa-3x"></i><b>
-                            <%--<button type="button" ID="PurchaseOrderList" runat="server" class="btn btn-info btn-lg" data-toggle="modal" data-target="#OrderModel" onclick="loadorderlist('Purchase')"></button>--%>
-                           <asp:Label ID="po" runat="server"></asp:Label>
-                        </b>
+
+                <div class="alert  col-lg-12 col-md-12 col-sm-12 col-xs-12" style="background-color: #00c0ef">
+                    <nav>
+                        <div class="nav nav-tabs nav-fill" id="nav-tab-one" role="tablist">
+                            <a class="nav-item nav-link active" style="text-decoration: none; color:white;" id="nav-purch-today" data-toggle="tab" href="#divpurchlbltoday" role="tab" aria-controls="nav-home" aria-selected="true">Today's</a>
+                            <a class="nav-item nav-link " style="text-decoration: none; color:white;" id="nav-purch-month" data-toggle="tab" href="#divpuchaselblmonth" role="tab" aria-controls="nav-profile" aria-selected="false">This Month </a>
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent-one" style="max-height: 38px; min-height: 38px">
+                        <div class="" style="color:white;"  id="divpurchlbltoday" role="tabpanel" aria-labelledby="nav-purch-today">
+                            <br />
+
+                            Total Purchase Rs
+                                    <asp:Label ID="lblDailyPurchase" runat="server"></asp:Label>
+
+                        </div>
+                        <div class="tab-pane fade" style="color:white;" id="divpuchaselblmonth" role="tabpanel" aria-labelledby="nav-purch-month">
+                            <br />
+                            Total Purchase Rs
+                                    <asp:Label ID="lblMonthlyPurchase" runat="server"></asp:Label>
+
+                        </div>
+
                     </div>
-                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                        Purchase order in last 30 Days
-                    </div>
+
+
+                    <%--<nav class="nav justify-content-center">
+                        <a href="#home">Home</a>
+                        <a  href="#menu1">One</a>
+                     </nav>--%>
                 </div>
             </div>
-             
-            <div class="col-lg-3"  style="display:none">
-                 <asp:Button ID="SalesOrderList" runat="server" OnClick="SalesOrderList_Click" style="display:none"></asp:Button>
-                <div class="alert alert-success col-lg-12 col-md-12 col-sm-12 col-xs-12" onclick="document.getElementById('<%= SalesOrderList.ClientID %>').click()">
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
-                        <i class="fa fa-address-card fa-3x"></i><b>
-                            <asp:Label ID="lblsalorder" runat="server"></asp:Label>
-                        </b>
-                    </div>
-                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-                        Sales order in last 30 Days
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
+
+
+
+
+
+
+            <!--<div class="col-lg-3">
                 <div class="alert alert-info col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
                         <i class="fa fa-address-card fa-3x"></i><b>
@@ -184,8 +192,10 @@
                         Purchase amount of last 30 days
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-3">
+            </div>-->
+
+
+            <!--<div class="col-lg-3">
                 <div class="alert alert-warning col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 text-center">
                         <i class="fa fa-address-card fa-3x"></i><b>
@@ -196,7 +206,7 @@
                         Sales amount of last 30 days
                     </div>
                 </div>
-            </div>
+            </div>-->
             <!--end quick info section -->
         </div>
 
@@ -357,7 +367,7 @@
                                                     <asp:Label ID="lblproduct_name" runat="server" Text='<%# Eval("product_name") %>'></asp:Label>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
-                                             <asp:TemplateField HeaderText="Batch" HeaderStyle-ForeColor="Black" ItemStyle-Width="100px" HeaderStyle-Width="100px">
+                                            <asp:TemplateField HeaderText="Batch" HeaderStyle-ForeColor="Black" ItemStyle-Width="100px" HeaderStyle-Width="100px">
                                                 <ItemTemplate>
                                                     <asp:Label ID="lblbatch_name" runat="server" Text='<%# Eval("batch_name") %>'></asp:Label>
                                                 </ItemTemplate>
@@ -442,13 +452,6 @@
                         </span>
                     </div>
                 </div>--%>
-
-
-
-
-
-
-
             </div>
 
         </div>
@@ -654,7 +657,8 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title"><asp:Label ID="lblModelHeader" runat="server"></asp:Label></h4>
+                        <h4 class="modal-title">
+                            <asp:Label ID="lblModelHeader" runat="server"></asp:Label></h4>
                     </div>
                     <div class="modal-body">
                         <div class="row">
@@ -736,24 +740,46 @@
     </div>
 
 
-<script>
- 
-    $(function () {
-        $("#nav-home-tab").click(function () {
-            // remove classes from all
-            $("#nav-home-tab").addClass("active");
-            // add class to the one we clicked
-            $("#nav-profile-tab").removeClass("active");
-        });
-        $("#nav-profile-tab").click(function () {
-            // remove classes from all
-            $("#nav-profile-tab").addClass("active");
-            // add class to the one we clicked
-            $("#nav-home").addClass("tab-pane fade");
-            $("#nav-home-tab").removeClass("active"); 
-        });
-    });
-</script>
+    <script>
+
+        //This  query is for Sale on daily and month collection tab.
+           $(function () {
+               $("#nav-home-tab").click(function () {
+                   // remove classes from all
+                   $("#nav-home-tab").addClass("active");
+                   // add class to the one we clicked
+                   $("#nav-profile-tab").removeClass("active");
+               });
+               $("#nav-profile-tab").click(function () {
+                   // remove classes from all
+                   $("#nav-profile-tab").addClass("active");
+                   // add class to the one we clicked
+                   $("#nav-home").addClass("tab-pane fade");
+                   $("#nav-home-tab").removeClass("active");
+               });
+           });
+
+       //This query is for Purchase on daily and month collection tab.
+
+
+       $(function () {
+           $("#nav-purch-today").click(function () {
+               // remove classes from all
+               $("#nav-purch-today").addClass("active");
+               // add class to the one we clicked
+               $("#nav-purch-month").removeClass("active");
+           });
+           $("#nav-purch-month").click(function () {
+               // remove classes from all
+               $("#nav-purch-month").addClass("active");
+               // add class to the one we clicked
+               $("#divpurchlbltoday").addClass("tab-pane fade");
+               $("#nav-purch-today").removeClass("active");
+           });
+       });
+
+
+    </script >
 
 </asp:Content>
 

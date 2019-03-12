@@ -20,7 +20,6 @@ namespace IMSBLL.EntityModel
         public Nullable<int> unit_id { get; set; }
         public Nullable<int> godown_id { get; set; }
         public Nullable<int> rack_id { get; set; }
-        public Nullable<int> tax_id { get; set; }
         public Nullable<decimal> purchas_price { get; set; }
         public Nullable<decimal> sales_price { get; set; }
         public Nullable<int> reorder_level { get; set; }

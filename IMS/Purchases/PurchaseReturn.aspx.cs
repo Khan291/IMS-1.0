@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using IMSBLL.EntityModel;
 using IMSBLL.DAL;
 using System.Configuration;
+using System.Reflection;
 
 namespace IMS
 {
@@ -39,7 +40,7 @@ namespace IMS
                     dataTable.Columns.Add("Product_id");
                     dataTable.Columns.Add("batch_id");
                     dataTable.Columns.Add("unit_id");
-                    dataTable.Columns.Add("tax_id");
+                    dataTable.Columns.Add("group_id");
                     dataTable.Columns.Add("amount");
                     dataTable.Columns.Add("dicount_amt");
                     dataTable.Columns.Add("tax_amt");
@@ -52,6 +53,19 @@ namespace IMS
                     ViewState["Details"] = dataTable;
                 }
                 this.BindGrid();
+                if (ViewState["TaxDetails"] == null)
+                {
+                    DataTable dataTable2 = new DataTable();
+
+                    dataTable2.Columns.Add("product_id");
+                    dataTable2.Columns.Add("group_id");
+                    dataTable2.Columns.Add("group_name");
+                    dataTable2.Columns.Add("type_name");
+                    dataTable2.Columns.Add("tax_percentage");
+                    dataTable2.Columns.Add("type_id");
+                    ViewState["TaxDetails"] = dataTable2;
+                }
+                this.BindTaxGrid();
                 ddlpaymentmodebind();
             }
         }
@@ -117,7 +131,8 @@ namespace IMS
                                 isfail[1] = "Only " + stockQuantity.qty + " can be return for the selected product, Since some of item sold.";
                                 return isfail;
                             }
-                            else {
+                            else
+                            {
                                 isfail[0] = "true";
                                 //lblcheckDoubleError.Visible = true;
                                 isfail[1] = "Only " + returnQuantity + " can be return for the selected product.";
@@ -142,7 +157,7 @@ namespace IMS
                 ErrorLog.saveerror(ex);
             }
             return isfail;
-        }      
+        }
 
         public bool productvalid(int productid, decimal enterdQuantity, int count)
         {
@@ -159,7 +174,7 @@ namespace IMS
                 {
                     if (count == 0)
                     {
-                        ddlproduct.Items.Remove(ddlproduct.Items.FindByValue(pid.ToString()));                       
+                        ddlproduct.Items.Remove(ddlproduct.Items.FindByValue(pid.ToString()));
                     }
 
                 }
@@ -217,6 +232,19 @@ namespace IMS
         //    }
         //}
 
+        private void BindTaxGrid()
+        {
+            try
+            {
+                gvTaxDetailsNew.DataSource = (DataTable)ViewState["TaxDetails"];
+                gvTaxDetailsNew.DataBind();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.saveerror(ex);
+            }
+        }
+
         private void FetchData(int purchaseId)
         {
 
@@ -229,7 +257,7 @@ namespace IMS
 
             if (ds.Tables["Table"] != null)
             {
-                decimal givenAmnt=0, totalDiscount = 0, subTotal = 0, grandTotal = 0, totalTax = 0;
+                decimal givenAmnt = 0, totalDiscount = 0, subTotal = 0, grandTotal = 0, totalTax = 0;
 
                 for (int i = 0; i < ds.Tables["Table"].Rows.Count; i++)
                 {
@@ -238,14 +266,14 @@ namespace IMS
                         totalTax = totalTax + Convert.ToDecimal(ds.Tables["Table"].Rows[i]["TaxAmnt"]);
                         totalDiscount = totalDiscount + Convert.ToDecimal(ds.Tables["Table"].Rows[i]["DiscountAmnt"]);
                         subTotal = subTotal + Convert.ToDecimal(ds.Tables["Table"].Rows[i]["ProductAmount"]);
-                       
+
                     }
                     else if (ds.Tables["Table"].Rows[i]["Type"].ToString() == "Return")
-                    {   
+                    {
                         totalTax = totalTax - Convert.ToDecimal(ds.Tables["Table"].Rows[i]["TaxAmnt"]);
                         totalDiscount = totalDiscount - Convert.ToDecimal(ds.Tables["Table"].Rows[i]["DiscountAmnt"]);
                         subTotal = subTotal - Convert.ToDecimal(ds.Tables["Table"].Rows[i]["ProductAmount"]);
-                        
+
                     }
                     givenAmnt = Convert.ToDecimal(ds.Tables["Table"].Rows[i]["GivenAmnt"]);
                 }
@@ -256,9 +284,9 @@ namespace IMS
                 //assign it to the the current return screen as well as the original purchase field
                 lblGivenAmnt.Text = givenAmnt.ToString();
                 lblTotalAmnt.Text = subTotal.ToString();
-                lblTotalTax.Text = totalTax.ToString(); 
+                lblTotalTax.Text = totalTax.ToString();
                 lblTotalDiscount.Text = totalDiscount.ToString();
-                lblOriginalGrndTotal.Text = grandTotal.ToString();              
+                lblOriginalGrndTotal.Text = grandTotal.ToString();
 
                 GrdOriginalPurchase.DataSource = ds.Tables["Table"];
                 GrdOriginalPurchase.DataBind();
@@ -320,13 +348,13 @@ namespace IMS
             lblResultSubTotal.Text = (Convert.ToDecimal(lblTotalAmnt.Text) - Convert.ToDecimal(lblsubtotal.Text)).ToString("0.##");
 
             lblTaxAmount.Text = (Convert.ToDecimal(lblTaxAmount.Text) + total_tax).ToString("0.##");
-            lblResultTotalTaxAmnt.Text= (Convert.ToDecimal(lblTotalTax.Text) - Convert.ToDecimal(lblTaxAmount.Text)).ToString("0.##");
+            lblResultTotalTaxAmnt.Text = (Convert.ToDecimal(lblTotalTax.Text) - Convert.ToDecimal(lblTaxAmount.Text)).ToString("0.##");
 
             lblDiscountAmt.Text = (Convert.ToDecimal(lblDiscountAmt.Text) + total_discount).ToString("0.##");
             lblResultTotalDiscount.Text = (Convert.ToDecimal(lblTotalDiscount.Text) - Convert.ToDecimal(lblDiscountAmt.Text)).ToString("0.##");
 
             lblGrandTotal.Text = (Convert.ToDecimal(lblsubtotal.Text) + Convert.ToDecimal(lblTaxAmount.Text) - Convert.ToDecimal(lblDiscountAmt.Text)).ToString("0.##");
-            lblOriginalGrndTotal.Text= (Convert.ToDecimal(lblTotalAmnt.Text) + Convert.ToDecimal(lblTotalTax.Text) - Convert.ToDecimal(lblTotalDiscount.Text)).ToString("0.##");
+            lblOriginalGrndTotal.Text = (Convert.ToDecimal(lblTotalAmnt.Text) + Convert.ToDecimal(lblTotalTax.Text) - Convert.ToDecimal(lblTotalDiscount.Text)).ToString("0.##");
 
             lblResultGrndTotal.Text = (Convert.ToDecimal(lblOriginalGrndTotal.Text) - Convert.ToDecimal(lblGrandTotal.Text)).ToString("0.##");
 
@@ -387,10 +415,10 @@ namespace IMS
                 purchaseReturn.company_id = companyId;
                 purchaseReturn.branch_id = branchId;
                 purchaseReturn.financialyear_id = financialYearId;
-                purchaseReturn.InvoiceNumber = txtPoNo.Text;               
+                purchaseReturn.InvoiceNumber = txtPoNo.Text;
                 purchaseReturn.paymentmode_id = Convert.ToInt32(ddlPaymentMode.SelectedValue);
                 purchaseReturn.status = true;
-                purchaseReturn.party_id = Convert.ToInt32(purchase.party_id);              
+                purchaseReturn.party_id = Convert.ToInt32(purchase.party_id);
                 purchaseReturn.created_by = user_id;
                 purchaseReturn.created_date = DateTime.Now;
 
@@ -410,12 +438,13 @@ namespace IMS
                 {
                     int productId = Convert.ToInt32(gvpurchasedetails.Rows[i].Cells[2].Text);
                     int batchId = Convert.ToInt32(gvpurchasedetails.Rows[i].Cells[4].Text);
+                    int TaxGroupId = Convert.ToInt32(gvpurchasedetails.Rows[i].Cells[12].Text);
                     tbl_product product = context.tbl_product.Where(w => w.product_id == productId).FirstOrDefault();
 
                     tbl_purchasereturndetails purchaseReturnDetails = new tbl_purchasereturndetails();
                     purchaseReturnDetails.product_id = productId;
                     purchaseReturnDetails.batch_id = batchId;
-                   // purchaseReturnDetails.tax_id = product.tax_id;
+                    purchaseReturnDetails.Purchase_taxGroupId = TaxGroupId;
                     purchaseReturnDetails.unit_id = product.unit_id;
                     purchaseReturnDetails.discount_amnt = Convert.ToDecimal(gvpurchasedetails.Rows[i].Cells[7].Text);
                     purchaseReturnDetails.tax_amt = gvpurchasedetails.Rows[i].Cells[9].Text;
@@ -443,6 +472,34 @@ namespace IMS
             {
                 ErrorLog.saveerror(ex);
             }
+        }
+
+
+        public static DataTable ToDataTable<T>(List<T> items)
+        {
+            DataTable dataTable = new DataTable(typeof(T).Name);
+
+            //Get all the properties
+            PropertyInfo[] Props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            foreach (PropertyInfo prop in Props)
+            {
+                //Defining type of data column gives proper data table 
+                var type = (prop.PropertyType.IsGenericType && prop.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>) ? Nullable.GetUnderlyingType(prop.PropertyType) : prop.PropertyType);
+                //Setting column names as Property names
+                dataTable.Columns.Add(prop.Name, type);
+            }
+            foreach (T item in items)
+            {
+                var values = new object[Props.Length];
+                for (int i = 0; i < Props.Length; i++)
+                {
+                    //inserting property values to datatable rows
+                    values[i] = Props[i].GetValue(item, null);
+                }
+                dataTable.Rows.Add(values);
+            }
+            //put a breakpoint here and check datatable
+            return dataTable;
         }
         #endregion
 
@@ -475,8 +532,22 @@ namespace IMS
             try
             {
                 //Get Original price, Tax and discount happened during Purchase
-                var productDetails = context.sp_GetPurchaseDetailsById(purchaseId);
-                if (productDetails != null)
+                var productDetails = context.sp_GetPurchaseDetailsById(purchaseId).ToList();
+                var PurchaseTaxGroup = (from ep in context.tbl_purchasetaxgroup
+                                        join e1 in context.tbl_purchasetaxdetails on ep.purchasetaxgroup_id equals e1.purchasetaxgroup_id
+                                        join t in context.tbl_taxtype on e1.type_id equals t.type_id
+                                        where ep.purchaseId == purchaseId
+                                        select new
+                                        {
+                                            group_id = ep.group_id,
+                                            group_name = ep.group_name,
+                                            type_name = t.type_name,
+                                            type_id = e1.type_id,
+                                            tax_percentage = e1.tax_percentage,
+                                            product_id = ep.product_id
+                                        }).ToList();
+                DataTable PurcahseTaxGroupTable = ToDataTable(PurchaseTaxGroup);
+                if (productDetails != null && PurcahseTaxGroupTable != null)
                 {
                     var oneproductDetail = productDetails.Where(w => w.product_id == productId);
                     if (!Convert.ToBoolean(ValidateQuantity(enteredQuantity, productId, purchaseId)[0]))
@@ -494,12 +565,29 @@ namespace IMS
                         DataTable tbl = (DataTable)ViewState["Details"];
 
                         tbl.Rows.Add(oneproductDetail.FirstOrDefault().purchasedetails_id, productId, oneproductDetail.FirstOrDefault().batch_id, oneproductDetail.FirstOrDefault().unit_id,
-                            oneproductDetail.FirstOrDefault().tax_id, subTotal, discountamt, tax_amount, oneproductDetail.FirstOrDefault().purchase_rate, enteredQuantity,
+                            oneproductDetail.FirstOrDefault().group_id, subTotal, discountamt, tax_amount, oneproductDetail.FirstOrDefault().purchase_rate, enteredQuantity,
                             oneproductDetail.FirstOrDefault().product_name, oneproductDetail.FirstOrDefault().unit_name, oneproductDetail.FirstOrDefault().batch_name,
                             oneproductDetail.FirstOrDefault().tax_percentage);
                         ViewState["Details"] = tbl;
                         this.BindGrid();
-                        ddlproduct.Items.FindByValue(productId.ToString()).Enabled = false;
+
+                        DataTable dt2 = (DataTable)ViewState["TaxDetails"];
+                        if (PurcahseTaxGroupTable.Rows.Count > 0)
+                        {
+                            for (int i = 0; i < PurcahseTaxGroupTable.Rows.Count; i++)
+                            {
+                                dt2.Rows.Add(PurcahseTaxGroupTable.Rows[i].Field<int>("product_id"),
+                                               PurcahseTaxGroupTable.Rows[i].Field<int>("group_id"),
+                                              PurcahseTaxGroupTable.Rows[i].Field<string>("group_name"),
+                                              PurcahseTaxGroupTable.Rows[i].Field<string>("type_name"),
+                                          PurcahseTaxGroupTable.Rows[i].Field<decimal>("tax_percentage"),
+                                              PurcahseTaxGroupTable.Rows[i].Field<int>("type_id")
+                                              );
+                            }
+                        }
+
+                        ViewState["TaxDetails"] = dt2;
+                        this.BindTaxGrid();
 
                     }
                 }
@@ -514,170 +602,7 @@ namespace IMS
         {
             Save();
         }
-
-        //private void SaveLogic()
-        //{
-        //    SqlTransaction transaction;
-        //    SqlCommand cmd = new SqlCommand();
-
-        //    cmd.Connection = con;
-        //    cmd.CommandTimeout = 600000;
-        //    con.Open();
-        //    transaction = con.BeginTransaction("Transaction");
-        //    cmd.Transaction = transaction;
-        //    try
-        //    {
-        //        string date = DateTime.Today.ToString();
-        //        string user = Session["UserID"].ToString();
-        //        int c_id = Convert.ToInt32(Session["company_id"]);
-        //        int b_id = Convert.ToInt32(Session["branch_id"]);
-        //        int party_id = 0;
-        //        int a = Convert.ToInt32(hdnPurchaseId.Value);
-        //        if (a != 0)
-        //        {
-        //            //tbl_purchase p = new tbl_purchase();
-        //            //p.company_id = c_id;
-        //            //p.purchase_id = a;
-        //            //// p.All2(p);
-        //            var purchase = context.tbl_purchase.Where(pd => pd.purchase_id == a && pd.company_id == c_id).FirstOrDefault();
-        //            party_id = Convert.ToInt32(purchase.party_id);
-
-        //        }
-        //        else
-        //        {
-        //            ClientScript.RegisterStartupScript(this.GetType(), "Pop", "openalert('Please Enter Purchase No','False');", true);
-        //            return;
-        //        }
-
-
-        //        int Purchase_id = Convert.ToInt32(a);
-        //        if (Purchase_id != 0)
-        //        {
-
-        //            decimal tax_amount = Convert.ToDecimal(lblTaxAmount.Text);
-        //            decimal sub_total = Convert.ToDecimal(lblsubtotal.Text);
-        //            decimal discount = Convert.ToDecimal(lblDiscountAmt.Text);
-        //            decimal grandtotal = Convert.ToDecimal(lblGrandTotal.Text);
-
-        //            //Purchase Return Main Table Insertion Code
-        //            cmd.CommandText = "sp_insertpurchasereturnmain";
-        //            cmd.CommandType = CommandType.StoredProcedure;
-        //            cmd.Parameters.AddWithValue("@Purchase_id", Purchase_id);
-        //            cmd.Parameters.AddWithValue("@branch_id", b_id);
-        //            cmd.Parameters.AddWithValue("@company_id", c_id);
-        //            cmd.Parameters.AddWithValue("@total_tax", tax_amount);
-        //            cmd.Parameters.AddWithValue("@actual_amount", sub_total);
-        //            cmd.Parameters.AddWithValue("@grand_total", grandtotal);
-        //            cmd.Parameters.AddWithValue("@total_discount ", discount);
-        //            cmd.Parameters.AddWithValue("@created_by", user);
-        //            cmd.Parameters.AddWithValue("@created_date", DateTime.Today);
-        //            cmd.Parameters.Add("@purchasereturnmain_id", SqlDbType.Int);
-        //            cmd.Parameters["@purchasereturnmain_id"].Direction = ParameterDirection.Output;
-        //            cmd.ExecuteNonQuery();
-        //            Session["prmid"] = Convert.ToInt32(cmd.Parameters["@purchasereturnmain_id"].Value);
-        //            cmd.Parameters.Clear();
-        //        }
-
-
-        //        int mcid = Convert.ToInt32(Session["prmid"]);
-
-        //        for (int i = 0; i <= gvpurchasedetails.Rows.Count - 1; i++)
-        //        {
-        //            GridViewRow row = gvpurchasedetails.Rows[i];
-        //            //Purchase Details Saving Code Start Here
-        //            int salesedetail_id = Convert.ToInt32(row.Cells[12].Text);
-        //            if (salesedetail_id != 0)
-        //            {
-        //                cmd.CommandText = "sp_insert_purchase_return";
-        //                cmd.CommandType = CommandType.StoredProcedure;
-        //                cmd.Parameters.AddWithValue("@purchasereturnmain_id", mcid);
-        //                cmd.Parameters.AddWithValue("@purchasedetails_id", salesedetail_id);
-        //                cmd.Parameters.AddWithValue("@product_id", Convert.ToInt32(row.Cells[2].Text));
-        //                cmd.Parameters.AddWithValue("@batch_id", Convert.ToInt32(row.Cells[4].Text));
-        //                cmd.Parameters.AddWithValue("@tax_amt", Convert.ToDecimal(row.Cells[9].Text));
-        //                cmd.Parameters.AddWithValue("@quantity", Convert.ToDecimal(row.Cells[5].Text));
-        //                cmd.Parameters.AddWithValue("@amount", Convert.ToDecimal(row.Cells[10].Text));
-        //                cmd.Parameters.AddWithValue("@created_by", user);
-        //                cmd.Parameters.AddWithValue("@created_date", DateTime.Today);
-        //                cmd.Connection = con;
-        //                cmd.CommandTimeout = 600000;
-        //                cmd.ExecuteNonQuery();
-        //                cmd.Parameters.Clear();
-        //            }
-
-        //            // Stock & Stock Transaction Data Saving Code end
-
-        //        }
-
-
-
-
-        //        cmd.Parameters.Clear();
-
-        //        cmd.CommandText = "sp_InsertMonyTransaction";
-        //        cmd.CommandType = CommandType.StoredProcedure;
-        //        cmd.Parameters.AddWithValue("@company_id", c_id);
-        //        cmd.Parameters.AddWithValue("@branch_id", b_id);
-        //        cmd.Parameters.AddWithValue("@party_id", party_id);
-        //        cmd.Parameters.AddWithValue("@given_amt", txtPaidAmt.Text);
-        //        cmd.Parameters.AddWithValue("@grand_total", lblGrandTotal.Text);
-        //        cmd.Parameters.AddWithValue("@balance_amt", txtBalanceAmt.Text);
-        //        cmd.Parameters.AddWithValue("@in_out", "In");
-        //        cmd.Parameters.AddWithValue("@paymentmode_id", ddlPaymentMode.SelectedValue);
-        //        cmd.Parameters.AddWithValue("@transaction_typ", "Purchase Return");
-        //        cmd.Parameters.AddWithValue("@transactio_type_id", mcid);
-        //        cmd.Parameters.AddWithValue("@created_by", user);
-        //        cmd.Parameters.AddWithValue("@created_date", DateTime.Today);
-        //        cmd.Connection = con;
-        //        cmd.CommandTimeout = 600000;
-        //        cmd.ExecuteNonQuery();
-        //        transaction.Commit();
-        //        con.Close();
-
-        //        ClientScript.RegisterStartupScript(this.GetType(), "Pop", "openalert('Saved successfully','True');", true);
-
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ErrorLog.saveerror(ex);
-        //        //Do Logging
-        //    }
-        //    finally
-        //    {
-        //        if (con != null && con.State != ConnectionState.Closed)
-        //        {
-        //            con.Close();
-        //        }
-        //    }
-        //}
-        //protected void ddlproduct_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        int purchaseId = Convert.ToInt32(hdnPurchaseId.Value);
-        //        lblcheckDoubleError.Text = string.Empty;
-        //        int productId = Convert.ToInt32(ddlproduct.SelectedValue);
-        //        var stockQuantity = context.tbl_stock.Where(s => s.company_id == companyId && s.product_id == productId).FirstOrDefault();
-        //        var returnQuantity = context.GetReturnQuantity(purchaseId, Constants.Purchase, productId).FirstOrDefault().Value;
-        //        //int data = helper.GetStockQuantity(Convert.ToInt32(HttpContext.Current.Session["company_id"]), Convert.ToInt32(p_id));
-        //        Session["quant"] = stockQuantity.qty;
-        //        txtAvailableQuantity.Text = returnQuantity.ToString();
-        //        //lblcheckDoubleError.ForeColor = System.Drawing.Color.Green;
-        //        //lblcheckDoubleError.Text = "Avialable Quantity In Stock " + stockQuantity.qty;
-        //        UpdatePanel1.Update();
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        ErrorLog.saveerror(ex);
-        //        //Do Logging
-        //    }
-        //}
-
-
-
-
+        
         protected void gvpurchasedetails_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             try
@@ -689,18 +614,33 @@ namespace IMS
                 decimal discount_percent = decimal.Parse(grv.Cells[7].Text) * 100 / decimal.Parse(grv.Cells[10].Text);
                 decimal discountamt = a * Convert.ToDecimal(discount_percent.ToString("0.##"));
                 decimal tax_amount = a * decimal.Parse(grv.Cells[8].Text);
-                
+
 
                 if (e.CommandName == "Delete row")
                 {
                     int rowIndex = grv.RowIndex;
                     ViewState["id"] = rowIndex;
+                    int productId = Convert.ToInt32(grv.Cells[2].Text.ToString());
                     ddlproduct.Items.FindByValue(grv.Cells[2].Text).Enabled = true;
                     DataTable dt = ViewState["Details"] as DataTable;
                     dt.Rows[rowIndex].Delete();
                     ViewState["Details"] = dt;
                     DeleteCalculation(subTotal, tax_amount, discountamt);
                     this.BindGrid();
+
+                    //tax group implementation
+
+                    DataTable dt2 = (DataTable)ViewState["TaxDetails"];
+
+                    for (int i = dt2.Rows.Count - 1; i >= 0; i--)
+                    {
+                        DataRow dr = dt.Rows[i];
+                        if (dr.Field<string>("product_id") == productId.ToString())
+                            dr.Delete();
+                    }
+
+                    ViewState["TaxDetails"] = dt;
+                    this.BindTaxGrid();
 
                 }
                 else if (e.CommandName == "Update Row")
@@ -710,15 +650,29 @@ namespace IMS
 
                         ViewState["id"] = grv.RowIndex;
                         ddlproduct.SelectedValue = grv.Cells[2].Text.ToString();
-                        
+                        int productId = Convert.ToInt32(grv.Cells[2].Text.ToString());
                         ddlproduct.Items.FindByValue(grv.Cells[2].Text).Enabled = true;
                         txtquantity.Text = grv.Cells[5].Text.ToString();
                         btnUpdate.Visible = true;
                         btnAdd.Visible = false;
                         ddlproduct.Enabled = false;
+                        //tax group implementation
+
+                        DataTable dt = (DataTable)ViewState["TaxDetails"];
+
+                        for (int i = dt.Rows.Count - 1; i >= 0; i--)
+                        {
+                            DataRow dr = dt.Rows[i];
+                            string product = dr.Field<string>("product_id");
+                            if (product == productId.ToString())
+                                dr.Delete();
+                        }
+
+                        ViewState["TaxDetails"] = dt;
+                        this.BindTaxGrid();
                         DeleteCalculation(subTotal, tax_amount, discountamt);
                         //grv.Cells[12].Enabled = false;
-                        
+
                     }
                 }
             }
@@ -798,11 +752,45 @@ namespace IMS
                         dr["amount"] = subTotal;
 
                         clr();
-                        calculation(subTotal, tax_amount, discountamt);                       
+                        calculation(subTotal, tax_amount, discountamt);
                         txtPaidAmt.Enabled = true;
                         ViewState["Details"] = dt;
                         ddlproduct.Enabled = true;
                         this.BindGrid();
+                        var PurchaseTaxGroup = (from ep in context.tbl_purchasetaxgroup
+                                                join e1 in context.tbl_purchasetaxdetails on ep.purchasetaxgroup_id equals e1.purchasetaxgroup_id
+                                                join t in context.tbl_taxtype on e1.type_id equals t.type_id
+                                                where ep.purchaseId == purchaseId
+                                                select new
+                                                {
+                                                    group_id = ep.group_id,
+                                                    group_name = ep.group_name,
+                                                    type_name = t.type_name,
+                                                    type_id = e1.type_id,
+                                                    tax_percentage = e1.tax_percentage,
+                                                    product_id = ep.product_id
+                                                }).ToList();
+                        DataTable PurcahseTaxGroupTable = ToDataTable(PurchaseTaxGroup);
+
+                        DataTable dt2 = (DataTable)ViewState["TaxDetails"];
+                        if (PurcahseTaxGroupTable.Rows.Count > 0)
+                        {
+                            for (int i = 0; i < PurcahseTaxGroupTable.Rows.Count; i++)
+                            {
+                                dt2.Rows.Add(PurcahseTaxGroupTable.Rows[i].Field<int>("product_id"),
+                                               PurcahseTaxGroupTable.Rows[i].Field<int>("group_id"),
+                                              PurcahseTaxGroupTable.Rows[i].Field<string>("group_name"),
+                                              PurcahseTaxGroupTable.Rows[i].Field<string>("type_name"),
+                                          PurcahseTaxGroupTable.Rows[i].Field<decimal>("tax_percentage"),
+                                              PurcahseTaxGroupTable.Rows[i].Field<int>("type_id")
+                                              );
+                            }
+                        }
+
+                        ViewState["TaxDetails"] = dt2;
+                        this.BindTaxGrid();
+
+
                         ddlproduct.Items.FindByValue(productId.ToString()).Enabled = false;
                         btnUpdate.Visible = false;
                         btnAdd.Visible = true;
@@ -811,6 +799,7 @@ namespace IMS
             }
             catch (Exception ex)
             {
+
                 ErrorLog.saveerror(ex);
             }
         }
@@ -850,27 +839,27 @@ namespace IMS
             try
             {
                 int firstRowSpan = 2;
-            int secondRowSpan = 2;
-            for (int i = GrdOriginalPurchase.Rows.Count - 2; i >= 0; i--)
-            {
-                GridViewRow currRow = GrdOriginalPurchase.Rows[i];
-                GridViewRow prevRow = GrdOriginalPurchase.Rows[i + 1];
-                if (currRow.Cells[1].Text == prevRow.Cells[1].Text)
+                int secondRowSpan = 2;
+                for (int i = GrdOriginalPurchase.Rows.Count - 2; i >= 0; i--)
                 {
-                    currRow.Cells[1].RowSpan = firstRowSpan;
-                    prevRow.Cells[1].Visible = false;
-                    firstRowSpan += 1;
+                    GridViewRow currRow = GrdOriginalPurchase.Rows[i];
+                    GridViewRow prevRow = GrdOriginalPurchase.Rows[i + 1];
+                    if (currRow.Cells[1].Text == prevRow.Cells[1].Text)
+                    {
+                        currRow.Cells[1].RowSpan = firstRowSpan;
+                        prevRow.Cells[1].Visible = false;
+                        firstRowSpan += 1;
 
-                    currRow.Cells[0].RowSpan = secondRowSpan;
-                    prevRow.Cells[0].Visible = false;
-                    secondRowSpan += 1;
+                        currRow.Cells[0].RowSpan = secondRowSpan;
+                        prevRow.Cells[0].Visible = false;
+                        secondRowSpan += 1;
+                    }
+                    else
+                    {
+                        firstRowSpan = 2;
+                        secondRowSpan = 2;
+                    }
                 }
-                else
-                {
-                    firstRowSpan = 2;
-                    secondRowSpan = 2;
-                }
-            }
             }
             catch (Exception ex)
             {
@@ -909,8 +898,8 @@ namespace IMS
         protected void btnGetRefund_Click(object sender, EventArgs e)
         {
             string balanceAmnt = txtBalanceAmt.Text.Replace('-', ' ');
-            decimal paidAmnt = txtPaidAmt.Text=="" ? 0 : Convert.ToDecimal(txtPaidAmt.Text);
-            txtPaidAmt.Text = (Convert.ToDecimal(balanceAmnt) + paidAmnt).ToString() ;
+            decimal paidAmnt = txtPaidAmt.Text == "" ? 0 : Convert.ToDecimal(txtPaidAmt.Text);
+            txtPaidAmt.Text = (Convert.ToDecimal(balanceAmnt) + paidAmnt).ToString();
             txtBalanceAmt.Text = "0";
             btnGetRefund.Visible = false;
         }
@@ -932,7 +921,7 @@ namespace IMS
         {
             try
             {
-                decimal remainingBalance = Convert.ToDecimal(lblResultGrndTotal.Text) - Convert.ToDecimal(lblGivenAmnt.Text);                           
+                decimal remainingBalance = Convert.ToDecimal(lblResultGrndTotal.Text) - Convert.ToDecimal(lblGivenAmnt.Text);
 
                 //if (remainingBalance < 0)
                 //{
@@ -966,14 +955,14 @@ namespace IMS
                 {
                     decimal c = Convert.ToDecimal(lblGrandTotal.Text) - Convert.ToDecimal(txtPaidAmt.Text);
                     txtBalanceAmt.Text = c.ToString();
-                } 
+                }
                 UpdatePanel1.Update();
-            }           
+            }
             catch (Exception ex)
             {
                 ErrorLog.saveerror(ex);
                 //Do Logging
-            }           
+            }
         }
         #endregion
     }

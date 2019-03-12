@@ -17,7 +17,6 @@ namespace IMSBLL.EntityModel
         public int ID { get; set; }
         public Nullable<int> sale_id { get; set; }
         public Nullable<int> product_id { get; set; }
-        public Nullable<decimal> tax_percent { get; set; }
         public Nullable<decimal> sale_rate { get; set; }
         public Nullable<decimal> discount_amnt { get; set; }
         public Nullable<bool> status { get; set; }
@@ -26,8 +25,10 @@ namespace IMSBLL.EntityModel
         public string modified_by { get; set; }
         public Nullable<System.DateTime> modified_date { get; set; }
         public Nullable<decimal> discount_percent { get; set; }
+        public Nullable<int> saleTaxGroupID { get; set; }
     
         public virtual tbl_product tbl_product { get; set; }
         public virtual tbl_sale tbl_sale { get; set; }
+        public virtual tbl_saleTaxGroup tbl_saleTaxGroup { get; set; }
     }
 }

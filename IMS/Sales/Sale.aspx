@@ -3,9 +3,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <style>
-        .input-group{
-            height:35px !important;
+        .input-group {
+            height: 35px !important;
         }
+
         .input-group-addons {
             padding: 6px 10px;
             font-weight: normal;
@@ -162,13 +163,13 @@
                                     </label>
                                     <div class="container">
                                         <div class="side-by-side clearfix">
-                                            <div >
+                                            <div>
                                                 <asp:DropDownList ID="ddlproduct" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlproduct_SelectedIndexChanged">
                                                     <asp:ListItem Text="Choose Product" />
                                                 </asp:DropDownList>
-                                               <%-- <span class="input-group-addons">
+                                                <%-- <span class="input-group-addons">
                                                     <%--<asp:Button ID="btn" runat="server" Text="Show"/>--%>
-                                                   <%-- <a href="javascript:AddSrcToIfram('p')">
+                                                <%-- <a href="javascript:AddSrcToIfram('p')">
                                                         <asp:Label ID="Label2" runat="server" Text="+" Font-Bold="true" Font-Size="20px" ForeColor="White"></asp:Label>
                                                     </a>
                                                 </span>--%>
@@ -190,9 +191,9 @@
                                                 <asp:DropDownList ID="ddlBatch" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlBatch_SelectedIndexChanged" AutoPostBack="true">
                                                     <asp:ListItem Text="Choose Batch" />
                                                 </asp:DropDownList>
-                                               <%-- <span class="input-group-addons">--%>
-                                                    <%--<asp:Button ID="btn" runat="server" Text="Show" OnClick="btn_Click" />--%>
-                                                    <%--<a href="javascript:AddSrcToIfram('b')">
+                                                <%-- <span class="input-group-addons">--%>
+                                                <%--<asp:Button ID="btn" runat="server" Text="Show" OnClick="btn_Click" />--%>
+                                                <%--<a href="javascript:AddSrcToIfram('b')">
                                                         <asp:Label ID="Label3" runat="server" Text="+" Font-Bold="true" Font-Size="20px" ForeColor="White"></asp:Label>
                                                     </a>
                                                 </span>--%>
@@ -242,13 +243,14 @@
                             <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px;">
                                 <div class="col-sm-10 leftpadd0">
                                     <label class="control-label">
-                                        Tax %
+                                        Tax Group %
                                     </label>
-                                    <asp:TextBox ID="txtTaxpercentage" runat="server" CssClass="form-control"></asp:TextBox>
-                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ValidationExpression="^\s*(?=.*[0-9])\d*(?:\.\d{1,5})?\s*$" runat="server" ValidationGroup="adf" Display="Dynamic" ForeColor="Red" ControlToValidate="txtTaxpercentage" ErrorMessage="Discount could not be negative"></asp:RegularExpressionValidator>
+                                    <asp:DropDownList runat="server" ID="ddlTaxGroup" CssClass="form-control">
+                                    </asp:DropDownList>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" InitialValue="0" ControlToValidate="ddlTaxGroup" ErrorMessage="Please Select TAX Group" ForeColor="Red" ValidationGroup="grop"></asp:RequiredFieldValidator>
 
                                 </div>
-                            </div>                       
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px;">
@@ -296,10 +298,12 @@
                             <asp:BoundField DataField="Price" HeaderText="Price" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
                             <asp:BoundField DataField="Discount" HeaderText="Discount" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
                             <asp:BoundField DataField="Discount Amount" HeaderText="Discount Amount" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
-                            <asp:BoundField DataField="Tax" HeaderText="Tax" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
-                            <asp:BoundField DataField="Tax Amount" HeaderText="Tax Amount" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
                             <asp:BoundField DataField="Sub Total" HeaderText="Total" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
                             <asp:BoundField DataField="batch_id" HeaderText="Batch id" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
+                            <asp:BoundField DataField="purchasetaxgroup_id" HeaderText="Purchase tax Group id" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
+                            <asp:BoundField DataField="group_name" HeaderText="Tax Group" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
+                            <asp:BoundField DataField="totalTaxAmnt" HeaderText="Tax Amount" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
+                            <asp:BoundField DataField="group_id" HeaderText="Product id" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField> 
                             <asp:TemplateField HeaderText="Update">
                                 <ItemTemplate>
                                     <asp:ImageButton CommandName="Update Row" ID="btnimg_update" runat="server" ImageUrl="~/assets/img/edit.png" />
@@ -315,6 +319,7 @@
                     </asp:GridView>
                 </div>
             </div>
+
 
             <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
@@ -341,25 +346,11 @@
                                     <div class="col-sm-12 leftpadd0">
                                         <label class="control-label col-sm-9">Discount Amount</label>
                                         <asp:Label ID="lblDiscountAmt" runat="server" CssClass="control-label" Text="0"></asp:Label>
+                                         <div style="border: 1px solid black; margin-top: 10px; margin-bottom: 10px;"></div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class=" col-md-4 pull-left">
-                            <asp:GridView ID="GridView1" runat="server" CssClass="table " BorderStyle="None" GridLines="Horizontal">
-
-                                <HeaderStyle BackColor="#428BCA" ForeColor="White" />
-                            </asp:GridView>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 pull-right">
-                            <div style="border: 1px solid black; margin-top: 10px; margin-bottom: 10px;"></div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 pull-right">
-                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 leftpadd0 pull-right" style="padding: 0px;">
+                                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 leftpadd0 pull-right" style="padding: 0px;">
                                 <div class="form-group">
                                     <div class="col-sm-12 leftpadd0">
                                         <label class="control-label col-sm-9">Grand Total</label>
@@ -367,6 +358,32 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class=" col-md-6 pull-left">
+                            <asp:GridView ID="gvTaxDetailsNew" runat="server" CssClass="table table-bordered" AutoGenerateColumns="false" BorderStyle="None" GridLines="Horizontal">
+                                <Columns>
+                                    <asp:BoundField DataField="product_name" HeaderText="Product"></asp:BoundField>
+                                    <asp:BoundField DataField="product_id" HeaderText="Product id" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
+                                    <asp:BoundField DataField="group_id" HeaderText="Product id" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
+                                    <asp:BoundField DataField="group_name" HeaderText="Tax Group" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
+                                    <asp:BoundField DataField="type_name" HeaderText="Tax Type" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
+                                    <asp:BoundField DataField="tax_percentage" HeaderText="Tax Type Percent" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
+                                    <asp:BoundField DataField="totalTaxPercetage" HeaderText="Total Percentage" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
+                                    <asp:BoundField DataField="totalTaxAmnt" HeaderText="Total Tax Amount" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
+                                    <asp:BoundField DataField="type_id" HeaderText="Product id" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
+                                </Columns>
+                                <HeaderStyle BackColor="#428BCA" ForeColor="White" />
+                            </asp:GridView>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 pull-right">
+                           
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 pull-right">
+                       
                         </div>
                     </div>
                     <br />
@@ -421,6 +438,18 @@
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>
+       
+            <!--=====================================================Note field ====================================================================-->
+                <div class="row">
+                <div class="col-md-2 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px; margin-left:25px;">
+                        <div class="col-sm-10 leftpadd0">
+                              <label class="control-label">Note</label>
+                                    <asp:TextBox ID="txtSaleNote" runat="server" TextMode="MultiLine" CssClass="form-control" style="display:block; resize:none"></asp:TextBox>
+                        </div>
+               </div>
+               </div><br />
+
+
 
         <div class="panel-footer leftpadd0">
 
@@ -452,20 +481,21 @@
     </div>
 
     <div class="modal fade" role="dialog" id="AddModal" runat="server">
-        <div class="modal-dialog" >
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <%--<button type="button" class="close" data-dismiss="modal">
                         <span aria-hidden="true">&times;</span>
                     </button>--%>
-                    <h3><asp:Label ID="lblModalHeader" runat="server" CssClass="text-center"></asp:Label></h3>
+                    <h3>
+                        <asp:Label ID="lblModalHeader" runat="server" CssClass="text-center"></asp:Label></h3>
                 </div>
-                <div class="modal-body" >
+                <div class="modal-body">
                     <iframe id="ModalIfram" runat="server" width="100%" height="90%" scrolling="yes" frameborder="0" allowfullscreen="true"></iframe>
                 </div>
-              <div class="modal-footer" >
-                        <asp:Button ID="btnCloseMode" runat="server" Text="Close" CssClass="btn btn-primary" OnClick="btnCloseMode_Click"  />
-                    </div>
+                <div class="modal-footer">
+                    <asp:Button ID="btnCloseMode" runat="server" Text="Close" CssClass="btn btn-primary" OnClick="btnCloseMode_Click" />
+                </div>
             </div>
         </div>
     </div>
@@ -526,7 +556,7 @@
         { allow_single_deselect: true });
 
 
-<%--        $('#<%= ddlBatch.ClientID %>').chosen();
+        <%--        $('#<%= ddlBatch.ClientID %>').chosen();
         $("#<%= ddlBatch.ClientID %>-deselect").chosen(
             { allow_single_deselect: true });--%>
 

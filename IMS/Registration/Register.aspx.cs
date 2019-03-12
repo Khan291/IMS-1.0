@@ -56,21 +56,21 @@ namespace IMS.Registration
         /// </summary>
 
         #region Methods
-          [System.Web.Services.WebMethod]
+        [System.Web.Services.WebMethod]
         public static string CheckDouble(string useroremail)
         {
             try
             {
-                    SqlHelper helper = new SqlHelper();
-                    DataTable data = helper.checkregisteremail(useroremail);
-                    if (data.Rows.Count > 0)
-                    {
-                        return "true";
-                    }
-                    else
-                    {
-                        return "false";
-                    }
+                SqlHelper helper = new SqlHelper();
+                DataTable data = helper.checkregisteremail(useroremail);
+                if (data.Rows.Count > 0)
+                {
+                    return "true";
+                }
+                else
+                {
+                    return "false";
+                }
             }
             catch (Exception ex)
             {
@@ -78,28 +78,28 @@ namespace IMS.Registration
             }
             return "true";
         }
-          [System.Web.Services.WebMethod]
-          public static string CheckMobileDouble(string mobileno)
-          {
-              try
-              {
-                  SqlHelper helper = new SqlHelper();
-                  DataTable data = helper.checkregistermobileno(mobileno);
-                  if (data.Rows.Count > 0)
-                  {
-                      return "true";
-                  }
-                  else
-                  {
-                      return "false";
-                  }
-              }
-              catch (Exception ex)
-              {
-                  ErrorLog.saveerror(ex);
-              }
-              return "true";
-          }
+        [System.Web.Services.WebMethod]
+        public static string CheckMobileDouble(string mobileno)
+        {
+            try
+            {
+                SqlHelper helper = new SqlHelper();
+                DataTable data = helper.checkregistermobileno(mobileno);
+                if (data.Rows.Count > 0)
+                {
+                    return "true";
+                }
+                else
+                {
+                    return "false";
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.saveerror(ex);
+            }
+            return "true";
+        }
         protected void SendMail()
         {
             try
@@ -108,11 +108,11 @@ namespace IMS.Registration
                 dt = (DataTable)Session["userdetails"];
                 MailMessage mail = new MailMessage();
                 //SmtpClient SmtpServer = new SmtpClient("relay-hosting.secureserver.net");
-                SmtpClient SmtpServer = new SmtpClient("webmail.imsbizz.com", 25);
+                SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com", 587);
                 StringBuilder sb = new StringBuilder();
-                mail.From = new MailAddress("no-reply@imsbizz.com", "IMS Bizz");
+                mail.From = new MailAddress("imsbizz@gmail.com", "IMS Bizz");
                 mail.To.Add(email.Value);
-                mail.Subject = "Test Mail";
+                mail.Subject = "Verify Your Account";
                 string body = string.Empty;
                 using (StreamReader reader = new StreamReader(Server.MapPath("~/Registration/EmailVerification.html")))
                 {
@@ -123,8 +123,8 @@ namespace IMS.Registration
                 body = body.Replace("{uid}", dt.Rows[0]["uniqueidentifier"].ToString());
                 mail.Body = body;
                 mail.IsBodyHtml = true;
-                NetworkCredential NetCrd = new NetworkCredential("no-reply@imsbizz.com", "Vtt@!123");
-                SmtpServer.EnableSsl = false;
+                NetworkCredential NetCrd = new NetworkCredential("imsbizz@gmail.com", "Vtt@1234");
+                SmtpServer.EnableSsl = true;
                 SmtpServer.UseDefaultCredentials = false;
                 SmtpServer.Credentials = NetCrd;
                 SmtpServer.Timeout = 20000;
@@ -197,8 +197,10 @@ namespace IMS.Registration
                     r.created_by = txtfirstname.Value;
                     r.created_date = DateTime.Now;
                     r.start_date = startdate.Value;
-                    r.end_date = enddate.Value; 
+                    r.end_date = enddate.Value;
                     r.uniqueid = uniqueid.ToString();
+                    r.IsVerified = false;
+                    r.Ref_Mobile = txtRefMobNum.Value;
 
                     //context.sp_Register(company_name,)
                     DataTable dt = new DataTable();
@@ -214,9 +216,18 @@ namespace IMS.Registration
                 ErrorLog.saveerror(ex);
             }
         }
+        #endregion
 
-      
+        /// <summary>
+        /// All The Events That are used in coding
+        /// </summary>
 
+        #region Events
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            mpeTermsConditions.Show();
+            Register();
+        }
         protected void btnCancel_Click(object sender, EventArgs e)
         {
             try
@@ -228,41 +239,11 @@ namespace IMS.Registration
                 ErrorLog.saveerror(ex);
             }
         }
-
         #endregion
 
+        protected void btnAgree_Click(object sender, EventArgs e)
+        {
 
-
-        //public void validation()
-        //{
-        //    try
-        //    {
-        //        String password = txtPassword.Text; // Substitute with the user input string
-        //        Utilities.PasswordScore passwordStrengthScore = Utilities.CheckStrength(password);
-
-        //        switch (passwordStrengthScore)
-        //        {
-        //            case Utilities.PasswordScore.Blank:
-        //            case Utilities.PasswordScore.VeryWeak:
-        //            case Utilities.PasswordScore.Weak:
-        //                lblPswdCheck.Text = "Password should have atleast 8 characters, preferably atleast one upper case and one special character";
-        //                lblPswdCheck.Visible = true;
-        //                break;
-        //            case Utilities.PasswordScore.Medium:
-        //            case Utilities.PasswordScore.Strong:
-        //            case Utilities.PasswordScore.VeryStrong:
-        //                // Password deemed strong enough, allow user to be added to database etc
-        //                lblPswdCheck.Visible = false;
-        //                break;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ErrorLog.saveerror(ex);
-        //    }
-        //}
-
-       
-
+        }
     }
 }

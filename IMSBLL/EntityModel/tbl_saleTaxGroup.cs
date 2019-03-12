@@ -12,25 +12,27 @@ namespace IMSBLL.EntityModel
     using System;
     using System.Collections.Generic;
     
-    public partial class tbl_purchasetaxgroup
+    public partial class tbl_saleTaxGroup
     {
-        public tbl_purchasetaxgroup()
+        public tbl_saleTaxGroup()
         {
-            this.tbl_ActualPurchaseTaxAndPrice = new HashSet<tbl_ActualPurchaseTaxAndPrice>();
-            this.tbl_purchasetaxdetails = new HashSet<tbl_purchasetaxdetails>();
+            this.tbl_ActualSalesTaxAndPrice = new HashSet<tbl_ActualSalesTaxAndPrice>();
+            this.tbl_salereturndetails = new HashSet<tbl_salereturndetails>();
+            this.tbl_saleTaxGroupDetailes = new HashSet<tbl_saleTaxGroupDetailes>();
         }
     
-        public int purchasetaxgroup_id { get; set; }
+        public int SaleTaxGroupId { get; set; }
         public string group_name { get; set; }
         public Nullable<int> product_id { get; set; }
         public Nullable<int> group_id { get; set; }
-        public Nullable<int> purchaseId { get; set; }
+        public Nullable<int> sale_id { get; set; }
         public Nullable<decimal> totalTaxPercentage { get; set; }
     
-        public virtual ICollection<tbl_ActualPurchaseTaxAndPrice> tbl_ActualPurchaseTaxAndPrice { get; set; }
+        public virtual ICollection<tbl_ActualSalesTaxAndPrice> tbl_ActualSalesTaxAndPrice { get; set; }
         public virtual tbl_product tbl_product { get; set; }
-        public virtual tbl_purchase tbl_purchase { get; set; }
-        public virtual ICollection<tbl_purchasetaxdetails> tbl_purchasetaxdetails { get; set; }
+        public virtual tbl_sale tbl_sale { get; set; }
+        public virtual ICollection<tbl_salereturndetails> tbl_salereturndetails { get; set; }
         public virtual tbl_taxgroup tbl_taxgroup { get; set; }
+        public virtual ICollection<tbl_saleTaxGroupDetailes> tbl_saleTaxGroupDetailes { get; set; }
     }
 }

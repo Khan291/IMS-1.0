@@ -116,27 +116,7 @@
                     </div>
 
                     <div class="row">
-                        <%--<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left: 0px; margin-top: 10px">
-                            <asp:GridView ID="GrdOriginalSale" runat="server" CssClass="table" AutoGenerateColumns="false" BorderStyle="None" GridLines="Horizontal">
-                                <Columns>
-                                    <asp:TemplateField HeaderText="Sr.No">
-                                        <ItemTemplate>
-                                            <%#Container.DataItemIndex+1 %>
-                                        </ItemTemplate>
-                                    </asp:TemplateField>
-                                    <asp:BoundField DataField="product_name" HeaderText="Product"></asp:BoundField>
-                                    <asp:BoundField DataField="batch_name" HeaderText="Batch" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
-                                    <asp:BoundField DataField="quantity" HeaderText="Quantity"></asp:BoundField>
-                                    <asp:BoundField DataField="sale_rate" HeaderText="Sale Price" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
-                                    <asp:BoundField DataField="discount_percent" HeaderText="Discount" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
-                                    <asp:BoundField DataField="dicount_amt" HeaderText="Discount Amount" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
-                                    <asp:BoundField DataField="tax_percentage" HeaderText="Tax" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
-                                    <asp:BoundField DataField="tax_amt" HeaderText="Tax Amount" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
-                                    <asp:BoundField DataField="amount" HeaderText="Total" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
-                                </Columns>
-                                <HeaderStyle BackColor="#428BCA" ForeColor="White" />
-                            </asp:GridView>
-                        </div>--%>
+                    
 
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left: 0px; margin-top: 10px">
                         <asp:GridView ID="GrdOriginalSale" runat="server" CssClass="table table-bordered " Font-Size="Small" AutoGenerateColumns="false" OnDataBound ="GrdOriginalSale_DataBound"  BorderStyle="None" GridLines="Horizontal" OnRowDataBound="GrdOriginalSale_RowDataBound">
@@ -162,33 +142,7 @@
                         </asp:GridView>
                     </div>
                     </div>
-                   <%-- <div style="border: 1px solid black; margin-top: 10px; margin-bottom: 10px;"></div>
-                    <div class="row">
-                        <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 leftpadd0" style="padding: 0px;">
-                            <label class="control-label">Total Amnt:</label>
-                            <asp:Label ID="lblTotalAmnt" runat="server" Text=""></asp:Label>
-                        </div>
-                          <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 leftpadd0" style="padding: 0px;">
-                            <label class="control-label">Total Tax:</label>
-                            <asp:Label ID="lblTotalTax" runat="server" Text=""></asp:Label>
-                        </div>
-                           <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 leftpadd0" style="padding: 0px;">
-                            <label class="control-label">Total Discount:</label>
-                            <asp:Label ID="lblTotalDiscount" runat="server" Text=""></asp:Label>
-                        </div>
-                          <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 leftpadd0" style="padding: 0px;">
-                            <label class="control-label">Grand Total:</label>
-                            <asp:Label ID="lblGrndTotal" runat="server" Text=""></asp:Label>
-                        </div>
-                           <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 leftpadd0" style="padding: 0px;">
-                            <label class="control-label">Given Amnt:</label>
-                            <asp:Label ID="lblGivenAmnt" runat="server" Text=""></asp:Label>
-                        </div>
-                           <div class="col-md-2 col-lg-2 col-sm-2 col-xs-2 leftpadd0" style="padding: 0px;">
-                            <label class="control-label">Balance Amnt:</label>
-                            <asp:Label ID="lblBalanceAmnt" runat="server" Text=""></asp:Label>
-                        </div>
-                    </div>--%>
+                  
                     <div style="border: 1px solid black; margin-top: 10px; margin-bottom: 10px;"></div>
                 </div>
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
@@ -246,7 +200,7 @@
                                         <asp:BoundField DataField="tax_amt" HeaderText="Tax Amount" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
                                         <asp:BoundField DataField="amount" HeaderText="Total" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
                                         <asp:BoundField DataField="saledetails_id" HeaderText="Sale Detail Id" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
-
+                                        <asp:BoundField DataField="group_id" HeaderText="Product id" ></asp:BoundField>
                                         <asp:TemplateField HeaderText="Update">
                                             <ItemTemplate>
                                                 <asp:ImageButton CommandName="Update Row" ID="btnimg_update" runat="server" ImageUrl="~/assets/img/edit.png" />
@@ -263,40 +217,7 @@
                             </div>
                         </div>
 
-                        <%--<div class="row">
-                            <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 pull-right">
-                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 leftpadd0 pull-right" style="padding: 0px;">
-                                    <div class="form-group">
-                                        <div class="col-sm-12 leftpadd0">
-                                            <label class="control-label col-sm-9">Sub Total</label>
-                                            <asp:Label ID="lblsubtotal" runat="server" CssClass="control-label" Text="0"></asp:Label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 leftpadd0 pull-right" style="padding: 0px;">
-                                    <div class="form-group">
-                                        <div class="col-sm-12 leftpadd0">
-                                            <label class="control-label col-sm-9">Tax Amount</label>
-                                            <asp:Label ID="lblTaxAmount" runat="server" CssClass="control-label" Text="0"></asp:Label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 leftpadd0 pull-right" style="padding: 0px;">
-                                    <div class="form-group">
-                                        <div class="col-sm-12 leftpadd0">
-                                            <label class="control-label col-sm-9">Discount Amount</label>
-                                            <asp:Label ID="lblDiscountAmt" runat="server" CssClass="control-label" Text="0"></asp:Label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class=" col-md-4 pull-left">
-                                <asp:GridView ID="gvTaxDetails" runat="server" CssClass="table " BorderStyle="None" GridLines="Horizontal">
-
-                                    <HeaderStyle BackColor="#428BCA" ForeColor="White" />
-                                </asp:GridView>
-                            </div>
-                        </div>--%>
+                       
                          <div class="row">
                             <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6 pull-right">
                                 <div class="form-group">
@@ -323,6 +244,20 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class=" col-md-6 pull-left">
+                            <asp:GridView ID="gvTaxDetailsNew" runat="server" CssClass="table table-bordered" AutoGenerateColumns="false" BorderStyle="None" GridLines="Horizontal">
+                                <Columns>
+                                    <asp:BoundField DataField="product_name" HeaderText="Product"></asp:BoundField>
+                                    <asp:BoundField DataField="product_id" HeaderText="Product id" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
+                                    <asp:BoundField DataField="group_id" HeaderText="Product id" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
+                                    <asp:BoundField DataField="group_name" HeaderText="Tax Group" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
+                                    <asp:BoundField DataField="type_name" HeaderText="Tax Type" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
+                                    <asp:BoundField DataField="tax_percentage" HeaderText="Tax Type Percent" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
+                                    <asp:BoundField DataField="type_id" HeaderText="Product id" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
+                                </Columns>
+                                <HeaderStyle BackColor="#428BCA" ForeColor="White" />
+                            </asp:GridView>
+                        </div>
                             <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6 pull-right">
                                 <div class="form-group">
                                     <div class="col-sm-12">
@@ -354,18 +289,7 @@
                                 <div style="border: 1px solid black; margin-top: 10px; margin-bottom: 10px;"></div>
                             </div>
                         </div>
-                       <%-- <div class="row">
-                            <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 pull-right">
-                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 leftpadd0 pull-right" style="padding: 0px;">
-                                    <div class="form-group">
-                                        <div class="col-sm-12 leftpadd0">
-                                            <label class="control-label col-sm-9">Grand Total</label>
-                                            <asp:Label ID="lblGrandTotal" runat="server" CssClass="control-label" Text="0"></asp:Label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>--%>
+                    
                          <div class="row">
                             <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6 pull-right">
                                 <div class="form-group">

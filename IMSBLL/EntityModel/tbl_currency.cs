@@ -10,14 +10,13 @@
 namespace IMSBLL.EntityModel
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class sp_SelectTaxpercent_Result
+    public partial class tbl_currency
     {
-        public Nullable<int> tax_id { get; set; }
-        public Nullable<int> unit_id { get; set; }
-        public Nullable<decimal> tax_percentage { get; set; }
-        public string unit_name { get; set; }
-        public Nullable<int> batch_id { get; set; }
-        public string batch_name { get; set; }
+        public int currency_id { get; set; }
+        public string country_name { get; set; }
+        public string currency_code { get; set; }
+        public string currency_symbol { get; set; }
     }
 }
