@@ -35,6 +35,7 @@ namespace IMSBLL.EntityModel
         public virtual DbSet<tbl_category> tbl_category { get; set; }
         public virtual DbSet<tbl_company> tbl_company { get; set; }
         public virtual DbSet<tbl_country> tbl_country { get; set; }
+        public virtual DbSet<tbl_currency> tbl_currency { get; set; }
         public virtual DbSet<Tbl_EmailVerify> Tbl_EmailVerify { get; set; }
         public virtual DbSet<tbl_error_log> tbl_error_log { get; set; }
         public virtual DbSet<tbl_expense> tbl_expense { get; set; }
@@ -73,6 +74,9 @@ namespace IMSBLL.EntityModel
         public virtual DbSet<tbl_salereturndetails> tbl_salereturndetails { get; set; }
         public virtual DbSet<tbl_salereturndetailsHistory> tbl_salereturndetailsHistory { get; set; }
         public virtual DbSet<tbl_salereturnHistory> tbl_salereturnHistory { get; set; }
+        public virtual DbSet<tbl_saleTaxGroup> tbl_saleTaxGroup { get; set; }
+        public virtual DbSet<tbl_saleTaxGroupDetailes> tbl_saleTaxGroupDetailes { get; set; }
+        public virtual DbSet<tbl_setting> tbl_setting { get; set; }
         public virtual DbSet<tbl_state> tbl_state { get; set; }
         public virtual DbSet<tbl_stock> tbl_stock { get; set; }
         public virtual DbSet<tbl_stocktransaction> tbl_stocktransaction { get; set; }
@@ -3455,6 +3459,23 @@ namespace IMSBLL.EntityModel
                 new ObjectParameter("SplitOn", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<Split_Result>("[IMS_TESTEntities].[Split](@List, @SplitOn)", listParameter, splitOnParameter);
+        }
+    
+        public virtual ObjectResult<SelectPurcahseProductTaxGroup_Result> SelectPurcahseProductTaxGroup(Nullable<int> purchaseTaxgroupId, Nullable<int> productId, Nullable<decimal> qty)
+        {
+            var purchaseTaxgroupIdParameter = purchaseTaxgroupId.HasValue ?
+                new ObjectParameter("purchaseTaxgroupId", purchaseTaxgroupId) :
+                new ObjectParameter("purchaseTaxgroupId", typeof(int));
+    
+            var productIdParameter = productId.HasValue ?
+                new ObjectParameter("productId", productId) :
+                new ObjectParameter("productId", typeof(int));
+    
+            var qtyParameter = qty.HasValue ?
+                new ObjectParameter("qty", qty) :
+                new ObjectParameter("qty", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SelectPurcahseProductTaxGroup_Result>("SelectPurcahseProductTaxGroup", purchaseTaxgroupIdParameter, productIdParameter, qtyParameter);
         }
     }
 }

@@ -115,6 +115,9 @@
     <Compile Include="EntityModel\SelectProductTaxGroup_Result.cs">
       <DependentUpon>IMSModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityModel\SelectPurcahseProductTaxGroup_Result.cs">
+      <DependentUpon>IMSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityModel\spAuthenticateUserRole_Result.cs">
       <DependentUpon>IMSModel.tt</DependentUpon>
     </Compile>
@@ -258,6 +261,9 @@
     <Compile Include="EntityModel\tbl_country.cs">
       <DependentUpon>IMSModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityModel\tbl_currency.cs">
+      <DependentUpon>IMSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityModel\Tbl_EmailVerify.cs">
       <DependentUpon>IMSModel.tt</DependentUpon>
     </Compile>
@@ -370,6 +376,15 @@
       <DependentUpon>IMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\tbl_salereturnHistory.cs">
+      <DependentUpon>IMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tbl_saleTaxGroup.cs">
+      <DependentUpon>IMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tbl_saleTaxGroupDetailes.cs">
+      <DependentUpon>IMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\tbl_setting.cs">
       <DependentUpon>IMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\tbl_state.cs">
