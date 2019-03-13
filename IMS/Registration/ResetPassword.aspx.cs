@@ -59,32 +59,13 @@ namespace IMS.Registration
         }
 
 
-        public static string GetSwcSHA1(string value)
-        {
-            string sh1 = "";
-            try
-            {
-                SHA1 algorithm = SHA1.Create();
-                byte[] data = algorithm.ComputeHash(Encoding.UTF8.GetBytes(value));
-                for (int i = 0; i < data.Length; i++)
-                {
-                    sh1 += data[i].ToString("x2").ToUpperInvariant();
-                }
-               
-            }
-            catch (Exception ex)
-            {
-                ErrorLog.saveerror(ex);
-            }
-            return sh1;
-        }
 
         public void updatepassword()
         {
             try
             {
                 Register1 r = new Register1();
-                string enPswd = GetSwcSHA1(myInput.Value);
+                string enPswd = EncryptionHelper.GetSwcSHA1(myInput.Value);
                 r.userid = Convert.ToInt32(Request.QueryString["userid"].ToString());
                 r.password = enPswd;
                 r.modifydate = DateTime.Now;

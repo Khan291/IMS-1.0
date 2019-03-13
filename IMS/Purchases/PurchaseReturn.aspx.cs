@@ -564,10 +564,22 @@ namespace IMS
 
                         DataTable tbl = (DataTable)ViewState["Details"];
 
-                        tbl.Rows.Add(oneproductDetail.FirstOrDefault().purchasedetails_id, productId, oneproductDetail.FirstOrDefault().batch_id, oneproductDetail.FirstOrDefault().unit_id,
-                            oneproductDetail.FirstOrDefault().group_id, subTotal, discountamt, tax_amount, oneproductDetail.FirstOrDefault().purchase_rate, enteredQuantity,
-                            oneproductDetail.FirstOrDefault().product_name, oneproductDetail.FirstOrDefault().unit_name, oneproductDetail.FirstOrDefault().batch_name,
-                            oneproductDetail.FirstOrDefault().tax_percentage);
+                        tbl.Rows.Add(
+                              oneproductDetail.FirstOrDefault().purchasedetails_id
+                            , productId
+                            , oneproductDetail.FirstOrDefault().batch_id
+                            , oneproductDetail.FirstOrDefault().unit_id
+                            , oneproductDetail.FirstOrDefault().group_id
+                            , subTotal
+                            , discountamt
+                            , tax_amount
+                            , oneproductDetail.FirstOrDefault().purchase_rate
+                            , enteredQuantity
+                            , oneproductDetail.FirstOrDefault().product_name
+                            , oneproductDetail.FirstOrDefault().unit_name
+                            , oneproductDetail.FirstOrDefault().batch_name
+                            , oneproductDetail.FirstOrDefault().tax_percentage
+                            );
                         ViewState["Details"] = tbl;
                         this.BindGrid();
 

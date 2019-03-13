@@ -38,21 +38,6 @@ namespace IMSBLL.EntityModel
 
             _userRole.tbl_userbranch.Add(userBranch);
 
-            //DataTable result = null;
-            //Dictionary<string, object> parameters = new Dictionary<string, object>();
-
-            //parameters.Add("@company_id", userRole.company_id);
-            //parameters.Add("@branch_id", userRole.branch_id);
-            //parameters.Add("@user_name", userRole.user_name);
-            //parameters.Add("@status", userRole.status);
-            //parameters.Add("@created_by", userRole.created_by);
-            //parameters.Add("@created_date", userRole.created_date);
-            //parameters.Add("@user_emailid", userRole.user_Emai);
-            //parameters.Add("@user_mobileno", userRole.user_mobieno);
-            //parameters.Add("@password", userRole.password);
-            //parameters.Add("@role_id", userRole.role_id);
-            //parameters.Add("@first_name", userRole.first_name);
-            //parameters.Add("@last_name", userRole.last_name);
 
 
             try
@@ -67,8 +52,6 @@ namespace IMSBLL.EntityModel
             }
           //  return result;
         }
-
-
 
 
         public DataTable Update(UserRol userRole)
