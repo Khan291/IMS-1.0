@@ -245,9 +245,9 @@
                                     <label class="control-label">
                                         Tax Group %
                                     </label>
-                                    <asp:DropDownList runat="server" ID="ddlTaxGroup" CssClass="form-control">
+                                    <asp:DropDownList runat="server" OnSelectedIndexChanged="ddlTaxGroup_SelectedIndexChanged" ID="ddlTaxGroup" CssClass="form-control">
                                     </asp:DropDownList>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" InitialValue="0" ControlToValidate="ddlTaxGroup" ErrorMessage="Please Select TAX Group" ForeColor="Red" ValidationGroup="grop"></asp:RequiredFieldValidator>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6"  runat="server" InitialValue="0" ControlToValidate="ddlTaxGroup" ErrorMessage="Please Select TAX Group" ForeColor="Red" ValidationGroup="grop"></asp:RequiredFieldValidator>
 
                                 </div>
                             </div>
