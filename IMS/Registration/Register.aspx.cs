@@ -170,18 +170,14 @@ namespace IMS.Registration
             }
             return true;
         }
-        public static string GetSwcSHA1(string value)
-        {
-            SHA1 algorithm = SHA1.Create();
-            byte[] data = algorithm.ComputeHash(Encoding.UTF8.GetBytes(value));
-            string sh1 = "";
-            for (int i = 0; i < data.Length; i++)
-            {
-                sh1 += data[i].ToString("x2").ToUpperInvariant();
-            }
-            return sh1;
-        }
-        public void Register()
+        #endregion
+
+        /// <summary>
+        /// All The Events That are used in coding
+        /// </summary>
+
+        #region Events
+        protected void Register()
         {
             try
             {
@@ -195,7 +191,7 @@ namespace IMS.Registration
                     r.company_name = txtcompanyname.Value;
                     r.owner_emailid = email.Value;
                     r.owner_mobileno = txtmobile.Value;
-                    string enPswd = GetSwcSHA1(password.Value);
+                    string enPswd = EncryptionHelper.GetSwcSHA1(password.Value);
                     r.password = enPswd;
                     r.pincode = txtzip.Value;
                     r.created_by = txtfirstname.Value;
@@ -203,6 +199,8 @@ namespace IMS.Registration
                     r.start_date = startdate.Value;
                     r.end_date = enddate.Value;
                     r.uniqueid = uniqueid.ToString();
+                    r.IsVerified = false;
+                    r.Ref_Mobile = txtRefMobNum.Value;
 
                     //context.sp_Register(company_name,)
                     DataTable dt = new DataTable();

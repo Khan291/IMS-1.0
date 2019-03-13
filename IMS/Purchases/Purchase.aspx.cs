@@ -172,7 +172,7 @@ namespace IMS
                     tbl_purchasetaxgroup purchaseTaxGroup = new tbl_purchasetaxgroup();
                     purchaseTaxGroup.group_id = groupId;
                     purchaseTaxGroup.product_id = productId;
-                    purchaseTaxGroup.totalTaxPercentage = (Decimal)ViewState["TotalTaxPercent"];
+                    //purchaseTaxGroup.totalTaxPercentage = (Decimal)ViewState["TotalTaxPercent"];
                     purchaseTaxGroup.group_name = gvpurchasedetails.Rows[i].Cells[12].Text;
                     purchase.tbl_purchasetaxgroup.Add(purchaseTaxGroup);
 
@@ -857,7 +857,9 @@ namespace IMS
             int a = Convert.ToInt32(Session["p_id"]);
             if (a != 0 || Convert.ToString(a) == null)
             {
-                Response.Write(String.Format("<script>window.open('{0}','_blank')</script>", ResolveUrl(string.Format("~/Purchases/PrintPurchase.aspx?id={0}", a))));
+             //Response.Write(String.Format("<script>window.open('{0}','_blank')</script>", ResolveUrl(string.Format("~/Reports/ReportViewer.aspx?Id={0}&ReportName={1}", a, "PurchaseReport"))));
+                //Response.Write(String.Format("<script>window.open('{0}','_blank')</script>", ResolveUrl(string.Format("~/Purchases/ReportViewer.aspx?id={0}", a, "PurchaseReport"))));
+              Response.Write(String.Format("<script>window.open('{0}','_blank')</script>", ResolveUrl(string.Format("~/Purchases/PrintPurchase.aspx?id={0}", a))));
             }
         }
 
