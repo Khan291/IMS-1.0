@@ -352,23 +352,6 @@ namespace IMSBLL.EntityModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SelectProductTaxGroup_Result>("SelectProductTaxGroup", groupIdParameter, productIdParameter, qtyParameter);
         }
     
-        public virtual ObjectResult<SelectPurcahseProductTaxGroup_Result> SelectPurcahseProductTaxGroup(Nullable<int> purchaseTaxgroupId, Nullable<int> productId, Nullable<decimal> qty)
-        {
-            var purchaseTaxgroupIdParameter = purchaseTaxgroupId.HasValue ?
-                new ObjectParameter("purchaseTaxgroupId", purchaseTaxgroupId) :
-                new ObjectParameter("purchaseTaxgroupId", typeof(int));
-    
-            var productIdParameter = productId.HasValue ?
-                new ObjectParameter("productId", productId) :
-                new ObjectParameter("productId", typeof(int));
-    
-            var qtyParameter = qty.HasValue ?
-                new ObjectParameter("qty", qty) :
-                new ObjectParameter("qty", typeof(decimal));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SelectPurcahseProductTaxGroup_Result>("SelectPurcahseProductTaxGroup", purchaseTaxgroupIdParameter, productIdParameter, qtyParameter);
-        }
-    
         public virtual ObjectResult<sp_ActiveUser_Result> sp_ActiveUser(Nullable<int> userid, string uniqueid)
         {
             var useridParameter = userid.HasValue ?
@@ -1006,13 +989,13 @@ namespace IMSBLL.EntityModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetPurchaseDetailsById_Result>("sp_GetPurchaseDetailsById", purchsae_idParameter);
         }
     
-        public virtual int sp_GetSaleDetailsById(Nullable<int> saleId)
+        public virtual ObjectResult<sp_GetSaleDetailsById_Result> sp_GetSaleDetailsById(Nullable<int> saleId)
         {
             var saleIdParameter = saleId.HasValue ?
                 new ObjectParameter("saleId", saleId) :
                 new ObjectParameter("saleId", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_GetSaleDetailsById", saleIdParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetSaleDetailsById_Result>("sp_GetSaleDetailsById", saleIdParameter);
         }
     
         public virtual int sp_godowninsert(Nullable<int> company_id, Nullable<int> branch_id, string godown_name, string godown_address, string contact_no, string contact_person, Nullable<bool> status, string created_by, Nullable<System.DateTime> created_date, string modified_by, Nullable<System.DateTime> modified_date)
@@ -1814,7 +1797,7 @@ namespace IMSBLL.EntityModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_rackInsert", company_idParameter, branch_idParameter, godown_idParameter, rack_nameParameter, statusParameter, created_byParameter, created_dateParameter, modified_byParameter, modified_dateParameter);
         }
     
-        public virtual ObjectResult<sp_Register_Result> sp_Register(string company_name, string first_name, string last_name, string owner_emailid, string owner_mobileno, string user_password, Nullable<int> country_id, string pincode, string created_by, Nullable<System.DateTime> created_date, string start_date, string end_date, string uniqueidentity)
+        public virtual ObjectResult<sp_Register_Result> sp_Register(string company_name, string first_name, string last_name, string owner_emailid, string owner_mobileno, string user_password, Nullable<int> country_id, string pincode, string created_by, Nullable<System.DateTime> created_date, string start_date, string end_date, string uniqueidentity, Nullable<bool> isVerified, string ref_Mobile)
         {
             var company_nameParameter = company_name != null ?
                 new ObjectParameter("company_name", company_name) :
@@ -1868,7 +1851,15 @@ namespace IMSBLL.EntityModel
                 new ObjectParameter("uniqueidentity", uniqueidentity) :
                 new ObjectParameter("uniqueidentity", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Register_Result>("sp_Register", company_nameParameter, first_nameParameter, last_nameParameter, owner_emailidParameter, owner_mobilenoParameter, user_passwordParameter, country_idParameter, pincodeParameter, created_byParameter, created_dateParameter, start_dateParameter, end_dateParameter, uniqueidentityParameter);
+            var isVerifiedParameter = isVerified.HasValue ?
+                new ObjectParameter("IsVerified", isVerified) :
+                new ObjectParameter("IsVerified", typeof(bool));
+    
+            var ref_MobileParameter = ref_Mobile != null ?
+                new ObjectParameter("Ref_Mobile", ref_Mobile) :
+                new ObjectParameter("Ref_Mobile", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Register_Result>("sp_Register", company_nameParameter, first_nameParameter, last_nameParameter, owner_emailidParameter, owner_mobilenoParameter, user_passwordParameter, country_idParameter, pincodeParameter, created_byParameter, created_dateParameter, start_dateParameter, end_dateParameter, uniqueidentityParameter, isVerifiedParameter, ref_MobileParameter);
         }
     
         public virtual int sp_renamediagram(string diagramname, Nullable<int> owner_id, string new_diagramname)

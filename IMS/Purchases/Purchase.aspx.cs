@@ -118,9 +118,10 @@ namespace IMS
                 purchase.PaymentMode_id = Convert.ToInt32(ddlPaymentMode.SelectedValue);
                 purchase.status = true;
                 purchase.party_id = Convert.ToInt32(ddlVendor.SelectedValue);
-                purchase.Po_Date = DateTime.Parse(txtdate.Text, new CultureInfo("en-US"));
+                purchase.Po_Date = DateTime.ParseExact(txtdate.Text, "dd/MM/yyyy", new CultureInfo("en-US"));
                 purchase.po_no = txtPONo.Text;
                 purchase.Note = txtNotePurchase.Text;
+                purchase.other_expenses = txtotherexpence.Text;
                 
                 purchase.created_by = user_id;
                 purchase.created_date = DateTime.Now;
@@ -395,8 +396,12 @@ namespace IMS
             lblTaxAmount.Text = tottax.ToString();
             dec = Convert.ToDecimal(lblDiscountAmt.Text) + dis;
             lblDiscountAmt.Text = dec.ToString();
+            if(string.IsNullOrWhiteSpace(txtotherexpence.Text))
+            {
+                txtotherexpence.Text = "0";
+            }
 
-            gtot = Convert.ToDecimal(lblsubtotal.Text) + (Convert.ToDecimal(lblTaxAmount.Text) - Convert.ToDecimal(lblDiscountAmt.Text));
+            gtot = Convert.ToDecimal(lblsubtotal.Text) + (Convert.ToDecimal(lblTaxAmount.Text) - Convert.ToDecimal(lblDiscountAmt.Text) + Convert.ToDecimal(txtotherexpence.Text));
             lblGrandTotal.Text = gtot.ToString();
 
 
@@ -746,7 +751,12 @@ namespace IMS
             dec = Convert.ToDecimal(lblDiscountAmt.Text) - discountamt;
             lblDiscountAmt.Text = dec.ToString("0.##");
 
-            gtot = Convert.ToDecimal(lblsubtotal.Text) + (Convert.ToDecimal(lblTaxAmount.Text) - Convert.ToDecimal(lblDiscountAmt.Text));
+            if (string.IsNullOrWhiteSpace(txtotherexpence.Text))
+            {
+                txtotherexpence.Text = "0";
+            }
+
+            gtot = Convert.ToDecimal(lblsubtotal.Text) + (Convert.ToDecimal(lblTaxAmount.Text) - Convert.ToDecimal(lblDiscountAmt.Text)- Convert.ToDecimal(txtotherexpence.Text));
             lblGrandTotal.Text = gtot.ToString("0.##");
         }
         protected void btnclear_Click(object sender, System.EventArgs e)
@@ -868,6 +878,22 @@ namespace IMS
             catch (Exception ex)
             {
                 throw;
+            }
+        }
+
+        protected void txtotherexpence_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                decimal grandTotal = Convert.ToDecimal(lblGrandTotal.Text);
+                lblGrandTotal.Text = Convert.ToString(grandTotal + Convert.ToDecimal(txtotherexpence.Text));
+
+            }
+            catch (Exception ex){
+
+                ErrorLog.saveerror(ex);
+                //Do Logging
+
             }
         }
 

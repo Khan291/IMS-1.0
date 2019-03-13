@@ -405,6 +405,7 @@
           <Property Name="InvoiceNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="PaymentMode_id" Type="int" />
           <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="other_expenses" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="tbl_purchasedetails">
           <Key>
@@ -467,6 +468,7 @@
           <Property Name="InvoiceNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="PaymentMode_id" Type="int" />
           <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="other_expenses" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="tbl_PurchasePaymentDetials">
           <Key>
@@ -656,6 +658,7 @@
           <Property Name="paymentmode_id" Type="int" />
           <Property Name="sale_date" Type="smalldatetime" />
           <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="other_expenses" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="tbl_saledetails">
           <Key>
@@ -716,6 +719,7 @@
           <Property Name="InvoiceNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="paymentmode_id" Type="int" />
           <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="other_expenses" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="tbl_SalePaymentDetails">
           <Key>
@@ -866,7 +870,7 @@
           </Key>
           <Property Name="setting_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Decimal_Places" Type="int" />
-          <Property Name="Currency" Type="nvarchar(max)" />
+          <Property Name="currency_id" Type="int" />
           <Property Name="Enable_Invoice_Tax" Type="bit" />
           <Property Name="Print_Tin_on_Invoice" Type="bit" />
           <Property Name="Print_address" Type="bit" />
@@ -1036,6 +1040,8 @@
           <Property Name="first_name" Type="nvarchar" MaxLength="100" />
           <Property Name="last_name" Type="nvarchar" MaxLength="100" />
           <Property Name="Ref_Mobile" Type="nvarchar(max)" />
+          <Property Name="OTP" Type="nvarchar(max)" />
+          <Property Name="IsVerified" Type="bit" />
         </EntityType>
         <EntityType Name="tbl_userbranch">
           <Key>
@@ -3307,6 +3313,8 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <Parameter Name="start_date" Type="nvarchar" Mode="In" />
           <Parameter Name="end_date" Type="nvarchar" Mode="In" />
           <Parameter Name="uniqueidentity" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="IsVerified" Type="bit" Mode="In" />
+          <Parameter Name="Ref_Mobile" Type="nvarchar(max)" Mode="In" />
         </Function>
         <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -4953,6 +4961,8 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             <Parameter Name="start_date" Mode="In" Type="String" />
             <Parameter Name="end_date" Mode="In" Type="String" />
             <Parameter Name="uniqueidentity" Mode="In" Type="String" />
+            <Parameter Name="IsVerified" Mode="In" Type="Boolean" />
+            <Parameter Name="Ref_Mobile" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_renamediagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
@@ -5406,6 +5416,11 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <FunctionImport Name="Split" IsComposable="true" ReturnType="Collection(IMS_TESTModel.Split_Result)">
             <Parameter Name="List" Mode="In" Type="String" />
             <Parameter Name="SplitOn" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SelectPurcahseProductTaxGroup" ReturnType="Collection(IMS_TESTModel.SelectPurcahseProductTaxGroup_Result)">
+            <Parameter Name="purchaseTaxgroupId" Mode="In" Type="Int32" />
+            <Parameter Name="productId" Mode="In" Type="Int32" />
+            <Parameter Name="qty" Mode="In" Type="Decimal" />
           </FunctionImport>
           <EntitySet Name="ELMAH_Error" EntityType="IMS_TESTModel.ELMAH_Error" />
           <EntitySet Name="tbl_ActualPurchaseTaxAndPrice" EntityType="IMS_TESTModel.tbl_ActualPurchaseTaxAndPrice" />
@@ -6024,12 +6039,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             <End Role="tbl_User" EntitySet="tbl_User" />
             <End Role="tbl_userrole" EntitySet="tbl_userrole" />
           </AssociationSet>
-          <FunctionImport Name="SelectPurcahseProductTaxGroup" ReturnType="Collection(IMS_TESTModel.SelectPurcahseProductTaxGroup_Result)">
-            <Parameter Name="purchaseTaxgroupId" Mode="In" Type="Int32" />
-            <Parameter Name="productId" Mode="In" Type="Int32" />
-            <Parameter Name="qty" Mode="In" Type="Decimal" />
-          </FunctionImport>
-        </EntityContainer>
+          </EntityContainer>
         <ComplexType Name="CommonReport_Result">
           <Property Type="Int32" Name="company_id" Nullable="false" />
           <Property Type="String" Name="Godown" Nullable="true" MaxLength="50" />
@@ -6506,6 +6516,18 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
         <ComplexType Name="Split_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
           <Property Type="String" Name="Value" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="SelectPurcahseProductTaxGroup_Result">
+          <Property Type="Decimal" Name="totalTaxPercetage" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="totalTaxAmnt" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="group_name" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="product_id" Nullable="true" />
+          <Property Type="Int32" Name="type_id" Nullable="false" />
+          <Property Type="Decimal" Name="tax_percentage" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="product_name" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="purchas_price" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="type_name" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="group_id" Nullable="true" />
         </ComplexType>
         <EntityType Name="ELMAH_Error">
           <Key>
@@ -7049,6 +7071,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <Property Name="InvoiceNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PaymentMode_id" Type="Int32" />
           <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="other_expenses" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tbl_ActualPurchaseTaxAndPrice" Relationship="IMS_TESTModel.FK__tbl_Actua__purch__4EDDB18F" FromRole="tbl_purchase" ToRole="tbl_ActualPurchaseTaxAndPrice" />
           <NavigationProperty Name="tbl_branch" Relationship="IMS_TESTModel.FK__tbl_purch__branc__2B0A656D" FromRole="tbl_purchase" ToRole="tbl_branch" />
           <NavigationProperty Name="tbl_branch1" Relationship="IMS_TESTModel.FK__tbl_purch__branc__60FC61CA" FromRole="tbl_purchase" ToRole="tbl_branch" />
@@ -7131,6 +7154,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <Property Name="InvoiceNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PaymentMode_id" Type="Int32" />
           <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="other_expenses" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="tbl_PurchasePaymentDetials">
           <Key>
@@ -7346,6 +7370,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <Property Name="paymentmode_id" Type="Int32" />
           <Property Name="sale_date" Type="DateTime" Precision="0" />
           <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="other_expenses" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tbl_ActualSalesTaxAndPrice" Relationship="IMS_TESTModel.FK__tbl_Actua__sale___5D2BD0E6" FromRole="tbl_sale" ToRole="tbl_ActualSalesTaxAndPrice" />
           <NavigationProperty Name="tbl_branch" Relationship="IMS_TESTModel.FK_tbl_sale_tbl_branch" FromRole="tbl_sale" ToRole="tbl_branch" />
           <NavigationProperty Name="tbl_company" Relationship="IMS_TESTModel.FK_tbl_sale_tbl_company" FromRole="tbl_sale" ToRole="tbl_company" />
@@ -7422,6 +7447,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <Property Name="InvoiceNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="paymentmode_id" Type="Int32" />
           <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="other_expenses" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="tbl_SalePaymentDetails">
           <Key>
@@ -7594,7 +7620,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           </Key>
           <Property Name="setting_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Decimal_Places" Type="Int32" />
-          <Property Name="Currency" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="currency_id" Type="Int32" />
           <Property Name="Enable_Invoice_Tax" Type="Boolean" />
           <Property Name="Print_Tin_on_Invoice" Type="Boolean" />
           <Property Name="Print_address" Type="Boolean" />
@@ -7804,6 +7830,8 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <Property Name="first_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="last_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Ref_Mobile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OTP" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsVerified" Type="Boolean" />
           <NavigationProperty Name="tbl_paidpayment" Relationship="IMS_TESTModel.FK__tbl_paidp__user___3864608B" FromRole="tbl_User" ToRole="tbl_paidpayment" />
           <NavigationProperty Name="tbl_subscription" Relationship="IMS_TESTModel.FK__tbl_subsc__user___3493CFA7" FromRole="tbl_User" ToRole="tbl_subscription" />
           <NavigationProperty Name="tbl_userbranch" Relationship="IMS_TESTModel.FK__tbl_userb__user___267ABA7A" FromRole="tbl_User" ToRole="tbl_userbranch" />
@@ -9572,19 +9600,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="SelectPurcahseProductTaxGroup_Result">
-          <Property Type="Decimal" Name="totalTaxPercetage" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="totalTaxAmnt" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="String" Name="group_name" Nullable="true" MaxLength="500" />
-          <Property Type="Int32" Name="product_id" Nullable="true" />
-          <Property Type="Int32" Name="type_id" Nullable="false" />
-          <Property Type="Decimal" Name="tax_percentage" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="String" Name="product_name" Nullable="true" MaxLength="50" />
-          <Property Type="Decimal" Name="purchas_price" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="String" Name="type_name" Nullable="true" MaxLength="500" />
-          <Property Type="Int32" Name="group_id" Nullable="true" />
-        </ComplexType>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -10354,6 +10370,22 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SelectPurcahseProductTaxGroup" FunctionName="IMS_TESTModel.Store.SelectPurcahseProductTaxGroup">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.SelectPurcahseProductTaxGroup_Result">
+                <ScalarProperty Name="totalTaxPercetage" ColumnName="totalTaxPercetage" />
+                <ScalarProperty Name="totalTaxAmnt" ColumnName="totalTaxAmnt" />
+                <ScalarProperty Name="group_name" ColumnName="group_name" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="type_id" ColumnName="type_id" />
+                <ScalarProperty Name="tax_percentage" ColumnName="tax_percentage" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="purchas_price" ColumnName="purchas_price" />
+                <ScalarProperty Name="type_name" ColumnName="type_name" />
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <EntitySetMapping Name="ELMAH_Error">
             <EntityTypeMapping TypeName="IMS_TESTModel.ELMAH_Error">
               <MappingFragment StoreEntitySet="ELMAH_Error">
@@ -10761,6 +10793,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <EntitySetMapping Name="tbl_purchase">
             <EntityTypeMapping TypeName="IMS_TESTModel.tbl_purchase">
               <MappingFragment StoreEntitySet="tbl_purchase">
+                <ScalarProperty Name="other_expenses" ColumnName="other_expenses" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="PaymentMode_id" ColumnName="PaymentMode_id" />
                 <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
@@ -10825,6 +10858,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <EntitySetMapping Name="tbl_purchaseHistory">
             <EntityTypeMapping TypeName="IMS_TESTModel.tbl_purchaseHistory">
               <MappingFragment StoreEntitySet="tbl_purchaseHistory">
+                <ScalarProperty Name="other_expenses" ColumnName="other_expenses" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="PaymentMode_id" ColumnName="PaymentMode_id" />
                 <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
@@ -11027,6 +11061,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <EntitySetMapping Name="tbl_sale">
             <EntityTypeMapping TypeName="IMS_TESTModel.tbl_sale">
               <MappingFragment StoreEntitySet="tbl_sale">
+                <ScalarProperty Name="other_expenses" ColumnName="other_expenses" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="sale_date" ColumnName="sale_date" />
                 <ScalarProperty Name="paymentmode_id" ColumnName="paymentmode_id" />
@@ -11090,6 +11125,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <EntitySetMapping Name="tbl_saleHistory">
             <EntityTypeMapping TypeName="IMS_TESTModel.tbl_saleHistory">
               <MappingFragment StoreEntitySet="tbl_saleHistory">
+                <ScalarProperty Name="other_expenses" ColumnName="other_expenses" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="paymentmode_id" ColumnName="paymentmode_id" />
                 <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
@@ -11272,7 +11308,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
                 <ScalarProperty Name="Print_address" ColumnName="Print_address" />
                 <ScalarProperty Name="Print_Tin_on_Invoice" ColumnName="Print_Tin_on_Invoice" />
                 <ScalarProperty Name="Enable_Invoice_Tax" ColumnName="Enable_Invoice_Tax" />
-                <ScalarProperty Name="Currency" ColumnName="Currency" />
+                <ScalarProperty Name="currency_id" ColumnName="currency_id" />
                 <ScalarProperty Name="Decimal_Places" ColumnName="Decimal_Places" />
                 <ScalarProperty Name="setting_id" ColumnName="setting_id" />
               </MappingFragment>
@@ -11426,6 +11462,8 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <EntitySetMapping Name="tbl_User">
             <EntityTypeMapping TypeName="IMS_TESTModel.tbl_User">
               <MappingFragment StoreEntitySet="tbl_User">
+                <ScalarProperty Name="IsVerified" ColumnName="IsVerified" />
+                <ScalarProperty Name="OTP" ColumnName="OTP" />
                 <ScalarProperty Name="Ref_Mobile" ColumnName="Ref_Mobile" />
                 <ScalarProperty Name="last_name" ColumnName="last_name" />
                 <ScalarProperty Name="first_name" ColumnName="first_name" />
@@ -11550,23 +11588,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="SelectPurcahseProductTaxGroup" FunctionName="IMS_TESTModel.Store.SelectPurcahseProductTaxGroup">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="IMS_TESTModel.SelectPurcahseProductTaxGroup_Result">
-                <ScalarProperty Name="totalTaxPercetage" ColumnName="totalTaxPercetage" />
-                <ScalarProperty Name="totalTaxAmnt" ColumnName="totalTaxAmnt" />
-                <ScalarProperty Name="group_name" ColumnName="group_name" />
-                <ScalarProperty Name="product_id" ColumnName="product_id" />
-                <ScalarProperty Name="type_id" ColumnName="type_id" />
-                <ScalarProperty Name="tax_percentage" ColumnName="tax_percentage" />
-                <ScalarProperty Name="product_name" ColumnName="product_name" />
-                <ScalarProperty Name="purchas_price" ColumnName="purchas_price" />
-                <ScalarProperty Name="type_name" ColumnName="type_name" />
-                <ScalarProperty Name="group_id" ColumnName="group_id" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

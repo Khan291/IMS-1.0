@@ -52,7 +52,7 @@ namespace IMS
             companyId = Convert.ToInt32(Session["company_id"]);
             branchId = Convert.ToInt32(Session["branch_id"]);
         }
-        //LINQ Method done by Shakeeb Bhai for sale
+        //---============LINQ Method code done by Shakeeb Bhai for sale collection on Dashboard-------==================>
         private void getSaleAmount()
         {
             
@@ -97,7 +97,7 @@ namespace IMS
         }
 
 
-        //LINQ Method Code for Purchase
+        //LINQ Method Code for Purchase done by Afrozz for purchase collection on dashboard.
 
 
         private void getPurchaseAmount()

@@ -39,6 +39,8 @@ namespace IMSBLL.EntityModel
         public string first_name { get; set; }
         public string last_name { get; set; }
         public string Ref_Mobile { get; set; }
+        public string OTP { get; set; }
+        public Nullable<bool> IsVerified { get; set; }
     
         public virtual ICollection<tbl_paidpayment> tbl_paidpayment { get; set; }
         public virtual ICollection<tbl_subscription> tbl_subscription { get; set; }
