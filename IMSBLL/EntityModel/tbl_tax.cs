@@ -17,9 +17,7 @@ namespace IMSBLL.EntityModel
         public tbl_tax()
         {
             this.tbl_purchasedetails = new HashSet<tbl_purchasedetails>();
-            this.tbl_purchasereturndetails = new HashSet<tbl_purchasereturndetails>();
             this.tbl_saledetails = new HashSet<tbl_saledetails>();
-            this.tbl_salereturndetails = new HashSet<tbl_salereturndetails>();
         }
     
         public int tax_id { get; set; }
@@ -36,8 +34,6 @@ namespace IMSBLL.EntityModel
         public virtual tbl_branch tbl_branch { get; set; }
         public virtual tbl_company tbl_company { get; set; }
         public virtual ICollection<tbl_purchasedetails> tbl_purchasedetails { get; set; }
-        public virtual ICollection<tbl_purchasereturndetails> tbl_purchasereturndetails { get; set; }
         public virtual ICollection<tbl_saledetails> tbl_saledetails { get; set; }
-        public virtual ICollection<tbl_salereturndetails> tbl_salereturndetails { get; set; }
     }
 }

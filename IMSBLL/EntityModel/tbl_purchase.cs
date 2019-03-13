@@ -18,10 +18,10 @@ namespace IMSBLL.EntityModel
         {
             this.tbl_ActualPurchaseTaxAndPrice = new HashSet<tbl_ActualPurchaseTaxAndPrice>();
             this.tbl_purchasetaxgroup = new HashSet<tbl_purchasetaxgroup>();
+            this.tbl_purchasetaxdetails = new HashSet<tbl_purchasetaxdetails>();
             this.tbl_purchasedetails = new HashSet<tbl_purchasedetails>();
             this.tbl_PurchasePaymentDetials = new HashSet<tbl_PurchasePaymentDetials>();
             this.tbl_purchasereturn = new HashSet<tbl_purchasereturn>();
-            this.tbl_purchasetaxdetails = new HashSet<tbl_purchasetaxdetails>();
         }
     
         public int purchase_id { get; set; }
@@ -38,6 +38,8 @@ namespace IMSBLL.EntityModel
         public Nullable<int> branch_id { get; set; }
         public string InvoiceNumber { get; set; }
         public Nullable<int> PaymentMode_id { get; set; }
+        public string Note { get; set; }
+        public string other_expenses { get; set; }
     
         public virtual ICollection<tbl_ActualPurchaseTaxAndPrice> tbl_ActualPurchaseTaxAndPrice { get; set; }
         public virtual tbl_branch tbl_branch { get; set; }
@@ -50,9 +52,9 @@ namespace IMSBLL.EntityModel
         public virtual tbl_party tbl_party1 { get; set; }
         public virtual tbl_paymentmode tbl_paymentmode { get; set; }
         public virtual ICollection<tbl_purchasetaxgroup> tbl_purchasetaxgroup { get; set; }
+        public virtual ICollection<tbl_purchasetaxdetails> tbl_purchasetaxdetails { get; set; }
         public virtual ICollection<tbl_purchasedetails> tbl_purchasedetails { get; set; }
         public virtual ICollection<tbl_PurchasePaymentDetials> tbl_PurchasePaymentDetials { get; set; }
         public virtual ICollection<tbl_purchasereturn> tbl_purchasereturn { get; set; }
-        public virtual ICollection<tbl_purchasetaxdetails> tbl_purchasetaxdetails { get; set; }
     }
 }

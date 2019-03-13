@@ -25,7 +25,11 @@ namespace IMS
         {
             try
             {
-                throw new NullReferenceException();
+                if (Session["company_id"] == null || Session["branch_id"] == null  )
+                {
+                    Response.Redirect("~/Registration/Login.aspx");
+                    
+                }
                 companyId = Convert.ToInt32(HttpContext.Current.Session["company_id"]);
                 branchId = Convert.ToInt32(HttpContext.Current.Session["branch_id"]);
                 if (!IsPostBack)
@@ -65,7 +69,7 @@ namespace IMS
                     SqlHelper helper = new SqlHelper();
                    // DataTable data = helper.CheckDoubleValues(companyId, branchId, "tbl_category", "category_name", useroremail);
                     IMS_TESTEntities context = new IMS_TESTEntities();
-                    var data = context.tbl_category.Any(w => w.category_name == categoryName);
+                    var data = context.tbl_category.Any(w => w.category_name == categoryName && w.company_id == companyId);
                     if (data)
                     {                        
                         return true;

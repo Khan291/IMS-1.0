@@ -35,6 +35,7 @@ namespace IMS
             bindgrid();
             pagebind();
             logo();
+            printsetting();
         }
         }
 
@@ -109,6 +110,28 @@ namespace IMS
                 //con1.Dispose();
             }
         }
+
+        public void printsetting()
+        {
+            var set = context.tbl_setting.Where(s => s.company_id == companyId).FirstOrDefault();
+            if (set.Print_address == true)
+            {
+                lblpartyaddress.Visible = true;
+            }
+            else
+            {
+                lblpartyaddress.Visible = false;
+            }
+            if (set.Print_Tin_on_Invoice==true)
+            {
+                lbltin.Visible = true;
+            }
+            else
+            {
+                lbltin.Visible = false;
+            }
+                
+        }
         public void pagebind()
         {
           
@@ -127,6 +150,7 @@ namespace IMS
                                        balanceamt = pd.BalanceAmnt,
                                        givenamt = pd.GivenAmnt,
                                        companyName=company.company_name,
+                                       tin = company.GSTIN,
                                        address=company.company_address,
                                        partyaddress=c.party_address,
                                        partyname=c.party_name,
@@ -141,6 +165,7 @@ namespace IMS
                 lblAddress.Text = purchase.address;
                 lblemail.Text = purchase.owneremail;
                 lblzipcode.Text = purchase.pincode;
+                lbltin.Text = purchase.tin;
                 int p_id = Convert.ToInt32(purchase.PartyId);
 
                 lbldate.Text = purchase.createdate.ToString();

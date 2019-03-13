@@ -20,6 +20,8 @@ namespace IMSBLL.EntityModel
             this.tbl_saledetails = new HashSet<tbl_saledetails>();
             this.tbl_SalePaymentDetails = new HashSet<tbl_SalePaymentDetails>();
             this.tbl_salereturn = new HashSet<tbl_salereturn>();
+            this.tbl_saleTaxGroup = new HashSet<tbl_saleTaxGroup>();
+            this.tbl_saleTaxGroupDetailes = new HashSet<tbl_saleTaxGroupDetailes>();
         }
     
         public int sale_id { get; set; }
@@ -35,6 +37,8 @@ namespace IMSBLL.EntityModel
         public string InvoiceNumber { get; set; }
         public Nullable<int> paymentmode_id { get; set; }
         public Nullable<System.DateTime> sale_date { get; set; }
+        public string Note { get; set; }
+        public string other_expenses { get; set; }
     
         public virtual ICollection<tbl_ActualSalesTaxAndPrice> tbl_ActualSalesTaxAndPrice { get; set; }
         public virtual tbl_branch tbl_branch { get; set; }
@@ -45,5 +49,7 @@ namespace IMSBLL.EntityModel
         public virtual ICollection<tbl_saledetails> tbl_saledetails { get; set; }
         public virtual ICollection<tbl_SalePaymentDetails> tbl_SalePaymentDetails { get; set; }
         public virtual ICollection<tbl_salereturn> tbl_salereturn { get; set; }
+        public virtual ICollection<tbl_saleTaxGroup> tbl_saleTaxGroup { get; set; }
+        public virtual ICollection<tbl_saleTaxGroupDetailes> tbl_saleTaxGroupDetailes { get; set; }
     }
 }

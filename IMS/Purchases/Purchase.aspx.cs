@@ -120,7 +120,8 @@ namespace IMS
                 purchase.party_id = Convert.ToInt32(ddlVendor.SelectedValue);
                 purchase.Po_Date = DateTime.Parse(txtdate.Text, new CultureInfo("en-US"));
                 purchase.po_no = txtPONo.Text;
-
+                purchase.Note = txtNotePurchase.Text;
+                
                 purchase.created_by = user_id;
                 purchase.created_date = DateTime.Now;
 
@@ -135,6 +136,7 @@ namespace IMS
                 purchasePaymentDetail.BalanceAmnt = Convert.ToDecimal(txtBalanceAmt.Text);
                 purchasePaymentDetail.FromTable = "Purchase";
                 purchase.tbl_PurchasePaymentDetials.Add(purchasePaymentDetail);
+                
 
                 for (int i = 0; i <= gvpurchasedetails.Rows.Count - 1; i++)
                 {
@@ -169,7 +171,7 @@ namespace IMS
                     tbl_purchasetaxgroup purchaseTaxGroup = new tbl_purchasetaxgroup();
                     purchaseTaxGroup.group_id = groupId;
                     purchaseTaxGroup.product_id = productId;
-                    purchaseTaxGroup.totalTaxPercentage = (Decimal)ViewState["TotalTaxPercent"];
+                    //purchaseTaxGroup.totalTaxPercentage = (Decimal)ViewState["TotalTaxPercent"];
                     purchaseTaxGroup.group_name = gvpurchasedetails.Rows[i].Cells[12].Text;
                     purchase.tbl_purchasetaxgroup.Add(purchaseTaxGroup);
 
@@ -845,7 +847,9 @@ namespace IMS
             int a = Convert.ToInt32(Session["p_id"]);
             if (a != 0 || Convert.ToString(a) == null)
             {
-                Response.Write(String.Format("<script>window.open('{0}','_blank')</script>", ResolveUrl(string.Format("~/Purchases/PrintPurchase.aspx?id={0}", a))));
+             //Response.Write(String.Format("<script>window.open('{0}','_blank')</script>", ResolveUrl(string.Format("~/Reports/ReportViewer.aspx?Id={0}&ReportName={1}", a, "PurchaseReport"))));
+                //Response.Write(String.Format("<script>window.open('{0}','_blank')</script>", ResolveUrl(string.Format("~/Purchases/ReportViewer.aspx?id={0}", a, "PurchaseReport"))));
+              Response.Write(String.Format("<script>window.open('{0}','_blank')</script>", ResolveUrl(string.Format("~/Purchases/PrintPurchase.aspx?id={0}", a))));
             }
         }
 

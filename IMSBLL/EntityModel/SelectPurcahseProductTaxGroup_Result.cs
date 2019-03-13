@@ -11,13 +11,17 @@ namespace IMSBLL.EntityModel
 {
     using System;
     
-    public partial class sp_SelectTaxpercent_Result
+    public partial class SelectPurcahseProductTaxGroup_Result
     {
-        public Nullable<int> tax_id { get; set; }
-        public Nullable<int> unit_id { get; set; }
+        public Nullable<decimal> totalTaxPercetage { get; set; }
+        public Nullable<decimal> totalTaxAmnt { get; set; }
+        public string group_name { get; set; }
+        public Nullable<int> product_id { get; set; }
+        public int type_id { get; set; }
         public Nullable<decimal> tax_percentage { get; set; }
-        public string unit_name { get; set; }
-        public Nullable<int> batch_id { get; set; }
-        public string batch_name { get; set; }
+        public string product_name { get; set; }
+        public Nullable<decimal> purchas_price { get; set; }
+        public string type_name { get; set; }
+        public Nullable<int> group_id { get; set; }
     }
 }
