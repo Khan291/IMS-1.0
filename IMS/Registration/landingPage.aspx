@@ -803,7 +803,7 @@
             <!-- Foooter Text-->
             <div class="copyright-text">
                 <!-- ***** Removing this text is now allowed! This template is licensed under CC BY 3.0 ***** -->
-                <p>Copyright ©2017 !MS B!ZZ Designed by <a href="http://www.vttechnologies.co/" target="_blank">VT Technologies</a></p>
+                <p>Copyright ©2017 !MS B!ZZ Designed by <a href="https://zunmansolutions.com/" target="_blank">ZunMan Solutions </a></p>
             </div>
         </footer>
         <!-- ***** Footer Area Start ***** -->

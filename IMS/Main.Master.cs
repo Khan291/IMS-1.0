@@ -222,6 +222,7 @@ namespace IMS
             {
                 FormsAuthentication.SignOut();
                 FormsAuthentication.RedirectToLoginPage();
+                Session.Clear();
             }
             catch (Exception ex)
             {
