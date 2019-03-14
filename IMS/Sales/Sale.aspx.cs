@@ -251,8 +251,14 @@ namespace IMS
             dec = Convert.ToDecimal(lblDiscountAmt.Text) + dis;
             lblDiscountAmt.Text = dec.ToString();
 
-            gtot = Convert.ToDecimal(lblsubtotal.Text) + (Convert.ToDecimal(lblTaxAmount.Text) - Convert.ToDecimal(lblDiscountAmt.Text));
+            if (string.IsNullOrWhiteSpace(txtotherexpence.Text))
+            {
+                txtotherexpence.Text = "0";
+            }
+
+            gtot = Convert.ToDecimal(lblsubtotal.Text) + (Convert.ToDecimal(lblTaxAmount.Text) - Convert.ToDecimal(lblDiscountAmt.Text) + Convert.ToDecimal(txtotherexpence.Text));
             lblGrandTotal.Text = gtot.ToString();
+
 
 
         }
@@ -309,6 +315,7 @@ namespace IMS
                 sale.created_by = User_id;
                 sale.created_date = DateTime.Now;
                 sale.Note = txtSaleNote.Text;
+                sale.other_expenses = txtotherexpence.Text;
 
                 //insert into Sale Payment Details 
                 tbl_SalePaymentDetails salePaymentDetails = new tbl_SalePaymentDetails();
@@ -626,7 +633,12 @@ namespace IMS
             dec = Convert.ToDecimal(lblDiscountAmt.Text) - discountamt;
             lblDiscountAmt.Text = dec.ToString("0.##");
 
-            gtot = Convert.ToDecimal(lblsubtotal.Text) + (Convert.ToDecimal(lblTaxAmount.Text) - Convert.ToDecimal(lblDiscountAmt.Text));
+            if (string.IsNullOrWhiteSpace(txtotherexpence.Text))
+            {
+                txtotherexpence.Text = "0";
+            }
+
+            gtot = Convert.ToDecimal(lblsubtotal.Text) + (Convert.ToDecimal(lblTaxAmount.Text) - Convert.ToDecimal(lblDiscountAmt.Text) - Convert.ToDecimal(txtotherexpence.Text));
             lblGrandTotal.Text = gtot.ToString("0.##");
         }
         protected void btnUpdate_Click(object sender, System.EventArgs e)
@@ -767,6 +779,23 @@ namespace IMS
         protected void ddlTaxGroup_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        protected void txtotherexpence_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                //if(string.IsNullOrWhiteSpace( txtotherexpence.Text))
+                decimal grandTotal = Convert.ToDecimal(lblGrandTotal.Text);
+                lblGrandTotal.Text = Convert.ToString(grandTotal + Convert.ToDecimal(txtotherexpence.Text));
+                
+
+            }
+            catch (Exception ex){
+
+                ErrorLog.saveerror(ex);
+                //Do Logging
+            }
         }
 
         protected void btnPrint_Click(object sender, EventArgs e)
