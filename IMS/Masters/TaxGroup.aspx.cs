@@ -338,16 +338,12 @@ namespace IMS.Masters
         {
             try
             {
-                if (e.CommandName == "Delete row")
+                if (e.CommandName == "DeleteRow")
                 {
-                    //int rowIndex = gvtaxdetails.RowIndex;
-                    //ViewState["id"] = rowIndex;
-                    //divalert.Visible = false;
-                    //DataTable dt = ViewState["Details"] as DataTable;
-                    //dt.Rows[rowIndex].Delete();
-                    //ViewState["Details"] = dt;
-                    //this.BindGrid();
-                    //ClientScript.RegisterStartupScript(this.GetType(), "Pop", "openModal();", true);
+                    ViewState["id"] = Convert.ToInt32(e.CommandArgument);
+                    divalert.Visible = false;
+                    ClientScript.RegisterStartupScript(this.GetType(), "Pop", "openModal();", true);
+                    this.BindGrid();
                 }
                 else if (e.CommandName == "UpdateRow")
                 {
@@ -535,6 +531,27 @@ namespace IMS.Masters
             }
         }
 
-
+        protected void btnYes_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int rowIndex = Convert.ToInt32(ViewState["id"]);
+                //context.sp_DeleteTax(companyId, branchId, rowIndex);
+                var taxGroup = context.tbl_taxgroup.SingleOrDefault(t => t.group_id == rowIndex);
+                if (taxGroup != null)
+                {
+                    taxGroup.status = false;
+                    context.SaveChanges();
+                }
+                divalert.Visible = true;
+                lblAlert.Text = "Tax Group Deleted Successfully ";
+                loadDataTable();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.saveerror(ex);
+                //Do Logging
+            }
+        }
     }
 }

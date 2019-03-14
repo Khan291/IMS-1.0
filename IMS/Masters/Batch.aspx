@@ -125,7 +125,7 @@
                                 </ItemTemplate>
 
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Delete" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden">
+                            <asp:TemplateField HeaderText="Delete">
                                 <ItemTemplate>
                                     <asp:ImageButton CommandName="DeleteRow" CommandArgument='<%# Eval("batch_id") %>' ID="btnimg_delete" runat="server" ImageUrl="~/assets/img/remove.png" data-toggle="modal" href="#myModal" />
                                 </ItemTemplate>

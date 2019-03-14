@@ -163,7 +163,7 @@
                                                 </asp:TemplateField>
                                                 <asp:TemplateField HeaderText="Delete" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs">
                                                     <ItemTemplate>
-                                                        <asp:ImageButton CommandName="Delete row" ID="btnimg_Remove" runat="server" ImageUrl="~/assets/img/remove.png" />
+                                                        <asp:ImageButton CommandName="Delete row" ID="btnimg_Remove" runat="server" ImageUrl="~/assets/img/remove.png" href="#myModal" />
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                             </Columns>
@@ -211,7 +211,7 @@
                                 </ItemTemplate>
 
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Delete" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden">
+                            <asp:TemplateField HeaderText="Delete">
                                 <ItemTemplate>
                                     <asp:ImageButton CommandName="DeleteRow" CommandArgument='<%# Eval("group_id") %>' ID="btnimg_delete" runat="server" ImageUrl="~/assets/img/remove.png" data-toggle="modal" href="#myModal" />
                                 </ItemTemplate>
@@ -239,7 +239,7 @@
                 <p>Do You want to delete This Tax Group? </p>
                 </div>
                 <div class="modal-footer">
-                    <asp:Button ID="btnYes" runat="server" Text="Yes" CssClass="btn btn-primary" />
+                    <asp:Button ID="btnYes" runat="server" Text="Yes" CssClass="btn btn-primary" OnClick="btnYes_Click" />
                     <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
                 </div>
             </div>
