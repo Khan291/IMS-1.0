@@ -390,6 +390,7 @@
                                         <div class="col-sm-12 leftpadd0">
                                             <label class="control-label col-sm-9">Grand Total</label>
                                             <asp:Label ID="lblGrandTotal" runat="server" CssClass="control-label" Text="0"></asp:Label>
+                                            <asp:HiddenField ID="hdfGrandTotalWithoutExpenses" runat="server" />
                                         </div>
                                     </div>
                                 </div>

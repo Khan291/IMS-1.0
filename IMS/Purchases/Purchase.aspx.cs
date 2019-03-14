@@ -403,6 +403,7 @@ namespace IMS
 
             gtot = Convert.ToDecimal(lblsubtotal.Text) + (Convert.ToDecimal(lblTaxAmount.Text) - Convert.ToDecimal(lblDiscountAmt.Text) + Convert.ToDecimal(txtotherexpence.Text));
             lblGrandTotal.Text = gtot.ToString();
+            hdfGrandTotalWithoutExpenses.Value = lblGrandTotal.Text;
 
 
         }
@@ -887,6 +888,11 @@ namespace IMS
         {
             try
             {
+                if(string.IsNullOrWhiteSpace(txtotherexpence.Text))
+                {
+                    txtotherexpence.Text= "0";
+                }
+                lblGrandTotal.Text = hdfGrandTotalWithoutExpenses.Value;
                 decimal grandTotal = Convert.ToDecimal(lblGrandTotal.Text);
                 lblGrandTotal.Text = Convert.ToString(grandTotal + Convert.ToDecimal(txtotherexpence.Text));
 
