@@ -259,12 +259,13 @@
                                     <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ValidationExpression="^\s*(?=.*[1-9])\d*(?:\.\d{1,5})?\s*$" runat="server" ValidationGroup="grop" Display="Dynamic" ForeColor="Red" ControlToValidate="txtsalesprice" ErrorMessage="Sales Price should b greater then 0"></asp:RegularExpressionValidator>
                                 </div>
                             </div>
-
+                
                             <div class="col-md-4 col-lg-2 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px; margin-top: 20px">
                                 <%-- <div class="col-sm-10 leftpadd0">
                             <asp:CheckBox ID="chk" runat="server" Text="If IGST" Font-Bold="true" CssClass="checkbox" />
                         </div>--%>
                             </div>
+
                         </div>
                     </ContentTemplate>
                 </asp:UpdatePanel>
@@ -330,6 +331,14 @@
                                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 leftpadd0 pull-right" style="padding: 0px;">
                                     <div class="form-group">
                                         <div class="col-sm-12 leftpadd0">
+                                            <label class="control-label col-sm-9">Other Expenses</label>
+                                             <asp:TextBox ID="txtotherexpence" runat="server" CssClass="form-control"  AutoPostBack="true" OnTextChanged="txtotherexpence_TextChanged" onkeypress="return OnlyNumericEntry(event);"></asp:TextBox>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 leftpadd0 pull-right" style="padding: 0px;">
+                                    <div class="form-group">
+                                        <div class="col-sm-12 leftpadd0"><br />
                                             <label class="control-label col-sm-9">Sub Total</label>
                                             <asp:Label ID="lblsubtotal" runat="server" CssClass="control-label" Text="0"></asp:Label>
                                         </div>

@@ -17,7 +17,6 @@ namespace IMSBLL.EntityModel
         public tbl_saleTaxGroup()
         {
             this.tbl_ActualSalesTaxAndPrice = new HashSet<tbl_ActualSalesTaxAndPrice>();
-            this.tbl_salereturndetails = new HashSet<tbl_salereturndetails>();
             this.tbl_saleTaxGroupDetailes = new HashSet<tbl_saleTaxGroupDetailes>();
         }
     
@@ -31,7 +30,6 @@ namespace IMSBLL.EntityModel
         public virtual ICollection<tbl_ActualSalesTaxAndPrice> tbl_ActualSalesTaxAndPrice { get; set; }
         public virtual tbl_product tbl_product { get; set; }
         public virtual tbl_sale tbl_sale { get; set; }
-        public virtual ICollection<tbl_salereturndetails> tbl_salereturndetails { get; set; }
         public virtual tbl_taxgroup tbl_taxgroup { get; set; }
         public virtual ICollection<tbl_saleTaxGroupDetailes> tbl_saleTaxGroupDetailes { get; set; }
     }

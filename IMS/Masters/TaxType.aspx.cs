@@ -231,6 +231,31 @@ namespace IMS.Masters
                 //Do Logging
             }
         }
+
+        protected void btnYes_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int rowIndex = Convert.ToInt32(ViewState["rowIndex"]);
+                context.sp_DeleteTax(companyId, branchId, rowIndex);
+                var taxType = context.tbl_taxtype.SingleOrDefault(t => t.type_id == rowIndex);
+                if(taxType != null)
+                {
+                    taxType.status = false;
+                    context.SaveChanges();
+                }                
+                divalert.Visible = true;
+                lblAlert.Text = "Tax Deleted Successfully ";
+                loadDataTable();
+            }
+            catch (Exception ex)
+            {
+
+                ErrorLog.saveerror(ex);
+                //Do Logging
+            }
+        }
+
         #endregion
     }
 }

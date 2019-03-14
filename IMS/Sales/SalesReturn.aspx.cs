@@ -56,6 +56,7 @@ namespace IMS.Sales
                     dataTable2.Columns.Add("group_name");
                     dataTable2.Columns.Add("type_name");
                     dataTable2.Columns.Add("tax_percentage");
+                    dataTable2.Columns.Add("totaltaxPercentage");
                     dataTable2.Columns.Add("type_id");
                     ViewState["TaxDetails"] = dataTable2;
                 }
@@ -308,6 +309,7 @@ namespace IMS.Sales
                     saleeReturnDetails.amount = Convert.ToDecimal(gvsalesdetails.Rows[i].Cells[10].Text);
                     saleeReturnDetails.created_by = Convert.ToString(user_id);
                     saleeReturnDetails.created_date = Convert.ToDateTime(DateTime.Now);
+                    saleeReturnDetails.Sales_taxGroupId = taxGroupId;
                     saleeReturnDetails.status = true;
 
                     tbl_stock stock = new tbl_stock();
@@ -425,7 +427,8 @@ namespace IMS.Sales
                                                 type_name = t.type_name,
                                                 type_id = e1.type_id,
                                                 tax_percentage = e1.tax_percentage,
-                                                product_id = ep.product_id
+                                                product_id = ep.product_id,
+                                                totaltaxPercentage=ep.totalTaxPercentage
                                             }).ToList();
                     DataTable SaleTaxGroupDataTable = helper.LINQToDataTable(SaleTaxGroup);
                     if (!Convert.ToBoolean(ValidateQuantity(enteredQuantity, productId, saleId)[0]))
@@ -442,10 +445,21 @@ namespace IMS.Sales
 
                         DataTable tbl = (DataTable)ViewState["Details"];
 
-                        tbl.Rows.Add(oneproductDetail.FirstOrDefault().saledetails_id, productId, oneproductDetail.FirstOrDefault().batch_id, oneproductDetail.FirstOrDefault().unit_id,
-                            oneproductDetail.FirstOrDefault().tax_id, subTotal, discountamt, tax_amount, oneproductDetail.FirstOrDefault().sale_rate, enteredQuantity,
-                            oneproductDetail.FirstOrDefault().product_name, oneproductDetail.FirstOrDefault().unit_name, oneproductDetail.FirstOrDefault().batch_name,
-                            oneproductDetail.FirstOrDefault().tax_percentage);
+                        tbl.Rows.Add(oneproductDetail.FirstOrDefault().saledetails_id
+                                            , productId
+                                            , oneproductDetail.FirstOrDefault().batch_id
+                                            , oneproductDetail.FirstOrDefault().unit_id
+                                            , oneproductDetail.FirstOrDefault().group_id
+                                            , subTotal
+                                            , discountamt
+                                            , tax_amount
+                                            , oneproductDetail.FirstOrDefault().sale_rate
+                                            , enteredQuantity
+                                            , oneproductDetail.FirstOrDefault().product_name
+                                            , oneproductDetail.FirstOrDefault().unit_name
+                                            , oneproductDetail.FirstOrDefault().batch_name
+                                            , oneproductDetail.FirstOrDefault().tax_percentage
+                            );
                         ViewState["Details"] = tbl;
                         this.BindGrid();
                         DataTable dt2 = (DataTable)ViewState["TaxDetails"];
@@ -453,18 +467,19 @@ namespace IMS.Sales
                         {
                             for (int i = 0; i < SaleTaxGroupDataTable.Rows.Count; i++)
                             {
-                                dt2.Rows.Add(
-                                              SaleTaxGroupDataTable.Rows[i].Field<string>("product_name"), 
+                                dt2.Rows.Add( 
                                               SaleTaxGroupDataTable.Rows[i].Field<int>("product_id"),
                                                SaleTaxGroupDataTable.Rows[i].Field<int>("group_id"),
                                               SaleTaxGroupDataTable.Rows[i].Field<string>("group_name"), 
                                               SaleTaxGroupDataTable.Rows[i].Field<string>("type_name"),
                                           SaleTaxGroupDataTable.Rows[i].Field<decimal>("tax_percentage"),
+                                          SaleTaxGroupDataTable.Rows[i].Field<decimal>("totaltaxPercentage"),
                                               SaleTaxGroupDataTable.Rows[i].Field<int>("type_id")
                                               );
                             }
                         }
                         ViewState["TaxDetails"] = dt2;
+                        this.BindTaxGrid();
                         ddlproduct.Items.FindByValue(productId.ToString()).Enabled = false;
 
                     }

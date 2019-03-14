@@ -245,27 +245,14 @@
                                     <label class="control-label">
                                         Tax Group %
                                     </label>
-                                    <asp:DropDownList runat="server" ID="ddlTaxGroup" CssClass="form-control">
+                                    <asp:DropDownList runat="server" OnSelectedIndexChanged="ddlTaxGroup_SelectedIndexChanged" ID="ddlTaxGroup" CssClass="form-control">
                                     </asp:DropDownList>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" InitialValue="0" ControlToValidate="ddlTaxGroup" ErrorMessage="Please Select TAX Group" ForeColor="Red" ValidationGroup="grop"></asp:RequiredFieldValidator>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6"  runat="server" InitialValue="0" ControlToValidate="ddlTaxGroup" ErrorMessage="Please Select TAX Group" ForeColor="Red" ValidationGroup="grop"></asp:RequiredFieldValidator>
 
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px;">
-                                <div class="col-sm-10 leftpadd0">
-                                    <label class="control-label">
-                                        Note
-                                    </label>
-                                     <asp:TextBox ID="txtnote" runat="server" TextMode="MultiLine" CssClass="form-control" style="display:block;resize:none"></asp:TextBox>
-                                </div>
-                            </div>
-                        </div>
-         
-                        
-                    </ContentTemplate>
-
+                     </ContentTemplate>
                 </asp:UpdatePanel>
 
                 <div class="row">
@@ -328,6 +315,14 @@
                             <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 leftpadd0 pull-right" style="padding: 0px;">
                                 <div class="form-group">
                                     <div class="col-sm-12 leftpadd0">
+                                        <label class="control-label col-sm-9">Other Expenses</label>
+                                         <asp:TextBox ID="txtotherexpence" runat="server" CssClass="form-control" OnTextChanged="txtotherexpence_TextChanged" AutoPostBack="true" onkeypress="return OnlyNumericEntry(event);"></asp:TextBox>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 leftpadd0 pull-right" style="padding: 0px;">
+                                <div class="form-group">
+                                    <div class="col-sm-12 leftpadd0"><br />
                                         <label class="control-label col-sm-9">Sub Total</label>
                                         <asp:Label ID="lblsubtotal" runat="server" CssClass="control-label" Text="0"></asp:Label>
                                     </div>

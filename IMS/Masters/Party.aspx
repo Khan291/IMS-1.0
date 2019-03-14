@@ -127,7 +127,7 @@
                 <img src="../assets/img/goback-5-w800.png" height="50" width="130" /></a>
         </div>
         <div class="padding50"></div>
-        <div class="panel panel-default ">
+        <div class="panel panel-default">
             <div class="panel-heading text-center">
                 <h1>Party Master</h1>
             </div>

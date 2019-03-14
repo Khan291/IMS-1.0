@@ -17,9 +17,12 @@
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort>
     </IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
+    <IISExpressAnonymousAuthentication>
+    </IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>
+    </IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>
+    </IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <Use64BitIISExpress />
   </PropertyGroup>
@@ -265,6 +268,7 @@
     <Content Include="Masters\Batch.aspx" />
     <Content Include="Masters\Category.aspx" />
     <Content Include="Company.aspx" />
+    <Content Include="Masters\Details.aspx" />
     <Content Include="Masters\Expense.aspx" />
     <Content Include="Masters\FinincialYear.aspx" />
     <Content Include="Masters\Godown.aspx" />
@@ -553,6 +557,13 @@
     </Compile>
     <Compile Include="Company.aspx.designer.cs">
       <DependentUpon>Company.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Masters\Details.aspx.cs">
+      <DependentUpon>Details.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Masters\Details.aspx.designer.cs">
+      <DependentUpon>Details.aspx</DependentUpon>
     </Compile>
     <Compile Include="Masters\Expense.aspx.cs">
       <DependentUpon>Expense.aspx</DependentUpon>

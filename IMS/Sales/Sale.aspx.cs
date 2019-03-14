@@ -251,8 +251,14 @@ namespace IMS
             dec = Convert.ToDecimal(lblDiscountAmt.Text) + dis;
             lblDiscountAmt.Text = dec.ToString();
 
-            gtot = Convert.ToDecimal(lblsubtotal.Text) + (Convert.ToDecimal(lblTaxAmount.Text) - Convert.ToDecimal(lblDiscountAmt.Text));
+            if (string.IsNullOrWhiteSpace(txtotherexpence.Text))
+            {
+                txtotherexpence.Text = "0";
+            }
+
+            gtot = Convert.ToDecimal(lblsubtotal.Text) + (Convert.ToDecimal(lblTaxAmount.Text) - Convert.ToDecimal(lblDiscountAmt.Text) + Convert.ToDecimal(txtotherexpence.Text));
             lblGrandTotal.Text = gtot.ToString();
+
 
 
         }
@@ -309,6 +315,7 @@ namespace IMS
                 sale.created_by = User_id;
                 sale.created_date = DateTime.Now;
                 sale.Note = txtSaleNote.Text;
+                sale.other_expenses = txtotherexpence.Text;
 
                 //insert into Sale Payment Details 
                 tbl_SalePaymentDetails salePaymentDetails = new tbl_SalePaymentDetails();
@@ -459,12 +466,21 @@ namespace IMS
                     decimal a = subTotal / 100;
                     decimal discountamt = a * decimal.Parse(discount);
                     //decimal tax_amount = a;// * decimal.Parse(txtTaxpercentage.Text);
+                    
 
-                    var taxgrouplist = context.tbl_ActualPurchaseTaxAndPrice.Join(context.tbl_purchasetaxgroup, t => t.purchaseTaxId, pt => pt.purchasetaxgroup_id, (t, pt) => new { pt.group_id, pt.group_name, t.product_id, t.batch_id, pt.purchasetaxgroup_id }).Where(t => t.batch_id == batchId && t.product_id == productId).ToList();
+                    var purchaseTaxGroupId = (from spd in context.tbl_ActualPurchaseTaxAndPrice
+                            join s in context.tbl_purchasetaxgroup on spd.purchaseTaxId equals s.purchasetaxgroup_id
+                            where spd.batch_id == batchId && spd.product_id == productId
+                            select new 
+                            {
+                                groupname=s.group_name,
+                                purcahsegroupId=spd.purchaseTaxId
 
-                    var selectgroupId = taxgrouplist.Where(w => w.purchasetaxgroup_id == taxgroupId).FirstOrDefault().group_id;
+                            }).Distinct().Where(sd=> sd.groupname==ddlTaxGroup.SelectedItem.Text).FirstOrDefault();
+                    int G_Id = Convert.ToInt32(purchaseTaxGroupId.purcahsegroupId);
+                    var purchasegroup = context.SelectPurcahseProductTaxGroup(G_Id, productId, quantity).ToList();
 
-                    DataTable TaxDetailes = helper.LINQToDataTable(context.SelectPurcahseProductTaxGroup(taxgroupId, productId, quantity));
+                    DataTable TaxDetailes = helper.LINQToDataTable(purchasegroup);
                     decimal tax_amnt = 0;
                     DataTable dt2 = (DataTable)ViewState["TaxDetails"];
                     if (TaxDetailes.Rows.Count > 0)
@@ -489,7 +505,7 @@ namespace IMS
                     this.BindTaxGrid();
                     DataTable dt = (DataTable)ViewState["Details"];
                     dt.Rows.Add(ddlVendor.SelectedItem.Text.Trim(), ddlBatch.SelectedItem.Text, productId, txtSONo.Text.Trim(), txtdate.Text.Trim(), ddlproduct.SelectedItem.Text.Trim(),
-                                      txtquantity.Text.Trim(), txtprice.Text.Trim(), discount, discountamt, taxgroupId, tax_amnt, subTotal, batchId, ddlTaxGroup.SelectedItem.Text, selectgroupId);
+                                      txtquantity.Text.Trim(), txtprice.Text.Trim(), discount, discountamt, G_Id, tax_amnt, subTotal, batchId, ddlTaxGroup.SelectedItem.Text,Convert.ToInt32(ddlTaxGroup.SelectedValue));
                     ViewState["Details"] = dt;
                     this.BindGrid();
                     lblcheckDoubleError.Text = string.Empty;
@@ -617,7 +633,12 @@ namespace IMS
             dec = Convert.ToDecimal(lblDiscountAmt.Text) - discountamt;
             lblDiscountAmt.Text = dec.ToString("0.##");
 
-            gtot = Convert.ToDecimal(lblsubtotal.Text) + (Convert.ToDecimal(lblTaxAmount.Text) - Convert.ToDecimal(lblDiscountAmt.Text));
+            if (string.IsNullOrWhiteSpace(txtotherexpence.Text))
+            {
+                txtotherexpence.Text = "0";
+            }
+
+            gtot = Convert.ToDecimal(lblsubtotal.Text) + (Convert.ToDecimal(lblTaxAmount.Text) - Convert.ToDecimal(lblDiscountAmt.Text) - Convert.ToDecimal(txtotherexpence.Text));
             lblGrandTotal.Text = gtot.ToString("0.##");
         }
         protected void btnUpdate_Click(object sender, System.EventArgs e)
@@ -750,6 +771,28 @@ namespace IMS
             }
             catch (Exception ex)
             {
+                ErrorLog.saveerror(ex);
+                //Do Logging
+            }
+        }
+
+        protected void ddlTaxGroup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void txtotherexpence_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                //if(string.IsNullOrWhiteSpace( txtotherexpence.Text))
+                decimal grandTotal = Convert.ToDecimal(lblGrandTotal.Text);
+                lblGrandTotal.Text = Convert.ToString(grandTotal + Convert.ToDecimal(txtotherexpence.Text));
+                
+
+            }
+            catch (Exception ex){
+
                 ErrorLog.saveerror(ex);
                 //Do Logging
             }

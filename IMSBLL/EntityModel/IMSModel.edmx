@@ -2708,18 +2708,6 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tbl_salereturndetails_tbl_saleTaxGroup">
-          <End Role="tbl_saleTaxGroup" Type="Self.tbl_saleTaxGroup" Multiplicity="0..1" />
-          <End Role="tbl_salereturndetails" Type="Self.tbl_salereturndetails" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_saleTaxGroup">
-              <PropertyRef Name="SaleTaxGroupId" />
-            </Principal>
-            <Dependent Role="tbl_salereturndetails">
-              <PropertyRef Name="Sales_taxGroupId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tbl_salereturndetails_tbl_unit">
           <End Role="tbl_unit" Type="Self.tbl_unit" Multiplicity="0..1" />
           <End Role="tbl_salereturndetails" Type="Self.tbl_salereturndetails" Multiplicity="*" />
@@ -4420,10 +4408,6 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             <End Role="tbl_salereturn" EntitySet="tbl_salereturn" />
             <End Role="tbl_salereturndetails" EntitySet="tbl_salereturndetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbl_salereturndetails_tbl_saleTaxGroup" Association="Self.FK_tbl_salereturndetails_tbl_saleTaxGroup">
-            <End Role="tbl_saleTaxGroup" EntitySet="tbl_saleTaxGroup" />
-            <End Role="tbl_salereturndetails" EntitySet="tbl_salereturndetails" />
-          </AssociationSet>
           <AssociationSet Name="FK_tbl_salereturndetails_tbl_unit" Association="Self.FK_tbl_salereturndetails_tbl_unit">
             <End Role="tbl_unit" EntitySet="tbl_unit" />
             <End Role="tbl_salereturndetails" EntitySet="tbl_salereturndetails" />
@@ -5033,10 +5017,6 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           </AssociationSet>
           <AssociationSet Name="FK_tbl_salereturndetails_tbl_salereturn" Association="IMS_TESTModel.FK_tbl_salereturndetails_tbl_salereturn">
             <End Role="tbl_salereturn" EntitySet="tbl_salereturn" />
-            <End Role="tbl_salereturndetails" EntitySet="tbl_salereturndetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_salereturndetails_tbl_saleTaxGroup" Association="IMS_TESTModel.FK_tbl_salereturndetails_tbl_saleTaxGroup">
-            <End Role="tbl_saleTaxGroup" EntitySet="tbl_saleTaxGroup" />
             <End Role="tbl_salereturndetails" EntitySet="tbl_salereturndetails" />
           </AssociationSet>
           <AssociationSet Name="FK_tbl_salereturndetails_tbl_unit" Association="IMS_TESTModel.FK_tbl_salereturndetails_tbl_unit">
@@ -7047,7 +7027,6 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <NavigationProperty Name="tbl_batch" Relationship="IMS_TESTModel.FK_tbl_salereturndetails_tbl_batch" FromRole="tbl_salereturndetails" ToRole="tbl_batch" />
           <NavigationProperty Name="tbl_product" Relationship="IMS_TESTModel.FK_tbl_salereturndetails_tbl_product" FromRole="tbl_salereturndetails" ToRole="tbl_product" />
           <NavigationProperty Name="tbl_salereturn" Relationship="IMS_TESTModel.FK_tbl_salereturndetails_tbl_salereturn" FromRole="tbl_salereturndetails" ToRole="tbl_salereturn" />
-          <NavigationProperty Name="tbl_saleTaxGroup" Relationship="IMS_TESTModel.FK_tbl_salereturndetails_tbl_saleTaxGroup" FromRole="tbl_salereturndetails" ToRole="tbl_saleTaxGroup" />
           <NavigationProperty Name="tbl_unit" Relationship="IMS_TESTModel.FK_tbl_salereturndetails_tbl_unit" FromRole="tbl_salereturndetails" ToRole="tbl_unit" />
         </EntityType>
         <EntityType Name="tbl_salereturndetailsHistory">
@@ -7103,7 +7082,6 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <NavigationProperty Name="tbl_ActualSalesTaxAndPrice" Relationship="IMS_TESTModel.FK_tbl_ActualSalesTaxAndPrice_tbl_saleTaxGroup" FromRole="tbl_saleTaxGroup" ToRole="tbl_ActualSalesTaxAndPrice" />
           <NavigationProperty Name="tbl_product" Relationship="IMS_TESTModel.FK_tbl_saleTaxGroup_tbl_product" FromRole="tbl_saleTaxGroup" ToRole="tbl_product" />
           <NavigationProperty Name="tbl_sale" Relationship="IMS_TESTModel.FK_tbl_saleTaxGroup_tbl_sale" FromRole="tbl_saleTaxGroup" ToRole="tbl_sale" />
-          <NavigationProperty Name="tbl_salereturndetails" Relationship="IMS_TESTModel.FK_tbl_salereturndetails_tbl_saleTaxGroup" FromRole="tbl_saleTaxGroup" ToRole="tbl_salereturndetails" />
           <NavigationProperty Name="tbl_taxgroup" Relationship="IMS_TESTModel.FK_tbl_saleTaxGroup_tbl_taxgroup" FromRole="tbl_saleTaxGroup" ToRole="tbl_taxgroup" />
           <NavigationProperty Name="tbl_saleTaxGroupDetailes" Relationship="IMS_TESTModel.FK_tbl_saleTaxGroupDetailes_tbl_saleTaxGroup" FromRole="tbl_saleTaxGroup" ToRole="tbl_saleTaxGroupDetailes" />
         </EntityType>
@@ -8991,18 +8969,6 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tbl_salereturndetails_tbl_saleTaxGroup">
-          <End Type="IMS_TESTModel.tbl_saleTaxGroup" Role="tbl_saleTaxGroup" Multiplicity="0..1" />
-          <End Type="IMS_TESTModel.tbl_salereturndetails" Role="tbl_salereturndetails" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_saleTaxGroup">
-              <PropertyRef Name="SaleTaxGroupId" />
-            </Principal>
-            <Dependent Role="tbl_salereturndetails">
-              <PropertyRef Name="Sales_taxGroupId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tbl_salereturndetails_tbl_unit">
           <End Type="IMS_TESTModel.tbl_unit" Role="tbl_unit" Multiplicity="0..1" />
           <End Type="IMS_TESTModel.tbl_salereturndetails" Role="tbl_salereturndetails" Multiplicity="*" />
@@ -9307,7 +9273,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <Property Type="Int32" Name="product_id" Nullable="true" />
           <Property Type="Int32" Name="batch_id" Nullable="true" />
           <Property Type="Int32" Name="unit_id" Nullable="true" />
-          <Property Type="Int32" Name="tax_id" Nullable="true" />
+          <Property Type="Int32" Name="group_id" Nullable="true" />
           <Property Type="Decimal" Name="amount" Nullable="true" Precision="18" Scale="0" />
           <Property Type="Decimal" Name="dicount_amt" Nullable="true" Precision="18" Scale="0" />
           <Property Type="Decimal" Name="tax_amt" Nullable="true" Precision="18" Scale="0" />
@@ -11094,7 +11060,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
                 <ScalarProperty Name="product_id" ColumnName="product_id" />
                 <ScalarProperty Name="batch_id" ColumnName="batch_id" />
                 <ScalarProperty Name="unit_id" ColumnName="unit_id" />
-                <ScalarProperty Name="tax_id" ColumnName="tax_id" />
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
                 <ScalarProperty Name="amount" ColumnName="amount" />
                 <ScalarProperty Name="dicount_amt" ColumnName="dicount_amt" />
                 <ScalarProperty Name="tax_amt" ColumnName="tax_amt" />
