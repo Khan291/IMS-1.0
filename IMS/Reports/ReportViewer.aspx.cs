@@ -46,9 +46,9 @@ namespace IMS.Reports
             int companyId = Convert.ToInt32(Session["company_id"]);
             var logo = context.tbl_company.Where(w => w.company_id == companyId).Select(s=>s.logo).SingleOrDefault();
             string logoPath = new Uri(Server.MapPath(logo)).AbsoluteUri;
-           
 
-            
+            ReportViewer1.ProcessingMode = Microsoft.Reporting.WebForms.ProcessingMode.Local;
+
 
             string reportDataSet = string.Empty;
             string dataTable = string.Empty;
