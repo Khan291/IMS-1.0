@@ -17,7 +17,7 @@ namespace IMSBLL.EntityModel
         public Nullable<int> product_id { get; set; }
         public Nullable<int> batch_id { get; set; }
         public Nullable<int> unit_id { get; set; }
-        public Nullable<int> tax_id { get; set; }
+        public Nullable<int> group_id { get; set; }
         public Nullable<decimal> amount { get; set; }
         public Nullable<decimal> dicount_amt { get; set; }
         public Nullable<decimal> tax_amt { get; set; }

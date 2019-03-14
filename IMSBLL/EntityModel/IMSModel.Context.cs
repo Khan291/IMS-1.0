@@ -352,6 +352,23 @@ namespace IMSBLL.EntityModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SelectProductTaxGroup_Result>("SelectProductTaxGroup", groupIdParameter, productIdParameter, qtyParameter);
         }
     
+        public virtual ObjectResult<SelectPurcahseProductTaxGroup_Result> SelectPurcahseProductTaxGroup(Nullable<int> purchaseTaxgroupId, Nullable<int> productId, Nullable<decimal> qty)
+        {
+            var purchaseTaxgroupIdParameter = purchaseTaxgroupId.HasValue ?
+                new ObjectParameter("purchaseTaxgroupId", purchaseTaxgroupId) :
+                new ObjectParameter("purchaseTaxgroupId", typeof(int));
+    
+            var productIdParameter = productId.HasValue ?
+                new ObjectParameter("productId", productId) :
+                new ObjectParameter("productId", typeof(int));
+    
+            var qtyParameter = qty.HasValue ?
+                new ObjectParameter("qty", qty) :
+                new ObjectParameter("qty", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SelectPurcahseProductTaxGroup_Result>("SelectPurcahseProductTaxGroup", purchaseTaxgroupIdParameter, productIdParameter, qtyParameter);
+        }
+    
         public virtual ObjectResult<sp_ActiveUser_Result> sp_ActiveUser(Nullable<int> userid, string uniqueid)
         {
             var useridParameter = userid.HasValue ?

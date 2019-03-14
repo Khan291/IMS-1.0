@@ -256,8 +256,9 @@ namespace IMS
                 txtotherexpence.Text = "0";
             }
 
-            gtot = Convert.ToDecimal(lblsubtotal.Text) + (Convert.ToDecimal(lblTaxAmount.Text) - Convert.ToDecimal(lblDiscountAmt.Text) + Convert.ToDecimal(txtotherexpence));
+            gtot = Convert.ToDecimal(lblsubtotal.Text) + (Convert.ToDecimal(lblTaxAmount.Text) - Convert.ToDecimal(lblDiscountAmt.Text) + Convert.ToDecimal(txtotherexpence.Text));
             lblGrandTotal.Text = gtot.ToString();
+
 
 
         }
@@ -784,6 +785,7 @@ namespace IMS
         {
             try
             {
+                //if(string.IsNullOrWhiteSpace( txtotherexpence.Text))
                 decimal grandTotal = Convert.ToDecimal(lblGrandTotal.Text);
                 lblGrandTotal.Text = Convert.ToString(grandTotal + Convert.ToDecimal(txtotherexpence.Text));
                 

@@ -33,7 +33,6 @@ namespace IMSBLL.EntityModel
         public virtual tbl_batch tbl_batch { get; set; }
         public virtual tbl_product tbl_product { get; set; }
         public virtual tbl_salereturn tbl_salereturn { get; set; }
-        public virtual tbl_saleTaxGroup tbl_saleTaxGroup { get; set; }
         public virtual tbl_unit tbl_unit { get; set; }
     }
 }

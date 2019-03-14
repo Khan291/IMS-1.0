@@ -316,7 +316,7 @@
                                 <div class="form-group">
                                     <div class="col-sm-12 leftpadd0">
                                         <label class="control-label col-sm-9">Other Expenses</label>
-                                         <asp:TextBox ID="txtotherexpence" runat="server" CssClass="form-control" OnTextChanged="txtotherexpence_TextChanged" onkeypress="return OnlyNumericEntry(event);"></asp:TextBox>
+                                         <asp:TextBox ID="txtotherexpence" runat="server" CssClass="form-control" OnTextChanged="txtotherexpence_TextChanged" AutoPostBack="true" onkeypress="return OnlyNumericEntry(event);"></asp:TextBox>
                                     </div>
                                 </div>
                             </div>
