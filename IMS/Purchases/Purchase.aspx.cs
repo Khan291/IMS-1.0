@@ -121,7 +121,7 @@ namespace IMS
                 purchase.Po_Date = DateTime.ParseExact(txtdate.Text, "dd/MM/yyyy", new CultureInfo("en-US"));
                 purchase.po_no = txtPONo.Text;
                 purchase.Note = txtNotePurchase.Text;
-                purchase.other_expenses = txtotherexpence.Text;
+                purchase.other_expenses = Convert.ToDecimal(txtotherexpence.Text);
                 
                 purchase.created_by = user_id;
                 purchase.created_date = DateTime.Now;
@@ -384,6 +384,7 @@ namespace IMS
                 ErrorLog.saveerror(ex);
             }
         }
+        //code done by afroz for other expence and hdfGrandTotalWithoutExpenses 
         public void calculation(decimal amt, decimal tax, decimal dis)
         {
             decimal tot = 0;
@@ -739,6 +740,7 @@ namespace IMS
                 //Do Logging
             }
         }
+        //code done by afroz for other expence and IsNullOrWhiteSpace 
         private void DeleteCalculation(decimal subTotal, decimal tax_amount, decimal discountamt)
         {
             decimal tot = 0;
@@ -884,6 +886,7 @@ namespace IMS
             }
         }
 
+        //------===code done by afroz for other expence & add grand total in txtotherexpence and hdfGrandTotalWithoutExpenses is hidden field---=====>
         protected void txtotherexpence_TextChanged(object sender, EventArgs e)
         {
             try

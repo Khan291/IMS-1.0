@@ -220,6 +220,8 @@ namespace IMS
         {
             try
             {
+                int user_id = Convert.ToInt32(Session["UserID"]);
+                UpdateIsLogin(user_id);
                 FormsAuthentication.SignOut();
                 FormsAuthentication.RedirectToLoginPage();
                 Session.Clear();
@@ -231,6 +233,26 @@ namespace IMS
                 //Do Logging
             }
         }
-        
+
+        public void UpdateIsLogin(int userid)
+        {
+            try
+            {
+                context.tbl_User.FirstOrDefault();
+                var userdata = context.tbl_User.SingleOrDefault(u => u.user_id == userid);
+                if (userdata != null)
+                {
+                    userdata.Islogin = false;
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.saveerror(ex);
+            }
+        }
+
+
+
     }
 }

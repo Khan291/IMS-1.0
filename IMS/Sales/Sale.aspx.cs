@@ -238,6 +238,7 @@ namespace IMS
             txtBalanceAmt.Text = string.Empty;
             txtGivenAmt.Text = string.Empty;
         }
+        //code done by afroz for other expence and IsNullOrWhiteSpace 
         public void calculation(decimal amt, decimal tax, decimal dis)
         {
             decimal tot = 0;
@@ -313,7 +314,7 @@ namespace IMS
                 sale.created_by = User_id;
                 sale.created_date = DateTime.Now;
                 sale.Note = txtSaleNote.Text;
-                sale.other_expenses = txtotherexpence.Text;
+                sale.other_expenses = Convert.ToDecimal(txtotherexpence.Text);
 
                 //insert into Sale Payment Details 
                 tbl_SalePaymentDetails salePaymentDetails = new tbl_SalePaymentDetails();
@@ -617,7 +618,7 @@ namespace IMS
                 //Do Logging
             }
         }
-
+        //code done by afroz for other expence and IsNullOrWhiteSpace  
         private void DeleteCalculation(decimal subTotal, decimal tax_amount, decimal discountamt)
         {
             decimal tot = 0;
@@ -778,7 +779,7 @@ namespace IMS
         {
 
         }
-
+        //------============code done by afroz for other expence & add grand total and hdfGrandTotalWithoutExpenses is hidden field----=====>
         protected void txtotherexpence_TextChanged(object sender, EventArgs e)
         {
             try
