@@ -22,7 +22,7 @@ namespace IMSBLL.DAL
            {
                invoiceViewModel = (from s in context.tbl_purchase
                                    join f in context.tbl_financialyear on s.company_id equals f.company_id
-                                   where s.company_id == companyId && s.company_id == companyId && s.status == true && f.status == true && f.company_id == companyId
+                                   where s.company_id == companyId && s.status == true && f.status == true
                                    orderby s.purchase_id descending
                                    select new InvoiceViewModel
                                    {
@@ -35,7 +35,7 @@ namespace IMSBLL.DAL
            {
                invoiceViewModel = (from s in context.tbl_sale
                                    join f in context.tbl_financialyear on s.company_id equals f.company_id
-                                   where s.company_id == companyId && s.company_id == companyId && s.status == true && f.status == true && f.company_id == companyId
+                                   where s.company_id == companyId && s.status == true && f.status == true
                                    orderby s.sale_id descending
                                    select new InvoiceViewModel
                                    {
