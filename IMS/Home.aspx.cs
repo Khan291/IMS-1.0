@@ -25,9 +25,10 @@ namespace IMS
         IMS_TESTEntities context = new IMS_TESTEntities();
         SqlHelper sh = new SqlHelper();
         List<DashboardOrderTableViewModel> details = new List<DashboardOrderTableViewModel>();
+        static int companyId = 0;
+        static int branchId = 0;
+        
 
-        int companyId;
-        int branchId;
         #endregion
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -43,6 +44,42 @@ namespace IMS
         }
 
         #region Functions are here
+
+        [System.Web.Services.WebMethod]
+        public static List<DashboardChartViewModel> GetChartData()
+        {
+            List<DashboardChartViewModel> list = new List<DashboardChartViewModel>();
+            try
+            {
+                if (HttpContext.Current.Session["company_id"] != null)
+                {
+                    string a = "select top 5 sd.product_id, sum(sd.Quantity),p.product_name from tbl_saledetails sd inner join tbl_sale s on s.sale_id = sd.sale_id inner join tbl_product p on p.product_id = sd.product_id where s.company_id = 1008group by p.product_name, sd.product_id Order by sum(Quantity) desc";
+                    IMS_TESTEntities context = new IMS_TESTEntities();
+                    list = (from sd in context.tbl_saledetails
+                                join p in context.tbl_product on sd.product_id equals p.product_id
+                                join s in context.tbl_sale on sd.sale_id equals s.sale_id
+                                where s.company_id == companyId
+                                group sd by new  { p.product_name, sd.product_id } into g
+                                select new DashboardChartViewModel
+                                {
+                                    ProductId=g.Select(f=> f.product_id).FirstOrDefault(),
+                                    ProductName=g.Select(ty=> ty.tbl_product.product_name).FirstOrDefault(),
+                                    Quantity = g.Sum(t3 => t3.quantity).Value
+                                }
+
+                                ).Take(10).ToList();
+                                
+
+                    return list;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.saveerror(ex);
+            }
+            return list;
+        }
+
         private void SessionValue()
         {
             if (Session["UserID"] == null || Session["company_id"] == null || Session["branch_id"] == null || Session["financialyear_id"] == null)
@@ -55,24 +92,24 @@ namespace IMS
         //---============LINQ Method code done by Shakeeb Bhai for sale collection on Dashboard-------==================>
         private void getSaleAmount()
         {
-            
+
             DateTime startDate = DateTime.Today.AddDays(-30).Date;
             DateTime endDate = DateTime.Now.Date;
 
             decimal last30DaysSale = 0;
             decimal todaysSale = 0;
             var totalSaleOfLast30Dasys = (from spd in context.tbl_SalePaymentDetails
-                             join s in context.tbl_sale on spd.SaleId equals s.sale_id
-                             where (DbFunctions.TruncateTime(s.created_date)  >= startDate.Date && DbFunctions.TruncateTime(s.created_date) <= endDate.Date) && s.company_id == companyId
-                             group spd by new { s.sale_id } into g
-                             select new
-                             {
-                                 Amount = g.Sum(t3 => t3.GrandTotal).Value
-                             }).ToList();
+                                          join s in context.tbl_sale on spd.SaleId equals s.sale_id
+                                          where (DbFunctions.TruncateTime(s.created_date) >= startDate.Date && DbFunctions.TruncateTime(s.created_date) <= endDate.Date) && s.company_id == companyId
+                                          group spd by new { s.sale_id } into g
+                                          select new
+                                          {
+                                              Amount = g.Sum(t3 => t3.GrandTotal).Value
+                                          }).ToList();
 
-            if(totalSaleOfLast30Dasys.Count>0)
+            if (totalSaleOfLast30Dasys.Count > 0)
             {
-                last30DaysSale = totalSaleOfLast30Dasys.Sum(s=>s.Amount);
+                last30DaysSale = totalSaleOfLast30Dasys.Sum(s => s.Amount);
             }
 
 
@@ -84,11 +121,11 @@ namespace IMS
                                     {
                                         Amount = g.Sum(t3 => t3.GrandTotal).Value
                                     }).ToList();
-            
 
-            if (totalSaleOfToday.Count>0)
+
+            if (totalSaleOfToday.Count > 0)
             {
-                todaysSale = totalSaleOfToday.Sum(s=>s.Amount);
+                todaysSale = totalSaleOfToday.Sum(s => s.Amount);
             }
 
 
@@ -116,9 +153,9 @@ namespace IMS
                                                   Amount = g.Sum(t3 => t3.GrandTotal).Value
                                               }).ToList();
 
-            if (totalPurchaseOfLast30Dasys.Count>0)
+            if (totalPurchaseOfLast30Dasys.Count > 0)
             {
-               last30DaysPurchase = totalPurchaseOfLast30Dasys.Sum(s=>s.Amount);
+                last30DaysPurchase = totalPurchaseOfLast30Dasys.Sum(s => s.Amount);
             }
 
 
@@ -132,9 +169,9 @@ namespace IMS
                                         }).ToList();
 
 
-            if (totalPurchaseOfToday.Count>0)
+            if (totalPurchaseOfToday.Count > 0)
             {
-                todaysPurchase = totalPurchaseOfToday.Sum(s=>s.Amount);
+                todaysPurchase = totalPurchaseOfToday.Sum(s => s.Amount);
             }
 
 
@@ -474,7 +511,7 @@ namespace IMS
                 if (dt_purchase.Rows.Count > 0)
                 {
                     po.Text = dt_purchase.Rows[0][0].ToString();
-                   // lblpurchaseamount.Text = dt_purchase.Rows[0][1].ToString();
+                    // lblpurchaseamount.Text = dt_purchase.Rows[0][1].ToString();
                 }
                 if (dt_parties.Rows.Count > 0)
                 {

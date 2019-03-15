@@ -52,6 +52,43 @@
 
         //}
     </script>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    google.load("visualization", "1", { packages: ["corechart"] });
+    google.setOnLoadCallback(drawChart);
+    function drawChart() {
+        var options = {
+            title: 'Top Selling Products',
+            width: 600,
+            height: 400,
+            bar: { groupWidth: "95%" },
+            legend: { position: "none" },
+            isStacked: true
+        };
+        $.ajax({
+            type: "POST",
+            url: "Home.aspx/GetChartData",
+            data: '{}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (r) {
+                var data = google.visualization.arrayToDataTable(r.d);
+                var chart = new google.visualization.ColumnChart($("#chart")[0]);
+                chart.draw(data, options);
+            },
+            failure: function (r) {
+                alert(r.d);
+            },
+            error: function (r) {
+                alert(r.d);
+            }
+        });
+    }
+</script>
+
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div>
@@ -455,7 +492,9 @@
             </div>
 
         </div>
-
+        <div class="row">
+            <div id="chart" style="width: 900px; height: 500px;"></div>
+        </div>
         <%--<div class="row">
             <div class="col-lg-4">
                 <!-- Notifications-->

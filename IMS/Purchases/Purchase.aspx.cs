@@ -184,7 +184,6 @@ namespace IMS
                     for (int j = 0; j <= taxgroupTypes1.Rows.Count - 1; j++)
                     {
                         tbl_purchasetaxdetails purchaseTaxDetails = new tbl_purchasetaxdetails();
-                        purchaseTaxDetails.purchasetaxgroup_id = purchaseTaxGroup.purchasetaxgroup_id;
                         purchaseTaxDetails.type_id = taxgroupTypes1.Rows[j].Field<int>("type_id");
                         purchaseTaxDetails.tax_percentage = taxgroupTypes1.Rows[j].Field<decimal>("tax_percentage");
                         
@@ -198,7 +197,7 @@ namespace IMS
                     //Enter Details In tbl_ActualPurchaseTaxAndPrice : to get the original Values at the time of Purchase Return
                     tbl_ActualPurchaseTaxAndPrice actualPurchase = new tbl_ActualPurchaseTaxAndPrice();
                     actualPurchase.product_id = productId;
-                    actualPurchase.purchaseTaxId = purchaseTaxGroup.purchasetaxgroup_id;
+                    //actualPurchase.purchaseTaxId = purchaseTaxGroup.purchasetaxgroup_id;
                     actualPurchase.status = true;
 
                     //actualPurchase.tax_percent = Convert.ToDecimal(gvpurchasedetails.Rows[i].Cells[10].Text);
@@ -666,7 +665,7 @@ namespace IMS
                 decimal a = subTotal / 100;
                 decimal discount_percent = Convert.ToDecimal(grv.Cells[8].Text);
                 decimal discountamt = a * Convert.ToDecimal(discount_percent.ToString("0.##"));
-                decimal tax_amount = decimal.Parse(grv.Cells[12].Text);
+                decimal tax_amount = decimal.Parse(grv.Cells[13].Text);
 
                 if (e.CommandName == "Delete row")
                 {
@@ -682,7 +681,7 @@ namespace IMS
 
                     for (int i = taxDetails.Rows.Count - 1; i >= 0; i--)
                     {
-                        DataRow dr = dt.Rows[i];
+                        DataRow dr = taxDetails.Rows[i];
                         if (dr.Field<string>("product_id") == productId.ToString())
                             dr.Delete();
                     }
@@ -722,7 +721,7 @@ namespace IMS
 
                         ViewState["TaxDetails"] = dt;
                         this.BindTaxGrid();
-                        ddlTaxGroup.SelectedValue = grv.Cells[11].Text;
+                        //ddlTaxGroup.SelectedValue = grv.Cells[11].Text;
                         DeleteCalculation(subTotal, tax_amount, discountamt);
                         //counter++;
                     }

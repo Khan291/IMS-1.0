@@ -22,4 +22,12 @@ namespace IMSBLL.DAL
 
         public decimal? LastMonthTotal { get; set; }
     }
+
+    public class DashboardChartViewModel
+    {
+        public int? ProductId { get; set; }
+        public decimal? Quantity { get; set; }
+        public string ProductName { get; set; }
+    }
+
 }
