@@ -89,6 +89,9 @@
                             <!-- Form End -->
                         </div>
                     </div>
+                    <div class="col-8 col-md offset-1">
+                        <img src="../assets/img/Offer.png" />
+                    </div>
                 </div>
             </div>
             <!-- Welcome thumb -->
@@ -727,13 +730,13 @@
                             <p>We'll send you epic weekly blogs, white papers and things to make your inventory and business keep going smoothly</p>
                         </div>
                         <div class="address-text">
-                            <p><span>Address:</span> V.T.Technologies, Himayat Bagh, opposit Maulana Azad college, Aurangabad, Maharashtra.</p>
+                            <p><span>Address:</span> ZunMan Solutions, Himayat Bagh, opposit Maulana Azad college, Aurangabad, Maharashtra.</p>
                         </div>
                         <div class="phone-text">
-                            <p><span>Phone:</span>  +91 9960969887</p>
+                            <p><span>Phone:</span>  +91 2402381133</p>
                         </div>
                         <div class="email-text">
-                            <p><span>Email:</span> contact@vttechnologies.co</p>
+                            <p><span>Email:</span> contact@zunmansolutions.com</p>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -793,7 +796,7 @@
             <div class="footer-menu">
                 <nav>
                     <ul>
-                        <li><a href="#">About</a></li>
+                        <li><a class="nav-link" href="#about">About</a></li>
                         <li><a href="#">Terms &amp; Conditions</a></li>
                         <li><a href="#">Privacy Policy</a></li>
                         <li><a href="#">Contact</a></li>
@@ -803,7 +806,7 @@
             <!-- Foooter Text-->
             <div class="copyright-text">
                 <!-- ***** Removing this text is now allowed! This template is licensed under CC BY 3.0 ***** -->
-                <p>Copyright ©2017 !MS B!ZZ Designed by <a href="http://www.vttechnologies.co/" target="_blank">VT Technologies</a></p>
+                <p>Copyright <script>document.write(new Date().getFullYear())</script> !MS B!ZZ Designed by <a href="https://zunmansolutions.com/" target="_blank">ZunMan Solutions</a></p>
             </div>
         </footer>
         <!-- ***** Footer Area Start ***** -->
