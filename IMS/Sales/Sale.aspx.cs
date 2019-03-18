@@ -871,8 +871,9 @@ namespace IMS
             Save();
             int a = Convert.ToInt32(Session["sale_id"]);
             if (a != 0 || Convert.ToString(a) == null)
-            {              
-                Response.Write(String.Format("<script>window.open('{0}','_blank')</script>", ResolveUrl(string.Format("~/Sales/printsale.aspx?id={0}", a))));
+            {
+                Response.Write(String.Format("<script>window.open('{0}','_blank')</script>", ResolveUrl(string.Format("~/Reports/ReportViewer.aspx?Id={0}&ReportName={1}", a, "SaleReport"))));
+                //Response.Write(String.Format("<script>window.open('{0}','_blank')</script>", ResolveUrl(string.Format("~/Sales/printsale.aspx?id={0}", a))));
             }
         }
 
