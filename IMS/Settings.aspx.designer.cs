@@ -85,6 +85,51 @@ namespace IMS {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl fydiv;
         
         /// <summary>
+        /// rbA4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rbA4;
+        
+        /// <summary>
+        /// rbA5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rbA5;
+        
+        /// <summary>
+        /// rbPurchaseSaleReturnReport1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rbPurchaseSaleReturnReport1;
+        
+        /// <summary>
+        /// rbPurchaseSaleReturnReport2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rbPurchaseSaleReturnReport2;
+        
+        /// <summary>
+        /// rbPurchaseSaleReturnReport3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rbPurchaseSaleReturnReport3;
+        
+        /// <summary>
         /// btnSave control.
         /// </summary>
         /// <remarks>
