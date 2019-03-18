@@ -6,77 +6,75 @@
     <edmx:Diagrams>
       <Diagram DiagramId="1b2b03ecdc7c4eabaa6a8e3fd0baab3a" Name="Diagram1">
         <EntityTypeShape EntityType="IMS_TESTModel.ELMAH_Error" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_ActualPurchaseTaxAndPrice" Width="1.5" PointX="30" PointY="92.75" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_ActualSalesTaxAndPrice" Width="1.5" PointX="24" PointY="100.5" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_batch" Width="1.5" PointX="13.5" PointY="94.375" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_branch" Width="1.5" PointX="5.25" PointY="86.375" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_category" Width="1.5" PointX="16.5" PointY="84.875" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_company" Width="1.5" PointX="8.25" PointY="85.75" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_country" Width="1.5" PointX="0.75" PointY="78.125" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_ActualPurchaseTaxAndPrice" Width="1.5" PointX="21" PointY="93.125" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_ActualSalesTaxAndPrice" Width="1.5" PointX="32.25" PointY="95.625" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_batch" Width="1.5" PointX="9.75" PointY="88" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_branch" Width="1.5" PointX="7.5" PointY="85" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_category" Width="1.5" PointX="12.75" PointY="93.5" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_company" Width="1.5" PointX="5.25" PointY="84.375" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_country" Width="1.5" PointX="0.75" PointY="76.75" />
         <EntityTypeShape EntityType="IMS_TESTModel.tbl_currency" Width="1.5" PointX="2.75" PointY="0.75" />
         <EntityTypeShape EntityType="IMS_TESTModel.Tbl_EmailVerify" Width="1.5" PointX="2.75" PointY="3.75" />
         <EntityTypeShape EntityType="IMS_TESTModel.tbl_error_log" Width="1.5" PointX="4.75" PointY="0.75" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_expense" Width="1.5" PointX="19.5" PointY="89.875" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_expenseentry" Width="1.5" PointX="24.75" PointY="89.625" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_financialyear" Width="1.5" PointX="19.5" PointY="94.375" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_godown" Width="1.5" PointX="13.5" PointY="84.5" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_mony" Width="1.5" PointX="16.5" PointY="95.75" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_monytransaction" Width="1.5" PointX="16.5" PointY="89" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_paidpayment" Width="1.5" PointX="21.75" PointY="85.5" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_party" Width="1.5" PointX="10.5" PointY="99.625" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_paymentmode" Width="1.5" PointX="19.5" PointY="84.5" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_plan" Width="1.5" PointX="11.25" PointY="75.125" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_product" Width="1.5" PointX="21.75" PointY="91.125" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_productTaxGroup" Width="1.5" PointX="30" PointY="83.125" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_purchase" Width="1.5" PointX="29.75" PointY="98.375" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_purchasedetails" Width="1.5" PointX="24" PointY="94.25" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_expense" Width="1.5" PointX="18.75" PointY="83.5" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_expenseentry" Width="1.5" PointX="21" PointY="87.75" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_financialyear" Width="1.5" PointX="12.75" PointY="88" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_godown" Width="1.5" PointX="18.75" PointY="93.125" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_mony" Width="1.5" PointX="15.75" PointY="93.375" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_monytransaction" Width="1.5" PointX="12.75" PointY="81.625" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_paidpayment" Width="1.5" PointX="15.75" PointY="78.125" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_party" Width="1.5" PointX="9.75" PointY="98.25" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_paymentmode" Width="1.5" PointX="12.75" PointY="98.125" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_plan" Width="1.5" PointX="5.25" PointY="79.75" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_product" Width="1.5" PointX="24" PointY="90.875" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_productTaxGroup" Width="1.5" PointX="29.25" PointY="88.625" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_purchase" Width="1.5" PointX="18" PointY="98.75" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_purchasedetails" Width="1.5" PointX="24" PointY="84.875" />
         <EntityTypeShape EntityType="IMS_TESTModel.tbl_purchasedetailsHistory" Width="1.5" PointX="4.75" PointY="4.75" />
         <EntityTypeShape EntityType="IMS_TESTModel.tbl_purchaseHistory" Width="1.5" PointX="6.75" PointY="0.75" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_PurchasePaymentDetials" Width="1.5" PointX="32" PointY="105.5" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_PurchasePaymentDetials" Width="1.5" PointX="20.25" PointY="105.75" />
         <EntityTypeShape EntityType="IMS_TESTModel.tbl_PurchasePaymentDetialsHistory" Width="1.5" PointX="0.75" PointY="6.75" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_purchasereturn" Width="1.5" PointX="35" PointY="95.5" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_purchasereturndetails" Width="1.5" PointX="27" PointY="95.375" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_purchasereturn" Width="1.5" PointX="26.25" PointY="98.5" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_purchasereturndetails" Width="1.5" PointX="18" PointY="78" />
         <EntityTypeShape EntityType="IMS_TESTModel.tbl_purchasereturndetailsHistory" Width="1.5" PointX="6.75" PointY="6.75" />
         <EntityTypeShape EntityType="IMS_TESTModel.tbl_purchasereturnHistory" Width="1.5" PointX="8.75" PointY="0.75" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_purchasetaxdetails" Width="1.5" PointX="37.25" PointY="96.375" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_purchasetaxgroup" Width="1.5" PointX="33" PointY="90.875" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_rack" Width="1.5" PointX="21.75" PointY="81.125" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_role" Width="1.5" PointX="8.25" PointY="98.375" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_sale" Width="1.5" PointX="21.75" PointY="99.875" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_saledetails" Width="1.5" PointX="24" PointY="83.25" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_purchasetaxgroup" Width="1.5" PointX="29.25" PointY="97.625" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_purchasetaxgroupdetails" Width="1.5" PointX="31.5" PointY="92.375" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_rack" Width="1.5" PointX="27" PointY="89" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_role" Width="1.5" PointX="13.5" PointY="103" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_sale" Width="1.5" PointX="21" PointY="98.25" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_saledetails" Width="1.5" PointX="12" PointY="76" />
         <EntityTypeShape EntityType="IMS_TESTModel.tbl_saledetailsHistory" Width="1.5" PointX="8.75" PointY="5.75" />
         <EntityTypeShape EntityType="IMS_TESTModel.tbl_saleHistory" Width="1.5" PointX="2.75" PointY="9.75" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_SalePaymentDetails" Width="1.5" PointX="24" PointY="106.5" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_SalePaymentDetails" Width="1.5" PointX="23.25" PointY="104.75" />
         <EntityTypeShape EntityType="IMS_TESTModel.tbl_SalePaymentDetailsHistory" Width="1.5" PointX="10.75" PointY="0.75" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_salereturn" Width="1.5" PointX="27" PointY="100.75" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_salereturndetails" Width="1.5" PointX="27" PointY="89.375" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_salereturn" Width="1.5" PointX="29.25" PointY="91.75" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_salereturndetails" Width="1.5" PointX="21" PointY="76" />
         <EntityTypeShape EntityType="IMS_TESTModel.tbl_salereturndetailsHistory" Width="1.5" PointX="10.75" PointY="5.75" />
         <EntityTypeShape EntityType="IMS_TESTModel.tbl_salereturnHistory" Width="1.5" PointX="8.75" PointY="10.75" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_saleTaxGroup" Width="1.5" PointX="32" PointY="98.125" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_saleTaxGroupDetailes" Width="1.5" PointX="34.25" PointY="101.5" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_saleTaxGroup" Width="1.5" PointX="29.25" PointY="102" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_saleTaxGroupDetailes" Width="1.5" PointX="34.5" PointY="95.5" />
         <EntityTypeShape EntityType="IMS_TESTModel.tbl_setting" Width="1.5" PointX="10.75" PointY="10.75" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_state" Width="1.5" PointX="3" PointY="101.625" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_stock" Width="1.5" PointX="27" PointY="84.375" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_stocktransaction" Width="1.5" PointX="30" PointY="87" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_subscription" Width="1.5" PointX="13.5" PointY="79.625" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_tax" Width="1.5" PointX="13.5" PointY="89.75" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_taxdetails" Width="1.5" PointX="15.75" PointY="80.5" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_taxgroup" Width="1.5" PointX="10.5" PointY="79.625" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_taxtype" Width="1.5" PointX="10.5" PointY="94.75" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_unit" Width="1.5" PointX="10.5" PointY="84.5" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_User" Width="1.5" PointX="8.25" PointY="79" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_userbranch" Width="1.5" PointX="10.5" PointY="89.75" />
-        <EntityTypeShape EntityType="IMS_TESTModel.tbl_userrole" Width="1.5" PointX="18.5" PointY="80.625" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_state" Width="1.5" PointX="3" PointY="100.25" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_stock" Width="1.5" PointX="15" PointY="98.25" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_stocktransaction" Width="1.5" PointX="21" PointY="81.875" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_subscription" Width="1.5" PointX="7.5" PointY="80.25" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_tax" Width="1.5" PointX="18.75" PointY="88.375" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_taxdetails" Width="1.5" PointX="27" PointY="94.125" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_taxgroup" Width="1.5" PointX="9.75" PointY="93.25" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_taxtype" Width="1.5" PointX="15.75" PointY="88.375" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_unit" Width="1.5" PointX="9.75" PointY="82.125" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_User" Width="1.5" PointX="13.5" PointY="69.625" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_userbranch" Width="1.5" PointX="15.75" PointY="83.375" />
+        <EntityTypeShape EntityType="IMS_TESTModel.tbl_userrole" Width="1.5" PointX="23.75" PointY="80.25" />
         <EntityTypeShape EntityType="IMS_TESTModel.Tbl_VerifyResetPass" Width="1.5" PointX="4.75" PointY="11.75" />
         <EntityTypeShape EntityType="IMS_TESTModel.View_PurchaseDetails" Width="1.5" PointX="12.75" PointY="0.75" />
         <EntityTypeShape EntityType="IMS_TESTModel.View_SaleDetails" Width="1.5" PointX="12.75" PointY="7.75" />
-        <AssociationConnector Association="IMS_TESTModel.FK__tbl_Actua__produ__4FD1D5C8" />
-        <AssociationConnector Association="IMS_TESTModel.FK__tbl_Actua__purch__0A888742" />
-        <AssociationConnector Association="IMS_TESTModel.FK__tbl_Actua__purch__4EDDB18F" />
-        <AssociationConnector Association="IMS_TESTModel.FK_tbl_ActualPurchaseTaxAndPrice_tbl_batch" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_ActualPurchaseTaxAndPrice_tbl_batch1" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_ActualPurchaseTaxAndPrice_tbl_product" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_ActualPurchaseTaxAndPrice_tbl_purchase" />
         <AssociationConnector Association="IMS_TESTModel.FK__tbl_Actua__produ__5E1FF51F" />
         <AssociationConnector Association="IMS_TESTModel.FK__tbl_Actua__sale___5D2BD0E6" />
-        <AssociationConnector Association="IMS_TESTModel.FK_tbl_ActualSalesTaxAndPrice_tbl_saleTaxGroup" />
         <AssociationConnector Association="IMS_TESTModel.FK__tbl_batch__branc__3B75D760" />
         <AssociationConnector Association="IMS_TESTModel.FK__tbl_batch__compa__3A81B327" />
         <AssociationConnector Association="IMS_TESTModel.FK__tbl_purch__batch__797309D9" />
@@ -177,7 +175,6 @@
         <AssociationConnector Association="IMS_TESTModel.FK_tbl_saleTaxGroup_tbl_product" />
         <AssociationConnector Association="IMS_TESTModel.FK__tbl_produ__group__7775B2CE" />
         <AssociationConnector Association="IMS_TESTModel.FK__tbl_purch__purch__09946309" />
-        <AssociationConnector Association="IMS_TESTModel.FK__tbl_purch__purch__42CCE065" />
         <AssociationConnector Association="IMS_TESTModel.FK__tbl_purch__purch__778AC167" />
         <AssociationConnector Association="IMS_TESTModel.FK_tbl_PurchasePaymentDetials_tbl_PurchasePaymentDetials" />
         <AssociationConnector Association="IMS_TESTModel.FK_tbl_purchasereturn_tbl_purchasereturn" />
@@ -185,23 +182,21 @@
         <AssociationConnector Association="IMS_TESTModel.FK__tbl_purch__unit___7B5B524B" />
         <AssociationConnector Association="IMS_TESTModel.FK_tbl_purchasereturndetails_tbl_purchasereturn" />
         <AssociationConnector Association="IMS_TESTModel.FK_tbl_purchasereturndetails_tbl_unit" />
-        <AssociationConnector Association="IMS_TESTModel.FK__tbl_purch__purch__7E22B05D" />
-        <AssociationConnector Association="IMS_TESTModel.FK__tbl_purch__type___7F16D496" />
         <AssociationConnector Association="IMS_TESTModel.FK__tbl_purch__group__7B4643B2" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_purchasetaxgroupdetails_tbl_purchasetaxgroup" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_purchasetaxgroupdetails_tbl_taxtype" />
         <AssociationConnector Association="IMS_TESTModel.FK__tbl_userb__role___25869641" />
         <AssociationConnector Association="IMS_TESTModel.FK__tbl_userr__role___1920BF5C" />
         <AssociationConnector Association="IMS_TESTModel.FK_tbl_saledetails_tbl_sale" />
         <AssociationConnector Association="IMS_TESTModel.FK_tbl_SalePaymentDetails_tbl_sale" />
         <AssociationConnector Association="IMS_TESTModel.FK_tbl_salereturn_tbl_sale" />
         <AssociationConnector Association="IMS_TESTModel.FK_tbl_saleTaxGroup_tbl_sale" />
-        <AssociationConnector Association="IMS_TESTModel.FK_tbl_saleTaxGroupDetailes_tbl_sale" />
-        <AssociationConnector Association="IMS_TESTModel.FK_tbl_saledetails_tbl_tax" />
         <AssociationConnector Association="IMS_TESTModel.FK_tbl_saledetails_tbl_unit" />
         <AssociationConnector Association="IMS_TESTModel.FK_tbl_salereturndetails_tbl_salereturn" />
         <AssociationConnector Association="IMS_TESTModel.FK_tbl_salereturndetails_tbl_unit" />
         <AssociationConnector Association="IMS_TESTModel.FK_tbl_saleTaxGroup_tbl_taxgroup" />
-        <AssociationConnector Association="IMS_TESTModel.FK_tbl_saleTaxGroupDetailes_tbl_saleTaxGroup" />
-        <AssociationConnector Association="IMS_TESTModel.FK_tbl_saleTaxGroupDetailes_tbl_taxtype" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_saleTaxGroupDetailes_tbl_saleTaxGroupDetailes" />
+        <AssociationConnector Association="IMS_TESTModel.FK_tbl_saleTaxGroupDetailes_tbl_taxtype1" />
         <AssociationConnector Association="IMS_TESTModel.FK__tbl_subsc__user___3493CFA7" />
         <AssociationConnector Association="IMS_TESTModel.FK__tbl_taxde__group__420DC656" />
         <AssociationConnector Association="IMS_TESTModel.FK__tbl_taxde__type___4301EA8F" />

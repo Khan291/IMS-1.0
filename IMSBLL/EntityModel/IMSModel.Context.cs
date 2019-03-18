@@ -60,8 +60,8 @@ namespace IMSBLL.EntityModel
         public virtual DbSet<tbl_purchasereturndetails> tbl_purchasereturndetails { get; set; }
         public virtual DbSet<tbl_purchasereturndetailsHistory> tbl_purchasereturndetailsHistory { get; set; }
         public virtual DbSet<tbl_purchasereturnHistory> tbl_purchasereturnHistory { get; set; }
-        public virtual DbSet<tbl_purchasetaxdetails> tbl_purchasetaxdetails { get; set; }
         public virtual DbSet<tbl_purchasetaxgroup> tbl_purchasetaxgroup { get; set; }
+        public virtual DbSet<tbl_purchasetaxgroupdetails> tbl_purchasetaxgroupdetails { get; set; }
         public virtual DbSet<tbl_rack> tbl_rack { get; set; }
         public virtual DbSet<tbl_role> tbl_role { get; set; }
         public virtual DbSet<tbl_sale> tbl_sale { get; set; }
@@ -291,13 +291,13 @@ namespace IMSBLL.EntityModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<PurchaseOrPurchaseReturnReport_Result>("PurchaseOrPurchaseReturnReport", idParameter, fromTableParameter);
         }
     
-        public virtual ObjectResult<SaleOrderReport_Result> SaleOrderReport(Nullable<int> saleId)
+        public virtual int SaleOrderReport(Nullable<int> saleId)
         {
             var saleIdParameter = saleId.HasValue ?
                 new ObjectParameter("SaleId", saleId) :
                 new ObjectParameter("SaleId", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SaleOrderReport_Result>("SaleOrderReport", saleIdParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SaleOrderReport", saleIdParameter);
         }
     
         public virtual ObjectResult<SaleOrPurchaseOrReturnReport_Result> SaleOrPurchaseOrReturnReport(Nullable<int> id, string fromTable)
@@ -352,11 +352,11 @@ namespace IMSBLL.EntityModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SelectProductTaxGroup_Result>("SelectProductTaxGroup", groupIdParameter, productIdParameter, qtyParameter);
         }
     
-        public virtual ObjectResult<SelectPurcahseProductTaxGroup_Result> SelectPurcahseProductTaxGroup(Nullable<int> purchaseTaxgroupId, Nullable<int> productId, Nullable<decimal> qty)
+        public virtual ObjectResult<SelectPurcahseProductTaxGroup_Result> SelectPurcahseProductTaxGroup(Nullable<int> batchId, Nullable<int> productId, Nullable<decimal> qty, Nullable<int> taxgroupId)
         {
-            var purchaseTaxgroupIdParameter = purchaseTaxgroupId.HasValue ?
-                new ObjectParameter("purchaseTaxgroupId", purchaseTaxgroupId) :
-                new ObjectParameter("purchaseTaxgroupId", typeof(int));
+            var batchIdParameter = batchId.HasValue ?
+                new ObjectParameter("batchId", batchId) :
+                new ObjectParameter("batchId", typeof(int));
     
             var productIdParameter = productId.HasValue ?
                 new ObjectParameter("productId", productId) :
@@ -366,7 +366,11 @@ namespace IMSBLL.EntityModel
                 new ObjectParameter("qty", qty) :
                 new ObjectParameter("qty", typeof(decimal));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SelectPurcahseProductTaxGroup_Result>("SelectPurcahseProductTaxGroup", purchaseTaxgroupIdParameter, productIdParameter, qtyParameter);
+            var taxgroupIdParameter = taxgroupId.HasValue ?
+                new ObjectParameter("taxgroupId", taxgroupId) :
+                new ObjectParameter("taxgroupId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SelectPurcahseProductTaxGroup_Result>("SelectPurcahseProductTaxGroup", batchIdParameter, productIdParameter, qtyParameter, taxgroupIdParameter);
         }
     
         public virtual ObjectResult<sp_ActiveUser_Result> sp_ActiveUser(Nullable<int> userid, string uniqueid)
@@ -1435,6 +1439,19 @@ namespace IMSBLL.EntityModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_last15daysf_year", company_idParameter, days_flag, enddays_flag, s_dateParameter, days_left);
         }
     
+        public virtual ObjectResult<sp_mrpSalePurchase_Result> sp_mrpSalePurchase(Nullable<int> companyId, string flag)
+        {
+            var companyIdParameter = companyId.HasValue ?
+                new ObjectParameter("companyId", companyId) :
+                new ObjectParameter("companyId", typeof(int));
+    
+            var flagParameter = flag != null ?
+                new ObjectParameter("flag", flag) :
+                new ObjectParameter("flag", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_mrpSalePurchase_Result>("sp_mrpSalePurchase", companyIdParameter, flagParameter);
+        }
+    
         public virtual int sp_PartyInsert(Nullable<int> company_id, Nullable<int> branch_id, string party_name, string party_address, string contact_no, string gstin_no, string party_type, Nullable<bool> status, Nullable<int> state_id, string created_by, Nullable<System.DateTime> created_date)
         {
             var company_idParameter = company_id.HasValue ?
@@ -2400,13 +2417,13 @@ namespace IMSBLL.EntityModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_SelectSaleinvoice_Result>("sp_SelectSaleinvoice", sale_idParameter, company_idParameter);
         }
     
-        public virtual ObjectResult<sp_Selectsaleproduct_Result> sp_Selectsaleproduct(Nullable<int> sale_id)
+        public virtual int sp_Selectsaleproduct(Nullable<int> sale_id)
         {
             var sale_idParameter = sale_id.HasValue ?
                 new ObjectParameter("sale_id", sale_id) :
                 new ObjectParameter("sale_id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Selectsaleproduct_Result>("sp_Selectsaleproduct", sale_idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Selectsaleproduct", sale_idParameter);
         }
     
         public virtual ObjectResult<sp_SelectSalesReport_Result> sp_SelectSalesReport(Nullable<int> company_id, Nullable<int> partyid, string invoiceNumber, Nullable<System.DateTime> fromdate, Nullable<System.DateTime> enddate)

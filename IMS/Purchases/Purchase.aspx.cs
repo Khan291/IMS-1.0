@@ -161,11 +161,11 @@ namespace IMS
 
                     var groupId = Convert.ToInt32(gvpurchasedetails.Rows[i].Cells[11].Text);
 
-                    DataTable taxgroupTypes1 = helper.LINQToDataTable(context.SelectProductTaxGroup(groupId, productId, qty));
+                    DataTable taxgroupTypes = helper.LINQToDataTable(context.SelectProductTaxGroup(groupId, productId, qty));
                     ViewState["TotalTaxPercent"] = null;
-                    for (int j = 0; j <= taxgroupTypes1.Rows.Count - 1; j++)
+                    for (int j = 0; j <= taxgroupTypes.Rows.Count - 1; j++)
                     {
-                        ViewState["TotalTaxPercent"] = taxgroupTypes1.Rows[j].Field<decimal>("totalTaxPercetage");
+                        ViewState["TotalTaxPercent"] = taxgroupTypes.Rows[j].Field<decimal>("totalTaxPercetage");
                     }
 
                     //insert into tax group purchase
@@ -174,32 +174,24 @@ namespace IMS
                     purchaseTaxGroup.product_id = productId;
                     //purchaseTaxGroup.totalTaxPercentage = (Decimal)ViewState["TotalTaxPercent"];
                     purchaseTaxGroup.group_name = gvpurchasedetails.Rows[i].Cells[12].Text;
-                    purchase.tbl_purchasetaxgroup.Add(purchaseTaxGroup);
-
                     //Get the Tax type saved from db 
                     //insert into tax group detailes
                     // var taxGroupTypes = context.tbl_productTaxGroup.Join(context.tbl_taxgroup, t => t.group_id, pt => pt.group_id, (t, pt) => new { t.group_id, pt.group_name, t.product_id }).Where(t => t.product_id == productId).ToList();
                     
 
-                    for (int j = 0; j <= taxgroupTypes1.Rows.Count - 1; j++)
+                    for (int j = 0; j <= taxgroupTypes.Rows.Count - 1; j++)
                     {
-                        tbl_purchasetaxdetails purchaseTaxDetails = new tbl_purchasetaxdetails();
-                        purchaseTaxDetails.type_id = taxgroupTypes1.Rows[j].Field<int>("type_id");
-                        purchaseTaxDetails.tax_percentage = taxgroupTypes1.Rows[j].Field<decimal>("tax_percentage");
-                        
-                        purchaseTaxDetails.created_by = Convert.ToString(user_id);
-                        purchaseTaxDetails.created_date = DateTime.Now;
-                        purchaseTaxDetails.status = true;
-                        purchase.tbl_purchasetaxdetails.Add(purchaseTaxDetails);
+                        tbl_purchasetaxgroupdetails purchaseTaxDetails = new tbl_purchasetaxgroupdetails();
+                        purchaseTaxDetails.type_id = taxgroupTypes.Rows[j].Field<int>("type_id");
+                        purchaseTaxDetails.tax_percentage = taxgroupTypes.Rows[j].Field<decimal>("tax_percentage");                       
+                        purchaseTaxGroup.tbl_purchasetaxgroupdetails.Add(purchaseTaxDetails);
                     }
 
-
+                    purchase.tbl_purchasetaxgroup.Add(purchaseTaxGroup);
                     //Enter Details In tbl_ActualPurchaseTaxAndPrice : to get the original Values at the time of Purchase Return
                     tbl_ActualPurchaseTaxAndPrice actualPurchase = new tbl_ActualPurchaseTaxAndPrice();
                     actualPurchase.product_id = productId;
-                    //actualPurchase.purchaseTaxId = purchaseTaxGroup.purchasetaxgroup_id;
                     actualPurchase.status = true;
-
                     //actualPurchase.tax_percent = Convert.ToDecimal(gvpurchasedetails.Rows[i].Cells[10].Text);
                     actualPurchase.purchase_rate = Convert.ToDecimal(gvpurchasedetails.Rows[i].Cells[6].Text);
                     actualPurchase.discount_percent = Convert.ToDecimal(gvpurchasedetails.Rows[i].Cells[8].Text);
@@ -534,7 +526,7 @@ namespace IMS
                 //decimal tax= Convert.ToDecimal(txtTaxpercentage.Text);
                 //var isProductExsits = context.tbl_ActualPurchaseTaxAndPrice.Where(w => w.product_id == productId && w.batch_id == batchId).FirstOrDefault();
                 var isProductExsits = context.tbl_ActualPurchaseTaxAndPrice.Join(context.tbl_productTaxGroup, t => t.product_id, pt => pt.product_id,
-                        (t, pt) => new { t.product_id, pt.group_id, t.batch_id, t.sale_price, t.purchase_rate, t.purchaseTaxId }
+                        (t, pt) => new { t.product_id, pt.group_id, t.batch_id, t.sale_price, t.purchase_rate }
                         ).Where(t => t.product_id == productId && t.batch_id == batchId).FirstOrDefault();
                 if (isProductExsits != null)
                 {

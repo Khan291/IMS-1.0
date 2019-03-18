@@ -25,10 +25,8 @@ namespace IMSBLL.EntityModel
         public string modified_by { get; set; }
         public Nullable<System.DateTime> modified_date { get; set; }
         public Nullable<decimal> discount_percent { get; set; }
-        public Nullable<int> saleTaxGroupID { get; set; }
     
         public virtual tbl_product tbl_product { get; set; }
         public virtual tbl_sale tbl_sale { get; set; }
-        public virtual tbl_saleTaxGroup tbl_saleTaxGroup { get; set; }
     }
 }

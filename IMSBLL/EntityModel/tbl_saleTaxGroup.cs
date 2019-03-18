@@ -16,7 +16,6 @@ namespace IMSBLL.EntityModel
     {
         public tbl_saleTaxGroup()
         {
-            this.tbl_ActualSalesTaxAndPrice = new HashSet<tbl_ActualSalesTaxAndPrice>();
             this.tbl_saleTaxGroupDetailes = new HashSet<tbl_saleTaxGroupDetailes>();
         }
     
@@ -27,7 +26,6 @@ namespace IMSBLL.EntityModel
         public Nullable<int> sale_id { get; set; }
         public Nullable<decimal> totalTaxPercentage { get; set; }
     
-        public virtual ICollection<tbl_ActualSalesTaxAndPrice> tbl_ActualSalesTaxAndPrice { get; set; }
         public virtual tbl_product tbl_product { get; set; }
         public virtual tbl_sale tbl_sale { get; set; }
         public virtual tbl_taxgroup tbl_taxgroup { get; set; }

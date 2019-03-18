@@ -534,7 +534,7 @@ namespace IMS
                 //Get Original price, Tax and discount happened during Purchase
                 var productDetails = context.sp_GetPurchaseDetailsById(purchaseId).ToList();
                 var PurchaseTaxGroup = (from ep in context.tbl_purchasetaxgroup
-                                        join e1 in context.tbl_purchasetaxdetails on ep.purchasetaxgroup_id equals e1.purchasetaxgroup_id
+                                        join e1 in context.tbl_purchasetaxgroupdetails on ep.purchasetaxgroup_id equals e1.purchasetaxgroup_id
                                         join t in context.tbl_taxtype on e1.type_id equals t.type_id
                                         where ep.purchaseId == purchaseId
                                         select new
@@ -770,7 +770,7 @@ namespace IMS
                         ddlproduct.Enabled = true;
                         this.BindGrid();
                         var PurchaseTaxGroup = (from ep in context.tbl_purchasetaxgroup
-                                                join e1 in context.tbl_purchasetaxdetails on ep.purchasetaxgroup_id equals e1.purchasetaxgroup_id
+                                                join e1 in context.tbl_purchasetaxgroupdetails on ep.purchasetaxgroup_id equals e1.purchasetaxgroup_id
                                                 join t in context.tbl_taxtype on e1.type_id equals t.type_id
                                                 where ep.purchaseId == purchaseId
                                                 select new

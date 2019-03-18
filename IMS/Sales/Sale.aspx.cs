@@ -44,7 +44,6 @@ namespace IMS
                         dataTable.Columns.Add("Price");
                         dataTable.Columns.Add("Discount");
                         dataTable.Columns.Add("Discount Amount");
-                        dataTable.Columns.Add("purchasetaxgroup_id");
                         dataTable.Columns.Add("totalTaxAmnt");
                         dataTable.Columns.Add("Sub Total");
                         dataTable.Columns.Add("batch_id");
@@ -92,10 +91,27 @@ namespace IMS
         {
             int batchId=Convert.ToInt32(ddlBatch.SelectedValue) ;
             var taxGroup = context.tbl_ActualPurchaseTaxAndPrice.Join(
-                context.tbl_purchasetaxgroup, t => t.purchaseTaxId, pt => pt.purchasetaxgroup_id,
-                (t, pt) => new { pt.group_id, pt.group_name, t.product_id, t.batch_id,pt.purchasetaxgroup_id 
+                context.tbl_purchasetaxgroup, t =>  t.purchase_id , pt =>  pt.purchaseId ,
+                (t, pt) => new
+                {
+                    pt.group_id,
+                    pt.group_name,
+                    t.product_id,
+                    t.batch_id,
+                    pt.purchasetaxgroup_id
                 }).Where(t => t.batch_id == batchId && t.product_id == p_id).Select(a => new { a.group_name, a.group_id }).Distinct().ToList();
-          //  var distTaxGroup = taxGroup.Select(a => new { a.group_name,a.group_id }).Distinct().ToList();
+            //var taxGroup = (from ap in context.tbl_ActualPurchaseTaxAndPrice
+            //                join ptg in context.tbl_purchasetaxgroup on ap.product_id equals ptg.product_id                             
+            //                where s.company_id == companyId
+            //                group sd by new { p.product_name, sd.product_id } into g
+            //                select new DashboardChartViewModel
+            //                {
+            //                    ProductId = g.Select(f => f.product_id).FirstOrDefault(),
+            //                    ProductName = g.Select(ty => ty.tbl_product.product_name).FirstOrDefault(),
+            //                    Quantity = g.Sum(t3 => t3.quantity).Value
+            //                }
+
+            //                    ).Take(10).ToList();
             ddlTaxGroup.DataValueField = "group_id";
             ddlTaxGroup.DataTextField = "group_name";
             ddlTaxGroup.DataSource = taxGroup;
@@ -349,18 +365,16 @@ namespace IMS
                     saleDetails.created_date = Convert.ToDateTime(DateTime.Now);
                     saleDetails.status = true;
 
-                    
 
+                    int groupId = Convert.ToInt32(gvSalesdetails.Rows[i].Cells[13].Text);
                     var PurchasegroupId = Convert.ToInt32(gvSalesdetails.Rows[i].Cells[10].Text);
 
-                    DataTable taxgroupTypes1 = helper.LINQToDataTable(context.SelectPurcahseProductTaxGroup(PurchasegroupId, productId, qty));
+                    DataTable taxgroupTypes1 = helper.LINQToDataTable(context.SelectPurcahseProductTaxGroup(batchId, productId, qty, groupId));
                     ViewState["TotalTaxPercent"] = null;
                     for (int j = 0; j <= taxgroupTypes1.Rows.Count - 1; j++)
                     {
                         ViewState["TotalTaxPercent"] = taxgroupTypes1.Rows[j].Field<decimal>("totalTaxPercetage");
                     }
-
-                    int groupId = Convert.ToInt32(gvSalesdetails.Rows[i].Cells[13].Text);
                     //insert into tax group purchase
                     tbl_saleTaxGroup saleTaxGroup = new tbl_saleTaxGroup();
                     saleTaxGroup.group_id = groupId;
@@ -379,11 +393,7 @@ namespace IMS
                         tbl_saleTaxGroupDetailes saleTaxDetails = new tbl_saleTaxGroupDetailes();
                         saleTaxDetails.type_id = taxgroupTypes1.Rows[j].Field<int>("type_id");
                         saleTaxDetails.tax_percentage = taxgroupTypes1.Rows[j].Field<decimal>("tax_percentage");
-
-                        saleTaxDetails.created_by = Convert.ToString(User_id);
-                        saleTaxDetails.created_date = DateTime.Now;
-                        saleTaxDetails.status = true;
-                        sale.tbl_saleTaxGroupDetailes.Add(saleTaxDetails);
+                        saleTaxGroup.tbl_saleTaxGroupDetailes.Add(saleTaxDetails);
                     }
                     
                     //Enter Details In tbl_ActualsaleTaxAndPrice : to get the original Values at the time of sale Return
@@ -465,17 +475,17 @@ namespace IMS
                     //decimal tax_amount = a;// * decimal.Parse(txtTaxpercentage.Text);
                     
 
-                    var purchaseTaxGroupId = (from spd in context.tbl_ActualPurchaseTaxAndPrice
-                            join s in context.tbl_purchasetaxgroup on spd.purchaseTaxId equals s.purchasetaxgroup_id
-                            where spd.batch_id == batchId && spd.product_id == productId
-                            select new 
-                            {
-                                groupname=s.group_name,
-                                purcahsegroupId=spd.purchaseTaxId
+                    //var purchaseTaxGroupId = (from spd in context.tbl_ActualPurchaseTaxAndPrice
+                    //        join s in context.tbl_purchasetaxgroup on spd.product_id equals s.product_id
+                    //        where spd.batch_id == batchId && spd.product_id == productId
+                    //        select new 
+                    //        {
+                    //            groupname=s.group_name,
+                    //            purcahsegroupId=spd.purchaseTaxId
 
-                            }).Distinct().Where(sd=> sd.groupname==ddlTaxGroup.SelectedItem.Text).FirstOrDefault();
-                    int G_Id = Convert.ToInt32(purchaseTaxGroupId.purcahsegroupId);
-                    var purchasegroup = context.SelectPurcahseProductTaxGroup(G_Id, productId, quantity).ToList();
+                    //        }).Distinct().Where(sd=> sd.groupname==ddlTaxGroup.SelectedItem.Text).FirstOrDefault();
+                    //int G_Id = Convert.ToInt32(purchaseTaxGroupId.purcahsegroupId);
+                    var purchasegroup = context.SelectPurcahseProductTaxGroup(batchId, productId, quantity, taxgroupId).ToList();
 
                     DataTable TaxDetailes = helper.LINQToDataTable(purchasegroup);
                     decimal tax_amnt = 0;
@@ -502,7 +512,7 @@ namespace IMS
                     this.BindTaxGrid();
                     DataTable dt = (DataTable)ViewState["Details"];
                     dt.Rows.Add(ddlVendor.SelectedItem.Text.Trim(), ddlBatch.SelectedItem.Text, productId, txtSONo.Text.Trim(), txtdate.Text.Trim(), ddlproduct.SelectedItem.Text.Trim(),
-                                      txtquantity.Text.Trim(), txtprice.Text.Trim(), discount, discountamt, G_Id, tax_amnt, subTotal, batchId, ddlTaxGroup.SelectedItem.Text,Convert.ToInt32(ddlTaxGroup.SelectedValue));
+                                      txtquantity.Text.Trim(), txtprice.Text.Trim(), discount, discountamt, tax_amnt, subTotal, batchId, ddlTaxGroup.SelectedItem.Text,Convert.ToInt32(ddlTaxGroup.SelectedValue));
                     ViewState["Details"] = dt;
                     this.BindGrid();
                     lblcheckDoubleError.Text = string.Empty;
@@ -671,6 +681,7 @@ namespace IMS
             txtBalanceAmt.Text = string.Empty;
             lblcheckDoubleError.Text = string.Empty;
             ddlproduct.Enabled = true;
+            int taxgroupId = Convert.ToInt32(ddlTaxGroup.SelectedValue);
             try
             {                                    
                     DataTable dt = new DataTable();
@@ -693,17 +704,17 @@ namespace IMS
                             //decimal discount_percent = (Convert.ToDecimal(dr["Discount Amount"]) * 100) / Convert.ToDecimal(dr["Sub Total"]);
                             decimal discountamt = a * Convert.ToDecimal(discount);
                             decimal tax_amount = a * Convert.ToDecimal(dr["Tax"]);
-                        var purchaseTaxGroupId = (from spd in context.tbl_ActualPurchaseTaxAndPrice
-                                                  join s in context.tbl_purchasetaxgroup on spd.purchaseTaxId equals s.purchasetaxgroup_id
-                                                  where spd.batch_id == batchId && spd.product_id == productId
-                                                  select new
-                                                  {
-                                                      groupname = s.group_name,
-                                                      purcahsegroupId = spd.purchaseTaxId
+                        //var purchaseTaxGroupId = (from spd in context.tbl_ActualPurchaseTaxAndPrice
+                        //                          join s in context.tbl_purchasetaxgroup on spd.purchaseTaxId equals s.purchasetaxgroup_id
+                        //                          where spd.batch_id == batchId && spd.product_id == productId
+                        //                          select new
+                        //                          {
+                        //                              groupname = s.group_name,
+                        //                              purcahsegroupId = spd.purchaseTaxId
 
-                                                  }).Distinct().Where(sd => sd.groupname == ddlTaxGroup.SelectedItem.Text).FirstOrDefault();
-                        int G_Id = Convert.ToInt32(purchaseTaxGroupId.purcahsegroupId);
-                        var purchasegroup = context.SelectPurcahseProductTaxGroup(G_Id, productId, quantity).ToList();
+                        //                          }).Distinct().Where(sd => sd.groupname == ddlTaxGroup.SelectedItem.Text).FirstOrDefault();
+                        //int G_Id = Convert.ToInt32(purchaseTaxGroupId.purcahsegroupId);
+                        var purchasegroup = context.SelectPurcahseProductTaxGroup(batchId, productId, quantity, taxgroupId).ToList();
                         DataTable dt2 = (DataTable)ViewState["TaxDetails"];
                         DataTable TaxDetailes = helper.LINQToDataTable(purchasegroup);
                         decimal tax_amnt = 0;
@@ -731,7 +742,7 @@ namespace IMS
 
                         dr["Quantity"] = txtquantity.Text;
                         // dr["Tax"] = txtTaxpercentage.Text;purchasetaxgroup_id
-                        dr["purchasetaxgroup_id"] = G_Id;
+                        //dr["purchasetaxgroup_id"] = G_Id;
                         dr["Discount"] = discount;
                             dr["Discount Amount"] = discountamt;
                             dr["Sub Total"] = subTotal;
