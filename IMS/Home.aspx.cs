@@ -485,7 +485,7 @@ namespace IMS
         //    }
         //}
 
-
+      
         private void FillDashboardInfo()
         {
             DataSet ds = new DataSet();
@@ -671,6 +671,59 @@ namespace IMS
             }
         }
 
+        // -------============Sales and purchase top 10 Return product on dashhboard--=============================>
 
+        private void openModelForMRP(string flag)
+        {
+            try
+            {
+                DataTable dt_salesreturn = new DataTable();
+                try
+                {
+                    int companyid = 0;
+                    if (Session["company_id"] != null)
+                    {
+                        companyid = Convert.ToInt32(Session["company_id"]);
+                    }
+
+                    SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["TestDBConnection"].ConnectionString);
+                    SqlCommand cmd = new SqlCommand("[sp_mrpSalePurchase]", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@companyId", companyid);
+                    cmd.Parameters.AddWithValue("@flag", flag);
+
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+                    if (con.State == ConnectionState.Closed)
+                    {
+                        con.Open();
+                    }
+                    da.Fill(dt_salesreturn);
+                    gvmrProducts.DataSource = dt_salesreturn;
+                    gvmrProducts.DataBind();
+                    con.Close();
+                }
+                catch (Exception ex)
+                {
+                    ErrorLog.saveerror(ex);
+                }
+                //ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "mrpModal();", true);
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.saveerror(ex);
+            }
+        }
+        protected void btnMrpSale_Click(object sender, EventArgs e)
+        {
+            openModelForMRP("s");
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "mrp", "openMrpProduct();", true);
+        }
+
+        protected void btnMrpPurchase_Click(object sender, EventArgs e)
+        {
+            openModelForMRP("p");
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "mrp", "openMrpProduct();", true);
+        }
     }
 }

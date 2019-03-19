@@ -25,6 +25,12 @@
             $("#OrderModel").modal({ backdrop: "static" });
             $('#OrderModel').modal('show');
         }
+
+        function openMrpProduct() {
+             debugger
+            $("#mrpModal").modal({ backdrop: "static" });
+            $('#mrpModal').modal('show');
+        }
         $(function () {
             $(".gvorderDeatils").prepend($("<thead></thead>").append($(this).find("tr:first"))).dataTable();
             <%--$("#<%=gvorderDeatils.ClientID%>").prepend($("<thead></thead>").append($(this).find("tr:first"))).DataTable({
@@ -53,8 +59,7 @@
         //}
     </script>
 
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    
 <script type="text/javascript">
     google.load("visualization", "1", { packages: ["corechart"] });
     google.setOnLoadCallback(drawChart);
@@ -491,8 +496,32 @@
                 </div>--%>
             </div>
 
-        </div>
+       <!--====================================Top 10 return Product===============================-->
         <div class="row">
+            <center><label>Top 10 Most Returned Products</label></center>
+             <div class="col-lg-4 pointer">
+      
+
+                <%--<div class="alert  col-lg-3 col-md-3 col-sm-3 col-xs-12" style="background-color:#dd4b39;">--%>
+                    <div class="alert col-lg-4 col-md-4 col-sm-4 col-xs-4 col-lg-offset-1 text-center" style="background-color:#dd4b39; color:white;font-size:15px;"
+                        onclick="document.getElementById('<%= btnMrpSale.ClientID %>').click()">
+                         <asp:Button ID="btnMrpSale" runat="server"  Style="display: none" OnClick="btnMrpSale_Click"></asp:Button>
+                        <%--<i class="fa fa-address-card fa-3x" style="color:white;"></i><b>
+                            <asp:Label ID="Label1" runat="server" ForeColor="White"></asp:Label>
+                        </b>--%>
+                        <b>Sale</b>
+                    </div>
+                    <div class="alert col-lg-4 col-md-4 col-sm-4 col-xs-4 col-lg-offset-1 text-center" style="background-color:#da8c10;color:white; font-size:15px;"
+                        onclick="document.getElementById('<%= btnMrpPurchase.ClientID %>').click()">
+                         <asp:Button ID="btnMrpPurchase" runat="server"  Style="display: none" OnClick="btnMrpPurchase_Click"></asp:Button>
+                        <b>Purchase</b>
+                    </div>
+                </div>
+            </div>
+             
+        </div>
+       
+         <div class="row">
             <div id="chart" style="width: 900px; height: 500px;"></div>
         </div>
         <%--<div class="row">
@@ -775,6 +804,45 @@
             </div>
 
             <asp:HiddenField ID="hd" runat="server" />
+        </div>
+
+        
+        <!-- Modal -->
+        <div class="modal fade" id="mrpModal" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">
+                            <asp:Label ID="Label1" runat="server"></asp:Label></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left: 0px; margin-top: 10px">
+                                <asp:GridView ID="gvmrProducts" runat="server" CssClass="table table-bordered" AutoGenerateColumns="false" BorderStyle="None" GridLines="Horizontal"
+                                    AllowPaging="true" OnPageIndexChanging="gvorderDeatils_PageIndexChanging" PageSize="10">
+                                    <Columns>
+                                        <asp:TemplateField HeaderText="Sr.No">
+                                            <ItemTemplate>
+                                                <%#Container.DataItemIndex+1 %>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:BoundField DataField="cnt" HeaderText="Invice No"></asp:BoundField>
+                                        <asp:BoundField DataField="product_name" HeaderText="Customer Name"></asp:BoundField>
+                                        </Columns>
+                                    <HeaderStyle BackColor="#428BCA" ForeColor="White" />
+                                    <PagerStyle CssClass="pagination-ys" />
+                                </asp:GridView>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <asp:Button ID="Button5" runat="server" Text="Export To Excel" CssClass="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+
+            <asp:HiddenField ID="HiddenField2" runat="server" />
         </div>
     </div>
 
