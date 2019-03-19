@@ -27,11 +27,9 @@ namespace IMSBLL.EntityModel
         public Nullable<int> batch_id { get; set; }
         public Nullable<decimal> sale_price { get; set; }
         public Nullable<decimal> discount_percent { get; set; }
-        public Nullable<int> purchaseTaxId { get; set; }
     
-        public virtual tbl_product tbl_product { get; set; }
-        public virtual tbl_purchasetaxgroup tbl_purchasetaxgroup { get; set; }
-        public virtual tbl_purchase tbl_purchase { get; set; }
         public virtual tbl_batch tbl_batch { get; set; }
+        public virtual tbl_product tbl_product { get; set; }
+        public virtual tbl_purchase tbl_purchase { get; set; }
     }
 }

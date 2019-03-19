@@ -18,7 +18,6 @@ namespace IMSBLL.EntityModel
         public Nullable<int> sale_id { get; set; }
         public Nullable<int> product_id { get; set; }
         public Nullable<int> batch_id { get; set; }
-        public Nullable<int> tax_id { get; set; }
         public Nullable<int> unit_id { get; set; }
         public Nullable<decimal> tax_amt { get; set; }
         public Nullable<decimal> dicount_amt { get; set; }
@@ -33,7 +32,6 @@ namespace IMSBLL.EntityModel
         public virtual tbl_batch tbl_batch { get; set; }
         public virtual tbl_product tbl_product { get; set; }
         public virtual tbl_sale tbl_sale { get; set; }
-        public virtual tbl_tax tbl_tax { get; set; }
         public virtual tbl_unit tbl_unit { get; set; }
     }
 }

@@ -20,6 +20,8 @@ namespace IMSBLL.EntityModel
         public Nullable<bool> Enable_Invoice_Tax { get; set; }
         public Nullable<bool> Print_Tin_on_Invoice { get; set; }
         public Nullable<bool> Print_address { get; set; }
+        public string InvoiceTemplateName { get; set; }
+        public string PaperSize { get; set; }
         public Nullable<bool> status { get; set; }
         public Nullable<int> user_id { get; set; }
         public Nullable<int> branch_id { get; set; }

@@ -99,9 +99,6 @@
     <Compile Include="EntityModel\Rack.cs" />
     <Compile Include="EntityModel\registeruser.cs" />
     <Compile Include="EntityModel\salelogic.cs" />
-    <Compile Include="EntityModel\SaleOrderReport_Result.cs">
-      <DependentUpon>IMSModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="EntityModel\SaleOrPurchaseOrReturnReport_Result.cs">
       <DependentUpon>IMSModel.tt</DependentUpon>
     </Compile>
@@ -141,6 +138,9 @@
       <DependentUpon>IMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\Sp_InsertResetPass_Result.cs">
+      <DependentUpon>IMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\sp_mrpSalePurchase_Result.cs">
       <DependentUpon>IMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\sp_partyprint_Result.cs">
@@ -219,9 +219,6 @@
       <DependentUpon>IMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\sp_SelectSaleinvoice_Result.cs">
-      <DependentUpon>IMSModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EntityModel\sp_Selectsaleproduct_Result.cs">
       <DependentUpon>IMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\sp_SelectSalesReport_Result.cs">
@@ -337,10 +334,10 @@
     <Compile Include="EntityModel\tbl_purchasereturnHistory.cs">
       <DependentUpon>IMSModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="EntityModel\tbl_purchasetaxdetails.cs">
+    <Compile Include="EntityModel\tbl_purchasetaxgroup.cs">
       <DependentUpon>IMSModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="EntityModel\tbl_purchasetaxgroup.cs">
+    <Compile Include="EntityModel\tbl_purchasetaxgroupdetails.cs">
       <DependentUpon>IMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\tbl_rack.cs">
@@ -464,6 +461,9 @@
       <DependentUpon>IMSModel.edmx</DependentUpon>
       <LastGenOutput>IMSModel.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

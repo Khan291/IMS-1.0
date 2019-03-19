@@ -16,8 +16,7 @@ namespace IMSBLL.EntityModel
     {
         public tbl_purchasetaxgroup()
         {
-            this.tbl_ActualPurchaseTaxAndPrice = new HashSet<tbl_ActualPurchaseTaxAndPrice>();
-            this.tbl_purchasetaxdetails = new HashSet<tbl_purchasetaxdetails>();
+            this.tbl_purchasetaxgroupdetails = new HashSet<tbl_purchasetaxgroupdetails>();
         }
     
         public int purchasetaxgroup_id { get; set; }
@@ -27,10 +26,9 @@ namespace IMSBLL.EntityModel
         public Nullable<int> purchaseId { get; set; }
         public Nullable<decimal> totalTaxPercentage { get; set; }
     
-        public virtual ICollection<tbl_ActualPurchaseTaxAndPrice> tbl_ActualPurchaseTaxAndPrice { get; set; }
         public virtual tbl_product tbl_product { get; set; }
         public virtual tbl_purchase tbl_purchase { get; set; }
-        public virtual ICollection<tbl_purchasetaxdetails> tbl_purchasetaxdetails { get; set; }
         public virtual tbl_taxgroup tbl_taxgroup { get; set; }
+        public virtual ICollection<tbl_purchasetaxgroupdetails> tbl_purchasetaxgroupdetails { get; set; }
     }
 }

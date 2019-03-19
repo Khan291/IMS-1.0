@@ -18,14 +18,7 @@ namespace IMSBLL.EntityModel
         public Nullable<int> SaleTaxGroupId { get; set; }
         public Nullable<int> type_id { get; set; }
         public Nullable<decimal> tax_percentage { get; set; }
-        public Nullable<int> sale_id { get; set; }
-        public Nullable<bool> status { get; set; }
-        public string created_by { get; set; }
-        public Nullable<System.DateTime> created_date { get; set; }
-        public string modified_by { get; set; }
-        public Nullable<System.DateTime> modified_date { get; set; }
     
-        public virtual tbl_sale tbl_sale { get; set; }
         public virtual tbl_saleTaxGroup tbl_saleTaxGroup { get; set; }
         public virtual tbl_taxtype tbl_taxtype { get; set; }
     }

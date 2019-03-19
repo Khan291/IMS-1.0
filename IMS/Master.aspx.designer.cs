@@ -112,13 +112,22 @@ namespace IMS {
         protected global::System.Web.UI.WebControls.Button btntax;
         
         /// <summary>
-        /// btnUser control.
+        /// div11 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnUser;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div11;
+        
+        /// <summary>
+        /// btnTaxGroup control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnTaxGroup;
         
         /// <summary>
         /// div7 control.
@@ -139,22 +148,22 @@ namespace IMS {
         protected global::System.Web.UI.WebControls.Button btnparties;
         
         /// <summary>
-        /// div8 control.
+        /// div10 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div8;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div10;
         
         /// <summary>
-        /// btnexpenses control.
+        /// btnbatch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnexpenses;
+        protected global::System.Web.UI.WebControls.Button btnbatch;
         
         /// <summary>
         /// div9 control.
@@ -175,40 +184,31 @@ namespace IMS {
         protected global::System.Web.UI.WebControls.Button Button1;
         
         /// <summary>
-        /// div10 control.
+        /// div8 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div10;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div8;
         
         /// <summary>
-        /// btnbatch control.
+        /// btnexpenses control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnbatch;
+        protected global::System.Web.UI.WebControls.Button btnexpenses;
         
         /// <summary>
-        /// div11 control.
+        /// btnUser control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl div11;
-        
-        /// <summary>
-        /// btnTaxGroup control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnTaxGroup;
+        protected global::System.Web.UI.WebControls.Button btnUser;
         
         /// <summary>
         /// btnBranch control.

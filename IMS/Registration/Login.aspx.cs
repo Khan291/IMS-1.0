@@ -53,7 +53,11 @@ namespace IMS.Registration
         {
             try
             {
-                bool returnvalue = _User.Islogin.Value;
+                bool returnvalue = false;
+                if (_User != null)
+                {
+                     returnvalue = _User.Islogin.Value;
+                }
                 return returnvalue;
             }
             catch (Exception ex)

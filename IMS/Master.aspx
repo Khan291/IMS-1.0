@@ -13,7 +13,7 @@
     <div>
         <div class="panel" id="main" runat="server">
             <div class="panel-heading">
-                <h1>Masters</h1>
+                <h1 class="text-center">Masters</h1>
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -69,17 +69,18 @@
                             <br />
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="Blue text-center padd20">
-                            <b class="font30 ">Add Users</b>
-                            <br />
+                      <div class="col-md-4" id="div11" runat="server" >
+                    <div class="Blue text-center padd20">
+                        <b class="font30 ">Tax Group</b>
+                        <br />
 
-                            <i class="fa fa fa-building-o fa-3x padd20"></i>
-                            <br />
-                            <asp:Button ID="btnUser" runat="server" CssClass="btn btn-info marg20" Text="Open" OnClick="btnUser_Click" />
-                            <br />
-                        </div>
+                        <i class="fa fa fa-cc-visa fa-3x padd20"></i>
+                        <br />
+                          <asp:Button ID="btnTaxGroup" runat="server" CssClass="btn btn-info marg20" Text="Open" OnClick="btnTaxGroup_Click"/>
+                        <br />
                     </div>
+                </div>
+                   
                     <%--<div class="col-md-4" id="div6" runat="server">
                     <div class="Blue text-center padd20">
                         <b class="font30 ">Financial year</b>
@@ -102,29 +103,6 @@
                             <br />
                         </div>
                     </div>
-                    <div class="col-md-4" id="div8" runat="server">
-                        <div class="Blue text-center padd20">
-                            <b class="font30 ">Expense</b>
-                            <br />
-                            <i class="fa fa fa-money fa-3x padd20"></i>
-                            <br />
-                            <asp:Button ID="btnexpenses" runat="server" CssClass="btn btn-info marg20" Text="Open" OnClick="btnexpenses_Click" />
-                            <br />
-                        </div>
-                    </div>
-                    <div class="col-md-4" id="div9" runat="server">
-                        <div class="Blue text-center padd20">
-                            <b class="font30 ">Product</b>
-                            <br />
-                            <i class="fa fa fa-product-hunt fa-3x padd20"></i>
-                            <br />
-                            <asp:Button ID="Button1" runat="server" CssClass="btn btn-info marg20" Text="Open" OnClick="Button1_Click" />
-                            <br />
-                        </div>
-                    </div>
-
-                </div>
-                <div class="row ">
                     <div class="col-md-4" id="div10" runat="server">
                         <div class="Blue text-center padd20">
                             <b class="font30 ">Batch</b>
@@ -135,17 +113,42 @@
                             <br />
                         </div>
                     </div>
-                     <div class="col-md-4" id="div11" runat="server" >
-                    <div class="Blue text-center padd20">
-                        <b class="font30 ">Tax Group</b>
-                        <br />
-
-                        <i class="fa fa fa-cc-visa fa-3x padd20"></i>
-                        <br />
-                          <asp:Button ID="btnTaxGroup" runat="server" CssClass="btn btn-info marg20" Text="Open" OnClick="btnTaxGroup_Click"/>
-                        <br />
+                     <div class="col-md-4" id="div9" runat="server">
+                        <div class="Blue text-center padd20">
+                            <b class="font30 ">Product</b>
+                            <br />
+                            <i class="fa fa fa-product-hunt fa-3x padd20"></i>
+                            <br />
+                            <asp:Button ID="Button1" runat="server" CssClass="btn btn-info marg20" Text="Open" OnClick="Button1_Click" />
+                            <br />
+                        </div>
                     </div>
+                    
+                    
                 </div>
+                <div class="row ">
+                     <div class="col-md-4" id="div8" runat="server">
+                        <div class="Blue text-center padd20">
+                            <b class="font30 ">Expense</b>
+                            <br />
+                            <i class="fa fa fa-money fa-3x padd20"></i>
+                            <br />
+                            <asp:Button ID="btnexpenses" runat="server" CssClass="btn btn-info marg20" Text="Open" OnClick="btnexpenses_Click" />
+                            <br />
+                        </div>
+                    </div>
+                
+                   <div class="col-md-4">
+                        <div class="Blue text-center padd20">
+                            <b class="font30 ">Add Users</b>
+                            <br />
+
+                            <i class="fa fa fa-building-o fa-3x padd20"></i>
+                            <br />
+                            <asp:Button ID="btnUser" runat="server" CssClass="btn btn-info marg20" Text="Open" OnClick="btnUser_Click" />
+                            <br />
+                        </div>
+                    </div>
                     <div class="col-md-4">
                         <div class="Blue text-center padd20">
                             <b class="font30 ">Company Branches</b>

@@ -12,20 +12,13 @@ namespace IMSBLL.EntityModel
     using System;
     using System.Collections.Generic;
     
-    public partial class tbl_purchasetaxdetails
+    public partial class tbl_purchasetaxgroupdetails
     {
-        public int purchasetaxdetails_id { get; set; }
+        public int purchasetaxgroupdetails_id { get; set; }
         public Nullable<int> purchasetaxgroup_id { get; set; }
         public Nullable<int> type_id { get; set; }
         public Nullable<decimal> tax_percentage { get; set; }
-        public Nullable<bool> status { get; set; }
-        public string created_by { get; set; }
-        public Nullable<System.DateTime> created_date { get; set; }
-        public string modified_by { get; set; }
-        public Nullable<System.DateTime> modified_date { get; set; }
-        public Nullable<int> purchaseId { get; set; }
     
-        public virtual tbl_purchase tbl_purchase { get; set; }
         public virtual tbl_purchasetaxgroup tbl_purchasetaxgroup { get; set; }
         public virtual tbl_taxtype tbl_taxtype { get; set; }
     }

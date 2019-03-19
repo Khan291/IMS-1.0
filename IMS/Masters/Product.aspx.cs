@@ -422,7 +422,8 @@ namespace IMS
                                 if (group_id == groupID)
                                 {
                                     //ddlTaxgroup.SelectedValue = groupID.ToString();
-                                    ddlTaxgroup.Items[j].Value = groupID.ToString();
+                                    //ddlTaxgroup.Items[j].Value = groupID.ToString();
+                                    ddlTaxgroup.Items[i].Selected = true;
                                     break;
                                 }
 

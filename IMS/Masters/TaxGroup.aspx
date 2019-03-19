@@ -92,7 +92,7 @@
         </div>
         <div class="panel panel-default text-center">
             <div class="panel-heading">
-                <h1>Batch Master</h1>
+                <h1>Tax Group Master</h1>
             </div>
             <div class="panel-body">
                 <div class="form-horizontal">
@@ -147,30 +147,74 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left: 0px; margin-top: 10px">
-                                        <asp:GridView ID="gvtaxdetails" runat="server" OnSelectedIndexChanged="gvtaxdetails_SelectedIndexChanged" DataKeyNames="type_id" OnRowCommand="gvtaxdetails_RowCommand" CssClass="table" AutoGenerateColumns="false" BorderStyle="None" GridLines="Horizontal">
+                                        <asp:GridView ID="gvtaxdetails" runat="server" OnSelectedIndexChanged="gvtaxdetails_SelectedIndexChanged" DataKeyNames="type_id" OnRowCommand="gvtaxdetails_RowCommand" CssClass="table table-bordered" AutoGenerateColumns="false" >
                                             <Columns>
                                                 
-                                                <asp:BoundField DataField="type_name" HeaderText="Type Name" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
+                                                <asp:BoundField DataField="type_name" HeaderText="Type Name" ItemStyle-CssClass="hidden-xs text-center" HeaderStyle-CssClass="hidden-xs text-center"></asp:BoundField>
 
-                                                <asp:BoundField DataField="tax_percentage" HeaderText="Tax Percentage" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
-                                                <asp:BoundField DataField="type_id" HeaderText="Type Id" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
-                                                <asp:BoundField DataField="taxdetails_id" HeaderText="taxdetails_id" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
+                                                <asp:BoundField DataField="tax_percentage" HeaderText="Tax Percentage" ItemStyle-CssClass="hidden-xs text-center" HeaderStyle-CssClass="hidden-xs text-center"></asp:BoundField>
+                                                <asp:BoundField DataField="type_id" HeaderText="Type Id" ItemStyle-CssClass="hidden text-center" HeaderStyle-CssClass="hidden text-center"></asp:BoundField>
+                                                <asp:BoundField DataField="taxdetails_id" HeaderText="taxdetails_id" ItemStyle-CssClass="hidden text-center" HeaderStyle-CssClass="hidden text-center"></asp:BoundField>
 
-                                                <asp:TemplateField HeaderText="Update">
+                                                <asp:TemplateField HeaderText="Update" ItemStyle-CssClass="hidden-xs text-center" HeaderStyle-CssClass="hidden-xs text-center">
                                                     <ItemTemplate>
                                                         <asp:ImageButton CommandName="Update Row" ID="btnimg_update" runat="server" ImageUrl="~/assets/img/edit.png" />
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="Delete" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs">
+                                                <asp:TemplateField HeaderText="Delete" ItemStyle-CssClass="hidden-xs text-center" HeaderStyle-CssClass="hidden-xs text-center">
                                                     <ItemTemplate>
                                                         <asp:ImageButton CommandName="Delete row" ID="btnimg_Remove" runat="server" ImageUrl="~/assets/img/remove.png" href="#myModal" />
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                             </Columns>
-                                            <HeaderStyle BackColor="#428BCA" ForeColor="White" />
+                                            <HeaderStyle CssClass="text-center" BackColor="#428BCA" ForeColor="White" />
                                         </asp:GridView>
+                                       <%-- <asp:GridView ID="gvtaxdetails" runat="server" AutoGenerateColumns="False" CellPadding="6" OnRowCancelingEdit="gvtaxdetails_RowCancelingEdit"  
+  
+OnRowEditing="gvtaxdetails_RowEditing" OnRowUpdating="gvtaxdetails_RowUpdating" CssClass="table table-bordered">  
+            <Columns>  
+               
+                <asp:TemplateField HeaderText="Type Name" ItemStyle-CssClass="hidden-xs text-center" HeaderStyle-CssClass="hidden-xs text-center">  
+                    <ItemTemplate>  
+                        <asp:Label ID="lblTypeName" runat="server" Text='<%#Eval("type_name") %>'></asp:Label>  
+                    </ItemTemplate>  
+                </asp:TemplateField>  
+                <asp:TemplateField HeaderText="Type Id" ItemStyle-CssClass="hidden text-center" HeaderStyle-CssClass="hidden text-center">  
+                    <ItemTemplate>  
+                        <asp:Label ID="lblTypeId" runat="server" Text='<%#Eval("type_id") %>'></asp:Label>  
+                    </ItemTemplate>  
+                </asp:TemplateField>
+                 <asp:TemplateField HeaderText="taxdetails Id" ItemStyle-CssClass="hidden text-center" HeaderStyle-CssClass="hidden text-center">  
+                    <ItemTemplate>  
+                        <asp:Label ID="lbltaxdetails_id" runat="server" Text='<%#Eval("taxdetails_id") %>'></asp:Label>  
+                    </ItemTemplate>  
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="tax_percentage" ItemStyle-CssClass="hidden-xs text-center" HeaderStyle-CssClass="hidden-xs text-center">  
+                    <ItemTemplate>  
+                        <asp:Label ID="lbltax_percentage" runat="server" Text='<%#Eval("tax_percentage") %>'></asp:Label>  
+                    </ItemTemplate>  
+                    <EditItemTemplate>  
+                        <asp:TextBox ID="txt_tax_percentage" runat="server" Text='<%#Eval("tax_percentage") %>'></asp:TextBox>  
+                    </EditItemTemplate>  
+                </asp:TemplateField> 
+                 <asp:TemplateField>  
+                    <ItemTemplate>  
+                        <asp:Button ID="btn_Edit" runat="server" Text="Edit" CommandName="Edit" />  
+                        <asp:ImageButton CommandName="Delete row" ID="btnimg_Remove" runat="server" ImageUrl="~/assets/img/remove.png" href="#myModal" />
+                    </ItemTemplate>  
+                    <EditItemTemplate>  
+                        <asp:ImageButton CommandName="Update" ID="btn_Edit" runat="server" ImageUrl="~/assets/img/edit.png" />
+                        <asp:Button ID="btn_Cancel" runat="server" Text="Cancel" CommandName="Cancel"/>  
+                    </EditItemTemplate>  
+                </asp:TemplateField>  
+            </Columns>  
+             <HeaderStyle CssClass="text-center" BackColor="#428BCA" ForeColor="White" />
+        </asp:GridView> --%> 
+      
+  
                                     </div>
                                 </div>
+                               
 
                             </ContentTemplate>
                         </asp:UpdatePanel>
@@ -181,8 +225,8 @@
                 <%--<asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary " Text="Save" ValidationGroup="v1" OnClick="btnSave_Click" OnClientClick="this.disabled='true'; this.value='Processing...';" UseSubmitBehavior="false" />--%>
                 <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary " Text="Save" ValidationGroup="v1" OnClick="btnSave_Click" />
                 <asp:Button ID="btnUpdate" runat="server" CssClass="btn btn-primary" Text="Update" ValidationGroup="v1" Visible="false" OnClick="btnUpdate_Click" />
-                <input class="btn btn-primary " type="button" value="Clear" onclick="cleartextboxes();" />
-
+                <%--<input class="btn btn-primary " type="button" value="Clear" onclick="cleartextboxes();" />--%>
+                <asp:Button ID="btnClear" runat="server" CssClass="btn btn-primary " Text="Clear"  OnClick="btnClear_Click" />
                
                 <%--<asp:Button ID="btnCancel" runat="server" CssClass="btn btn-default" Text="Cancel" OnClick="btnCancel_Click" Style="float: right" />   
                   

@@ -40,6 +40,7 @@ namespace IMS.Reports
 
         public void CallReport(string reportName)
         {
+            
             SqlParameter[] sqlParams;
             ReportParameter reportParam;
 
@@ -48,10 +49,12 @@ namespace IMS.Reports
             string logoPath = new Uri(Server.MapPath(logo)).AbsoluteUri;
 
             ReportViewer1.ProcessingMode = Microsoft.Reporting.WebForms.ProcessingMode.Local;
-
+            var setting = context.tbl_setting.Where(w => w.company_id == companyId).FirstOrDefault();
 
             string reportDataSet = string.Empty;
             string dataTable = string.Empty;
+            ReportViewer1.LocalReport.ReportPath = Server.MapPath("../Reports/" + setting.InvoiceTemplateName);
+            ReportViewer1.LocalReport.EnableExternalImages = true;
             switch (reportName)
             {              
 
@@ -61,8 +64,8 @@ namespace IMS.Reports
                          new SqlParameter("@Id", id),
                          new SqlParameter("@FromTable","PURCHASE")
                     };
-                    ReportViewer1.LocalReport.ReportPath = Server.MapPath("../Reports/PurchaseSaleReturnReport.rdlc");
-                    ReportViewer1.LocalReport.EnableExternalImages = true;
+                    
+                    
                     reportDataSet = "PurchaseSaleReturnDataSet";
                     dataTable = "PurchaseSaleDataTable";
                     reportParam = new ReportParameter("LogoPath", logoPath);
@@ -79,8 +82,8 @@ namespace IMS.Reports
                          new SqlParameter("@Id", id),
                          new SqlParameter("@FromTable","PURCHASERETRUN")
                     };
-                    ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/Reports/PurchaseSaleReturnReport.rdlc");
-                    ReportViewer1.LocalReport.EnableExternalImages = true;
+                    //ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/Reports/PurchaseSaleReturnReport.rdlc");
+                    //ReportViewer1.LocalReport.EnableExternalImages = true;
                     reportParam = new ReportParameter("LogoPath", logoPath);
                     ReportViewer1.LocalReport.SetParameters(reportParam);                    
                     reportDataSet = "PurchaseSaleReturnDataSet";
@@ -121,8 +124,8 @@ namespace IMS.Reports
                          new SqlParameter("@Id", id),
                          new SqlParameter("@FromTable","SALE")
                     };
-                    ReportViewer1.LocalReport.ReportPath = Server.MapPath("../Reports/PurchaseSaleReturnReport.rdlc");
-                    ReportViewer1.LocalReport.EnableExternalImages = true;
+                    //ReportViewer1.LocalReport.ReportPath = Server.MapPath("../Reports/PurchaseSaleReturnReport.rdlc");
+                    //ReportViewer1.LocalReport.EnableExternalImages = true;
                     reportDataSet = "PurchaseSaleReturnDataSet";
                     dataTable = "PurchaseSaleDataTable";
                     reportParam = new ReportParameter("LogoPath", logoPath);
@@ -137,8 +140,8 @@ namespace IMS.Reports
                          new SqlParameter("@Id", id),
                          new SqlParameter("@FromTable","SALERETURN")
                     };
-                    ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/Reports/PurchaseSaleReturnReport.rdlc");
-                    ReportViewer1.LocalReport.EnableExternalImages = true;
+                    //ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/Reports/PurchaseSaleReturnReport.rdlc");
+                    //ReportViewer1.LocalReport.EnableExternalImages = true;
                     reportParam = new ReportParameter("LogoPath", logoPath);
                     ReportViewer1.LocalReport.SetParameters(reportParam);
                     reportDataSet = "PurchaseSaleReturnDataSet";

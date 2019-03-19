@@ -89,7 +89,7 @@ namespace IMS.Masters
             GridView1.DataSource = context.tbl_taxgroup.Where(x => x.status == true && x.company_id == companyId && x.branch_id == branchId).ToList();
             GridView1.DataBind();
         }
-
+       
         private bool GetAllDataForValidation()
         {
             bool isValid = false;
@@ -553,5 +553,64 @@ namespace IMS.Masters
                 //Do Logging
             }
         }
+
+        protected void btnClear_Click(object sender, EventArgs e)
+        {
+            txtGrouphName.Text = string.Empty;
+            ddlTaxType.SelectedIndex = 0;
+            txtPercent.Text = "0";
+            DataTable ds = new DataTable();
+            ds = null;
+            gvtaxdetails.DataSource = ds;
+            gvtaxdetails.DataBind();
+            btnSave.Visible = true;
+            btnUpdate.Visible = false;
+        }
+
+        //    protected void gvtaxdetails_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        //    {
+        //        //Setting the EditIndex property to -1 to cancel the Edit mode in Gridview  
+        //        gvtaxdetails.EditIndex = -1;
+        //        loadgvtaxdetails();
+        //    }
+
+        //    protected void gvtaxdetails_RowEditing(object sender, GridViewEditEventArgs e)
+        //    {
+        //        //NewEditIndex property used to determine the index of the row being edited.  
+        //        gvtaxdetails.EditIndex = e.NewEditIndex;
+        //        loadgvtaxdetails();
+        //    }
+
+        //    protected void gvtaxdetails_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        //    {
+        //        //Finding the controls from Gridview for the row which is going to update  
+        //        Label typeName = gvtaxdetails.Rows[e.RowIndex].FindControl("lblTypeName") as Label;
+        //        Label typeId = gvtaxdetails.Rows[e.RowIndex].FindControl("lblTypeId") as Label;
+        //        Label taxDetailsId = gvtaxdetails.Rows[e.RowIndex].FindControl("lbltaxdetails_id") as Label;
+        //        TextBox taxPercentage = gvtaxdetails.Rows[e.RowIndex].FindControl("txt_tax_percentage") as TextBox;
+
+        //        var _taxDetailsId = Convert.ToUInt32(taxDetailsId.Text);
+
+        //        var taxDetails = context.tbl_taxdetails.Where(w => w.taxdetails_id == _taxDetailsId).FirstOrDefault();
+        //        taxDetails.tax_percentage = Convert.ToDecimal(taxPercentage.Text);
+        //        context.SaveChanges();
+        //        //con = new SqlConnection(cs);
+        //        //con.Open();
+        //        ////updating the record  
+        //        //SqlCommand cmd = new SqlCommand("Update tbl_Employee set Name='" + name.Text + "',City='" + city.Text + "' where ID=" + Convert.ToInt32(id.Text), con);
+        //        //cmd.ExecuteNonQuery();
+        //        //con.Close();
+        //        //Setting the EditIndex property to -1 to cancel the Edit mode in Gridview  
+        //        gvtaxdetails.EditIndex = -1;
+        //        //Call ShowData method for displaying updated data  
+        //        loadgvtaxdetails();
+        //    }
+        //private void loadgvtaxdetails()
+        //{
+        //    int groupId = Convert.ToInt32(ViewState["group_id"]);
+        //    var taxDetails = context.tbl_taxtype.Join(context.tbl_taxdetails, tt => tt.type_id, td => td.type_id, (tt, td) => new { td.type_id, td.taxdetails_id, td.tax_percentage, tt.type_name, td.group_id }).Where(w => w.group_id == groupId).ToList();
+        //    gvtaxdetails.DataSource = taxDetails;
+        //    gvtaxdetails.DataBind();
+        //}
     }
 }
