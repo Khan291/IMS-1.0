@@ -139,15 +139,6 @@ namespace IMS {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl customers;
         
         /// <summary>
-        /// btnMrpSale control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnMrpSale;
-        
-        /// <summary>
         /// btnMrpPurchase control.
         /// </summary>
         /// <remarks>
@@ -155,6 +146,15 @@ namespace IMS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnMrpPurchase;
+        
+        /// <summary>
+        /// btnMrpSale control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnMrpSale;
         
         /// <summary>
         /// lblModelHeader control.
@@ -238,13 +238,13 @@ namespace IMS {
         protected global::System.Web.UI.WebControls.HiddenField hd;
         
         /// <summary>
-        /// Label1 control.
+        /// lblHeaderText control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label lblHeaderText;
         
         /// <summary>
         /// gvmrProducts control.

@@ -18,6 +18,7 @@
             <div class="col-md-2">
             </div>
         </div>
+        <br /><br />
         <div class="row">
             <div class="col-md-1">
             </div>
@@ -26,6 +27,7 @@
                     OnRowCancelingEdit="gvStockDetails_RowCancelingEdit"
                     OnRowEditing="gvStockDetails_RowEditing"
                     OnRowUpdating="gvStockDetails_RowUpdating"
+                    OnPreRender="gvStockDetails_PreRender"
                     CssClass="table table-bordered">
                     <Columns>
                         <asp:TemplateField HeaderText="Stock ID" ItemStyle-CssClass="hidden-xs text-center" HeaderStyle-CssClass="hidden-xs text-center">
@@ -38,7 +40,7 @@
                                 <asp:Label ID="lblProductId" runat="server" Text='<%#Eval("product_id") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Product Name" ItemStyle-CssClass="hidden text-center" HeaderStyle-CssClass="hidden text-center">
+                        <asp:TemplateField HeaderText="Product Name" ItemStyle-CssClass="hidden-xs text-center" HeaderStyle-CssClass="hidden-xs text-center">
                             <ItemTemplate>
                                 <asp:Label ID="lblProductName" runat="server" Text='<%#Eval("product_name") %>'></asp:Label>
                             </ItemTemplate>
@@ -63,7 +65,8 @@
                         </asp:TemplateField>
                         <asp:TemplateField>
                             <ItemTemplate>
-                                <asp:Button ID="btn_Edit" runat="server" Text="Edit" CommandName="Edit" />
+                                <%--<asp:Button ID="btn_Edit" runat="server" Text="Edit" CommandName="Edit" />--%>
+                                <asp:ImageButton CommandName="Edit" ID="btn_Edit" runat="server" ImageUrl="~/assets/img/edit.png" />
                                 <asp:ImageButton CommandName="Delete row" ID="btnimg_Remove" runat="server" ImageUrl="~/assets/img/remove.png" href="#myModal" />
                             </ItemTemplate>
                             <EditItemTemplate>

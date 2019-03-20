@@ -74,5 +74,28 @@ namespace IMS.Stock
             gvStockDetails.EditIndex = -1;
             BindStock();
         }
+
+        protected void gvStockDetails_PreRender(object sender, EventArgs e)
+        {
+            if (gvStockDetails.Rows.Count > 0)
+            {
+                gvStockDetails.UseAccessibleHeader = false;
+                gvStockDetails.HeaderRow.TableSection = TableRowSection.TableHeader;
+                gvStockDetails.FooterRow.TableSection = TableRowSection.TableFooter;
+                int CellCount = gvStockDetails.FooterRow.Cells.Count;
+                gvStockDetails.FooterRow.Cells.Clear();
+                gvStockDetails.FooterRow.Cells.Add(new TableCell());
+                gvStockDetails.FooterRow.Cells[0].ColumnSpan = CellCount - 1;
+                gvStockDetails.FooterRow.Cells[0].HorizontalAlign = HorizontalAlign.Right;
+                gvStockDetails.FooterRow.Cells.Add(new TableCell());
+
+                TableFooterRow tfr = new TableFooterRow();
+                for (int i = 0; i < CellCount; i++)
+                {
+                    tfr.Cells.Add(new TableCell());
+                }
+                gvStockDetails.FooterRow.Controls[1].Controls.Add(tfr);
+            }
+        }
     }
 }

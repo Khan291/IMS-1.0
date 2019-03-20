@@ -25,9 +25,8 @@
             $("#OrderModel").modal({ backdrop: "static" });
             $('#OrderModel').modal('show');
         }
-
+        <%--=== <!--=========Function for top  sale and Purchase return Product================ -->--%>
         function openMrpProduct() {
-             debugger
             $("#mrpModal").modal({ backdrop: "static" });
             $('#mrpModal').modal('show');
         }
@@ -497,11 +496,16 @@
                 </div>--%>
             </div>
 
-       <!--====================================Top 10 return Product===============================-->
+         <!--====================================Top 10 return Product in Sale and Purchase===============================-->
         <div class="row">
             <center><label>Top 10 Most Returned Products</label></center>
              <div class="col-lg-4 pointer">
       
+                     <div class="alert col-lg-4 col-md-4 col-sm-4 col-xs-4 col-lg-offset-1 text-center" style="background-color:#da8c10;color:white; font-size:15px;"
+                        onclick="document.getElementById('<%= btnMrpPurchase.ClientID %>').click()">
+                         <asp:Button ID="btnMrpPurchase" runat="server"  Style="display: none" OnClick="btnMrpPurchase_Click"></asp:Button>
+                        <b>Purchase</b>
+                    </div>
 
                 <%--<div class="alert  col-lg-3 col-md-3 col-sm-3 col-xs-12" style="background-color:#dd4b39;">--%>
                     <div class="alert col-lg-4 col-md-4 col-sm-4 col-xs-4 col-lg-offset-1 text-center" style="background-color:#dd4b39; color:white;font-size:15px;"
@@ -512,11 +516,7 @@
                         </b>--%>
                         <b>Sale</b>
                     </div>
-                    <div class="alert col-lg-4 col-md-4 col-sm-4 col-xs-4 col-lg-offset-1 text-center" style="background-color:#da8c10;color:white; font-size:15px;"
-                        onclick="document.getElementById('<%= btnMrpPurchase.ClientID %>').click()">
-                         <asp:Button ID="btnMrpPurchase" runat="server"  Style="display: none" OnClick="btnMrpPurchase_Click"></asp:Button>
-                        <b>Purchase</b>
-                    </div>
+                   
                 </div>
             </div>
              
@@ -808,14 +808,14 @@
         </div>
 
         
-        <!-- Modal -->
+        <!--================================== Modal for top  sale and Purchase return Product================================= -->
         <div class="modal fade" id="mrpModal" role="dialog">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">
-                            <asp:Label ID="Label1" runat="server"></asp:Label></h4>
+                            <asp:Label ID="lblHeaderText" runat="server"></asp:Label></h4>
                     </div>
                     <div class="modal-body">
                         <div class="row">
@@ -828,8 +828,10 @@
                                                 <%#Container.DataItemIndex+1 %>
                                             </ItemTemplate>
                                         </asp:TemplateField>
-                                        <asp:BoundField DataField="cnt" HeaderText="Invice No"></asp:BoundField>
-                                        <asp:BoundField DataField="product_name" HeaderText="Customer Name"></asp:BoundField>
+                                        <asp:BoundField DataField="product_name" HeaderText="Product Name"></asp:BoundField>
+                                        <asp:BoundField DataField="cnt" HeaderText="Number of Time Return"></asp:BoundField>
+                                         <asp:BoundField DataField="batch_name" HeaderText="Batch Name"></asp:BoundField>
+                                        
                                         </Columns>
                                     <HeaderStyle BackColor="#428BCA" ForeColor="White" />
                                     <PagerStyle CssClass="pagination-ys" />
@@ -838,7 +840,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <asp:Button ID="Button5" runat="server" Text="Export To Excel" CssClass="btn btn-primary" />
+                        <asp:Button ID="Button5" runat="server" Text="Go to Report" CssClass="btn btn-primary" />
                     </div>
                 </div>
             </div>

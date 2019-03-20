@@ -99,7 +99,7 @@ namespace IMS.Registration
                     if (!AuthenticateUser())
                     {
                         us_ID = Convert.ToInt32(Session["UserID"]);
-                        UpdateIsLogin(us_ID);
+                       // UpdateIsLogin(us_ID);
                         if (us_ID > 0)
                         {
                             selectUserRole();
