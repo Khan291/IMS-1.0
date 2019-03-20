@@ -21,6 +21,8 @@ namespace IMS
     {
         IMS_TESTEntities context = new IMS_TESTEntities();
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["TestDBConnection"].ConnectionString);
+        int companyId = 0, branchId = 0, financialYearId = 0;
+        string user_id = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -30,6 +32,19 @@ namespace IMS
                 F_yearcheck();
                 Role();
             }
+            SessionValue();
+        }
+
+        private void SessionValue()
+        {
+            if (Session["UserID"] == null || Session["company_id"] == null || Session["branch_id"] == null || Session["financialyear_id"] == null)
+            {
+                Response.Redirect("~/Registration/Login.aspx");
+            }
+            user_id = Convert.ToString(Session["UserID"]);
+            companyId = Convert.ToInt32(Session["company_id"]);
+            branchId = Convert.ToInt32(Session["branch_id"]);
+            financialYearId = Convert.ToInt32(Session["financialyear_id"]);
         }
         //public void Test(string PageName)
         //{

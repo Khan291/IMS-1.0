@@ -178,7 +178,7 @@
                                                         <asp:Label ID="Label15" runat="server" Text="+" Font-Bold="true" Font-Size="20px" ForeColor="White"></asp:Label></a>
                                                 </span>
                                             </div>
-                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" InitialValue="0" ValidationGroup="adf" runat="server" Display="Dynamic" ErrorMessage="Select Rack" ControlToValidate="ddlRack" ForeColor="Red"></asp:RequiredFieldValidator>
+                                          <%--  <asp:RequiredFieldValidator ID="RequiredFieldValidator3" InitialValue="0" ValidationGroup="adf" runat="server" Display="Dynamic" ErrorMessage="Select Rack" ControlToValidate="ddlRack" ForeColor="Red"></asp:RequiredFieldValidator>--%>
                                             <asp:Label ID="lblrackerror" runat="server" ForeColor="Red"></asp:Label>
                                         </div>
                                     </div>
@@ -316,7 +316,7 @@
         </div>
         <div class="row">
             <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                <div style="overflow-x: auto">
+                <%--<div style="overflow-x: auto">--%>
                     <asp:GridView ID="GridView1" OnPreRender="GridView1_PreRender" OnRowDataBound="GridView1_RowDataBound" runat="server" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" OnRowCommand="GridView1_RowCommand" DataKeyNames="product_id" AutoGenerateColumns="false" CssClass="table table table-striped table-bordered table-hover" SelectedIndex="0">
                         <Columns>
                              <asp:BoundField DataField="product_name" HeaderText="Product Name"></asp:BoundField>
@@ -345,7 +345,7 @@
                         </Columns>
                         <HeaderStyle BackColor="#428BCA" ForeColor="White" />
                     </asp:GridView>
-                </div>
+                <%--</div>--%>
             </div>
         </div>
     </div>

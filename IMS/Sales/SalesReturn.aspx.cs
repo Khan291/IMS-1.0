@@ -437,12 +437,30 @@ namespace IMS.Sales
                         decimal a = subTotal / 100;
                         decimal discount_percent = (Convert.ToDecimal(oneproductDetail.FirstOrDefault().dicount_amt) * 100) / Convert.ToDecimal(oneproductDetail.FirstOrDefault().amount);
                         decimal discountamt = a * Convert.ToDecimal(discount_percent.ToString("0.##"));
-                        decimal tax_amount = a * Convert.ToDecimal(oneproductDetail.FirstOrDefault().tax_percentage);
+                        decimal tax_amount=0;//= a * Convert.ToDecimal(oneproductDetail.FirstOrDefault().tax_percentage);
 
                         clr();
-                        calculation(subTotal, tax_amount, discountamt);
+                        
                         txtPaidAmt.Enabled = true;
-
+                        DataTable dt2 = (DataTable)ViewState["TaxDetails"];
+                        if (SaleTaxGroupDataTable.Rows.Count > 0)
+                        {
+                            for (int i = 0; i < SaleTaxGroupDataTable.Rows.Count; i++)
+                            {
+                                dt2.Rows.Add(
+                                              SaleTaxGroupDataTable.Rows[i].Field<int>("product_id"),
+                                               SaleTaxGroupDataTable.Rows[i].Field<int>("group_id"),
+                                              SaleTaxGroupDataTable.Rows[i].Field<string>("group_name"),
+                                              SaleTaxGroupDataTable.Rows[i].Field<string>("type_name"),
+                                          SaleTaxGroupDataTable.Rows[i].Field<decimal>("tax_percentage"),
+                                          SaleTaxGroupDataTable.Rows[i].Field<decimal>("totaltaxPercentage"),
+                                              SaleTaxGroupDataTable.Rows[i].Field<int>("type_id")
+                                              );
+                                tax_amount=SaleTaxGroupDataTable.Rows[i].Field<decimal>("totaltaxPercentage");
+                            }
+                        }
+                        ViewState["TaxDetails"] = dt2;
+                        this.BindTaxGrid();
                         DataTable tbl = (DataTable)ViewState["Details"];
 
                         tbl.Rows.Add(oneproductDetail.FirstOrDefault().saledetails_id
@@ -462,24 +480,7 @@ namespace IMS.Sales
                             );
                         ViewState["Details"] = tbl;
                         this.BindGrid();
-                        DataTable dt2 = (DataTable)ViewState["TaxDetails"];
-                        if (SaleTaxGroupDataTable.Rows.Count > 0)
-                        {
-                            for (int i = 0; i < SaleTaxGroupDataTable.Rows.Count; i++)
-                            {
-                                dt2.Rows.Add( 
-                                              SaleTaxGroupDataTable.Rows[i].Field<int>("product_id"),
-                                               SaleTaxGroupDataTable.Rows[i].Field<int>("group_id"),
-                                              SaleTaxGroupDataTable.Rows[i].Field<string>("group_name"), 
-                                              SaleTaxGroupDataTable.Rows[i].Field<string>("type_name"),
-                                          SaleTaxGroupDataTable.Rows[i].Field<decimal>("tax_percentage"),
-                                          SaleTaxGroupDataTable.Rows[i].Field<decimal>("totaltaxPercentage"),
-                                              SaleTaxGroupDataTable.Rows[i].Field<int>("type_id")
-                                              );
-                            }
-                        }
-                        ViewState["TaxDetails"] = dt2;
-                        this.BindTaxGrid();
+                        calculation(subTotal, tax_amount, discountamt);
                         ddlproduct.Items.FindByValue(productId.ToString()).Enabled = false;
 
                     }

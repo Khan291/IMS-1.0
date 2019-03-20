@@ -296,10 +296,12 @@
                                 <asp:BoundField DataField="SalePrice" HeaderText="Sale Price" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
                                 <asp:BoundField DataField="Discount" HeaderText="Discount" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
                                 <asp:BoundField DataField="Discount Amount" HeaderText="Discount Amount" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
-                                <asp:BoundField DataField="Sub Total" HeaderText="Total" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
-                                <asp:BoundField DataField="group_id" HeaderText="Product id" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField> 
-                                <asp:BoundField DataField="group_name" HeaderText="Tax Group" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
+                               
+                                <asp:BoundField DataField="group_id" HeaderText="Group ID" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField> 
+                                <asp:BoundField DataField="group_name" HeaderText="Tax Group" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
+                                <asp:BoundField DataField="taxPercentage" HeaderText="Tax Group" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
                                 <asp:BoundField DataField="totalTaxAmnt" HeaderText="Tax Amount" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
+                                 <asp:BoundField DataField="Sub Total" HeaderText="Total" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
                                 <asp:TemplateField HeaderText="Update">
                                     <ItemTemplate>
                                         <asp:ImageButton CommandName="Update Row" ID="btnimg_update" runat="server" ImageUrl="~/assets/img/edit.png" />
@@ -328,7 +330,31 @@
                     <ContentTemplate>
                         <div class="row">
                             <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 pull-right">
-                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 leftpadd0 pull-right" style="padding: 0px;">
+                            </div>
+                            <div class=" col-md-6 pull-left">
+                                <asp:GridView ID="gvTaxDetailsNew" runat="server" CssClass="table table-bordered" AutoGenerateColumns="false" BorderStyle="None" GridLines="Horizontal">
+                                    <Columns>
+                                        <asp:BoundField DataField="product_name" HeaderText="Product"></asp:BoundField>
+                                        <asp:BoundField DataField="product_id" HeaderText="Product id" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
+                                        <asp:BoundField DataField="group_id" HeaderText="Product id" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
+                                        <asp:BoundField DataField="group_name" HeaderText="Tax Group" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
+                                        <asp:BoundField DataField="type_name" HeaderText="Tax Type" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
+                                        <asp:BoundField DataField="tax_percentage" HeaderText="Tax Type Percent" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
+                                        <asp:BoundField DataField="totalTaxPercetage" HeaderText="Total Percentage" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
+                                        <asp:BoundField DataField="totalTaxAmnt" HeaderText="Total Tax Amount" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
+                                         <asp:BoundField DataField="type_id" HeaderText="Product id" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
+                                    </Columns>
+                                    <HeaderStyle BackColor="#428BCA" ForeColor="White" />
+                                </asp:GridView>
+                            </div>
+                        </div>
+                        <div class="row">
+                            
+                        </div>
+                        <div class="row">
+                            
+                              <div class="col-lg-4 pull-right">
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 leftpadd0 pull-right" style="padding: 0px;">
                                     <div class="form-group">
                                         <div class="col-sm-12 leftpadd0">
                                             <label class="control-label col-sm-9">Other Expenses</label>
@@ -360,30 +386,17 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class=" col-md-6 pull-left">
-                                <asp:GridView ID="gvTaxDetailsNew" runat="server" CssClass="table table-bordered" AutoGenerateColumns="false" BorderStyle="None" GridLines="Horizontal">
-                                    <Columns>
-                                        <asp:BoundField DataField="product_name" HeaderText="Product"></asp:BoundField>
-                                        <asp:BoundField DataField="product_id" HeaderText="Product id" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
-                                        <asp:BoundField DataField="group_id" HeaderText="Product id" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
-                                        <asp:BoundField DataField="group_name" HeaderText="Tax Group" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
-                                        <asp:BoundField DataField="type_name" HeaderText="Tax Type" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
-                                        <asp:BoundField DataField="tax_percentage" HeaderText="Tax Type Percent" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
-                                        <asp:BoundField DataField="totalTaxPercetage" HeaderText="Total Percentage" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
-                                        <asp:BoundField DataField="totalTaxAmnt" HeaderText="Total Tax Amount" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
-                                         <asp:BoundField DataField="type_id" HeaderText="Product id" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
-                                    </Columns>
-                                    <HeaderStyle BackColor="#428BCA" ForeColor="White" />
-                                </asp:GridView>
-                            </div>
+                                </div>
+                           
+                           
                         </div>
                         <div class="row">
-                            <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 pull-right">
+                             <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 pull-right">
                                 <div style="border: 1px solid black; margin-top: 10px; margin-bottom: 10px;"></div>
                             </div>
                         </div>
                         <div class="row">
+                            
                             <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 pull-right">
                                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 leftpadd0 pull-right" style="padding: 0px;">
                                     <div class="form-group">
