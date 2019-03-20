@@ -419,7 +419,7 @@ namespace IMS.Sales
                     var SaleTaxGroup = (from ep in context.tbl_saleTaxGroup
                                             join e1 in context.tbl_saleTaxGroupDetailes on ep.SaleTaxGroupId equals e1.SaleTaxGroupId
                                             join t in context.tbl_taxtype on e1.type_id equals t.type_id
-                                            where ep.sale_id == saleId
+                                            where ep.sale_id == saleId && ep.product_id==productId
                                             select new
                                             {
                                                 group_id = ep.group_id,
@@ -563,7 +563,7 @@ namespace IMS.Sales
 
                     for (int i = dt2.Rows.Count - 1; i >= 0; i--)
                     {
-                        DataRow dr = dt.Rows[i];
+                        DataRow dr = dt2.Rows[i];
                         if (dr.Field<string>("product_id") == productId.ToString())
                             dr.Delete();
                     }
@@ -593,12 +593,12 @@ namespace IMS.Sales
 
                         for (int i = dt2.Rows.Count - 1; i >= 0; i--)
                         {
-                            DataRow dr = dt.Rows[i];
+                            DataRow dr = dt2.Rows[i];
                             if (dr.Field<string>("product_id") == productId.ToString())
                                 dr.Delete();
                         }
 
-                        ViewState["TaxDetails"] = dt;
+                        ViewState["TaxDetails"] = dt2;
                         this.BindTaxGrid();
 
                     }
@@ -693,7 +693,7 @@ namespace IMS.Sales
                         var SaleTaxGroup = (from ep in context.tbl_saleTaxGroup
                                             join e1 in context.tbl_saleTaxGroupDetailes on ep.SaleTaxGroupId equals e1.SaleTaxGroupId
                                             join t in context.tbl_taxtype on e1.type_id equals t.type_id
-                                            where ep.sale_id == saleId
+                                            where ep.sale_id == saleId && ep.product_id == productId
                                             select new
                                             {
                                                 group_id = ep.group_id,
@@ -701,7 +701,8 @@ namespace IMS.Sales
                                                 type_name = t.type_name,
                                                 type_id = e1.type_id,
                                                 tax_percentage = e1.tax_percentage,
-                                                product_id = ep.product_id
+                                                product_id = ep.product_id,
+                                                totaltaxPercentage = ep.totalTaxPercentage
                                             }).ToList();
                         DataTable SaleTaxGroupDataTable = helper.LINQToDataTable(SaleTaxGroup);
 
@@ -711,17 +712,21 @@ namespace IMS.Sales
                             for (int i = 0; i < SaleTaxGroupDataTable.Rows.Count; i++)
                             {
                                 dt2.Rows.Add(
-                                              SaleTaxGroupDataTable.Rows[i].Field<string>("product_name"),
-                                              SaleTaxGroupDataTable.Rows[i].Field<int>("product_id"),
-                                               SaleTaxGroupDataTable.Rows[i].Field<int>("group_id"),
-                                              SaleTaxGroupDataTable.Rows[i].Field<string>("group_name"),
-                                              SaleTaxGroupDataTable.Rows[i].Field<string>("type_name"),
-                                          SaleTaxGroupDataTable.Rows[i].Field<decimal>("tax_percentage"),
-                                              SaleTaxGroupDataTable.Rows[i].Field<int>("type_id")
-                                              );
+                                               SaleTaxGroupDataTable.Rows[i].Field<int>("product_id"),
+                                                SaleTaxGroupDataTable.Rows[i].Field<int>("group_id"),
+                                               SaleTaxGroupDataTable.Rows[i].Field<string>("group_name"),
+                                               SaleTaxGroupDataTable.Rows[i].Field<string>("type_name"),
+                                           SaleTaxGroupDataTable.Rows[i].Field<decimal>("tax_percentage"),
+                                           SaleTaxGroupDataTable.Rows[i].Field<decimal>("totaltaxPercentage"),
+                                               SaleTaxGroupDataTable.Rows[i].Field<int>("type_id")
+                                               );
                             }
                         }
                         ViewState["TaxDetails"] = dt2;
+                        this.BindTaxGrid();
+
+
+
                     }
                 }
             }

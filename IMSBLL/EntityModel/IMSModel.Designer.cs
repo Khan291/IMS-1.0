@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'D:\EPassBook\IMS-1.0\IMSBLL\EntityModel\IMSModel.edmx'. 
+﻿// T4 code generation is enabled for model 'F:\IMS\IMS1.0\IMS-1.0\IMSBLL\EntityModel\IMSModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

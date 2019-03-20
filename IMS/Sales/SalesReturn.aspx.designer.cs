@@ -157,6 +157,15 @@ namespace IMS.Sales {
         protected global::System.Web.UI.WebControls.GridView gvsalesdetails;
         
         /// <summary>
+        /// gvTaxDetailsNew control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvTaxDetailsNew;
+        
+        /// <summary>
         /// lblTotalAmnt control.
         /// </summary>
         /// <remarks>
@@ -182,15 +191,6 @@ namespace IMS.Sales {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblResultSubTotal;
-        
-        /// <summary>
-        /// gvTaxDetailsNew control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvTaxDetailsNew;
         
         /// <summary>
         /// lblTotalTax control.

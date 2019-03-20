@@ -170,11 +170,8 @@ namespace IMS
                 var finicialyear = context.tbl_financialyear.Where(f => f.company_id == companyId && f.status == true).SingleOrDefault();
                 hd1.Value = finicialyear.start_date;
                 hd2.Value = finicialyear.end_date;
-
-
                 CalendarExtender1.StartDate = Convert.ToDateTime(finicialyear.start_date);
                 CalendarExtender1.EndDate = Convert.ToDateTime(finicialyear.end_date);
-
             }
             catch (Exception ex)
             {
@@ -198,7 +195,6 @@ namespace IMS
             ddlPaymentMode.DataValueField = "paymentode_id";
             ddlPaymentMode.DataSource = cd;
             ddlPaymentMode.DataBind();
-            //ddlPaymentMode.Items.Insert(0, new ListItem("Select Payment Mode", "0"));
         }
         protected void BindGrid()
         {
@@ -355,9 +351,8 @@ namespace IMS
                     tbl_saledetails saleDetails = new tbl_saledetails();
                     saleDetails.product_id = productId;
                     saleDetails.batch_id = batchId;
-                   // saleDetails.tax_id = product.tax_id;
                     saleDetails.unit_id = product.unit_id;
-                    saleDetails.tax_amt = Convert.ToDecimal(gvSalesdetails.Rows[i].Cells[12].Text);
+                    saleDetails.tax_amt = Convert.ToDecimal(gvSalesdetails.Rows[i].Cells[11].Text);
                     saleDetails.dicount_amt = Convert.ToDecimal(gvSalesdetails.Rows[i].Cells[7].Text);
                     saleDetails.quantity = qty;
                     saleDetails.amount = Convert.ToDecimal(gvSalesdetails.Rows[i].Cells[8].Text);
@@ -366,8 +361,8 @@ namespace IMS
                     saleDetails.status = true;
 
 
-                    int groupId = Convert.ToInt32(gvSalesdetails.Rows[i].Cells[13].Text);
-                    var PurchasegroupId = Convert.ToInt32(gvSalesdetails.Rows[i].Cells[10].Text);
+                    int groupId = Convert.ToInt32(gvSalesdetails.Rows[i].Cells[12].Text);
+                    //var PurchasegroupId = Convert.ToInt32(gvSalesdetails.Rows[i].Cells[10].Text);
 
                     DataTable taxgroupTypes1 = helper.LINQToDataTable(context.SelectPurcahseProductTaxGroup(batchId, productId, qty, groupId));
                     ViewState["TotalTaxPercent"] = null;
@@ -375,17 +370,16 @@ namespace IMS
                     {
                         ViewState["TotalTaxPercent"] = taxgroupTypes1.Rows[j].Field<decimal>("totalTaxPercetage");
                     }
-                    //insert into tax group purchase
+                    //insert into tax group Sale
                     tbl_saleTaxGroup saleTaxGroup = new tbl_saleTaxGroup();
                     saleTaxGroup.group_id = groupId;
                     saleTaxGroup.product_id = productId;
                     saleTaxGroup.totalTaxPercentage = (Decimal)ViewState["TotalTaxPercent"];
-                    saleTaxGroup.group_name = gvSalesdetails.Rows[i].Cells[12].Text;
+                    saleTaxGroup.group_name = gvSalesdetails.Rows[i].Cells[10].Text;
                     sale.tbl_saleTaxGroup.Add(saleTaxGroup);
 
                     //Get the Tax type saved from db 
                     //insert into tax group detailes
-                    // var taxGroupTypes = context.tbl_productTaxGroup.Join(context.tbl_taxgroup, t => t.group_id, pt => pt.group_id, (t, pt) => new { t.group_id, pt.group_name, t.product_id }).Where(t => t.product_id == productId).ToList();
 
 
                     for (int j = 0; j <= taxgroupTypes1.Rows.Count - 1; j++)
@@ -586,9 +580,9 @@ namespace IMS
                 GridViewRow grv = ((GridViewRow)((ImageButton)e.CommandSource).NamingContainer);
                 decimal subTotal = Convert.ToDecimal(grv.Cells[4].Text) * Convert.ToDecimal(grv.Cells[5].Text);
                 decimal a = subTotal / 100;
-                decimal discount_percent = decimal.Parse(grv.Cells[7].Text) * 100 / decimal.Parse(grv.Cells[10].Text);
+                decimal discount_percent = decimal.Parse(grv.Cells[6].Text);
                 decimal discountamt = a * Convert.ToDecimal(discount_percent.ToString("0.##"));
-                decimal tax_amount = a * decimal.Parse(grv.Cells[8].Text);
+                decimal tax_amount =  decimal.Parse(grv.Cells[11].Text);
                 
 
                 if (e.CommandName == "Delete row")
@@ -622,11 +616,14 @@ namespace IMS
                         ViewState["id"] = grv.RowIndex;
                         int productId = Convert.ToInt32(grv.Cells[3].Text.ToString());
                         ddlproduct.SelectedValue = grv.Cells[3].Text.ToString();
-                        ddlBatch.SelectedValue = grv.Cells[11].Text.ToString();
+                        batchbind(Convert.ToInt32(grv.Cells[3].Text));
+                        ddlBatch.SelectedValue = grv.Cells[9].Text.ToString();
+
+                        ddltaxBind(productId, Convert.ToInt32(grv.Cells[9].Text));
+                        
                         txtquantity.Text = grv.Cells[4].Text.ToString();
                         txtprice.Text = grv.Cells[5].Text.ToString();
                         txtDiscount.Text = grv.Cells[6].Text.ToString();
-                        //txtTaxpercentage.Text = grv.Cells[8].Text.ToString();
                         btnUpdate.Visible = true;
                         btnAdd.Visible = false;
                         ddlproduct.Enabled = false;
@@ -701,9 +698,8 @@ namespace IMS
                         {
                             decimal subTotal = Convert.ToDecimal(txtquantity.Text) * Convert.ToDecimal(dr["Price"]);
                             decimal a = subTotal / 100;
-                            //decimal discount_percent = (Convert.ToDecimal(dr["Discount Amount"]) * 100) / Convert.ToDecimal(dr["Sub Total"]);
                             decimal discountamt = a * Convert.ToDecimal(discount);
-                            decimal tax_amount = a * Convert.ToDecimal(dr["Tax"]);
+                            //decimal tax_amount = a * Convert.ToDecimal(dr["Tax"]);
                         //var purchaseTaxGroupId = (from spd in context.tbl_ActualPurchaseTaxAndPrice
                         //                          join s in context.tbl_purchasetaxgroup on spd.purchaseTaxId equals s.purchasetaxgroup_id
                         //                          where spd.batch_id == batchId && spd.product_id == productId
@@ -746,15 +742,14 @@ namespace IMS
                         dr["Discount"] = discount;
                             dr["Discount Amount"] = discountamt;
                             dr["Sub Total"] = subTotal;
-                            dr["Tax Amount"] = tax_amount;
                             dr["Price"] = txtprice.Text;
                             dr["batch_id"] = batchId;
                             dr["Batch"] = ddlBatch.SelectedItem.Text.Trim();
-                            dr["totalTaxAmnt"] = tax_amount;
+                            dr["totalTaxAmnt"] = tax_amnt;
                             dr["group_id"] = groupTaxId;
                             dr["group_name"] = ddlTaxGroup.SelectedItem.Text.Trim();
                         clr();
-                            calculation(subTotal, tax_amount, discountamt);
+                            calculation(subTotal, tax_amnt, discountamt);
                             txtGivenAmt.Enabled = true;
                             ViewState["Details"] = dt;
                            
@@ -779,10 +774,7 @@ namespace IMS
             {
                 lblcheckDoubleError.Text = string.Empty;
                 int productId = Convert.ToInt32(ddlproduct.SelectedValue);
-                //var product = context.tbl_ActualPurchaseTaxAndPrice.Join(context.tbl_batch .Where(p => p.product_id == productId && p.batch_id==).Select(s=>new { s.batch_id,s.});
-                //txtprice.Text = Convert.ToString(product.sale_price);
-                //int data = helper.GetStockQuantity(companyId, productId);
-                //Session["quant"] = data;
+              
                 batchbind(productId);
                 UpdatePanel1.Update();
             }
@@ -798,9 +790,7 @@ namespace IMS
         {
             try
             {
-
-                //decimal a = Convert.ToDecimal(lblGrandTotal.Text) - Convert.ToDecimal(txtGivenAmt.Text);
-                //txtBalanceAmt.Text = a.ToString();
+                
                 decimal a = Convert.ToDecimal(lblGrandTotal.Text);
                 decimal b = Convert.ToDecimal(txtGivenAmt.Text);
                 if (a < b)
