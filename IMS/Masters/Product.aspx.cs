@@ -321,7 +321,7 @@ namespace IMS
                         Label1.Text = string.Empty;
                         lblcheckDoubleError.Text = String.Empty;
                         GridViewRow row = GridView1.SelectedRow;
-                        int product_id = Convert.ToInt32(ViewState["tax_id"]);
+                        int product_id = Convert.ToInt32(ViewState["productId"]);
                         decimal sales_price = decimal.Parse(txtSalesPrice.Text);
                         decimal purchase_price = decimal.Parse(txtPurchasePrice.Text);
                         int cat_id = Int32.Parse(ddlCategory.SelectedValue);
@@ -329,8 +329,56 @@ namespace IMS
                         int godown_id = Int32.Parse(ddlGodown.SelectedValue);
                         int rack_id = Int32.Parse(ddlRack.SelectedValue);
                         //int tax_id = Int32.Parse(ddlTax.SelectedValue);
-                        int orderlevel = Convert.ToInt32(txtReorderqty.Text);
+                        
                         //context.sp_UpdateProduct(companyId, branchId, product_id, cat_id, rack_id, godown_id, tax_id, unit_id, orderlevel, purchase_price, sales_price, txtProductCode.Text, txtHSNCode.Text, txtProductName.Text, User_id, DateTime.Today);
+
+                        var product = context.tbl_product.Where(w => w.product_id == product_id).FirstOrDefault();
+                        product.product_name = txtProductName.Text;
+                        product.product_code = txtProductCode.Text;
+                        product.hsn_code = txtHSNCode.Text;
+                        product.purchas_price = decimal.Parse(txtPurchasePrice.Text);
+                        product.reorder_level = Convert.ToInt32(txtReorderqty.Text);
+                        product.sales_price = decimal.Parse(txtSalesPrice.Text);
+                        product.rack_id = rack_id;
+                        product.category_id = cat_id;
+                        product.godown_id = godown_id;
+
+                        //Delete Existing Mapping and add new mapping for product and tax group
+                        //var tbl_productTaxGroup = new tbl_productTaxGroup { product_id = product_id};
+                        //context.tbl_productTaxGroup.Attach(tbl_productTaxGroup);
+                        //context.tbl_productTaxGroup.Remove(tbl_productTaxGroup);
+                        //context.SaveChanges();
+                        foreach (var grpType in context.tbl_productTaxGroup.Where(w => w.product_id == product_id).ToList())
+                        {
+                            product.tbl_productTaxGroup.Remove(grpType);
+                        }
+
+                        for (int i = 0; i < ddlTaxgroup.Items.Count; i++)
+                        {
+                                                    
+                            
+                            if (ddlTaxgroup.Items[i].Selected)
+                            {
+                                
+                                tbl_productTaxGroup productTaxGroup = new tbl_productTaxGroup();
+                                ListItem item = ddlTaxgroup.Items[i];
+                                int groupId = int.Parse(ddlTaxgroup.Items[i].Value);
+                                productTaxGroup.product_id = product_id;
+                                productTaxGroup.group_id = groupId;
+                                product.tbl_productTaxGroup.Add(productTaxGroup);
+                            }
+                        }
+                       
+
+                        product.unit_id = unit_id;
+                        product.modified_by = User_id;
+                        product.modified_date = DateTime.Now;
+
+
+                        context.SaveChanges();
+
+
+
                         btnUpdate.Visible = false;
                         btnSave.Visible = true;
                         divalert.Visible = true;
@@ -405,7 +453,7 @@ namespace IMS
 
 
                 ddltaxbind();
-                if (productId != null)
+                if (productId != 0)
                 {
                     List<tbl_productTaxGroup> selectedItem = context.tbl_productTaxGroup.Where(p => p.product_id == productId).ToList();
                     DataTable dt = ToDataTable(selectedItem);
