@@ -463,6 +463,9 @@
 
                             <!-- second-level-items -->
                         </li>
+                        <li id="liStock" runat="server">
+                            <a href="../Stock/StockAdjustment.aspx"><i class="fa fa-list-alt fa-fw"></i>Stock Management</a>
+                        </li>
                         <li id="lipurchase" runat="server">
                             <a href="../Purchases/Purchase.aspx"><i class="fa fa-list-alt fa-fw"></i>Purchase</a>
                         </li>
