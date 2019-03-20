@@ -145,7 +145,7 @@
                                 <asp:HiddenField ID="hd1" runat="server" />
                                 <asp:HiddenField ID="hd2" runat="server" />
                                 <asp:TextBox ID="txtdate" runat="server" CssClass="form-control"></asp:TextBox>
-                                <ajaxToolkit:CalendarExtender ID="CalendarExtender1" Format="dd/MM/yyyy" TargetControlID="txtdate" runat="server" />
+                                <ajaxToolkit:CalendarExtender ID="CalendarExtender1" Format="dd/MM/yyyy" TargetControlID="txtdate" runat="server" OnClientShowing="SetDate" BehaviorID="myDate"/>
                                 <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Date is Required " ForeColor="Red" Text="Please Select Date" ValidationGroup="grop" ControlToValidate="txtdate"></asp:RequiredFieldValidator>
                             </div>
                         </div>
@@ -280,7 +280,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left: 0px; margin-top: 10px">
-                        <asp:GridView ID="gvpurchasedetails" runat="server" CssClass="table table-bordered" AutoGenerateColumns="false" BorderStyle="None" GridLines="Horizontal" OnRowCommand="gvpurchasedetails_RowCommand">
+                        <asp:GridView ID="gvpurchasedetails" runat="server" CssClass="table table-bordered" AutoGenerateColumns="false" BorderStyle="None" GridLines="Horizontal" Font-Size="Small" OnRowCommand="gvpurchasedetails_RowCommand">
                             <Columns>
                                 <asp:TemplateField HeaderText="Sr.No">
                                     <ItemTemplate>
@@ -362,7 +362,7 @@
                                 </div>
                             </div>
                             <div class=" col-md-6 pull-left">
-                                <asp:GridView ID="gvTaxDetailsNew" runat="server" CssClass="table table-bordered" AutoGenerateColumns="false" BorderStyle="None" GridLines="Horizontal">
+                                <asp:GridView ID="gvTaxDetailsNew" runat="server" CssClass="table table-bordered" AutoGenerateColumns="false" Font-Size="Small" BorderStyle="None" GridLines="Horizontal">
                                     <Columns>
                                         <asp:BoundField DataField="product_name" HeaderText="Product"></asp:BoundField>
                                         <asp:BoundField DataField="product_id" HeaderText="Product id" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
@@ -516,6 +516,12 @@
 
     <script type="text/javascript">
 
+
+        function SetDate(sender,args){
+var d = new Date(); //Today
+d.setMonth(d.getMonth() - 1); //1 month ago
+$find("myDate").set_selectedDate(d);
+}
         function openModal() {
             $('#<%=myModal.ClientID%>').modal('show');
         }

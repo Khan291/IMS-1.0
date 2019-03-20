@@ -44,7 +44,8 @@ namespace IMS
                 SessionValue();
                 if (!IsPostBack)
                 {
-                    CalendarExtender1.StartDate = DateTime.Now;
+                   // CalendarExtender1.StartDate = DateTime.Now.Date;
+                    //txtdate.Text = DateTime.Now.ToString();
                     if (ViewState["Details"] == null)
                     {
                         DataTable dataTable = new DataTable();
