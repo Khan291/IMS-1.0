@@ -65,6 +65,7 @@ namespace IMS
                         dataTable.Columns.Add("group_id");
                         dataTable.Columns.Add("totalTaxAmnt");
                         dataTable.Columns.Add("group_name");
+                        dataTable.Columns.Add("taxPercentage");
                         ViewState["Details"] = dataTable;
                     }
                     this.BindGrid();
@@ -135,6 +136,8 @@ namespace IMS
                 purchasePaymentDetail.PaidAmnt = Convert.ToDecimal(txtPaidAmt.Text);
                 purchasePaymentDetail.GivenAmnt = Convert.ToDecimal(txtPaidAmt.Text);
                 purchasePaymentDetail.BalanceAmnt = Convert.ToDecimal(txtBalanceAmt.Text);
+                purchasePaymentDetail.CreatedDate = DateTime.Now;
+                purchasePaymentDetail.CreatedBy = user_id;
                 purchasePaymentDetail.FromTable = "Purchase";
                 purchase.tbl_PurchasePaymentDetials.Add(purchasePaymentDetail);
                 
@@ -154,12 +157,12 @@ namespace IMS
                     purchaseDetails.tax_amt = Convert.ToDecimal(gvpurchasedetails.Rows[i].Cells[13].Text);
                     purchaseDetails.dicount_amt = Convert.ToDecimal(gvpurchasedetails.Rows[i].Cells[9].Text);
                     purchaseDetails.quantity = qty;
-                    purchaseDetails.amount = Convert.ToDecimal(gvpurchasedetails.Rows[i].Cells[10].Text);
+                    purchaseDetails.amount = Convert.ToDecimal(gvpurchasedetails.Rows[i].Cells[14].Text);
                     purchaseDetails.created_by = Convert.ToString(user_id);
                     purchaseDetails.created_date = DateTime.Now;
                     purchaseDetails.status = true;
 
-                    var groupId = Convert.ToInt32(gvpurchasedetails.Rows[i].Cells[11].Text);
+                    var groupId = Convert.ToInt32(gvpurchasedetails.Rows[i].Cells[10].Text);
 
                     DataTable taxgroupTypes = helper.LINQToDataTable(context.SelectProductTaxGroup(groupId, productId, qty));
                     ViewState["TotalTaxPercent"] = null;
@@ -172,8 +175,8 @@ namespace IMS
                     tbl_purchasetaxgroup purchaseTaxGroup = new tbl_purchasetaxgroup();
                     purchaseTaxGroup.group_id = groupId;
                     purchaseTaxGroup.product_id = productId;
-                    //purchaseTaxGroup.totalTaxPercentage = (Decimal)ViewState["TotalTaxPercent"];
-                    purchaseTaxGroup.group_name = gvpurchasedetails.Rows[i].Cells[12].Text;
+                    purchaseTaxGroup.totalTaxPercentage = (Decimal)ViewState["TotalTaxPercent"];
+                    purchaseTaxGroup.group_name = gvpurchasedetails.Rows[i].Cells[11].Text;
                     //Get the Tax type saved from db 
                     //insert into tax group detailes
                     // var taxGroupTypes = context.tbl_productTaxGroup.Join(context.tbl_taxgroup, t => t.group_id, pt => pt.group_id, (t, pt) => new { t.group_id, pt.group_name, t.product_id }).Where(t => t.product_id == productId).ToList();
@@ -459,6 +462,7 @@ namespace IMS
                     DataTable taxDetailesGV = helper.LINQToDataTable(context.SelectProductTaxGroup(groupTaxId, productId, qty));
                     decimal tax_amnt = 0;
                     DataTable dt2 = (DataTable)ViewState["TaxDetails"];
+                    decimal taxPercentage = 0;
                     if (taxDetailesGV.Rows.Count > 0)
                     {
                         for (int i = 0; i < taxDetailesGV.Rows.Count; i++)
@@ -473,7 +477,7 @@ namespace IMS
                                           taxDetailesGV.Rows[i].Field<decimal>("totalTaxAmnt"),
                                           taxDetailesGV.Rows[i].Field<int>("type_id")
                                           );
-
+                            taxPercentage = taxDetailesGV.Rows[i].Field<decimal>("totalTaxPercetage");
                             tax_amnt = taxDetailesGV.Rows[i].Field<decimal>("totalTaxAmnt");
                         }
                     }
@@ -483,7 +487,7 @@ namespace IMS
 
                     DataTable dt = (DataTable)ViewState["Details"];
                     dt.Rows.Add(ddlVendor.SelectedItem.Text.Trim(), productId, txtPONo.Text.Trim(), txtdate.Text.Trim(), ddlproduct.SelectedItem.Text.Trim(), ddlBatch.SelectedItem.Text.Trim(),
-                                      batchId, txtquantity.Text.Trim(), txtprice.Text.Trim(), discount, discountamt, txtsalesprice.Text.Trim(), subTotal, groupTaxId, tax_amnt, ddlTaxGroup.SelectedItem.Text);
+                                      batchId, txtquantity.Text.Trim(), txtprice.Text.Trim(), discount, discountamt, txtsalesprice.Text.Trim(), subTotal, groupTaxId, tax_amnt, ddlTaxGroup.SelectedItem.Text,taxPercentage);
                     ViewState["Details"] = dt;
                     this.BindGrid();
                     lblcheckDoubleError.Text = string.Empty;
@@ -577,6 +581,7 @@ namespace IMS
                     DataTable taxDetailesGV = helper.LINQToDataTable(context.SelectProductTaxGroup(groupTaxId, productId, qty));
                     decimal tax_amnt = 0;
                     DataTable dt2 = (DataTable)ViewState["TaxDetails"];
+                    decimal taxPercentage = 0;
                     if (taxDetailesGV.Rows.Count > 0)
                     {
                         for (int i = 0; i < taxDetailesGV.Rows.Count; i++)
@@ -591,7 +596,7 @@ namespace IMS
                                           taxDetailesGV.Rows[i].Field<decimal>("totalTaxAmnt"),
                                           taxDetailesGV.Rows[i].Field<int>("type_id")
                                           );
-
+                            taxPercentage = taxDetailesGV.Rows[i].Field<decimal>("totalTaxPercetage");
                             tax_amnt = taxDetailesGV.Rows[i].Field<decimal>("totalTaxAmnt");
                         }
                     }
@@ -609,7 +614,6 @@ namespace IMS
                         decimal tax_amount = tax_amnt;
 
                         dr["Quantity"] = txtquantity.Text;
-                        //dr["Tax"] = txtTaxpercentage.Text;
                         dr["Discount"] = Convert.ToDecimal(discount);
                         dr["Discount Amount"] = discountamt;
                         dr["Sub Total"] = subTotal;
@@ -620,6 +624,7 @@ namespace IMS
                         dr["totalTaxAmnt"] = tax_amount;
                         dr["group_id"] = groupTaxId;
                         dr["group_name"] = ddlTaxGroup.SelectedItem.Text.Trim();
+                        dr["taxPercentage"] = taxPercentage;
                         clr();
                         calculation(subTotal, tax_amount, discountamt);
                         txtPaidAmt.Enabled = true;
@@ -701,7 +706,7 @@ namespace IMS
                         btnUpdate.Visible = true;
                         btnAdd.Visible = false;
                         ddlproduct.Enabled = false;
-
+                        ddlTaxGroup.SelectedValue= grv.Cells[10].Text.ToString();
                         //tax group implementation
 
                         DataTable dt = (DataTable)ViewState["TaxDetails"];
@@ -907,7 +912,7 @@ namespace IMS
                 txtprice.Text = string.Empty;
                 txtsalesprice.Text = string.Empty;
                 int p_id = Convert.ToInt32(ddlproduct.SelectedValue);
-                // var product = context.tbl_product.Join(context.tbl_tax, p => p.tax_id, t => t.tax_id, (p, t) => new { p.purchas_price, p.sales_price, t.tax_percentage, p.company_id, p.branch_id, p.product_id }).Where(p => p.company_id == companyId && p.branch_id == branchId && p.product_id == p_id).SingleOrDefault();
+                
                 var product = context.tbl_product.Where(p => p.company_id == companyId && p.branch_id == branchId && p.product_id == p_id).SingleOrDefault();
 
                 ddltaxBind(p_id);
