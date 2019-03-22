@@ -649,6 +649,16 @@ namespace IMS
             }
         }
 
+        protected void btncloseofmodelcategory_ServerClick(object sender, EventArgs e)
+        {
+            // on close of popup below code will select last inserted category in category dropdown
+            var set = context.tbl_category.Where(x => x.status == true && x.company_id == companyId && x.branch_id == branchId).OrderByDescending(x => x.category_id).FirstOrDefault();
+            ddlcategorybind();
+            ddlCategory.SelectedValue = set.category_id.ToString();
+        }
+
+      
+
       
     }
 }

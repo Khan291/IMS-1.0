@@ -1,5 +1,7 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Product.aspx.cs" Inherits="IMS.clsProduct" %>
 
+<%@ Register src="~/UserControl/UC_Category.ascx" TagName="ctrlcategory"  TagPrefix="TWebControl"%>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <style>
@@ -387,6 +389,30 @@
         </div>
     </div>
 
+    <%--start model popup code for display usercontrol--%>
+    <div class="modal fade" role="dialog" id="divcategorymodel" runat="server">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" id="btncloseofmodelcategory" runat="server" onserverclick="btncloseofmodelcategory_ServerClick">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3>
+                        <asp:Label ID="Label16" runat="server" Text="Add Category"></asp:Label></h3>
+                </div>
+                <div class="modal-body">
+                    <asp:UpdatePanel ID="upCIR" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <%--Call user control to show in popup body--%>
+                            <twebcontrol:ctrlcategory  ID="ctrlcategory"  runat="server" />
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%--end model popup --%>
+
     <script>
         $(document).ready(function () {
             $('#<%= GridView1.ClientID %>').DataTable();
@@ -469,28 +495,37 @@
             }
         }
 
+
         function AddSrcToIfram(val) {
             if (val == 'c') {
-                $('#<%=lblModalHeader.ClientID%>').text("Add Category");
-                $('#<%=ModalIfram.ClientID%>').attr("src", "../MasterModals/CategoryMasterModal.aspx")
+
+
+                $('#<%= divcategorymodel.ClientID %>').modal('show');
+
+               <%-- $('#<%=lblModalHeader.ClientID%>').text("Add Category");
+                $('#<%=ModalIfram.ClientID%>').attr("src", "../MasterModals/CategoryMasterModal.aspx")--%>
             }
             if (val == 'u') {
                 $('#<%=lblModalHeader.ClientID%>').text("Add Unit");
-                $('#<%=ModalIfram.ClientID%>').attr("src", "../MasterModals/UnitMasterModel.aspx")
+                $('#<%=ModalIfram.ClientID%>').attr("src", "../MasterModals/UnitMasterModel.aspx");
+                $('#<%= AddModal.ClientID %>').modal('show');
             }
             if (val == 'g') {
                 $('#<%=lblModalHeader.ClientID%>').text("Add Godown");
                 $('#<%=ModalIfram.ClientID%>').attr("src", "../MasterModals/GodownMasterModel.aspx")
+                $('#<%= AddModal.ClientID %>').modal('show');
             }
             if (val == 'r') {
                 $('#<%=lblModalHeader.ClientID%>').text("Add Rack");
                 $('#<%=ModalIfram.ClientID%>').attr("src", "../MasterModals/RackMasterModel.aspx")
+                $('#<%= AddModal.ClientID %>').modal('show');
             }
             if (val == 't') {
                 $('#<%=lblModalHeader.ClientID%>').text("Add Tax");
                 $('#<%=ModalIfram.ClientID%>').attr("src", "../MasterModals/TaxMasterModel.aspx")
+                $('#<%= AddModal.ClientID %>').modal('show');
             }
-            $('#<%= AddModal.ClientID %>').modal('show');
+            
         }
 
         $('#<%= ddlCategory.ClientID %>').chosen();

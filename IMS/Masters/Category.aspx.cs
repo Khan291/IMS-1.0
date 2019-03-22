@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using IMSBLL.EntityModel;
 using IMSBLL.DAL;
 using System.Configuration;
+using IMS.UserControl;
 namespace IMS
 {
     public partial class Category : System.Web.UI.Page
@@ -51,7 +52,7 @@ namespace IMS
         /// </summary>
 
         #region Methods
-        private void loadDataTable()
+        public void loadDataTable()
         {
             List<tbl_category> dt = context.tbl_category.Where(x => x.status == true && x.company_id== companyId && x.branch_id== branchId).ToList();
 
@@ -87,83 +88,83 @@ namespace IMS
             return true;
         }
 
-        public void Save()
-        {
-            try
-            {
+        //public void Save()
+        //{
+        //    try
+        //    {
 
-                if (CheckDouble(txtCategoryName.Text) == false)
-                {
-                    tbl_category cat = new tbl_category();
-                    cat.branch_id = branchId;
-                    cat.company_id = companyId;
-                    cat.category_name = txtCategoryName.Text;
-                    cat.created_by = Convert.ToString(Session["UserID"]);
-                    cat.created_date = DateTime.Today;
-                    cat.modified_by = "";
-                    cat.modified_date = null;
-                    cat.status = true;
-                    context.tbl_category.Add(cat);
-                    context.SaveChanges();
-                    loadDataTable();
-                    txtCategoryName.Text = string.Empty;
-                    divalert.Visible = true;
-                    lblAlert.Text = "Category Saved";
-                    lblcheckDoubleError.Text = string.Empty;
-                }
-                else
-                {
-                    divalert.Visible = false;
-                    lblcheckDoubleError.Text = "Category Already Exists.";
-                    lblcheckDoubleError.ForeColor = System.Drawing.Color.Red;
-                    return;
-                }
+        //        if (CheckDouble(txtCategoryName.Text) == false)
+        //        {
+        //            tbl_category cat = new tbl_category();
+        //            cat.branch_id = branchId;
+        //            cat.company_id = companyId;
+        //            cat.category_name = txtCategoryName.Text;
+        //            cat.created_by = Convert.ToString(Session["UserID"]);
+        //            cat.created_date = DateTime.Today;
+        //            cat.modified_by = "";
+        //            cat.modified_date = null;
+        //            cat.status = true;
+        //            context.tbl_category.Add(cat);
+        //            context.SaveChanges();
+        //            loadDataTable();
+        //            txtCategoryName.Text = string.Empty;
+        //            divalert.Visible = true;
+        //            lblAlert.Text = "Category Saved";
+        //            lblcheckDoubleError.Text = string.Empty;
+        //        }
+        //        else
+        //        {
+        //            divalert.Visible = false;
+        //            lblcheckDoubleError.Text = "Category Already Exists.";
+        //            lblcheckDoubleError.ForeColor = System.Drawing.Color.Red;
+        //            return;
+        //        }
 
 
-            }
-            catch (Exception ex)
-            {
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                ErrorLog.saveerror(ex);
-                //Do Logging
-            }
-        }
+        //        ErrorLog.saveerror(ex);
+        //        //Do Logging
+        //    }
+        //}
 
-        public void Update()
-        {
-            try
-            {
-                if (hd.Value != "true")
-                {
-                    lblcheckDoubleError.Text = string.Empty;
-                    GridViewRow row = GridView1.SelectedRow;
-                    int category_id = Convert.ToInt32(GridView1.DataKeys[row.RowIndex].Value);
-                    //context.sp_UpdateCategory(c_id, category_id, b_id, txtCategoryName.Text, "admin", DateTime.Today);
-                    context.sp_UpdateCategory(companyId, category_id, txtCategoryName.Text, Convert.ToString(Session["UserID"]), DateTime.Today);
-                    btnUpdate.Visible = false;
-                    btnSave.Visible = true;
-                    ViewState["gridrow"] = null;
-                    loadDataTable();
-                    divalert.Visible = true;
-                    lblAlert.Text = "Category Update Successfully.";
-                    txtCategoryName.Text = string.Empty;
+        //public void Update()
+        //{
+        //    try
+        //    {
+        //        if (hd.Value != "true")
+        //        {
+        //            lblcheckDoubleError.Text = string.Empty;
+        //            GridViewRow row = GridView1.SelectedRow;
+        //            int category_id = Convert.ToInt32(GridView1.DataKeys[row.RowIndex].Value);
+        //            //context.sp_UpdateCategory(c_id, category_id, b_id, txtCategoryName.Text, "admin", DateTime.Today);
+        //            context.sp_UpdateCategory(companyId, category_id, txtCategoryName.Text, Convert.ToString(Session["UserID"]), DateTime.Today);
+        //            btnUpdate.Visible = false;
+        //            btnSave.Visible = true;
+        //            ViewState["gridrow"] = null;
+        //            loadDataTable();
+        //            divalert.Visible = true;
+        //            lblAlert.Text = "Category Update Successfully.";
+        //            txtCategoryName.Text = string.Empty;
 
-                }
-                else
-                {
-                    divalert.Visible = false;
-                    lblcheckDoubleError.ForeColor = System.Drawing.Color.Red;
-                    lblcheckDoubleError.Text = "Category Name Already Exists.";
-                    return;
-                }
-            }
-            catch (Exception ex)
-            {
+        //        }
+        //        else
+        //        {
+        //            divalert.Visible = false;
+        //            lblcheckDoubleError.ForeColor = System.Drawing.Color.Red;
+        //            lblcheckDoubleError.Text = "Category Name Already Exists.";
+        //            return;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                ErrorLog.saveerror(ex);
-                //Do Logging
-            }
-        }
+        //        ErrorLog.saveerror(ex);
+        //        //Do Logging
+        //    }
+        //}
 
         #endregion
 
@@ -173,30 +174,25 @@ namespace IMS
         /// </summary>
 
         #region Events
-        protected void btnSave_Click(object sender, EventArgs e)
-        {
-            Save();
-        }
+        //protected void btnSave_Click(object sender, EventArgs e)
+        //{
+        //  //  Save();
+        //}
 
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
-                lblcheckDoubleError.Text = string.Empty;
                 GridViewRow row = GridView1.SelectedRow;
+                // passing categoryID and category name to user control property
+                ctrlcategory.CategoryID = GridView1.DataKeys[row.RowIndex].Value.ToString();
+                ctrlcategory.Category = row.Cells[0].Text.ToString();
                 int category_id = Convert.ToInt32(GridView1.DataKeys[row.RowIndex].Value);
-                //int taxId = GridView1.SelectedIndex;      
-                txtCategoryName.Text = row.Cells[0].Text;
-                btnSave.Visible = false;
-                btnUpdate.Visible = true;
                 ViewState["gridrow"] = true;
-                txtCategoryName.Focus();
-                hd.Value = string.Empty;
             }
             catch (Exception ex)
             {
                 ErrorLog.saveerror(ex);
-                //Do Logging
             }
         }
         protected void GridView1_PreRender(object sender, EventArgs e)
@@ -221,10 +217,10 @@ namespace IMS
                 GridView1.FooterRow.Controls[1].Controls.Add(tfr);
             }
         }
-        protected void btnUpdate_Click(object sender, EventArgs e)
-        {
-            Update();
-        }
+        //protected void btnUpdate_Click(object sender, EventArgs e)
+        //{
+        //   // Update();
+        //}
 
         protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
         {
