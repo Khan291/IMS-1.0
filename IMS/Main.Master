@@ -426,7 +426,7 @@
             <!-- end navbar top -->
 
             <!-- navbar side -->
-            <nav class="navbar-default navbar-static-side" role="navigation" style="position:fixed">
+            <nav class="navbar-default navbar-static-side" role="navigation" style="">
                 <!-- sidebar-collapse -->
                 <div class="sidebar-collapse">
                     <!-- side-menu -->
