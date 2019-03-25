@@ -16,16 +16,7 @@
         <div class="panel-body">
             <div class="form-horizontal">
                 <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-2">
-                        </div>
-                        <div class="col-md-8">
-                        </div>
-                        <div class="col-md-2">
-                        </div>
-                    </div>
-                    <br />
-                    <br />
+                    <br /><br />
                     <div class="row">
                         <div class="col-md-1">
                         </div>
