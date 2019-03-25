@@ -92,6 +92,7 @@
            
            
         </div>
+        <%--calling user control UC_Category.ascx --%>
         <twebcontrol:ctrlcategory  ID="ctrlcategory"  runat="server" />
         <div class="row">
             <div class="alert alert-success" id="divalert" runat="server" visible="false">
