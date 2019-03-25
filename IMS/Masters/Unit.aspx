@@ -1,5 +1,8 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Unit.aspx.cs" Inherits="IMS.Unit" %>
 
+
+<%@ Register src="~/UserControl/UC_Unit.ascx" TagName="ctrlunit"  TagPrefix="abc"%>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
         function openModal() {
@@ -11,7 +14,7 @@
             $('#<%= GridView1.ClientID %>').DataTable();
         });
     </script>
-    <script type="text/javascript">
+    <%--<script type="text/javascript">
 
         function CheckDouble() {
             $.ajax({
@@ -46,7 +49,7 @@
         var txt = $("<%=txtUnitName.ClientID%>");
 
         txt.focus();
-    </script>
+    </script>--%>
 
 </asp:Content>
 
@@ -56,46 +59,26 @@
             <a href="../Master.aspx" id="bMaster" runat="server">
                 <img src="../assets/img/goback-5-w800.png" height="50" width="130" /></a>
         </div>
-        <div class="panel panel-default text-center">
-            <div class="panel-heading">
+
+         <div class="panel panel-default text-center">
+            <div class="panel-heading text-left">
                 <h1>Unit Master</h1>
             </div>
-            <div class="panel-body">
-                <div class="form-horizontal">
-                    <div class="col-md-12">
-                        <div class="col-md-5">
-                            <div class="form-group">
-                                <div class="col-sm-5 leftpadd0">
-                                    <label class="control-label">
-                                        Unit Name:<asp:Label ID="lblStar" runat="server" Text="*" ForeColor="Red"></asp:Label>                                
-                                    </label>
-                                </div>
-                                <div class="col-sm-7">
-                                    <asp:TextBox ID="txtUnitName" onchange="CheckDouble()" runat="server" CssClass="form-control"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" Display="Dynamic" runat="server" ValidationGroup="abc" ErrorMessage="Name is required" ControlToValidate="txtUnitName" ForeColor="Red"></asp:RequiredFieldValidator>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-7">
-                            <asp:Label ID="lblcheckDoubleError" runat="server"></asp:Label>
-                            <asp:HiddenField ID="hd" runat="server" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="panel-footer">
-                <asp:Button ID="btnSave" runat="server" OnClientClick="DisableOnSave(this,'abc');"  UseSubmitBehavior="false" ValidationGroup="abc" CssClass="btn btn-primary " Text="Save" OnClick="btnSave_Click" />
-                <asp:Button ID="btnUpdate" runat="server" ValidationGroup="abc" CssClass="btn btn-primary" Text="Update" OnClick="btnUpdate_Click" Visible="false" />
-                <input class="btn btn-primary " type="button" value="Clear"  onclick="javascript: window.location = 'Unit.aspx'" />
-                <%--<asp:Button ID="btnCancel" runat="server" CssClass="btn btn-default" Text="Cancel" OnClick="btnCancel_Click" Style="float: right" />--%>
-            </div>
+            
+           
+           
         </div>
+           <abc:ctrlunit  ID="ctrlunit"  runat="server" />
+
+
         <div class="row">
-            <div class="alert alert-success" id="divalert" runat="server" visible="false">
+            <div class="alert alert-success" id="div1" runat="server" visible="false">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <asp:Label ID="lblAlert" runat="server"></asp:Label>
+                <asp:Label ID="Label1" runat="server"></asp:Label>
             </div>
         </div>
+
+        
         <div class="row">
             <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                 <div>

@@ -657,6 +657,14 @@ namespace IMS
             ddlCategory.SelectedValue = set.category_id.ToString();
         }
 
+        protected void btnunitmodelclose_ServerClick(object sender, EventArgs e)
+        {
+            // on close of popup below code will select last inserted Unit in unit dropdown
+            var set = context.tbl_unit.Where(x => x.status == true && x.company_id == companyId && x.branch_id == branchId).OrderByDescending(x => x.unit_id).FirstOrDefault();
+            ddlunitbind();
+            ddlUnit.SelectedValue = set.unit_id.ToString();
+        }
+
       
 
       
