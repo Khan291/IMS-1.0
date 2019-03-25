@@ -21,6 +21,7 @@ namespace IMS.Sales
         string connectionstring =  ConfigurationManager.ConnectionStrings["TestDBConnection"].ConnectionString;
         SqlHelper helper = new SqlHelper();
         static int companyId = 0, branchId = 0, financialYearId = 0; string user_id = string.Empty;
+      
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionValue();
@@ -266,6 +267,9 @@ namespace IMS.Sales
                     return;
                 }
 
+                decimal remainingBalance = Convert.ToDecimal(lblResultGrndTotal.Text) - Convert.ToDecimal(lblGivenAmnt.Text);
+                decimal paidAmnt = Convert.ToDecimal(txtPaidAmt.Text);
+
                 var sale = context.tbl_sale.Where(pd => pd.sale_id == saleId && pd.company_id == companyId && pd.branch_id == branchId).FirstOrDefault();
                 tbl_salereturn saleReturn = new tbl_salereturn();
                 saleReturn.sale_id = saleId;
@@ -278,7 +282,15 @@ namespace IMS.Sales
                 saleReturn.party_id = Convert.ToInt32(sale.party_id);             
                 saleReturn.created_by = user_id;
                 saleReturn.created_date = DateTime.Now;
-
+                decimal givenAmnt = 0;
+                if (remainingBalance<paidAmnt)
+                {
+                   givenAmnt= Convert.ToDecimal(lblGivenAmnt.Text) - Convert.ToDecimal(txtPaidAmt.Text);
+                }
+                else
+                {
+                    givenAmnt= Convert.ToDecimal(lblGivenAmnt.Text) + Convert.ToDecimal(txtPaidAmt.Text);
+                }
                 //Update into Sale Payment Details 
                 tbl_SalePaymentDetails salePaymentDetails = context.tbl_SalePaymentDetails.Where(w => w.SaleId == saleId).FirstOrDefault();
                 salePaymentDetails.PaidAmnt = Convert.ToDecimal(txtPaidAmt.Text);
@@ -286,7 +298,7 @@ namespace IMS.Sales
                 salePaymentDetails.DiscountAmount = Convert.ToDecimal(lblResultTotalDiscount.Text);
                 salePaymentDetails.SubTotal = Convert.ToDecimal(lblResultSubTotal.Text);
                 salePaymentDetails.GrandTotal = Convert.ToDecimal(lblResultGrndTotal.Text);
-                salePaymentDetails.GivenAmnt = Convert.ToDecimal(lblGivenAmnt.Text) - Convert.ToDecimal(txtPaidAmt.Text);
+                salePaymentDetails.GivenAmnt = givenAmnt;
                 salePaymentDetails.BalanceAmnt = Convert.ToDecimal(txtBalanceAmt.Text);
                 salePaymentDetails.FromTable = "Return";
                 sale.tbl_SalePaymentDetails.Add(salePaymentDetails);
@@ -863,59 +875,48 @@ namespace IMS.Sales
         {
             try
             {
-                //decimal remainingBalance = Convert.ToDecimal(lblGrandTotal.Text) - Convert.ToDecimal(lblGivenAmnt.Text);
-
-                //if (txtPaidAmt.Text == "0" || string.IsNullOrEmpty(txtPaidAmt.Text))
-                //{
-                //    txtBalanceAmt.Text = remainingBalance.ToString();
-                //    return;
-                //}
-
-                //if(remainingBalance<0)
-                //{
-                //    txtBalanceAmt.Text = (remainingBalance + Convert.ToDecimal(txtPaidAmt.Text)).ToString();
-                //}
-                //else
-                //{
-                //    txtBalanceAmt.Text = (remainingBalance - Convert.ToDecimal(txtPaidAmt.Text)).ToString();
-                //}
+               
                 decimal remainingBalance = Convert.ToDecimal(lblResultGrndTotal.Text) - Convert.ToDecimal(lblGivenAmnt.Text);
 
-                //if (remainingBalance < 0)
-                //{
-                //    btnPayBack.Visible = true;
-                //    txtBalanceAmt.Text = (remainingBalance + Convert.ToDecimal(txtPaidAmt.Text)).ToString();
-                //}
-                //else if (txtPaidAmt.Text == "0" || string.IsNullOrEmpty(txtPaidAmt.Text))
-                //{
-                //    btnPayBack.Visible = false;
-                //    txtBalanceAmt.Text = remainingBalance.ToString();
-                //    return;
-                //}
-                //else
-                //{
-                //    txtBalanceAmt.Text = (remainingBalance - Convert.ToDecimal(txtPaidAmt.Text)).ToString();
-                //}
+                decimal grandTotal = Convert.ToDecimal(lblGrandTotal.Text);
+                decimal paidAmnt = Convert.ToDecimal(txtPaidAmt.Text);
+                decimal Amnt = Convert.ToDecimal(txtBalanceAmt.Text);
 
-                decimal a = Convert.ToDecimal(lblGrandTotal.Text);
-                decimal b = Convert.ToDecimal(txtPaidAmt.Text);
-                if (txtPaidAmt.Text == "0" || string.IsNullOrEmpty(txtPaidAmt.Text))
+                decimal amntTobeTaken = remainingBalance - (remainingBalance * 2);
+                if (remainingBalance < paidAmnt)
+                {
+                    if (remainingBalance < 0)
+                    {
+                        txtBalanceAmt.Text = (remainingBalance + paidAmnt).ToString();
+                        btnPayBack.Visible = true;
+                    }
+                    else if (paidAmnt == amntTobeTaken)
+                    {
+                        txtPaidAmt.Text = amntTobeTaken.ToString();
+                        txtBalanceAmt.Text = "0";
+                    }
+                }
+                else if (txtPaidAmt.Text == "0" || string.IsNullOrEmpty(txtPaidAmt.Text))
                 {
                     btnPayBack.Visible = false;
                     txtBalanceAmt.Text = remainingBalance.ToString();
-                    return;
+                    //return;
                 }
-
-                else if (remainingBalance < b)
+                else if (remainingBalance > paidAmnt)
                 {
-                    txtPaidAmt.Text = remainingBalance.ToString();
-                    txtBalanceAmt.Text = "0";
+                    
+                    if (paidAmnt> remainingBalance)
+                    {
+                        txtPaidAmt.Text = amntTobeTaken.ToString();
+                        txtBalanceAmt.Text = "0";
+                    }
+                    else
+                    {
+                        remainingBalance = remainingBalance - paidAmnt;
+                        txtBalanceAmt.Text = remainingBalance.ToString();
+                    }
                 }
-                else
-                {
-                    decimal c = Convert.ToDecimal(lblGrandTotal.Text) - Convert.ToDecimal(txtPaidAmt.Text);
-                    txtBalanceAmt.Text = c.ToString();
-                } 
+               
                 UpdatePanel1.Update();
             }
             catch (Exception ex)

@@ -391,6 +391,9 @@
     <Compile Include="EntityModel\tbl_stock.cs">
       <DependentUpon>IMSModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityModel\tbl_stockHistory.cs">
+      <DependentUpon>IMSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityModel\tbl_stocktransaction.cs">
       <DependentUpon>IMSModel.tt</DependentUpon>
     </Compile>

@@ -32,6 +32,7 @@ namespace IMSBLL.EntityModel
             this.tbl_rack = new HashSet<tbl_rack>();
             this.tbl_stock = new HashSet<tbl_stock>();
             this.tbl_stocktransaction = new HashSet<tbl_stocktransaction>();
+            this.tbl_stock1 = new HashSet<tbl_stock>();
             this.tbl_tax = new HashSet<tbl_tax>();
             this.tbl_taxgroup = new HashSet<tbl_taxgroup>();
             this.tbl_taxtype = new HashSet<tbl_taxtype>();
@@ -84,6 +85,7 @@ namespace IMSBLL.EntityModel
         public virtual ICollection<tbl_rack> tbl_rack { get; set; }
         public virtual ICollection<tbl_stock> tbl_stock { get; set; }
         public virtual ICollection<tbl_stocktransaction> tbl_stocktransaction { get; set; }
+        public virtual ICollection<tbl_stock> tbl_stock1 { get; set; }
         public virtual ICollection<tbl_tax> tbl_tax { get; set; }
         public virtual ICollection<tbl_taxgroup> tbl_taxgroup { get; set; }
         public virtual ICollection<tbl_taxtype> tbl_taxtype { get; set; }

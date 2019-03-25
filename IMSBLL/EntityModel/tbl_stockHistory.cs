@@ -12,21 +12,19 @@ namespace IMSBLL.EntityModel
     using System;
     using System.Collections.Generic;
     
-    public partial class tbl_rack
+    public partial class tbl_stockHistory
     {
-        public int rack_id { get; set; }
+        public int id { get; set; }
+        public Nullable<int> stock_id { get; set; }
         public Nullable<int> company_id { get; set; }
         public Nullable<int> branch_id { get; set; }
-        public string rack_name { get; set; }
-        public Nullable<int> godown_id { get; set; }
+        public Nullable<int> product_id { get; set; }
+        public Nullable<int> batch_id { get; set; }
+        public Nullable<int> qty { get; set; }
         public Nullable<bool> status { get; set; }
         public string created_by { get; set; }
         public Nullable<System.DateTime> created_date { get; set; }
         public string modified_by { get; set; }
         public Nullable<System.DateTime> modified_date { get; set; }
-    
-        public virtual tbl_branch tbl_branch { get; set; }
-        public virtual tbl_company tbl_company { get; set; }
-        public virtual tbl_godown tbl_godown { get; set; }
     }
 }

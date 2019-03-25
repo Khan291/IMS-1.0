@@ -77,6 +77,15 @@
             overflow: hidden;
             visibility: hidden;
         }
+
+        .scroolClass {
+            height: 100px;
+            overflow: hidden;
+        }
+
+            .scroolClass:hover {
+                overflow-y: scroll;
+            }
     </style>
 
     <script src="../assets/scripts/chosen.jquery.js"></script>
@@ -247,12 +256,12 @@
                                     </label>
                                     <asp:DropDownList runat="server" OnSelectedIndexChanged="ddlTaxGroup_SelectedIndexChanged" ID="ddlTaxGroup" CssClass="form-control">
                                     </asp:DropDownList>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6"  runat="server" InitialValue="0" ControlToValidate="ddlTaxGroup" ErrorMessage="Please Select TAX Group" ForeColor="Red" ValidationGroup="grop"></asp:RequiredFieldValidator>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" InitialValue="0" ControlToValidate="ddlTaxGroup" ErrorMessage="Please Select TAX Group" ForeColor="Red" ValidationGroup="grop"></asp:RequiredFieldValidator>
 
                                 </div>
                             </div>
                         </div>
-                     </ContentTemplate>
+                    </ContentTemplate>
                 </asp:UpdatePanel>
 
                 <div class="row">
@@ -270,7 +279,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left: 0px; margin-top: 10px">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 scroolClass" style="padding-left: 0px; margin-top: 10px">
                     <asp:GridView ID="gvSalesdetails" runat="server" CssClass="table" AutoGenerateColumns="false" BorderStyle="None" GridLines="Horizontal" OnRowCommand="gvSalesdetails_RowCommand">
                         <Columns>
                             <asp:TemplateField HeaderText="SR.No" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs">
@@ -285,11 +294,12 @@
                             <asp:BoundField DataField="Price" HeaderText="Price" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
                             <asp:BoundField DataField="Discount" HeaderText="Discount" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
                             <asp:BoundField DataField="Discount Amount" HeaderText="Discount Amount" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
-                            <asp:BoundField DataField="Sub Total" HeaderText="Total" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
+                         
                             <asp:BoundField DataField="batch_id" HeaderText="Batch id" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
                             <asp:BoundField DataField="group_name" HeaderText="Tax Group" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
                             <asp:BoundField DataField="totalTaxAmnt" HeaderText="Tax Amount" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
-                            <asp:BoundField DataField="group_id" HeaderText="Product id" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField> 
+                               <asp:BoundField DataField="Sub Total" HeaderText="Total" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
+                            <asp:BoundField DataField="group_id" HeaderText="Product id" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
                             <asp:TemplateField HeaderText="Update">
                                 <ItemTemplate>
                                     <asp:ImageButton CommandName="Update Row" ID="btnimg_update" runat="server" ImageUrl="~/assets/img/edit.png" />
@@ -301,7 +311,7 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
-                        <HeaderStyle BackColor="#428BCA" ForeColor="White" />
+                        <HeaderStyle BackColor="#428BCA" ForeColor="White"  />
                     </asp:GridView>
                 </div>
             </div>
@@ -315,13 +325,14 @@
                                 <div class="form-group">
                                     <div class="col-sm-12 leftpadd0">
                                         <label class="control-label col-sm-9">Other Expenses</label>
-                                         <asp:TextBox ID="txtotherexpence" runat="server" CssClass="form-control" OnTextChanged="txtotherexpence_TextChanged" AutoPostBack="true" onkeypress="return OnlyNumericEntry(event);"></asp:TextBox>
+                                        <asp:TextBox ID="txtotherexpence" runat="server" CssClass="form-control" OnTextChanged="txtotherexpence_TextChanged" AutoPostBack="true" onkeypress="return OnlyNumericEntry(event);"></asp:TextBox>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 leftpadd0 pull-right" style="padding: 0px;">
                                 <div class="form-group">
-                                    <div class="col-sm-12 leftpadd0"><br />
+                                    <div class="col-sm-12 leftpadd0">
+                                        <br />
                                         <label class="control-label col-sm-9">Sub Total</label>
                                         <asp:Label ID="lblsubtotal" runat="server" CssClass="control-label" Text="0"></asp:Label>
                                     </div>
@@ -340,11 +351,11 @@
                                     <div class="col-sm-12 leftpadd0">
                                         <label class="control-label col-sm-9">Discount Amount</label>
                                         <asp:Label ID="lblDiscountAmt" runat="server" CssClass="control-label" Text="0"></asp:Label>
-                                         <div style="border: 1px solid black; margin-top: 10px; margin-bottom: 10px;"></div>
+                                        <div style="border: 1px solid black; margin-top: 10px; margin-bottom: 10px;"></div>
                                     </div>
                                 </div>
                             </div>
-                                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 leftpadd0 pull-right" style="padding: 0px;">
+                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 leftpadd0 pull-right" style="padding: 0px;">
                                 <div class="form-group">
                                     <div class="col-sm-12 leftpadd0">
                                         <label class="control-label col-sm-9">Grand Total</label>
@@ -373,12 +384,10 @@
                     </div>
                     <div class="row">
                         <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 pull-right">
-                           
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 pull-right">
-                       
                         </div>
                     </div>
                     <br />
@@ -433,16 +442,17 @@
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>
-       
-            <!--=====================================================Note field ====================================================================-->
-                <div class="row">
-                <div class="col-md-2 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px; margin-left:25px;">
-                        <div class="col-sm-10 leftpadd0">
-                              <label class="control-label">Note</label>
-                                    <asp:TextBox ID="txtSaleNote" runat="server" TextMode="MultiLine" CssClass="form-control" style="display:block; resize:none"></asp:TextBox>
-                        </div>
-               </div>
-               </div><br />
+
+        <!--=====================================================Note field ====================================================================-->
+        <div class="row">
+            <div class="col-md-2 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px; margin-left: 25px;">
+                <div class="col-sm-10 leftpadd0">
+                    <label class="control-label">Note</label>
+                    <asp:TextBox ID="txtSaleNote" runat="server" TextMode="MultiLine" CssClass="form-control" Style="display: block; resize: none"></asp:TextBox>
+                </div>
+            </div>
+        </div>
+        <br />
 
 
 
@@ -514,7 +524,7 @@
 
             var charCode = (evt.which) ? evt.which : event.keyCode
             if (charCode != 46 && charCode > 31
-              && (charCode < 48 || charCode > 57))
+                && (charCode < 48 || charCode > 57))
                 return false;
             return true;
         }
@@ -548,13 +558,13 @@
 
         $('#<%= ddlVendor.ClientID %>').chosen();
         $("#<%= ddlVendor.ClientID %>-deselect").chosen(
-        { allow_single_deselect: true });
+            { allow_single_deselect: true });
 
 
         <%--        $('#<%= ddlBatch.ClientID %>').chosen();
         $("#<%= ddlBatch.ClientID %>-deselect").chosen(
             { allow_single_deselect: true });--%>
 
-    </script>
+</script>
 
 </asp:Content>

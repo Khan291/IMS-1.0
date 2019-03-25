@@ -237,7 +237,7 @@
                                         <asp:BoundField DataField="group_name" HeaderText="Tax Group" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
                                         <asp:BoundField DataField="type_name" HeaderText="Tax Type" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
                                         <asp:BoundField DataField="tax_percentage" HeaderText="Tax Type Percent" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>  
-                                        <asp:BoundField DataField="totaltaxPercentage" HeaderText="Total Tax Percent" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
+                                        <asp:BoundField DataField="totaltaxPercentage" HeaderText="Total Tax Percent" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
                                         <asp:BoundField DataField="type_id" HeaderText="Product id" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
                                     </Columns>
                                     <HeaderStyle BackColor="#428BCA" ForeColor="White" />
@@ -256,7 +256,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6 pull-right">
+                         
+                        </div>
+                        <div class="row">
+                               <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6 pull-right">
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <label class="control-label col-sm-3">Sub Total</label>

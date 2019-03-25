@@ -595,6 +595,7 @@
           <Property Name="group_id" Type="int" />
           <Property Name="purchaseId" Type="int" />
           <Property Name="totalTaxPercentage" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="batchId" Type="int" />
         </EntityType>
         <EntityType Name="tbl_purchasetaxgroupdetails">
           <Key>
@@ -888,6 +889,23 @@
             <PropertyRef Name="stock_id" />
           </Key>
           <Property Name="stock_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="company_id" Type="int" />
+          <Property Name="branch_id" Type="int" />
+          <Property Name="product_id" Type="int" />
+          <Property Name="batch_id" Type="int" />
+          <Property Name="qty" Type="int" />
+          <Property Name="status" Type="bit" />
+          <Property Name="created_by" Type="nvarchar" MaxLength="500" />
+          <Property Name="created_date" Type="smalldatetime" />
+          <Property Name="modified_by" Type="nvarchar" MaxLength="500" />
+          <Property Name="modified_date" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="tbl_stockHistory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="stock_id" Type="int" />
           <Property Name="company_id" Type="int" />
           <Property Name="branch_id" Type="int" />
           <Property Name="product_id" Type="int" />
@@ -1628,18 +1646,6 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tbl_produ__rack___4AB81AF0">
-          <End Role="tbl_rack" Type="Self.tbl_rack" Multiplicity="0..1" />
-          <End Role="tbl_product" Type="Self.tbl_product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_rack">
-              <PropertyRef Name="rack_id" />
-            </Principal>
-            <Dependent Role="tbl_product">
-              <PropertyRef Name="rack_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__tbl_produ__unit___48CFD27E">
           <End Role="tbl_unit" Type="Self.tbl_unit" Multiplicity="0..1" />
           <End Role="tbl_product" Type="Self.tbl_product" Multiplicity="*" />
@@ -1916,6 +1922,18 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__tbl_stock__batch__705EA0EB">
+          <End Role="tbl_batch" Type="Self.tbl_batch" Multiplicity="0..1" />
+          <End Role="tbl_stock" Type="Self.tbl_stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_batch">
+              <PropertyRef Name="batch_id" />
+            </Principal>
+            <Dependent Role="tbl_stock">
+              <PropertyRef Name="batch_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__tbl_stock__branc__5FB337D6">
           <End Role="tbl_branch" Type="Self.tbl_branch" Multiplicity="0..1" />
           <End Role="tbl_stock" Type="Self.tbl_stock" Multiplicity="*" />
@@ -1936,6 +1954,18 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
               <PropertyRef Name="branch_id" />
             </Principal>
             <Dependent Role="tbl_stocktransaction">
+              <PropertyRef Name="branch_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_stock__branc__7152C524">
+          <End Role="tbl_branch" Type="Self.tbl_branch" Multiplicity="0..1" />
+          <End Role="tbl_stock" Type="Self.tbl_stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_branch">
+              <PropertyRef Name="branch_id" />
+            </Principal>
+            <Dependent Role="tbl_stock">
               <PropertyRef Name="branch_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -1964,6 +1994,18 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__tbl_stock__compa__7246E95D">
+          <End Role="tbl_company" Type="Self.tbl_company" Multiplicity="0..1" />
+          <End Role="tbl_stock" Type="Self.tbl_stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_company">
+              <PropertyRef Name="company_id" />
+            </Principal>
+            <Dependent Role="tbl_stock">
+              <PropertyRef Name="company_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__tbl_stock__produ__60A75C0F">
           <End Role="tbl_product" Type="Self.tbl_product" Multiplicity="0..1" />
           <End Role="tbl_stock" Type="Self.tbl_stock" Multiplicity="*" />
@@ -1984,6 +2026,18 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
               <PropertyRef Name="product_id" />
             </Principal>
             <Dependent Role="tbl_stocktransaction">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_stock__produ__733B0D96">
+          <End Role="tbl_product" Type="Self.tbl_product" Multiplicity="0..1" />
+          <End Role="tbl_stock" Type="Self.tbl_stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_product">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="tbl_stock">
               <PropertyRef Name="product_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -2393,6 +2447,18 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             </Principal>
             <Dependent Role="tbl_purchasereturndetails">
               <PropertyRef Name="unit_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_purchasetaxgroup_tbl_batch">
+          <End Role="tbl_batch" Type="Self.tbl_batch" Multiplicity="0..1" />
+          <End Role="tbl_purchasetaxgroup" Type="Self.tbl_purchasetaxgroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_batch">
+              <PropertyRef Name="batch_id" />
+            </Principal>
+            <Dependent Role="tbl_purchasetaxgroup">
+              <PropertyRef Name="batchId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3540,24 +3606,6 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <Parameter Name="modified_by" Type="nvarchar" Mode="In" />
           <Parameter Name="modified_date" Type="datetime" Mode="In" />
         </Function>
-        <Function Name="sp_UpdateProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="company_id" Type="int" Mode="In" />
-          <Parameter Name="branch_id" Type="int" Mode="In" />
-          <Parameter Name="product_id" Type="int" Mode="In" />
-          <Parameter Name="category_id" Type="int" Mode="In" />
-          <Parameter Name="rack_id" Type="int" Mode="In" />
-          <Parameter Name="godown_id" Type="int" Mode="In" />
-          <Parameter Name="tax_id" Type="int" Mode="In" />
-          <Parameter Name="unit_id" Type="int" Mode="In" />
-          <Parameter Name="reorder_level" Type="int" Mode="In" />
-          <Parameter Name="purchas_price" Type="decimal" Mode="In" />
-          <Parameter Name="sales_price" Type="decimal" Mode="In" />
-          <Parameter Name="product_code" Type="nvarchar" Mode="In" />
-          <Parameter Name="hsn_code" Type="nvarchar" Mode="In" />
-          <Parameter Name="product_name" Type="nvarchar" Mode="In" />
-          <Parameter Name="modified_by" Type="nvarchar" Mode="In" />
-          <Parameter Name="modified_date" Type="datetime" Mode="In" />
-        </Function>
         <Function Name="sp_UpdatePurchase" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="purchase_id" Type="int" Mode="In" />
           <Parameter Name="count" Type="int" Mode="In" />
@@ -3751,6 +3799,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <EntitySet Name="tbl_setting" EntityType="Self.tbl_setting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_state" EntityType="Self.tbl_state" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_stock" EntityType="Self.tbl_stock" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_stockHistory" EntityType="Self.tbl_stockHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_stocktransaction" EntityType="Self.tbl_stocktransaction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_subscription" EntityType="Self.tbl_subscription" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbl_tax" EntityType="Self.tbl_tax" Schema="dbo" store:Type="Tables" />
@@ -3985,10 +4034,6 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             <End Role="tbl_product" EntitySet="tbl_product" />
             <End Role="tbl_productTaxGroup" EntitySet="tbl_productTaxGroup" />
           </AssociationSet>
-          <AssociationSet Name="FK__tbl_produ__rack___4AB81AF0" Association="Self.FK__tbl_produ__rack___4AB81AF0">
-            <End Role="tbl_rack" EntitySet="tbl_rack" />
-            <End Role="tbl_product" EntitySet="tbl_product" />
-          </AssociationSet>
           <AssociationSet Name="FK__tbl_produ__unit___48CFD27E" Association="Self.FK__tbl_produ__unit___48CFD27E">
             <End Role="tbl_unit" EntitySet="tbl_unit" />
             <End Role="tbl_product" EntitySet="tbl_product" />
@@ -4081,6 +4126,10 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             <End Role="tbl_batch" EntitySet="tbl_batch" />
             <End Role="tbl_stocktransaction" EntitySet="tbl_stocktransaction" />
           </AssociationSet>
+          <AssociationSet Name="FK__tbl_stock__batch__705EA0EB" Association="Self.FK__tbl_stock__batch__705EA0EB">
+            <End Role="tbl_batch" EntitySet="tbl_batch" />
+            <End Role="tbl_stock" EntitySet="tbl_stock" />
+          </AssociationSet>
           <AssociationSet Name="FK__tbl_stock__branc__5FB337D6" Association="Self.FK__tbl_stock__branc__5FB337D6">
             <End Role="tbl_branch" EntitySet="tbl_branch" />
             <End Role="tbl_stock" EntitySet="tbl_stock" />
@@ -4088,6 +4137,10 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <AssociationSet Name="FK__tbl_stock__branc__656C112C" Association="Self.FK__tbl_stock__branc__656C112C">
             <End Role="tbl_branch" EntitySet="tbl_branch" />
             <End Role="tbl_stocktransaction" EntitySet="tbl_stocktransaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_stock__branc__7152C524" Association="Self.FK__tbl_stock__branc__7152C524">
+            <End Role="tbl_branch" EntitySet="tbl_branch" />
+            <End Role="tbl_stock" EntitySet="tbl_stock" />
           </AssociationSet>
           <AssociationSet Name="FK__tbl_stock__compa__5EBF139D" Association="Self.FK__tbl_stock__compa__5EBF139D">
             <End Role="tbl_company" EntitySet="tbl_company" />
@@ -4097,6 +4150,10 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             <End Role="tbl_company" EntitySet="tbl_company" />
             <End Role="tbl_stocktransaction" EntitySet="tbl_stocktransaction" />
           </AssociationSet>
+          <AssociationSet Name="FK__tbl_stock__compa__7246E95D" Association="Self.FK__tbl_stock__compa__7246E95D">
+            <End Role="tbl_company" EntitySet="tbl_company" />
+            <End Role="tbl_stock" EntitySet="tbl_stock" />
+          </AssociationSet>
           <AssociationSet Name="FK__tbl_stock__produ__60A75C0F" Association="Self.FK__tbl_stock__produ__60A75C0F">
             <End Role="tbl_product" EntitySet="tbl_product" />
             <End Role="tbl_stock" EntitySet="tbl_stock" />
@@ -4104,6 +4161,10 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <AssociationSet Name="FK__tbl_stock__produ__66603565" Association="Self.FK__tbl_stock__produ__66603565">
             <End Role="tbl_product" EntitySet="tbl_product" />
             <End Role="tbl_stocktransaction" EntitySet="tbl_stocktransaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_stock__produ__733B0D96" Association="Self.FK__tbl_stock__produ__733B0D96">
+            <End Role="tbl_product" EntitySet="tbl_product" />
+            <End Role="tbl_stock" EntitySet="tbl_stock" />
           </AssociationSet>
           <AssociationSet Name="FK__tbl_subsc__compa__28ED12D1" Association="Self.FK__tbl_subsc__compa__28ED12D1">
             <End Role="tbl_company" EntitySet="tbl_company" />
@@ -4240,6 +4301,10 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <AssociationSet Name="FK_tbl_purchasereturndetails_tbl_unit" Association="Self.FK_tbl_purchasereturndetails_tbl_unit">
             <End Role="tbl_unit" EntitySet="tbl_unit" />
             <End Role="tbl_purchasereturndetails" EntitySet="tbl_purchasereturndetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_purchasetaxgroup_tbl_batch" Association="Self.FK_tbl_purchasetaxgroup_tbl_batch">
+            <End Role="tbl_batch" EntitySet="tbl_batch" />
+            <End Role="tbl_purchasetaxgroup" EntitySet="tbl_purchasetaxgroup" />
           </AssociationSet>
           <AssociationSet Name="FK_tbl_purchasetaxgroupdetails_tbl_purchasetaxgroup" Association="Self.FK_tbl_purchasetaxgroupdetails_tbl_purchasetaxgroup">
             <End Role="tbl_purchasetaxgroup" EntitySet="tbl_purchasetaxgroup" />
@@ -4407,6 +4472,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <EntitySet Name="tbl_setting" EntityType="IMS_TESTModel.tbl_setting" />
           <EntitySet Name="tbl_state" EntityType="IMS_TESTModel.tbl_state" />
           <EntitySet Name="tbl_stock" EntityType="IMS_TESTModel.tbl_stock" />
+          <EntitySet Name="tbl_stockHistory" EntityType="IMS_TESTModel.tbl_stockHistory" />
           <EntitySet Name="tbl_stocktransaction" EntityType="IMS_TESTModel.tbl_stocktransaction" />
           <EntitySet Name="tbl_subscription" EntityType="IMS_TESTModel.tbl_subscription" />
           <EntitySet Name="tbl_tax" EntityType="IMS_TESTModel.tbl_tax" />
@@ -4460,9 +4526,17 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             <End Role="tbl_batch" EntitySet="tbl_batch" />
             <End Role="tbl_stocktransaction" EntitySet="tbl_stocktransaction" />
           </AssociationSet>
+          <AssociationSet Name="FK__tbl_stock__batch__705EA0EB" Association="IMS_TESTModel.FK__tbl_stock__batch__705EA0EB">
+            <End Role="tbl_batch" EntitySet="tbl_batch" />
+            <End Role="tbl_stock" EntitySet="tbl_stock" />
+          </AssociationSet>
           <AssociationSet Name="FK_tbl_purchasereturndetails_tbl_batch" Association="IMS_TESTModel.FK_tbl_purchasereturndetails_tbl_batch">
             <End Role="tbl_batch" EntitySet="tbl_batch" />
             <End Role="tbl_purchasereturndetails" EntitySet="tbl_purchasereturndetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_purchasetaxgroup_tbl_batch" Association="IMS_TESTModel.FK_tbl_purchasetaxgroup_tbl_batch">
+            <End Role="tbl_batch" EntitySet="tbl_batch" />
+            <End Role="tbl_purchasetaxgroup" EntitySet="tbl_purchasetaxgroup" />
           </AssociationSet>
           <AssociationSet Name="FK_tbl_saledetails_tbl_batch" Association="IMS_TESTModel.FK_tbl_saledetails_tbl_batch">
             <End Role="tbl_batch" EntitySet="tbl_batch" />
@@ -4543,6 +4617,10 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <AssociationSet Name="FK__tbl_stock__branc__656C112C" Association="IMS_TESTModel.FK__tbl_stock__branc__656C112C">
             <End Role="tbl_branch" EntitySet="tbl_branch" />
             <End Role="tbl_stocktransaction" EntitySet="tbl_stocktransaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_stock__branc__7152C524" Association="IMS_TESTModel.FK__tbl_stock__branc__7152C524">
+            <End Role="tbl_branch" EntitySet="tbl_branch" />
+            <End Role="tbl_stock" EntitySet="tbl_stock" />
           </AssociationSet>
           <AssociationSet Name="FK__tbl_tax__branch___4316F928" Association="IMS_TESTModel.FK__tbl_tax__branch___4316F928">
             <End Role="tbl_branch" EntitySet="tbl_branch" />
@@ -4651,6 +4729,10 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <AssociationSet Name="FK__tbl_stock__compa__6477ECF3" Association="IMS_TESTModel.FK__tbl_stock__compa__6477ECF3">
             <End Role="tbl_company" EntitySet="tbl_company" />
             <End Role="tbl_stocktransaction" EntitySet="tbl_stocktransaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_stock__compa__7246E95D" Association="IMS_TESTModel.FK__tbl_stock__compa__7246E95D">
+            <End Role="tbl_company" EntitySet="tbl_company" />
+            <End Role="tbl_stock" EntitySet="tbl_stock" />
           </AssociationSet>
           <AssociationSet Name="FK__tbl_subsc__compa__28ED12D1" Association="IMS_TESTModel.FK__tbl_subsc__compa__28ED12D1">
             <End Role="tbl_company" EntitySet="tbl_company" />
@@ -4792,10 +4874,6 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             <End Role="tbl_product" EntitySet="tbl_product" />
             <End Role="tbl_productTaxGroup" EntitySet="tbl_productTaxGroup" />
           </AssociationSet>
-          <AssociationSet Name="FK__tbl_produ__rack___4AB81AF0" Association="IMS_TESTModel.FK__tbl_produ__rack___4AB81AF0">
-            <End Role="tbl_rack" EntitySet="tbl_rack" />
-            <End Role="tbl_product" EntitySet="tbl_product" />
-          </AssociationSet>
           <AssociationSet Name="FK__tbl_produ__unit___48CFD27E" Association="IMS_TESTModel.FK__tbl_produ__unit___48CFD27E">
             <End Role="tbl_unit" EntitySet="tbl_unit" />
             <End Role="tbl_product" EntitySet="tbl_product" />
@@ -4815,6 +4893,10 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <AssociationSet Name="FK__tbl_stock__produ__66603565" Association="IMS_TESTModel.FK__tbl_stock__produ__66603565">
             <End Role="tbl_product" EntitySet="tbl_product" />
             <End Role="tbl_stocktransaction" EntitySet="tbl_stocktransaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_stock__produ__733B0D96" Association="IMS_TESTModel.FK__tbl_stock__produ__733B0D96">
+            <End Role="tbl_product" EntitySet="tbl_product" />
+            <End Role="tbl_stock" EntitySet="tbl_stock" />
           </AssociationSet>
           <AssociationSet Name="FK_tbl_purchasereturndetails_tbl_product" Association="IMS_TESTModel.FK_tbl_purchasereturndetails_tbl_product">
             <End Role="tbl_product" EntitySet="tbl_product" />
@@ -5767,24 +5849,6 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             <Parameter Name="modified_by" Mode="In" Type="String" />
             <Parameter Name="modified_date" Mode="In" Type="DateTime" />
           </FunctionImport>
-          <FunctionImport Name="sp_UpdateProduct">
-            <Parameter Name="company_id" Mode="In" Type="Int32" />
-            <Parameter Name="branch_id" Mode="In" Type="Int32" />
-            <Parameter Name="product_id" Mode="In" Type="Int32" />
-            <Parameter Name="category_id" Mode="In" Type="Int32" />
-            <Parameter Name="rack_id" Mode="In" Type="Int32" />
-            <Parameter Name="godown_id" Mode="In" Type="Int32" />
-            <Parameter Name="tax_id" Mode="In" Type="Int32" />
-            <Parameter Name="unit_id" Mode="In" Type="Int32" />
-            <Parameter Name="reorder_level" Mode="In" Type="Int32" />
-            <Parameter Name="purchas_price" Mode="In" Type="Decimal" />
-            <Parameter Name="sales_price" Mode="In" Type="Decimal" />
-            <Parameter Name="product_code" Mode="In" Type="String" />
-            <Parameter Name="hsn_code" Mode="In" Type="String" />
-            <Parameter Name="product_name" Mode="In" Type="String" />
-            <Parameter Name="modified_by" Mode="In" Type="String" />
-            <Parameter Name="modified_date" Mode="In" Type="DateTime" />
-          </FunctionImport>
           <FunctionImport Name="sp_UpdatePurchase">
             <Parameter Name="purchase_id" Mode="In" Type="Int32" />
             <Parameter Name="count" Mode="In" Type="Int32" />
@@ -5992,7 +6056,9 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <NavigationProperty Name="tbl_purchasedetails" Relationship="IMS_TESTModel.FK__tbl_purch__batch__797309D9" FromRole="tbl_batch" ToRole="tbl_purchasedetails" />
           <NavigationProperty Name="tbl_stock" Relationship="IMS_TESTModel.FK__tbl_stock__batch__619B8048" FromRole="tbl_batch" ToRole="tbl_stock" />
           <NavigationProperty Name="tbl_stocktransaction" Relationship="IMS_TESTModel.FK__tbl_stock__batch__6754599E" FromRole="tbl_batch" ToRole="tbl_stocktransaction" />
+          <NavigationProperty Name="tbl_stock1" Relationship="IMS_TESTModel.FK__tbl_stock__batch__705EA0EB" FromRole="tbl_batch" ToRole="tbl_stock" />
           <NavigationProperty Name="tbl_purchasereturndetails" Relationship="IMS_TESTModel.FK_tbl_purchasereturndetails_tbl_batch" FromRole="tbl_batch" ToRole="tbl_purchasereturndetails" />
+          <NavigationProperty Name="tbl_purchasetaxgroup" Relationship="IMS_TESTModel.FK_tbl_purchasetaxgroup_tbl_batch" FromRole="tbl_batch" ToRole="tbl_purchasetaxgroup" />
           <NavigationProperty Name="tbl_saledetails" Relationship="IMS_TESTModel.FK_tbl_saledetails_tbl_batch" FromRole="tbl_batch" ToRole="tbl_saledetails" />
           <NavigationProperty Name="tbl_salereturndetails" Relationship="IMS_TESTModel.FK_tbl_salereturndetails_tbl_batch" FromRole="tbl_batch" ToRole="tbl_salereturndetails" />
         </EntityType>
@@ -6041,6 +6107,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <NavigationProperty Name="tbl_rack" Relationship="IMS_TESTModel.FK__tbl_rack__branch__36B12243" FromRole="tbl_branch" ToRole="tbl_rack" />
           <NavigationProperty Name="tbl_stock" Relationship="IMS_TESTModel.FK__tbl_stock__branc__5FB337D6" FromRole="tbl_branch" ToRole="tbl_stock" />
           <NavigationProperty Name="tbl_stocktransaction" Relationship="IMS_TESTModel.FK__tbl_stock__branc__656C112C" FromRole="tbl_branch" ToRole="tbl_stocktransaction" />
+          <NavigationProperty Name="tbl_stock1" Relationship="IMS_TESTModel.FK__tbl_stock__branc__7152C524" FromRole="tbl_branch" ToRole="tbl_stock" />
           <NavigationProperty Name="tbl_tax" Relationship="IMS_TESTModel.FK__tbl_tax__branch___4316F928" FromRole="tbl_branch" ToRole="tbl_tax" />
           <NavigationProperty Name="tbl_taxgroup" Relationship="IMS_TESTModel.FK__tbl_taxgr__branc__3F3159AB" FromRole="tbl_branch" ToRole="tbl_taxgroup" />
           <NavigationProperty Name="tbl_taxtype" Relationship="IMS_TESTModel.FK__tbl_taxty__branc__2D12A970" FromRole="tbl_branch" ToRole="tbl_taxtype" />
@@ -6117,6 +6184,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <NavigationProperty Name="tbl_rack" Relationship="IMS_TESTModel.FK__tbl_rack__compan__35BCFE0A" FromRole="tbl_company" ToRole="tbl_rack" />
           <NavigationProperty Name="tbl_stock" Relationship="IMS_TESTModel.FK__tbl_stock__compa__5EBF139D" FromRole="tbl_company" ToRole="tbl_stock" />
           <NavigationProperty Name="tbl_stocktransaction" Relationship="IMS_TESTModel.FK__tbl_stock__compa__6477ECF3" FromRole="tbl_company" ToRole="tbl_stocktransaction" />
+          <NavigationProperty Name="tbl_stock1" Relationship="IMS_TESTModel.FK__tbl_stock__compa__7246E95D" FromRole="tbl_company" ToRole="tbl_stock" />
           <NavigationProperty Name="tbl_subscription" Relationship="IMS_TESTModel.FK__tbl_subsc__compa__28ED12D1" FromRole="tbl_company" ToRole="tbl_subscription" />
           <NavigationProperty Name="tbl_tax" Relationship="IMS_TESTModel.FK__tbl_tax__company__4222D4EF" FromRole="tbl_company" ToRole="tbl_tax" />
           <NavigationProperty Name="tbl_taxgroup" Relationship="IMS_TESTModel.FK__tbl_taxgr__compa__3E3D3572" FromRole="tbl_company" ToRole="tbl_taxgroup" />
@@ -6415,12 +6483,12 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <NavigationProperty Name="tbl_company" Relationship="IMS_TESTModel.FK__tbl_produ__compa__45F365D3" FromRole="tbl_product" ToRole="tbl_company" />
           <NavigationProperty Name="tbl_godown" Relationship="IMS_TESTModel.FK__tbl_produ__godow__49C3F6B7" FromRole="tbl_product" ToRole="tbl_godown" />
           <NavigationProperty Name="tbl_productTaxGroup" Relationship="IMS_TESTModel.FK__tbl_produ__produ__76818E95" FromRole="tbl_product" ToRole="tbl_productTaxGroup" />
-          <NavigationProperty Name="tbl_rack" Relationship="IMS_TESTModel.FK__tbl_produ__rack___4AB81AF0" FromRole="tbl_product" ToRole="tbl_rack" />
           <NavigationProperty Name="tbl_unit" Relationship="IMS_TESTModel.FK__tbl_produ__unit___48CFD27E" FromRole="tbl_product" ToRole="tbl_unit" />
           <NavigationProperty Name="tbl_purchasedetails" Relationship="IMS_TESTModel.FK__tbl_purch__produ__787EE5A0" FromRole="tbl_product" ToRole="tbl_purchasedetails" />
           <NavigationProperty Name="tbl_purchasetaxgroup" Relationship="IMS_TESTModel.FK__tbl_purch__produ__7A521F79" FromRole="tbl_product" ToRole="tbl_purchasetaxgroup" />
           <NavigationProperty Name="tbl_stock" Relationship="IMS_TESTModel.FK__tbl_stock__produ__60A75C0F" FromRole="tbl_product" ToRole="tbl_stock" />
           <NavigationProperty Name="tbl_stocktransaction" Relationship="IMS_TESTModel.FK__tbl_stock__produ__66603565" FromRole="tbl_product" ToRole="tbl_stocktransaction" />
+          <NavigationProperty Name="tbl_stock1" Relationship="IMS_TESTModel.FK__tbl_stock__produ__733B0D96" FromRole="tbl_product" ToRole="tbl_stock" />
           <NavigationProperty Name="tbl_purchasereturndetails" Relationship="IMS_TESTModel.FK_tbl_purchasereturndetails_tbl_product" FromRole="tbl_product" ToRole="tbl_purchasereturndetails" />
           <NavigationProperty Name="tbl_saledetails" Relationship="IMS_TESTModel.FK_tbl_saledetails_tbl_product" FromRole="tbl_product" ToRole="tbl_saledetails" />
           <NavigationProperty Name="tbl_salereturndetails" Relationship="IMS_TESTModel.FK_tbl_salereturndetails_tbl_product" FromRole="tbl_product" ToRole="tbl_salereturndetails" />
@@ -6679,6 +6747,8 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <Property Name="group_id" Type="Int32" />
           <Property Name="purchaseId" Type="Int32" />
           <Property Name="totalTaxPercentage" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="batchId" Type="Int32" />
+          <NavigationProperty Name="tbl_batch" Relationship="IMS_TESTModel.FK_tbl_purchasetaxgroup_tbl_batch" FromRole="tbl_purchasetaxgroup" ToRole="tbl_batch" />
           <NavigationProperty Name="tbl_product" Relationship="IMS_TESTModel.FK__tbl_purch__produ__7A521F79" FromRole="tbl_purchasetaxgroup" ToRole="tbl_product" />
           <NavigationProperty Name="tbl_purchase" Relationship="IMS_TESTModel.FK__tbl_purch__purch__09946309" FromRole="tbl_purchasetaxgroup" ToRole="tbl_purchase" />
           <NavigationProperty Name="tbl_taxgroup" Relationship="IMS_TESTModel.FK__tbl_purch__group__7B4643B2" FromRole="tbl_purchasetaxgroup" ToRole="tbl_taxgroup" />
@@ -6712,7 +6782,6 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <NavigationProperty Name="tbl_branch" Relationship="IMS_TESTModel.FK__tbl_rack__branch__36B12243" FromRole="tbl_rack" ToRole="tbl_branch" />
           <NavigationProperty Name="tbl_company" Relationship="IMS_TESTModel.FK__tbl_rack__compan__35BCFE0A" FromRole="tbl_rack" ToRole="tbl_company" />
           <NavigationProperty Name="tbl_godown" Relationship="IMS_TESTModel.FK__tbl_rack__godown__37A5467C" FromRole="tbl_rack" ToRole="tbl_godown" />
-          <NavigationProperty Name="tbl_product" Relationship="IMS_TESTModel.FK__tbl_produ__rack___4AB81AF0" FromRole="tbl_rack" ToRole="tbl_product" />
         </EntityType>
         <EntityType Name="tbl_role">
           <Key>
@@ -7031,9 +7100,30 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <Property Name="modified_by" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="modified_date" Type="DateTime" Precision="0" />
           <NavigationProperty Name="tbl_batch" Relationship="IMS_TESTModel.FK__tbl_stock__batch__619B8048" FromRole="tbl_stock" ToRole="tbl_batch" />
+          <NavigationProperty Name="tbl_batch1" Relationship="IMS_TESTModel.FK__tbl_stock__batch__705EA0EB" FromRole="tbl_stock" ToRole="tbl_batch" />
           <NavigationProperty Name="tbl_branch" Relationship="IMS_TESTModel.FK__tbl_stock__branc__5FB337D6" FromRole="tbl_stock" ToRole="tbl_branch" />
+          <NavigationProperty Name="tbl_branch1" Relationship="IMS_TESTModel.FK__tbl_stock__branc__7152C524" FromRole="tbl_stock" ToRole="tbl_branch" />
           <NavigationProperty Name="tbl_company" Relationship="IMS_TESTModel.FK__tbl_stock__compa__5EBF139D" FromRole="tbl_stock" ToRole="tbl_company" />
+          <NavigationProperty Name="tbl_company1" Relationship="IMS_TESTModel.FK__tbl_stock__compa__7246E95D" FromRole="tbl_stock" ToRole="tbl_company" />
           <NavigationProperty Name="tbl_product" Relationship="IMS_TESTModel.FK__tbl_stock__produ__60A75C0F" FromRole="tbl_stock" ToRole="tbl_product" />
+          <NavigationProperty Name="tbl_product1" Relationship="IMS_TESTModel.FK__tbl_stock__produ__733B0D96" FromRole="tbl_stock" ToRole="tbl_product" />
+        </EntityType>
+        <EntityType Name="tbl_stockHistory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="stock_id" Type="Int32" />
+          <Property Name="company_id" Type="Int32" />
+          <Property Name="branch_id" Type="Int32" />
+          <Property Name="product_id" Type="Int32" />
+          <Property Name="batch_id" Type="Int32" />
+          <Property Name="qty" Type="Int32" />
+          <Property Name="status" Type="Boolean" />
+          <Property Name="created_by" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="created_date" Type="DateTime" Precision="0" />
+          <Property Name="modified_by" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="modified_date" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="tbl_stocktransaction">
           <Key>
@@ -7429,6 +7519,18 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__tbl_stock__batch__705EA0EB">
+          <End Type="IMS_TESTModel.tbl_batch" Role="tbl_batch" Multiplicity="0..1" />
+          <End Type="IMS_TESTModel.tbl_stock" Role="tbl_stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_batch">
+              <PropertyRef Name="batch_id" />
+            </Principal>
+            <Dependent Role="tbl_stock">
+              <PropertyRef Name="batch_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tbl_purchasereturndetails_tbl_batch">
           <End Type="IMS_TESTModel.tbl_batch" Role="tbl_batch" Multiplicity="0..1" />
           <End Type="IMS_TESTModel.tbl_purchasereturndetails" Role="tbl_purchasereturndetails" Multiplicity="*" />
@@ -7438,6 +7540,18 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             </Principal>
             <Dependent Role="tbl_purchasereturndetails">
               <PropertyRef Name="batch_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_purchasetaxgroup_tbl_batch">
+          <End Type="IMS_TESTModel.tbl_batch" Role="tbl_batch" Multiplicity="0..1" />
+          <End Type="IMS_TESTModel.tbl_purchasetaxgroup" Role="tbl_purchasetaxgroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_batch">
+              <PropertyRef Name="batch_id" />
+            </Principal>
+            <Dependent Role="tbl_purchasetaxgroup">
+              <PropertyRef Name="batchId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7677,6 +7791,18 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
               <PropertyRef Name="branch_id" />
             </Principal>
             <Dependent Role="tbl_stocktransaction">
+              <PropertyRef Name="branch_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_stock__branc__7152C524">
+          <End Type="IMS_TESTModel.tbl_branch" Role="tbl_branch" Multiplicity="0..1" />
+          <End Type="IMS_TESTModel.tbl_stock" Role="tbl_stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_branch">
+              <PropertyRef Name="branch_id" />
+            </Principal>
+            <Dependent Role="tbl_stock">
               <PropertyRef Name="branch_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -8001,6 +8127,18 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
               <PropertyRef Name="company_id" />
             </Principal>
             <Dependent Role="tbl_stocktransaction">
+              <PropertyRef Name="company_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_stock__compa__7246E95D">
+          <End Type="IMS_TESTModel.tbl_company" Role="tbl_company" Multiplicity="0..1" />
+          <End Type="IMS_TESTModel.tbl_stock" Role="tbl_stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_company">
+              <PropertyRef Name="company_id" />
+            </Principal>
+            <Dependent Role="tbl_stock">
               <PropertyRef Name="company_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -8425,18 +8563,6 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tbl_produ__rack___4AB81AF0">
-          <End Type="IMS_TESTModel.tbl_rack" Role="tbl_rack" Multiplicity="0..1" />
-          <End Type="IMS_TESTModel.tbl_product" Role="tbl_product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_rack">
-              <PropertyRef Name="rack_id" />
-            </Principal>
-            <Dependent Role="tbl_product">
-              <PropertyRef Name="rack_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__tbl_produ__unit___48CFD27E">
           <End Type="IMS_TESTModel.tbl_unit" Role="tbl_unit" Multiplicity="0..1" />
           <End Type="IMS_TESTModel.tbl_product" Role="tbl_product" Multiplicity="*" />
@@ -8493,6 +8619,18 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
               <PropertyRef Name="product_id" />
             </Principal>
             <Dependent Role="tbl_stocktransaction">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tbl_stock__produ__733B0D96">
+          <End Type="IMS_TESTModel.tbl_product" Role="tbl_product" Multiplicity="0..1" />
+          <End Type="IMS_TESTModel.tbl_stock" Role="tbl_stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_product">
+              <PropertyRef Name="product_id" />
+            </Principal>
+            <Dependent Role="tbl_stock">
               <PropertyRef Name="product_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -9102,6 +9240,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
         <ComplexType Name="sp_mrpSalePurchase_Result">
           <Property Type="Int32" Name="cnt" Nullable="true" />
           <Property Type="String" Name="product_name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="batch_name" Nullable="true" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="sp_partyprint_Result">
           <Property Type="String" Name="party_name" Nullable="true" MaxLength="50" />
@@ -9977,6 +10116,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <EntitySetMapping Name="tbl_purchasetaxgroup">
             <EntityTypeMapping TypeName="IMS_TESTModel.tbl_purchasetaxgroup">
               <MappingFragment StoreEntitySet="tbl_purchasetaxgroup">
+                <ScalarProperty Name="batchId" ColumnName="batchId" />
                 <ScalarProperty Name="totalTaxPercentage" ColumnName="totalTaxPercentage" />
                 <ScalarProperty Name="purchaseId" ColumnName="purchaseId" />
                 <ScalarProperty Name="group_id" ColumnName="group_id" />
@@ -10304,6 +10444,24 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
                 <ScalarProperty Name="branch_id" ColumnName="branch_id" />
                 <ScalarProperty Name="company_id" ColumnName="company_id" />
                 <ScalarProperty Name="stock_id" ColumnName="stock_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_stockHistory">
+            <EntityTypeMapping TypeName="IMS_TESTModel.tbl_stockHistory">
+              <MappingFragment StoreEntitySet="tbl_stockHistory">
+                <ScalarProperty Name="modified_date" ColumnName="modified_date" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="batch_id" ColumnName="batch_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="branch_id" ColumnName="branch_id" />
+                <ScalarProperty Name="company_id" ColumnName="company_id" />
+                <ScalarProperty Name="stock_id" ColumnName="stock_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -10866,6 +11024,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
               <ComplexTypeMapping TypeName="IMS_TESTModel.sp_mrpSalePurchase_Result">
                 <ScalarProperty Name="cnt" ColumnName="cnt" />
                 <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="batch_name" ColumnName="batch_name" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -11268,7 +11427,6 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <FunctionImportMapping FunctionImportName="sp_UpdateParty" FunctionName="IMS_TESTModel.Store.sp_UpdateParty" />
           <FunctionImportMapping FunctionImportName="Sp_UpdatePassword" FunctionName="IMS_TESTModel.Store.Sp_UpdatePassword" />
           <FunctionImportMapping FunctionImportName="sp_UpdatePMode" FunctionName="IMS_TESTModel.Store.sp_UpdatePMode" />
-          <FunctionImportMapping FunctionImportName="sp_UpdateProduct" FunctionName="IMS_TESTModel.Store.sp_UpdateProduct" />
           <FunctionImportMapping FunctionImportName="sp_UpdatePurchase" FunctionName="IMS_TESTModel.Store.sp_UpdatePurchase" />
           <FunctionImportMapping FunctionImportName="sp_UpdatePurchasedetails" FunctionName="IMS_TESTModel.Store.sp_UpdatePurchasedetails" />
           <FunctionImportMapping FunctionImportName="sp_UpdateRack" FunctionName="IMS_TESTModel.Store.sp_UpdateRack" />

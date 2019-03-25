@@ -176,6 +176,7 @@ namespace IMS
                     tbl_purchasetaxgroup purchaseTaxGroup = new tbl_purchasetaxgroup();
                     purchaseTaxGroup.group_id = groupId;
                     purchaseTaxGroup.product_id = productId;
+                    purchaseTaxGroup.batchId = batchId;
                     purchaseTaxGroup.totalTaxPercentage = (Decimal)ViewState["TotalTaxPercent"];
                     purchaseTaxGroup.group_name = gvpurchasedetails.Rows[i].Cells[11].Text;
                     //Get the Tax type saved from db 
@@ -528,23 +529,26 @@ namespace IMS
                 decimal salePrice = Convert.ToDecimal(txtsalesprice.Text);
                 decimal purchasePrice = Convert.ToDecimal(txtprice.Text);
                 int taxGroupId = Convert.ToInt32(ddlTaxGroup.SelectedValue);
-                //decimal tax= Convert.ToDecimal(txtTaxpercentage.Text);
-                //var isProductExsits = context.tbl_ActualPurchaseTaxAndPrice.Where(w => w.product_id == productId && w.batch_id == batchId).FirstOrDefault();
-                var isProductExsits = context.tbl_ActualPurchaseTaxAndPrice.Join(context.tbl_productTaxGroup, t => t.product_id, pt => pt.product_id,
+                var isProductExsits = context.tbl_ActualPurchaseTaxAndPrice.Join(context.tbl_purchasetaxgroup, t => t.product_id, pt => pt.product_id,
                         (t, pt) => new { t.product_id, pt.group_id, t.batch_id, t.sale_price, t.purchase_rate }
-                        ).Where(t => t.product_id == productId && t.batch_id == batchId).FirstOrDefault();
-                if (isProductExsits != null)
+                        ).Where(t => t.product_id == productId && t.batch_id == batchId).ToList();
+              
+                if (isProductExsits.Count>0)
                 {
-                    
-                    // var samePriceExists = context.tbl_ActualPurchaseTaxAndPrice.Where(w => w.product_id == productId && w.batch_id == batchId && w.sale_price== salePrice && w.purchase_rate==purchasePrice && w.tax_percent== tax).Any();
-                    if (isProductExsits.sale_price != salePrice || isProductExsits.purchase_rate != purchasePrice || isProductExsits.group_id != taxGroupId)
+                    foreach (var item in isProductExsits)
                     {
-                        isfail = true;
-                        lblcheckDoubleError.Visible = true;
-                        lblcheckDoubleError.Text = "Please change batch, As per configuration Purchase Price, Sale Price Or Tax has been changed.";
-                        return isfail;
+                        if (item.sale_price != salePrice || item.purchase_rate != purchasePrice || item.group_id != taxGroupId)
+                        {
 
+                            isfail = true;
+                            lblcheckDoubleError.Visible = true;
+                            lblcheckDoubleError.Text = "Please change batch, As per configuration Purchase Price, Sale Price Or Tax has been changed.";
+                            return isfail;
+
+
+                        }
                     }
+                    
                 }
             }
             catch (Exception ex)
