@@ -37,9 +37,14 @@
                                 OnPreRender="gvStockDetails_PreRender"
                                 CssClass="table table-bordered">
                                 <Columns>
-                                    <asp:TemplateField HeaderText="Stock ID" ItemStyle-CssClass="hidden-xs text-center" HeaderStyle-CssClass="hidden-xs text-center">
+                                    <asp:TemplateField HeaderText="Stock ID" ItemStyle-CssClass="hidden text-center" HeaderStyle-CssClass="hidden text-center">
                                         <ItemTemplate>
                                             <asp:Label ID="lblStockId" runat="server" Text='<%#Eval("stock_id") %>'></asp:Label>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Godown" ItemStyle-CssClass="hidden-xs text-center" HeaderStyle-CssClass="hidden-xs text-center">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblGodown" runat="server" Text='<%#Eval("godown_name") %>'></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="Product Id" ItemStyle-CssClass="hidden text-center" HeaderStyle-CssClass="hidden text-center">

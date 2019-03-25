@@ -23,18 +23,30 @@ namespace IMS.Stock
         {
             try
             {
-                int companyID = 1008;// for testing purpose only
-                int branchId = 2009;// for testing purpose only
-                var stockDetails = context.tbl_stock.Join(context.tbl_product, s => s.stock_id, p => p.product_id, (s, p) => new
+                int companyID = 0;
+                int branchId = 0;
+                if (Session["company_id"] != null  && Session["branch_id"] != null)
                 {
-                    s.stock_id,
-                    p.product_id,
-                    p.product_name,
-                    s.qty,
-                    s.company_id,
-                    s.status,
-                    s.branch_id
-                }).Where(w => w.company_id == companyID && w.status == true && w.branch_id == branchId).ToList();
+                    companyID = Convert.ToInt32(Session["company_id"]);
+                    branchId = Convert.ToInt32(Session["branch_id"]);
+                }
+
+                var stockDetails = (from s in context.tbl_stock
+                              join p in context.tbl_product on s.product_id equals p.product_id
+                              join g in context.tbl_godown on p.godown_id equals g.godown_id
+                              where s.branch_id == branchId && s.company_id == companyID && s.status == true
+                              select new
+                              {
+                                  s.stock_id,
+                                  p.product_id,
+                                  p.product_name,
+                                  s.qty,
+                                  s.company_id,
+                                  s.status,
+                                  s.branch_id,
+                                  g.godown_name
+                              }).ToList();
+
                 if (stockDetails != null)
                 {
                     gvStockDetails.DataSource = stockDetails;
