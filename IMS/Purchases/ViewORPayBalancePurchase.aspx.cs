@@ -18,7 +18,7 @@ namespace IMS
     public partial class ViewORPayBalancePurchase : System.Web.UI.Page
     {
         IMS_TESTEntities context = new IMS_TESTEntities();
-        int companyId = 0, branchId = 0, financialYearId = 0;
+        static int companyId = 0, branchId = 0, financialYearId = 0;
         string user_id = string.Empty;
         bool viewOrPayBalance = false;
         int purchase_Id = 0;
@@ -43,7 +43,10 @@ namespace IMS
                 SessionValue();
                 if (!IsPostBack)
                 {
-                    this.FetchData(purchase_Id);
+                    if (purchase_Id != 0)
+                    {
+                        this.FetchData(purchase_Id);
+                    }
                 }
             }
             catch (Exception ex)
@@ -53,77 +56,117 @@ namespace IMS
         }
 
         //Methods------------------
+
+        [System.Web.Script.Services.ScriptMethod()]
+        [System.Web.Services.WebMethod]
+        public static List<string> GetPoNumbers(string prefixText, int count)
+        {
+            IMS_TESTEntities context = new IMS_TESTEntities();
+
+              
+                    int year = DateTime.Now.Year;
+                    prefixText = year.ToString() + "P" + prefixText;
+                    var result = context.tbl_purchase.Where(p => p.InvoiceNumber.Contains(prefixText) && p.company_id == companyId);
+                    List<string> customers = new List<string>();
+                    customers = result.Select(p => p.InvoiceNumber).ToList<string>();
+                    return customers;
+             
+        }
+        public void GetpurchaseDetails()
+        {
+            try
+            {
+                var purchase = context.tbl_purchase.Where(w => w.InvoiceNumber == txtSearchBox.Text && w.company_id == companyId && w.branch_id == branchId).FirstOrDefault();
+                if (purchase == null)
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "Pop", "openalert('Invoice does not exist, Please enter valid Invoice Number.','True');", true);
+                    return;
+                }
+                hdnPurchaseId.Value = purchase.purchase_id.ToString();
+                purchase_Id = purchase.purchase_id;
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.saveerror(ex);
+            }
+        }
+
         private void FetchData(int purchaseId)
         {
-
-            SqlParameter[] sqlParams = new SqlParameter[] {
+           
+                SqlParameter[] sqlParams = new SqlParameter[] {
                          new SqlParameter("@Id", purchaseId),
                          new SqlParameter("@FromTable","COMBINEPURCHASEANDRETURN")
                     };
 
-            var ds = Common.FillDataSet(connectionstring, "PurchaseOrPurchaseReturnReport", sqlParams);
-            if (ds.Tables["Table"] != null)
-            {
-                decimal balanceAmnt = 0, totalDiscount = 0, subTotal = 0, grandTotal = 0, totalTax = 0;
+                var ds = Common.FillDataSet(connectionstring, "PurchaseOrPurchaseReturnReport", sqlParams);
 
-                for (int i = 0; i < ds.Tables["Table"].Rows.Count; i++)
+                if (ds.Tables["Table"] != null)
                 {
-                    //if (ds.Tables["Table"].Rows[i]["Type"].ToString() == "Purchase")
-                    //{
-                    //    totalTax = totalTax + Convert.ToDecimal(ds.Tables["Table"].Rows[i]["TaxAmnt"]);
-                    //    totalDiscount = totalDiscount + Convert.ToDecimal(ds.Tables["Table"].Rows[i]["DiscountAmnt"]);
-                    //    subTotal = subTotal + Convert.ToDecimal(ds.Tables["Table"].Rows[i]["ProductAmount"]);
-                       
-                    //}
-                    //else if (ds.Tables["Table"].Rows[i]["Type"].ToString() == "Return")
-                    //{
-                    //    totalTax = totalTax - Convert.ToDecimal(ds.Tables["Table"].Rows[i]["TaxAmnt"]);
-                    //    totalDiscount = totalDiscount - Convert.ToDecimal(ds.Tables["Table"].Rows[i]["DiscountAmnt"]);
-                    //    subTotal = subTotal - Convert.ToDecimal(ds.Tables["Table"].Rows[i]["ProductAmount"]);
-                        
-                    //}
+                    decimal givenAmnt = 0, totalDiscount = 0, subTotal = 0, grandTotal = 0, totalTax = 0, balanceAmnt = 0;
+
+                    for (int i = 0; i < ds.Tables["Table"].Rows.Count; i++)
+                    {
+                        if (ds.Tables["Table"].Rows[i]["Type"].ToString() == "Purchase")
+                        {
+                            totalTax = totalTax + Convert.ToDecimal(ds.Tables["Table"].Rows[i]["TaxAmnt"]);
+                            totalDiscount = totalDiscount + Convert.ToDecimal(ds.Tables["Table"].Rows[i]["DiscountAmnt"]);
+                            subTotal = subTotal + Convert.ToDecimal(ds.Tables["Table"].Rows[i]["ProductAmount"]);
+
+                        }
+                        else if (ds.Tables["Table"].Rows[i]["Type"].ToString() == "Return")
+                        {
+                            totalTax = totalTax - Convert.ToDecimal(ds.Tables["Table"].Rows[i]["TaxAmnt"]);
+                            totalDiscount = totalDiscount - Convert.ToDecimal(ds.Tables["Table"].Rows[i]["DiscountAmnt"]);
+                            subTotal = subTotal - Convert.ToDecimal(ds.Tables["Table"].Rows[i]["ProductAmount"]);
+
+                        }
+                        givenAmnt = Convert.ToDecimal(ds.Tables["Table"].Rows[i]["GivenAmnt"]);
+                        balanceAmnt = Convert.ToDecimal(ds.Tables["Table"].Rows[i]["BalanceAmnt"]);
+                    }
+                    grandTotal = subTotal + totalTax - totalDiscount;
 
 
-                    totalTax = Convert.ToDecimal(ds.Tables["Table"].Rows[i]["TaxAmnt"]);
-                    totalDiscount =  Convert.ToDecimal(ds.Tables["Table"].Rows[i]["DiscountAmnt"]);
-                    subTotal = Convert.ToDecimal(ds.Tables["Table"].Rows[i]["ProductAmount"]);
+                    DataView dv = ds.Tables["Table"].DefaultView;
+                    dv.Sort = "Date desc";
+                    DataTable sortedDT = dv.ToTable();
+                    DataRow dr = sortedDT.Select("Id=" + purchaseId + "").FirstOrDefault();
+                    txtPaymentMode.Text = dr["PaymentMode"].ToString();
+                    lblInvoice.Text = dr["InvoiceNumber"].ToString();
+                    txtVendor.Text = dr["Party"].ToString();
+                    txtPONo.Text = dr["PoNo"].ToString();
+                    txtdate.Text = dr["Date"].ToString();
+
+                    ////Get only Given and Balance Amnt and Calcualte Remainig as per Transaction
+                    //DataRow drpurchase = ds.Tables["Table"].Select("Type='Purchase'").FirstOrDefault();
+                    //DataRow drreturn = ds.Tables["Table"].Select("Type='Return'").FirstOrDefault();
+                    var v = context.tbl_PurchasePaymentDetials.Where(s => s.PurchaseId == purchaseId).FirstOrDefault();
+                    lblsubtotal.Text = v.SubTotal.ToString();
+                    lblTaxAmount.Text = v.TaxAmount.ToString();
+                    lblDiscountAmt.Text = v.DiscountAmount.ToString();
+                    lblGrandTotal.Text = v.GrandTotal.ToString();
+                    lblGivenAmnt.Text = v.GivenAmnt.ToString();
+
+                    balanceAmnt = Convert.ToDecimal(v.BalanceAmnt);
+
+                    if (balanceAmnt < 0)
+                        btnGetRefund.Visible = true;
+
+                    txtBalanceAmnt.Text = balanceAmnt.ToString();
+                    lblBalanceAmnt.Text = balanceAmnt.ToString();
+
+
+                    gvpurchasedetails.DataSource = ds.Tables["Table"];
+                    gvpurchasedetails.DataBind();
+
+                    if (balanceAmnt > 0)
+                    {
+                        btnSave.Enabled = true;
+                        txtPaidAmnt.Enabled = true;
+                    }
 
                 }
-                grandTotal = subTotal + totalTax - totalDiscount;
-
-                DataView dv = ds.Tables["Table"].DefaultView;
-                dv.Sort = "Date desc";
-                DataTable sortedDT = dv.ToTable();
-                DataRow dr = sortedDT.Select("Id=" + purchaseId + "").FirstOrDefault();
-                txtPaymentMode.Text = dr["PaymentMode"].ToString();
-                lblInvoice.Text = dr["InvoiceNumber"].ToString();
-                txtVendor.Text = dr["Party"].ToString();
-                txtPONo.Text = dr["PoNo"].ToString();
-                txtdate.Text = dr["Date"].ToString();
-
-                ////Get only Given and Balance Amnt and Calcualte Remainig as per Transaction
-                //DataRow drpurchase = ds.Tables["Table"].Select("Type='Purchase'").FirstOrDefault();
-                //DataRow drreturn = ds.Tables["Table"].Select("Type='Return'").FirstOrDefault();
-                var v = context.tbl_PurchasePaymentDetials.Where(s => s.PurchaseId == purchaseId).FirstOrDefault();
-                lblsubtotal.Text = subTotal.ToString();
-                lblTaxAmount.Text = totalTax.ToString();
-                lblDiscountAmt.Text = totalDiscount.ToString();
-                lblGrandTotal.Text = grandTotal.ToString();
-                lblGivenAmnt.Text = v.GivenAmnt.ToString();
-
-                balanceAmnt = Convert.ToDecimal(v.BalanceAmnt);
-
-                if (balanceAmnt < 0)
-                    btnGetRefund.Visible = true;
-               
-                txtBalanceAmnt.Text = balanceAmnt.ToString();
-                lblBalanceAmnt.Text = balanceAmnt.ToString();
-               
-
-                gvpurchasedetails.DataSource = ds.Tables["Table"];
-                gvpurchasedetails.DataBind();
-              
-            }
+            
         }
 
         protected void Update()
@@ -133,6 +176,7 @@ namespace IMS
                 lblError.Text = string.Empty;
                 if (ValidCalculation())
                 {
+                    purchase_Id = Convert.ToInt32(hdnPurchaseId.Value);
                     var purchasePaymentDetails = context.tbl_PurchasePaymentDetials.FirstOrDefault(w => w.PurchaseId == purchase_Id);
 
                     if (purchasePaymentDetails != null)
@@ -307,6 +351,16 @@ namespace IMS
             }
         }
 
-
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            
+            GetpurchaseDetails();
+            //BindOrigianlPurchaseGrid();
+            if (!string.IsNullOrEmpty(hdnPurchaseId.Value))
+            {
+                 purchase_Id = Convert.ToInt32(hdnPurchaseId.Value);
+                FetchData(purchase_Id);
+            }
+        }
     }
 }
