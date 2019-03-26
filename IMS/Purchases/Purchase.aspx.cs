@@ -12,6 +12,8 @@ using System.Configuration;
 using System.Data.Entity.Core.Objects;
 using System.Globalization;
 using IMS.Models;
+using System.IO;
+
 namespace IMS
 {
     public partial class Purchase : System.Web.UI.Page
@@ -110,8 +112,16 @@ namespace IMS
         {
             try
             {
+                //added by ather for file attachment url
+                string path = "~/Uploads/AttachedFiles/Purchase/"; //path without filename to save file
+                bool fileupMsg = uploadFile(fuAttacheFile, path, "");
 
                 tbl_purchase purchase = new tbl_purchase();
+                if (fileupMsg)
+                {
+                    path = path + Path.GetFileName(fuAttacheFile.PostedFile.FileName); //path with filename to save in DB
+                    purchase.attachmentUrl = path; 
+                }
                 purchase.company_id = companyId;
                 purchase.branch_id = branchId;
                 purchase.financialyear_id = financialYearId;
@@ -127,6 +137,7 @@ namespace IMS
                 
                 purchase.created_by = user_id;
                 purchase.created_date = DateTime.Now;
+                
 
                 //insert into Purchase Payment Details 
                 tbl_PurchasePaymentDetials purchasePaymentDetail = new tbl_PurchasePaymentDetials();
@@ -437,6 +448,7 @@ namespace IMS
         protected void btnAdd_Click(object sender, EventArgs e)
         {
             lblcheckDoubleError.Text = string.Empty;
+            txtotherexpence.Text = "0";
             try
             {
                 string discount = txtDiscount.Text.Trim();
@@ -897,9 +909,12 @@ namespace IMS
                     txtotherexpence.Text= "0";
                 }
                 lblGrandTotal.Text = hdfGrandTotalWithoutExpenses.Value;
+                if (string.IsNullOrWhiteSpace(lblGrandTotal.Text))
+                {
+                    lblGrandTotal.Text = "0";
+                }
                 decimal grandTotal = Convert.ToDecimal(lblGrandTotal.Text);
                 lblGrandTotal.Text = Convert.ToString(grandTotal + Convert.ToDecimal(txtotherexpence.Text));
-
             }
             catch (Exception ex){
 
@@ -954,7 +969,23 @@ namespace IMS
             }
         }
 
-
-
+        public bool uploadFile(FileUpload _fileUpload, string _path, string _fileName)
+        {
+            bool returnedMsg = false;
+            try
+            {
+                if (_fileUpload.HasFile)
+                {
+                    _fileName = Path.GetFileName(_fileUpload.PostedFile.FileName);
+                    _fileUpload.PostedFile.SaveAs(Server.MapPath(_path) + _fileName);
+                    returnedMsg = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.saveerror(ex);
+            }
+            return returnedMsg;
+        }
     }
 }

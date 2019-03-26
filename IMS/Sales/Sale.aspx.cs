@@ -11,6 +11,7 @@ using IMSBLL.DAL;
 using System.Configuration;
 using IMS.Reports;
 using System.Globalization;
+using System.IO;
 
 namespace IMS
 {
@@ -292,8 +293,16 @@ namespace IMS
         protected void Save()
         {
             try
-            {
+            {//added by ather for file attachment url
+                string path = "~/Uploads/AttachedFiles/Sale/"; //path without filename to save file
+                bool fileupMsg = uploadFile(fuAttacheFile, path, "");
+
                 tbl_sale sale = new tbl_sale();
+                if (fileupMsg)
+                {
+                    path = path + Path.GetFileName(fuAttacheFile.PostedFile.FileName); //path with filename to save in DB
+                    sale.attachmentUrl = path;
+                }
                 sale.company_id = companyId;
                 sale.branch_id = branchId;
                 sale.financialyear_id = financialYearId;               
@@ -403,6 +412,25 @@ namespace IMS
             }
         }
 
+        private bool uploadFile(FileUpload _fileUpload, string _path, string _fileName)
+        {
+            bool returnedMsg = false;
+            try
+            {
+                if (_fileUpload.HasFile)
+                {
+                    _fileName = Path.GetFileName(_fileUpload.PostedFile.FileName);
+                    _fileUpload.PostedFile.SaveAs(Server.MapPath(_path) + _fileName);
+                    returnedMsg = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.saveerror(ex);
+            }
+            return returnedMsg;
+        }
+
         public void orerid()
         {
             try
@@ -428,6 +456,7 @@ namespace IMS
         protected void btnAdd_Click(object sender, EventArgs e)
         {
             lblcheckDoubleError.Text = string.Empty;
+            txtotherexpence.Text = "0";
             try
             {
                 decimal quantity=Convert.ToDecimal(txtquantity.Text);
@@ -833,6 +862,10 @@ namespace IMS
                     txtotherexpence.Text = "0";
                 }
                 lblGrandTotal.Text = hdfGrandTotalWithoutExpenses.Value;
+                if (string.IsNullOrWhiteSpace(lblGrandTotal.Text))
+                {
+                    lblGrandTotal.Text = "0";
+                }
                 decimal grandTotal = Convert.ToDecimal(lblGrandTotal.Text);
                 lblGrandTotal.Text = Convert.ToString(grandTotal + Convert.ToDecimal(txtotherexpence.Text));
                 

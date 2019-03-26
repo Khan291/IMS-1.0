@@ -32,6 +32,7 @@ namespace IMSBLL.EntityModel
         public Nullable<int> party_id { get; set; }
         public string InvoiceNumber { get; set; }
         public Nullable<int> paymentmode_id { get; set; }
+        public string attachmentUrl { get; set; }
     
         public virtual tbl_branch tbl_branch { get; set; }
         public virtual tbl_company tbl_company { get; set; }
