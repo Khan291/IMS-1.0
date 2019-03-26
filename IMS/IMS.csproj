@@ -361,6 +361,7 @@
     </Content>
     <Content Include="Stock\StockAdjustment.aspx" />
     <Content Include="UserControl\UC_Category.ascx" />
+    <Content Include="UserControl\UC_Unit.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -892,11 +893,20 @@
     <Compile Include="UserControl\UC_Category.ascx.designer.cs">
       <DependentUpon>UC_Category.ascx</DependentUpon>
     </Compile>
+    <Compile Include="UserControl\UC_Unit.ascx.cs">
+      <DependentUpon>UC_Unit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControl\UC_Unit.ascx.designer.cs">
+      <DependentUpon>UC_Unit.ascx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
     <Folder Include="App_Data\" />
     <Folder Include="App_Themes\" />
+    <Folder Include="Uploads\AttachedFiles\Purchase\" />
+    <Folder Include="Uploads\AttachedFiles\Sale\" />
     <Folder Include="Uploads\Logos\" />
   </ItemGroup>
   <ItemGroup>

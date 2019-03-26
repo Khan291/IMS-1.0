@@ -2,6 +2,8 @@
 
 <%@ Register src="~/UserControl/UC_Category.ascx" TagName="ctrlcategory"  TagPrefix="TWebControl"%>
 
+<%@ Register src="~/UserControl/UC_Unit.ascx" TagName="ctrlunit"  TagPrefix="abc"%>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <style>
@@ -389,11 +391,11 @@
         </div>
     </div>
 
-    <%--start model popup code for display usercontrol--%>
+    <%--start model popup code for display category usercontrol--%>
     <div class="modal fade" role="dialog" id="divcategorymodel" runat="server">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header" style="padding: 0px 10px 0px 10px;">
                     <button type="button" class="close" data-dismiss="modal" id="btncloseofmodelcategory" runat="server" onserverclick="btncloseofmodelcategory_ServerClick">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -407,6 +409,32 @@
                             <twebcontrol:ctrlcategory  ID="ctrlcategory"  runat="server" />
                         </ContentTemplate>
                     </asp:UpdatePanel>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%--end model popup --%>
+
+     <%--start model popup code for display Unit usercontrol--%>
+    <div class="modal fade" id="divunitmodel" runat="server">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="padding: 0px 10px 0px 10px;">
+                    <button type="button" class="close" data-dismiss="modal" id="btnunitmodelclose" runat="server" onserverclick="btnunitmodelclose_ServerClick">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3>
+                        <asp:Label ID="Label17" runat="server" Text="Add Unit"></asp:Label></h3>
+                </div>
+                <div class="modal-body">
+                   <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <%--Call user control to show in popup body--%>
+                            <abc:ctrlunit  ID="ctrlunit"  runat="server" />
+                            </ContentTemplate>
+                       </asp:UpdatePanel>
+                    
+                       
                 </div>
             </div>
         </div>
@@ -506,9 +534,12 @@
                 $('#<%=ModalIfram.ClientID%>').attr("src", "../MasterModals/CategoryMasterModal.aspx")--%>
             }
             if (val == 'u') {
-                $('#<%=lblModalHeader.ClientID%>').text("Add Unit");
+
+                $('#<%= divunitmodel.ClientID %>').modal('show');
+
+            <%--    $('#<%=lblModalHeader.ClientID%>').text("Add Unit");
                 $('#<%=ModalIfram.ClientID%>').attr("src", "../MasterModals/UnitMasterModel.aspx");
-                $('#<%= AddModal.ClientID %>').modal('show');
+                $('#<%= AddModal.ClientID %>').modal('show');--%>
             }
             if (val == 'g') {
                 $('#<%=lblModalHeader.ClientID%>').text("Add Godown");
