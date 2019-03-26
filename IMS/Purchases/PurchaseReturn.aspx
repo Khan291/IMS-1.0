@@ -86,6 +86,7 @@
                                      <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtPoNo" ErrorMessage="*" ForeColor="Red" ValidationGroup="searchvalidation"></asp:RequiredFieldValidator>
                                 </label>
                                 <asp:TextBox ID="txtPoNo" runat="server" CssClass="form-control" ValidationGroup="searchvalidation"></asp:TextBox>
+                                <div id="listPlacement" style="height:100px; overflow-y:scroll;" ></div>
                                 <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender1" runat="server"
                                     ServiceMethod="GetPoNumbers"
                                     MinimumPrefixLength="2"
@@ -93,7 +94,8 @@
                                     EnableCaching="false"
                                     CompletionSetCount="10"
                                     TargetControlID="txtPoNo"
-                                    FirstRowSelected="false">
+                                    FirstRowSelected="false"
+                                    CompletionListElementID="listPlacement">
                                 </ajaxToolkit:AutoCompleteExtender>
                             </div>
 
