@@ -413,18 +413,16 @@ namespace IMS
                 string path = "~/Uploads/AttachedFiles/Purchase/";//path without filename to save file
                 bool fileupMsg = uploadfile(fuAttacheFile, path, "");
                 //Get Origianl Purchase Details
-                tbl_purchase purchase = new tbl_purchase();
+                tbl_purchase purchase = new tbl_purchase();                
+                purchase = context.tbl_purchase.Where(pd => pd.purchase_id == purchaseId && pd.company_id == companyId && pd.branch_id == branchId).FirstOrDefault();
+                decimal remainingBalance = Convert.ToDecimal(lblResultGrndTotal.Text) - Convert.ToDecimal(lblGivenAmnt.Text);
+                decimal paidAmnt = Convert.ToDecimal(txtPaidAmt.Text);
+                tbl_purchasereturn purchaseReturn = new tbl_purchasereturn();
                 if (fileupMsg)
                 {
                     path = path + Path.GetFileName(fuAttacheFile.PostedFile.FileName); //path with filename to save in DB
-                    purchase.attachmentUrl = path;
+                    purchaseReturn.attachmentUrl = path;
                 }
-                purchase = context.tbl_purchase.Where(pd => pd.purchase_id == purchaseId && pd.company_id == companyId && pd.branch_id == branchId).FirstOrDefault();
-
-                decimal remainingBalance = Convert.ToDecimal(lblResultGrndTotal.Text) - Convert.ToDecimal(lblGivenAmnt.Text);
-                decimal paidAmnt = Convert.ToDecimal(txtPaidAmt.Text);
-
-                tbl_purchasereturn purchaseReturn = new tbl_purchasereturn();
                 purchaseReturn.purchase_id = purchaseId;
                 purchaseReturn.company_id = companyId;
                 purchaseReturn.branch_id = branchId;
@@ -1015,7 +1013,7 @@ namespace IMS
                 //Do Logging
             }
         }
-
+                //--============File Attachment Code done by as Afroz for purchase return =========================>
         public bool uploadfile(FileUpload _fileUpload, string _path,string _filename)
         {
             bool returnedMsg = false;
