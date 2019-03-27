@@ -460,7 +460,7 @@ namespace IMS.Sales
                         decimal discount_percent = (Convert.ToDecimal(oneproductDetail.FirstOrDefault().dicount_amt) * 100) / Convert.ToDecimal(oneproductDetail.FirstOrDefault().amount);
                         decimal discountamt = a * Convert.ToDecimal(discount_percent.ToString("0.##"));
                         decimal tax_amount=0;//= a * Convert.ToDecimal(oneproductDetail.FirstOrDefault().tax_percentage);
-
+                        decimal taxPercentage = 0;
                         clr();
                         
                         txtPaidAmt.Enabled = true;
@@ -478,11 +478,13 @@ namespace IMS.Sales
                                           SaleTaxGroupDataTable.Rows[i].Field<decimal>("totaltaxPercentage"),
                                               SaleTaxGroupDataTable.Rows[i].Field<int>("type_id")
                                               );
-                                tax_amount=SaleTaxGroupDataTable.Rows[i].Field<decimal>("totaltaxPercentage");
+                                taxPercentage = SaleTaxGroupDataTable.Rows[i].Field<decimal>("totaltaxPercentage");
                             }
                         }
                         ViewState["TaxDetails"] = dt2;
                         this.BindTaxGrid();
+
+                        tax_amount = taxPercentage * a;
                         DataTable tbl = (DataTable)ViewState["Details"];
 
                         tbl.Rows.Add(oneproductDetail.FirstOrDefault().saledetails_id

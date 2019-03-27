@@ -250,6 +250,7 @@
     <Content Include="assets\src\CommonFuntion.js" />
     <Content Include="assets\src\jquery-customselect.css" />
     <Content Include="assets\src\jquery-customselect.js" />
+    <Content Include="Balance\PartyBalance.aspx" />
     <Content Include="Barcode.aspx" />
     <Content Include="ErrorPages\403.aspx" />
     <Content Include="ErrorPages\404.aspx" />
@@ -430,6 +431,13 @@
     <Content Include="assets\scripts\siminta.js" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Balance\PartyBalance.aspx.cs">
+      <DependentUpon>PartyBalance.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Balance\PartyBalance.aspx.designer.cs">
+      <DependentUpon>PartyBalance.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Barcode.aspx.cs">
       <DependentUpon>Barcode.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
