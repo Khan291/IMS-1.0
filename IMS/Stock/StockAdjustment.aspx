@@ -70,7 +70,7 @@
                                         <ItemTemplate>
                                             <%--<asp:Button ID="btn_Edit" runat="server" Text="Edit" CommandName="Edit" />--%>
                                             <asp:ImageButton CommandName="Edit" ID="btn_Edit" runat="server" ImageUrl="~/assets/img/edit.png" />
-                                            <asp:ImageButton CommandName="Delete row" ID="btnimg_Remove" runat="server" ImageUrl="~/assets/img/remove.png" href="#myModal" />
+                                            <asp:ImageButton CommandName="Delete row" ID="btnimg_Remove" runat="server" ImageUrl="~/assets/img/remove.png" href="#myModal" CssClass="hidden" />
                                         </ItemTemplate>
                                         <EditItemTemplate>
                                             <asp:ImageButton CommandName="Update" ID="btn_Edit" runat="server" ImageUrl="~/assets/img/edit.png" />

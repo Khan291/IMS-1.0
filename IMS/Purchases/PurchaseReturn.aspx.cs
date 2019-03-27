@@ -10,6 +10,7 @@ using IMSBLL.EntityModel;
 using IMSBLL.DAL;
 using System.Configuration;
 using System.Reflection;
+using System.IO;
 
 namespace IMS
 {
@@ -408,8 +409,16 @@ namespace IMS
                     ClientScript.RegisterStartupScript(this.GetType(), "Pop", "openalert('Please Enter Purchase No','False');", true);
                     return;
                 }
+
+                string path = "~/Uploads/AttachedFiles/Purchase/";//path without filename to save file
+                bool fileupMsg = uploadfile(fuAttacheFile, path, "");
                 //Get Origianl Purchase Details
                 tbl_purchase purchase = new tbl_purchase();
+                if (fileupMsg)
+                {
+                    path = path + Path.GetFileName(fuAttacheFile.PostedFile.FileName); //path with filename to save in DB
+                    purchase.attachmentUrl = path;
+                }
                 purchase = context.tbl_purchase.Where(pd => pd.purchase_id == purchaseId && pd.company_id == companyId && pd.branch_id == branchId).FirstOrDefault();
 
                 decimal remainingBalance = Convert.ToDecimal(lblResultGrndTotal.Text) - Convert.ToDecimal(lblGivenAmnt.Text);
@@ -1005,6 +1014,27 @@ namespace IMS
                 ErrorLog.saveerror(ex);
                 //Do Logging
             }
+        }
+
+        public bool uploadfile(FileUpload _fileUpload, string _path,string _filename)
+        {
+            bool returnedMsg = false;
+            try
+            {
+                if (_fileUpload.HasFile)
+                {
+                    _filename = Path.GetFileName(_fileUpload.PostedFile.FileName);
+                    _fileUpload.PostedFile.SaveAs(Server.MapPath(_path) + _filename);
+                    returnedMsg = true;
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.saveerror(ex);
+            }
+                 return returnedMsg;
         }
         #endregion
     }

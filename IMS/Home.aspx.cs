@@ -671,7 +671,7 @@ namespace IMS
             }
         }
 
-        // -------============Sales and purchase top 10 Return product on dashhboard--=============================>
+        // -------============Sales and purchase top 10 Most Return product on dashhboard--=============================>
 
         private void openModelForMRP(string flag)
         {
