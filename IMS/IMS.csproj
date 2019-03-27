@@ -15,14 +15,10 @@
     <AssemblyName>IMS</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>
-    </IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication>
-    </IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>
-    </IISExpressWindowsAuthentication>
-    <IISExpressUseClassicPipelineMode>
-    </IISExpressUseClassicPipelineMode>
+    <IISExpressSSLPort>44301</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <Use64BitIISExpress />
   </PropertyGroup>
@@ -147,6 +143,8 @@
     <Content Include="assets\css\404Css.css" />
     <Content Include="assets\css\bootstrap-multiselect.css" />
     <Content Include="assets\css\chosen.css" />
+    <Content Include="assets\css\SideNav.css" />
+    <Content Include="assets\css\simple-sidebar.css" />
     <Content Include="assets\font-awesome1\fonts\font-awesome-4.7.0.zip" />
     <Content Include="assets\font-awesome1\fonts\fontawesome-webfont.eot" />
     <Content Include="assets\font-awesome1\fonts\fontawesome-webfont.svg" />
@@ -245,6 +243,10 @@
     <Content Include="assets\scripts\bootstrap-multiselect.js" />
     <Content Include="assets\scripts\chosen.jquery.js" />
     <Content Include="assets\scripts\jquery.min.js" />
+    <Content Include="assets\src\bootstrap.bundle.js" />
+    <Content Include="assets\src\bootstrap.bundle.min.js" />
+    <Content Include="assets\src\bootstrap.js" />
+    <Content Include="assets\src\bootstrap.min.js" />
     <Content Include="assets\src\CommonFuntion.js" />
     <Content Include="assets\src\jquery-customselect.css" />
     <Content Include="assets\src\jquery-customselect.js" />
@@ -333,6 +335,10 @@
     <Content Include="Sales\SalesReturn.aspx" />
     <Content Include="Sales\ViewORPayBalanceSale.aspx" />
     <Content Include="ErrorPages\Web.config" />
+    <Content Include="assets\src\bootstrap.bundle.js.map" />
+    <Content Include="assets\src\bootstrap.bundle.min.js.map" />
+    <Content Include="assets\src\bootstrap.js.map" />
+    <Content Include="assets\src\bootstrap.min.js.map" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />

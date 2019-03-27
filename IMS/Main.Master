@@ -5,8 +5,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Inventory Management System</title>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -20,8 +20,8 @@
     <script type="text/javascript" src="/assets/alert/alertify.min.js"></script>
     <script type="text/javascript" src="/assets/src/jquery-customselect.js"></script>
     <script type="text/javascript" src="/assets/src/CommonFuntion.js"></script>
-    
-      
+
+
 
     <!-- Core CSS - Include with every page -->
     <link href="/assets/plugins/bootstrap/bootstrap.css" rel="stylesheet" />
@@ -38,13 +38,17 @@
     <link type="text/css" href="/assets/alert/css/themes/default.min.css" rel="stylesheet" />
     <link type="text/css" href="/assets/alert/css/themes/default.rtl.css" rel="stylesheet" />
     <link type="text/css" href="/assets/src/jquery-customselect.css" rel="stylesheet" />
-     <link href="/assets/css/chosen.css" rel="stylesheet" />
-<%--    <link href="assets/plugins/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/assets/css/chosen.css" rel="stylesheet" />
+    <%--    <link href="assets/plugins/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     
    
     <script src="assets/scripts/jquery.min.js"></script>--%>
 
     <script>
+
+
+
+
         function openalert(msg, val) {
             alertify.alert('Success', msg).setting({
                 'onok': function () {
@@ -69,97 +73,6 @@
         });
     </script>
 
-    <%--  <style>
-        .open-sidebar {
-            left: 0px;
-        }
-
-        #sidebar {
-            box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            width: 270px;
-            height: auto;
-            background-color: #003366;
-            position: absolute;
-            left: -20px;
-            top: 82px;
-        }
-
-        .menu, .submenu {
-            width: 100%;
-            height: auto;
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .submenu {
-            ///display:none;
-            position: absolute;
-            top: auto;
-            left: -260px;
-            background-color: green;
-            -webkit-transition: left 0.4s ease-in-out;
-            -moz-transition: left 0.4s ease-in-out;
-            -ms-transition: left 0.4s ease-in-out;
-            -o-transition: left 0.4s ease-in-out;
-            transition: left 0.4s ease-in-out;
-        }
-
-            .menu li, .submenu li {
-                border: 2px solid #27A6BE;
-            }
-
-                .menu li a,
-                .menu li span {
-                    display: block;
-                    padding: 20px;
-                    text-decoration: none;
-                    text-align: center;
-                    color: #ccc;
-                }
-
-        .bar {
-            width: 60%;
-            height: 3px;
-            display: block;
-            background-color: #fff;
-            margin: 0px 0px 3px 0px;
-        }
-
-        .main-content {
-            box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            border-radius: 5px;
-            width: 40px;
-            height: auto;
-            position: absolute;
-            padding: 10px 0px 6px 12px;
-            margin: 0;
-            top: 0;
-            left: 0px;
-            z-index: 10;
-            background-color: red;
-        }
-
-
-        #sidebar ul li:focus ul,
-        #sidebar ul li:active ul {
-            left: 0px;
-        }
-
-        #sidebar ul > li:hover > a,
-        #sidebar ul li:hover span {
-            color: white;
-            background-color: #007ee5;
-        }
-
-        .back {
-            background-color: orange;
-            color: black;
-            padding: 0px;
-        }
-    </style>--%>
 
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
@@ -426,7 +339,7 @@
             <!-- end navbar top -->
 
             <!-- navbar side -->
-            <nav class="navbar-default navbar-static-side" role="navigation" style="">
+            <nav class="navbar-default navbar-static-side" role="navigation" style="position: fixed">
                 <!-- sidebar-collapse -->
                 <div class="sidebar-collapse">
                     <!-- side-menu -->
@@ -466,26 +379,39 @@
                         <li id="liStock" runat="server">
                             <a href="../Stock/StockAdjustment.aspx"><i class="fa fa-list-alt fa-fw"></i>Stock Management</a>
                         </li>
-                        <li id="lipurchase" runat="server">
-                            <a href="../Purchases/Purchase.aspx"><i class="fa fa-list-alt fa-fw"></i>Purchase</a>
+                        <li><a href="#" id="btn-1" data-toggle="collapse" data-target="#submenu1" aria-expanded="false"><i class="fa fa-cart-plus fa-fw"></i>Purcahse</a>
+                            <ul class="nav collapse" id="submenu1" role="menu" aria-labelledby="btn-1">
+                                <li id="lipurchase" runat="server">
+                                    <a href="../Purchases/Purchase.aspx"><i class="fa fa-list-alt fa-fw"></i>Purchase Order</a>
+                                </li>
+                                <li id="lipurchasereturn" runat="server">
+                                    <a href="../Purchases/PurchaseReturn.aspx"><i class="fa fa-cart-arrow-down fa-fw"></i>Purchase Return</a>
+                                </li>
+                                  <li id="li2" runat="server">
+                                    <a href="../Purchases/ViewORPayBalancePurchase.aspx"><i class="fa fa-cart-arrow-down fa-fw"></i>Pay Balance</a>
+                                </li>
+                                <li id="lipurchaseReport" runat="server">
+                                    <a href="../Purchases/PurchaseReport.aspx"><i class="fa fa-cart-arrow-down fa-fw"></i>Purchase Report</a>
+                                </li>
+
+                            </ul>
                         </li>
-                        <li id="lipurchasereturn" runat="server">
-                            <a href="../Purchases/PurchaseReturn.aspx"><i class="fa fa-cart-arrow-down fa-fw"></i>Purchase Return</a>
-                        </li>
-                        <li id="lipurchaseReport" runat="server">
-                            <a href="../Purchases/PurchaseReport.aspx"><i class="fa fa-cart-arrow-down fa-fw"></i>Purchase Report</a>
-                        </li>
-                        <li id="lisale" runat="server">
-                            <a href="../Sales/Sale.aspx"><i class="fa fa-cart-arrow-down fa-fw"></i>Sale</a>
-                        </li>
-                        <li id="lisalereturn" runat="server">
-                            <a href="../Sales/salesReturn.aspx"><i class="fa fa-cart-plus fa-fw"></i>Sales Return</a>
-                        </li>
-                        <li id="lisaleReport" runat="server">
-                            <a href="../Sales/SalesReport.aspx"><i class="fa fa-cart-arrow-down fa-fw"></i>Sale Report</a>
+
+                        <li><a href="#" id="btn-2" data-toggle="collapse" data-target="#submenu12" aria-expanded="false"><i class="fa fa-cart-plus fa-fw"></i>Sales</a>
+                            <ul class="nav collapse" id="submenu12" role="menu" aria-labelledby="btn-2">
+                                <li id="lisale" runat="server">
+                                    <a href="../Sales/Sale.aspx"><i class="fa fa-cart-arrow-down fa-fw"></i>Sale Order</a>
+                                </li>
+                                <li id="lisalereturn" runat="server">
+                                    <a href="../Sales/salesReturn.aspx"><i class="fa fa-cart-plus fa-fw"></i>Sales Return</a>
+                                </li>
+                                <li id="lisaleReport" runat="server">
+                                    <a href="../Sales/SalesReport.aspx"><i class="fa fa-cart-arrow-down fa-fw"></i>Sale Report</a>
+                                </li>
+                            </ul>
                         </li>
                         <li id="li1" runat="server">
-                           <%-- <a href="../MasterReports.aspx"><i class="fa fa-file fa-fw"></i>Reports</a>--%>
+                            <%-- <a href="../MasterReports.aspx"><i class="fa fa-file fa-fw"></i>Reports</a>--%>
                             <a href="../CommonReport.aspx"><i class="fa fa-file fa-fw"></i>Reports</a>
                         </li>
 
@@ -511,7 +437,7 @@
 
                 <div class="footer ">
                     <div class="text-center ">
-                        Copyrights © 2018 All Rights Reserved by <a href="http://www.vttechnologies.co/">VT Technology</a>
+                        Copyrights © 2018 All Rights Reserved by <a href="https://zunmansolutions.com/">ZunMan Solutions pvt Ltd.</a>
                     </div>
                 </div>
 
