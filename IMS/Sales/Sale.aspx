@@ -445,7 +445,7 @@
 
         <!--=====================================================Note field ====================================================================-->
         <div class="row">
-            <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px; margin-left: 15px;">
+            <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px; margin-left: 25px;">
                     <div class="col-sm-10 leftpadd0">
                         <label class="control-label">Attach File</label>
                         <asp:FileUpload ID="fuAttacheFile" runat="server" />

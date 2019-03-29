@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using IMSBLL.EntityModel;
 using IMSBLL.DAL;
 using System.Configuration;
+using System.IO;
 
 namespace IMS.Sales
 {
@@ -268,11 +269,20 @@ namespace IMS.Sales
                     return;
                 }
 
+                string path = "~/Uploads/AttachedFiles/Sale/";//path without filename to save file
+                bool fileupMsg = uploadfile(fuAttacheFile, path, "");
+
+
                 decimal remainingBalance = Convert.ToDecimal(lblResultGrndTotal.Text) - Convert.ToDecimal(lblGivenAmnt.Text);
                 decimal paidAmnt = Convert.ToDecimal(txtPaidAmt.Text);
 
                 var sale = context.tbl_sale.Where(pd => pd.sale_id == saleId && pd.company_id == companyId && pd.branch_id == branchId).FirstOrDefault();
                 tbl_salereturn saleReturn = new tbl_salereturn();
+                if (fileupMsg)
+                {
+                    path = path + Path.GetFileName(fuAttacheFile.PostedFile.FileName);
+                    saleReturn.attachmentUrl = path;
+                }
                 saleReturn.sale_id = saleId;
                 saleReturn.company_id = companyId;
                 saleReturn.branch_id = branchId;
@@ -949,6 +959,26 @@ namespace IMS.Sales
                 ErrorLog.saveerror(ex);
                 //Do Logging
             }
+        }
+        //--============File Attachment Code done by as Afroz for sale return =========================>
+        public bool uploadfile(FileUpload _fileUpload, string _path, string _filename)
+        {
+            bool returnMsg = false;
+            try
+            {
+                if (_fileUpload.HasFile)
+                {
+                    _filename = Path.GetFileName(_fileUpload.PostedFile.FileName);
+                    _fileUpload.PostedFile.SaveAs(Server.MapPath(_path) + _filename);
+                    returnMsg = true;
+                }
+            }
+            catch (Exception ex)
+
+            {
+                ErrorLog.saveerror(ex);
+            }
+            return returnMsg;
         }
         #endregion
     }
