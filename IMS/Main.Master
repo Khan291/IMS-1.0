@@ -380,7 +380,7 @@
                             <a href="../Stock/StockAdjustment.aspx"><i class="fa fa-list-alt fa-fw"></i>Stock Management</a>
                         </li>
                         <li><a href="#" id="btn-1" data-toggle="collapse" data-target="#submenu1" aria-expanded="false"><i class="fa fa-cart-plus fa-fw"></i>Purcahse</a>
-                            <ul class="nav collapse" id="submenu1" role="menu" aria-labelledby="btn-1">
+                            <ol class="nav collapse" id="submenu1" role="menu" aria-labelledby="btn-1">
                                 <li id="lipurchase" runat="server">
                                     <a href="../Purchases/Purchase.aspx"><i class="fa fa-list-alt fa-fw"></i>Purchase Order</a>
                                 </li>
@@ -394,11 +394,11 @@
                                     <a href="../Purchases/PurchaseReport.aspx"><i class="fa fa-cart-arrow-down fa-fw"></i>Purchase Report</a>
                                 </li>
 
-                            </ul>
+                            </ol>
                         </li>
 
                         <li><a href="#" id="btn-2" data-toggle="collapse" data-target="#submenu12" aria-expanded="false"><i class="fa fa-cart-plus fa-fw"></i>Sales</a>
-                            <ul class="nav collapse" id="submenu12" role="menu" aria-labelledby="btn-2">
+                            <ol class="nav collapse" id="submenu12" role="menu" aria-labelledby="btn-2">
                                 <li id="lisale" runat="server">
                                     <a href="../Sales/Sale.aspx"><i class="fa fa-cart-arrow-down fa-fw"></i>Sale Order</a>
                                 </li>
@@ -408,11 +408,15 @@
                                 <li id="lisaleReport" runat="server">
                                     <a href="../Sales/SalesReport.aspx"><i class="fa fa-cart-arrow-down fa-fw"></i>Sale Report</a>
                                 </li>
-                            </ul>
+                            </ol>
                         </li>
                         <li id="li1" runat="server">
                             <%-- <a href="../MasterReports.aspx"><i class="fa fa-file fa-fw"></i>Reports</a>--%>
                             <a href="../CommonReport.aspx"><i class="fa fa-file fa-fw"></i>Reports</a>
+                        </li>
+                        <li id="li3" runat="server">
+                            <%-- <a href="../MasterReports.aspx"><i class="fa fa-file fa-fw"></i>Reports</a>--%>
+                            <a href="../Balance/PartyBalance.aspx"><i class="fa fa-file fa-fw"></i>Party Balance</a>
                         </li>
 
 

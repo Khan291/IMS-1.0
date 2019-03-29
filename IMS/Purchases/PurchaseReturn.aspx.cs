@@ -525,6 +525,27 @@ namespace IMS
             //put a breakpoint here and check datatable
             return dataTable;
         }
+        public void clrGvAndlbls()
+        {
+            gvpurchasedetails.DataSource = null;
+            gvpurchasedetails.DataBind();
+            gvTaxDetailsNew.DataSource = null;
+            gvTaxDetailsNew.DataBind();
+            gvTaxDetails.DataSource = null;
+            gvTaxDetails.DataBind();
+
+            lblTotalAmnt.Text = string.Empty;
+            lblsubtotal.Text = string.Empty;
+            lblResultSubTotal.Text = string.Empty;
+
+            lblTotalTax.Text = string.Empty;
+            lblTaxAmount.Text = string.Empty;
+            lblResultTotalTaxAmnt.Text = string.Empty;
+
+            lblTotalDiscount.Text = string.Empty;
+            lblDiscountAmt.Text = string.Empty;
+            lblResultTotalDiscount.Text = string.Empty;
+        }
         #endregion
 
 
@@ -535,6 +556,8 @@ namespace IMS
         #region Events
         protected void btnSearch_Click(object sender, EventArgs e)
         {
+            clrGvAndlbls();
+
             OriginalPurchaseDetails.Visible = true;
             ddlproduct.Items.Clear();
             GetpurchaseDetails();

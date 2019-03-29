@@ -25,6 +25,7 @@ namespace IMS.Sales
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionValue();
+
             if (!IsPostBack)
             {
                 if (ViewState["Details"] == null)
@@ -343,6 +344,25 @@ namespace IMS.Sales
                 ErrorLog.saveerror(ex);
             }
         }
+        public void clrGvAndlbls()
+        {
+            gvsalesdetails.DataSource = null;
+            gvsalesdetails.DataBind();
+            gvTaxDetailsNew.DataSource = null;
+            gvTaxDetailsNew.DataBind();
+
+            lblTotalAmnt.Text = string.Empty;
+            lblsubtotal.Text = string.Empty;
+            lblResultSubTotal.Text = string.Empty;
+
+            lblTotalTax.Text = string.Empty;
+            lblTaxAmount.Text = string.Empty;
+            lblResultTotalTaxAmnt.Text = string.Empty;
+
+            lblTotalDiscount.Text = string.Empty;
+            lblDiscountAmt.Text = string.Empty;
+            lblResultTotalDiscount.Text = string.Empty;
+        }
         #endregion
 
         /// <summary>
@@ -351,6 +371,8 @@ namespace IMS.Sales
         #region Events
         protected void btnSearch_Click(object sender, EventArgs e)
         {
+            clrGvAndlbls();
+
             OriginalSaleDetails.Visible = true;
             ddlproduct.Items.Clear();
             GetSaleDetails();
