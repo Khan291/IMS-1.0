@@ -1,101 +1,88 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Product.aspx.cs" Inherits="IMS.Product" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="UC_Product.ascx.cs" Inherits="IMS.UserControl.UC_Product" %>
 
-<%@ Register Src="~/UserControl/UC_Product.ascx" TagName="ctrlProduct" TagPrefix="TWebControlproduct" %>
+<%@ Register src="~/UserControl/UC_Category.ascx" TagName="ctrlcategory"  TagPrefix="TWebControl"%>
+
+<%@ Register src="~/UserControl/UC_Unit.ascx" TagName="ctrlunit"  TagPrefix="abc"%>
+
+<%@ Register src="~/UserControl/UC_Godown.ascx" TagName="ctrlgodown"  TagPrefix="TWebControlGodwn"%>
+
+<%@ Register Src="~/UserControl/UC_Rack.ascx" TagName="ctrlrack" TagPrefix="TWebControlRack" %>
+<style>
+    .input-group-addons {
+        padding: 6px 10px;
+        font-weight: normal;
+        line-height: 1;
+        color: #555555;
+        text-align: center;
+        background-color: #428bca;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        width: 1%;
+        white-space: nowrap;
+        vertical-align: middle;
+        line-height: 1;
+        /*border-radius: 3px;*/
+    }
+
+    .input-group-addons,
+    .input-group .form-control {
+        display: table-cell;
+        height: 30px;
+    }
 
 
+    .input-group-sm > .form-control,
+    .input-group-sm > .input-group-addons,
+    .input-group-sm > .input-group-btn > .btn {
+        height: 30px;
+        /*padding: 5px 10px;*/
+        font-size: 12px;
+        line-height: 1.5;
+        border-radius: 3px;
+    }
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    a img {
+        border: none;
+    }
 
-    <style>
+    ol li {
+        list-style: decimal outside;
+    }
 
-        .input-group-addons {
-            padding: 6px 10px;
-            font-weight: normal;
-            line-height: 1;
-            color: #555555;
-            text-align: center;
-            background-color: #428bca;
-            border-top-right-radius: 10px;
-            border-bottom-right-radius: 10px;
-            width: 1%;
-            white-space: nowrap;
-            vertical-align: middle;
-            line-height: 1;
-            /*border-radius: 3px;*/
-        }
+    div.container {
+        width: 100%;
+        margin: 0 auto;
+        padding: 0 0;
+    }
 
-        .input-group-addons,
-        .input-group .form-control {
-            display: table-cell;
-            height: 30px;
-        }
+    div.side-by-side {
+        width: 100%;
+        /*margin-bottom: 1em;*/
+    }
 
-
-        .input-group-sm > .form-control,
-        .input-group-sm > .input-group-addons,
-        .input-group-sm > .input-group-btn > .btn {
-            height: 30px;
-            /*padding: 5px 10px;*/
-            font-size: 12px;
-            line-height: 1.5;
-            border-radius: 3px;
-        }
-
-        a img {
-            border: none;
-        }
-
-        ol li {
-            list-style: decimal outside;
-        }
-
-        div.container {
+        div.side-by-side > div {
+            float: left;
             width: 100%;
-            margin: 0 auto;
-            padding: 0 0;
         }
 
-        div.side-by-side {
-            width: 100%;
-            /*margin-bottom: 1em;*/
-        }
-
-            div.side-by-side > div {
-                float: left;
-                width: 100%;
+            div.side-by-side > div > em {
+                margin-bottom: 10px;
+                display: block;
             }
 
-                div.side-by-side > div > em {
-                    margin-bottom: 10px;
-                    display: block;
-                }
-
-        .clearfix:after {
-            content: "\0020";
-            display: block;
-            height: 0;
-            clear: both;
-            overflow: hidden;
-            visibility: hidden;
-        }
-    </style>
-
-    <script src="../assets/scripts/chosen.jquery.js"></script>
-
-</asp:Content>
+    .clearfix:after {
+        content: "\0020";
+        display: block;
+        height: 0;
+        clear: both;
+        overflow: hidden;
+        visibility: hidden;
+    }
+</style>
 
 
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="container-fluid">
-        <div>
-            <a href="../Master.aspx" id="bMaster" runat="server">
-                <img src="../assets/img/goback-5-w800.png" height="50" width="130" /></a>
-        </div>
-        <div class="panel panel-default ">
-            <div class="panel-heading text-center">
-                <h1>Product Master</h1>
-            </div>
-          <%--  <div class="panel-body">
+<div class="panel panel-default ">
+     <div class="panel-body">
                 <div class="form-horizontal">
                     <div class="col-md-12">
                         <div class="col-md-5">
@@ -115,7 +102,7 @@
                                                 <asp:Label ID="Label12" runat="server" Text="+" Font-Bold="true" Font-Size="20px" ForeColor="White"></asp:Label></a>
                                         </span>
                                     </div>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ValidationGroup="adf" InitialValue="0" Display="Dynamic" runat="server" ErrorMessage="Select Category" ControlToValidate="ddlCategory" ForeColor="Red"></asp:RequiredFieldValidator>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ValidationGroup="prdvalidationgrp" InitialValue="0" Display="Dynamic" runat="server" ErrorMessage="Select Category" ControlToValidate="ddlCategory" ForeColor="Red"></asp:RequiredFieldValidator>
                                 </div>
                             </div>
                         </div>
@@ -136,7 +123,7 @@
                                                 <asp:Label ID="Label13" runat="server" Text="+" Font-Bold="true" Font-Size="20px" ForeColor="White"></asp:Label></a>
                                         </span>
                                     </div>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ValidationGroup="adf" InitialValue="0" Display="Dynamic" ErrorMessage="Select Unit" ControlToValidate="ddlUnit" ForeColor="Red"></asp:RequiredFieldValidator>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ValidationGroup="prdvalidationgrp" InitialValue="0" Display="Dynamic" ErrorMessage="Select Unit" ControlToValidate="ddlUnit" ForeColor="Red"></asp:RequiredFieldValidator>
                                 </div>
                             </div>
                         </div>
@@ -161,7 +148,7 @@
                                                         <asp:Label ID="Label14" runat="server" Text="+" Font-Bold="true" Font-Size="20px" ForeColor="White"></asp:Label></a>
                                                 </span>
                                             </div>
-                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" InitialValue="0" ValidationGroup="adf" runat="server" Display="Dynamic" ErrorMessage="Select Godown" ControlToValidate="ddlGodown" ForeColor="Red"></asp:RequiredFieldValidator>
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" InitialValue="0" ValidationGroup="prdvalidationgrp" runat="server" Display="Dynamic" ErrorMessage="Select Godown" ControlToValidate="ddlGodown" ForeColor="Red"></asp:RequiredFieldValidator>
                                         </div>
                                     </div>
                                 </div>
@@ -182,6 +169,7 @@
                                                         <asp:Label ID="Label15" runat="server" Text="+" Font-Bold="true" Font-Size="20px" ForeColor="White"></asp:Label></a>
                                                 </span>
                                             </div>
+                                          <%--  <asp:RequiredFieldValidator ID="RequiredFieldValidator3" InitialValue="0" ValidationGroup="prdvalidationgrp" runat="server" Display="Dynamic" ErrorMessage="Select Rack" ControlToValidate="ddlRack" ForeColor="Red"></asp:RequiredFieldValidator>--%>
                                             <asp:Label ID="lblrackerror" runat="server" ForeColor="Red"></asp:Label>
                                         </div>
                                     </div>
@@ -202,7 +190,7 @@
                                     <asp:ListBox ID="ddlTaxgroup" runat="server" CssClass="form-control" style="width:100%" SelectionMode="Multiple">
                                         
                                     </asp:ListBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" Display="Dynamic" ValidationGroup="adf" InitialValue="0" ErrorMessage="Select Tax" ControlToValidate="ddlTaxgroup" ForeColor="Red"></asp:RequiredFieldValidator>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" Display="Dynamic" ValidationGroup="prdvalidationgrp" InitialValue="0" ErrorMessage="Select Tax" ControlToValidate="ddlTaxgroup" ForeColor="Red"></asp:RequiredFieldValidator>
                                 </div>
                             </div>
                         </div>
@@ -215,9 +203,10 @@
                                 </div>
                                 <div class="col-sm-7">
                                     <asp:TextBox ID="txtProductName" runat="server" onchange="CheckDouble1()" CssClass="form-control"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" Display="Dynamic" ValidationGroup="adf" ErrorMessage="Name is required" ControlToValidate="txtProductName" ForeColor="Red"></asp:RequiredFieldValidator>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" Display="Dynamic" ValidationGroup="prdvalidationgrp" ErrorMessage="Name is required" ControlToValidate="txtProductName" ForeColor="Red"></asp:RequiredFieldValidator>
                                     <asp:Label ID="Label1" runat="server"></asp:Label>
                                     <asp:HiddenField ID="hd" runat="server" />
+                                    <asp:HiddenField ID="hdproductid" runat="server" />
                                 </div>
                             </div>
                         </div>
@@ -233,7 +222,7 @@
                                 <div class="col-sm-7">
                                     <asp:TextBox ID="txtProductCode" runat="server" onchange="CheckDouble()" CssClass="form-control"></asp:TextBox>
                                     <asp:Label ID="lblcheckDoubleError" runat="server"></asp:Label>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" Display="Dynamic" ValidationGroup="adf" ErrorMessage="Product code is required" ControlToValidate="txtProductName" ForeColor="Red"></asp:RequiredFieldValidator>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" Display="Dynamic" ValidationGroup="prdvalidationgrp" ErrorMessage="Product code is required" ControlToValidate="txtProductName" ForeColor="Red"></asp:RequiredFieldValidator>
                                     <asp:HiddenField ID="hde" runat="server" />
                                 </div>
                             </div>
@@ -247,7 +236,7 @@
                                 </div>
                                 <div class="col-sm-7">
                                     <asp:TextBox ID="txtHSNCode" runat="server" CssClass="form-control"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" Display="Dynamic" ValidationGroup="adf" ErrorMessage="HSN Code is required" ControlToValidate="txtHSNCode" ForeColor="Red"></asp:RequiredFieldValidator>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" Display="Dynamic" ValidationGroup="prdvalidationgrp" ErrorMessage="HSN Code is required" ControlToValidate="txtHSNCode" ForeColor="Red"></asp:RequiredFieldValidator>
                                 </div>
                             </div>
                         </div>
@@ -263,8 +252,8 @@
                                 </div>
                                 <div class="col-sm-7">
                                     <asp:TextBox ID="txtReorderqty" runat="server" CssClass="form-control" onkeypress="return OnlyNumericEntry(event);"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" Display="Dynamic" ValidationGroup="adf" ErrorMessage="Re-Order level is required" ControlToValidate="txtReorderqty" ForeColor="Red"></asp:RequiredFieldValidator>
-                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ValidationExpression="^[1-9][0-9]*$" runat="server" ValidationGroup="adf" Display="Dynamic" ForeColor="Red" ControlToValidate="txtReorderqty" ErrorMessage="Re-Order Quantity should b greater then 0"></asp:RegularExpressionValidator>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" Display="Dynamic" ValidationGroup="prdvalidationgrp" ErrorMessage="Re-Order level is required" ControlToValidate="txtReorderqty" ForeColor="Red"></asp:RequiredFieldValidator>
+                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ValidationExpression="^[1-9][0-9]*$" runat="server" ValidationGroup="prdvalidationgrp" Display="Dynamic" ForeColor="Red" ControlToValidate="txtReorderqty" ErrorMessage="Re-Order Quantity should b greater then 0"></asp:RegularExpressionValidator>
 
                                 </div>
                             </div>
@@ -278,8 +267,8 @@
                                 </div>
                                 <div class="col-sm-7">
                                     <asp:TextBox ID="txtPurchasePrice" runat="server" CssClass="form-control" onkeypress="return OnlyNumericEntry(event);"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" Display="Dynamic" ValidationGroup="adf" ErrorMessage="Purchase price is required" ControlToValidate="txtPurchasePrice" ForeColor="Red"></asp:RequiredFieldValidator>
-                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ValidationExpression="^\s*(?=.*[1-9])\d*(?:\.\d{1,5})?\s*$" runat="server" ValidationGroup="adf" Display="Dynamic" ForeColor="Red" ControlToValidate="txtPurchasePrice" ErrorMessage="Purchase Price should b greater then 0"></asp:RegularExpressionValidator>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" Display="Dynamic" ValidationGroup="prdvalidationgrp" ErrorMessage="Purchase price is required" ControlToValidate="txtPurchasePrice" ForeColor="Red"></asp:RequiredFieldValidator>
+                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ValidationExpression="^\s*(?=.*[1-9])\d*(?:\.\d{1,5})?\s*$" runat="server" ValidationGroup="prdvalidationgrp" Display="Dynamic" ForeColor="Red" ControlToValidate="txtPurchasePrice" ErrorMessage="Purchase Price should b greater then 0"></asp:RegularExpressionValidator>
                                 </div>
                             </div>
                         </div>
@@ -293,9 +282,9 @@
                                     </label>
                                 </div>
                                 <div class="col-sm-7">
-                                    <asp:TextBox ID="txtSalesPrice" runat="server" CssClass="form-control" onkeypress="return OnlyNumericEntry(event);"></asp:TextBox><%--^[1-9][0-9]*$
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" Display="Dynamic" ValidationGroup="adf" ErrorMessage="Sale price is required" ControlToValidate="txtSalesPrice" ForeColor="Red"></asp:RequiredFieldValidator>
-                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ValidationExpression="^(0*[1-9][0-9]*(\.[0-9]+)?|0+\.[0-9]*[1-9][0-9]*)$" runat="server" ValidationGroup="adf" Display="Dynamic" ForeColor="Red" ControlToValidate="txtSalesPrice" ErrorMessage="Sales Price should b greater then 0"></asp:RegularExpressionValidator>
+                                    <asp:TextBox ID="txtSalesPrice" runat="server" CssClass="form-control" onkeypress="return OnlyNumericEntry(event);"></asp:TextBox><%--^[1-9][0-9]*$--%>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" Display="Dynamic" ValidationGroup="prdvalidationgrp" ErrorMessage="Sale price is required" ControlToValidate="txtSalesPrice" ForeColor="Red"></asp:RequiredFieldValidator>
+                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ValidationExpression="^(0*[1-9][0-9]*(\.[0-9]+)?|0+\.[0-9]*[1-9][0-9]*)$" runat="server" ValidationGroup="prdvalidationgrp" Display="Dynamic" ForeColor="Red" ControlToValidate="txtSalesPrice" ErrorMessage="Sales Price should b greater then 0"></asp:RegularExpressionValidator>
                                 </div>
                             </div>
                         </div>
@@ -303,77 +292,23 @@
                         </div>
                     </div>
                 </div>
-            </div>--%>
-           <%-- <div class="panel-footer text-center">
-                <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary " Text="Save"  OnClick="btnSave_Click" ValidationGroup="adf" OnClientClick="DisableOnSave(this,'adf');"  UseSubmitBehavior="false" />
-                <asp:Button ID="btnUpdate" runat="server" CssClass="btn btn-primary" Text="Update" OnClick="btnUpdate_Click" Visible="false" ValidationGroup="adf" />
+            </div>
+            <div class="panel-footer text-center">
+                <asp:Button ID="btnprdSave" runat="server" CssClass="btn btn-primary " Text="Save" OnClick="btnprdSave_Click"  ValidationGroup="prdvalidationgrp"  UseSubmitBehavior="false" />
+                <asp:Button ID="btnprdUpdate" runat="server" CssClass="btn btn-primary" Text="Update" OnClick="btnprdUpdate_Click" Visible="false" ValidationGroup="prdvalidationgrp" />
                 <input class="btn btn-primary " type="button" value="Clear" onclick="javascript: window.location = 'Product.aspx'" />
-            </div>--%>
-
-              
-        </div>
-         <TWebControlproduct:ctrlProduct ID="ctrlProduct" runat="server" />
-        <div class="row">
+                <%--<asp:Button ID="btnCancel" runat="server" CssClass="btn btn-default" Text="Cancel" OnClick="btnCancel_Click" Style="float: right" />  --%>
+            </div>
+</div>
+ <div class="row">
             <div class="alert alert-success" id="divalert" runat="server" visible="false">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                 <asp:Label ID="lblAlert" runat="server"></asp:Label>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                <%--<div style="overflow-x: auto">--%>
-                    <asp:GridView ID="GridView1" OnPreRender="GridView1_PreRender" OnRowDataBound="GridView1_RowDataBound" runat="server" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" OnRowCommand="GridView1_RowCommand" DataKeyNames="product_id" AutoGenerateColumns="false" CssClass="table table table-striped table-bordered table-hover" SelectedIndex="0">
-                        <Columns>
-                             <asp:BoundField DataField="product_name" HeaderText="Product Name"></asp:BoundField>
-                            <asp:BoundField DataField="godown_name" HeaderText="Godown Name" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
-                           
-                            <asp:BoundField DataField="sales_price" HeaderText="Sales Price" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
-                            <asp:BoundField DataField="purchas_price" HeaderText="Purchase Price" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
-                            <asp:BoundField DataField="product_code" HeaderText="Product Code" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
-                            <asp:BoundField DataField="reorder_level" HeaderText="Reorder Level" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
-                            <asp:BoundField DataField="category_id" HeaderText="Reorder Level" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
-                            <asp:BoundField DataField="godown_id" HeaderText="Reorder Level" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
-                            <asp:BoundField DataField="rack_id" HeaderText="Reorder Level" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
-                           
-                            <asp:BoundField DataField="unit_id" HeaderText="Reorder Level" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
-                            <asp:BoundField DataField="hsn_code" HeaderText="HSN Code "></asp:BoundField>
-                            <asp:TemplateField HeaderText="Update">
-                                <ItemTemplate>
-                                    <asp:ImageButton ID="btnimg_update" runat="server" ImageUrl="~/assets/img/edit.png" CommandName="Select" />
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Delete" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden">
-                                <ItemTemplate>
-                                    <asp:ImageButton ID="btnimg_delete" CommandArgument='<%# Eval("product_id") %>' runat="server" ImageUrl="~/assets/img/remove.png" CommandName="DeleteRow" />
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                        </Columns>
-                        <HeaderStyle BackColor="#428BCA" ForeColor="White" />
-                    </asp:GridView>
-                <%--</div>--%>
-            </div>
-        </div>
-    </div>
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog" runat="server">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Alert</h4>
-                </div>
-                <div class="modal-body">
-                    <p>Do You want to delete This Unit? </p>
-                </div>
-                <div class="modal-footer">
-                    <asp:Button ID="btnYes" runat="server" Text="Yes" CssClass="btn btn-primary" OnClick="btnYes_Click" />
-                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
-  <%--  <div class="modal fade" role="dialog" id="AddModal" runat="server">
+
+ <%--<div class="modal fade" role="dialog" id="AddModal" runat="server">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -386,14 +321,14 @@
                     <iframe id="ModalIfram" runat="server" width="100%" height="350px" scrolling="yes" frameborder="0" allowfullscreen="true"></iframe>
                 </div>
               <div class="modal-footer" >
-                        <asp:Button ID="btnCloseMode" runat="server" Text="Close" CssClass="btn btn-primary" OnClick="btnCloseMode_Click"  />
+                        <asp:Button ID="btnCloseMode" runat="server" Text="Close" CssClass="btn btn-primary"   />
                     </div>
             </div>
         </div>
     </div>--%>
 
-    <%--start model popup code for display category usercontrol--%>
-   <%-- <div class="modal fade" role="dialog" id="divcategorymodel" runat="server">
+  <%--start model popup code for display category usercontrol--%>
+    <div class="modal fade" role="dialog" id="divcategorymodel" runat="server">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header" style="padding: 0px 10px 0px 10px;">
@@ -406,17 +341,18 @@
                 <div class="modal-body">
                     <asp:UpdatePanel ID="upCIR" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
+                            <%--Call user control to show in popup body--%>
                             <twebcontrol:ctrlcategory  ID="ctrlcategory"  runat="server" />
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </div>
             </div>
         </div>
-    </div>--%>
+    </div>
     <%--end model popup --%>
 
      <%--start model popup code for display Unit usercontrol--%>
-  <%--  <div class="modal fade" id="divunitmodel" runat="server">
+    <div class="modal fade" id="divunitmodel" runat="server">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header" style="padding: 0px 10px 0px 10px;">
@@ -429,6 +365,7 @@
                 <div class="modal-body">
                    <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
+                            <%--Call user control to show in popup body--%>
                             <abc:ctrlunit  ID="ctrlunit"  runat="server" />
                             </ContentTemplate>
                        </asp:UpdatePanel>
@@ -437,22 +374,66 @@
                 </div>
             </div>
         </div>
-    </div>--%>
+    </div>
     <%--end model popup --%>
 
+<%--start model popup code for display Godown usercontrol--%>
+    <div class="modal fade" id="divgodownmodel" runat="server">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="padding: 0px 10px 0px 10px;">
+                    <button type="button" class="close" data-dismiss="modal" id="btngwdnmodelclose" runat="server" onserverclick="btngwdnmodelclose_ServerClick" >
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3>
+                        <asp:Label ID="Label18" runat="server" Text="Add Godown"></asp:Label></h3>
+                </div>
+                <div class="modal-body">
+                   <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <%--Call user control to show in popup body--%>
+                              <TWebControlGodwn:ctrlgodown ID="ctrlgodown" runat="server" />
+                            </ContentTemplate>
+                       </asp:UpdatePanel>
+                    
+                       
+                </div>
+            </div>
+        </div>
+    </div>
+    <%--end model popup --%>
+<%--start model popup code for display Rack usercontrol--%>
+    <div class="modal fade" id="divrackmodel" runat="server">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="padding: 0px 10px 0px 10px;">
+                    <button type="button" class="close" data-dismiss="modal" id="btnrckmodelclose" runat="server"  onserverclick="btnrckmodelclose_ServerClick"  >
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3>
+                        <asp:Label ID="Label19" runat="server" Text="Add Rack"></asp:Label></h3>
+                </div>
+                <div class="modal-body">
+                   <asp:UpdatePanel ID="UpdatePanel4" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <%--Call user control to show in popup body--%>
+                              <TWebControlRack:ctrlrack ID="ctrlrack" runat="server" />
+                            </ContentTemplate>
+                       </asp:UpdatePanel>
+                    
+                       
+                </div>
+            </div>
+        </div>
+    </div>
+    <%--end model popup --%>
     <script>
-        $(document).ready(function () {
-            $('#<%= GridView1.ClientID %>').DataTable();
-        });
-
-        function openModal() {
-            $('#<%=myModal.ClientID%>').modal('show');
-        }
+       
         function Closepopup() {
             $('#AddModal').modal('close');
 
         }
-        <%--function CheckDouble() {
+        function CheckDouble() {
             $.ajax({
                 type: "POST",
                 url: '<%= ResolveUrl("~/Masters/Product.aspx/CheckDouble") %>', // this for calling the web method function in cs code.  
@@ -481,7 +462,7 @@
                     hd3.value = false;
                     break;
             }
-        }--%>
+        }
 
         function OnlyNumericEntry(evt) {
             var charCode = (evt.which) ? evt.which : event.keyCode
@@ -491,7 +472,7 @@
             return true;
         }
 
-      <%--  function CheckDouble1() {
+        function CheckDouble1() {
             $.ajax({
                 type: "POST",
                 url: '<%= ResolveUrl("~/Masters/Product.aspx/CheckDouble1") %>', // this for calling the web method function in cs code.  
@@ -520,12 +501,41 @@
                     hd1.value = false;
                     break;
             }
-        }--%>
+        }
 
 
+        function AddSrcToIfram(val) {
+            if (val == 'c') {
 
 
-      <%--  $('#<%= ddlCategory.ClientID %>').chosen();
+                $('#<%= divcategorymodel.ClientID %>').modal('show');
+
+               <%-- $('#<%=lblModalHeader.ClientID%>').text("Add Category");
+                $('#<%=ModalIfram.ClientID%>').attr("src", "../MasterModals/CategoryMasterModal.aspx")--%>
+            }
+            if (val == 'u') {
+
+                $('#<%= divunitmodel.ClientID %>').modal('show');
+
+            <%--    $('#<%=lblModalHeader.ClientID%>').text("Add Unit");
+                $('#<%=ModalIfram.ClientID%>').attr("src", "../MasterModals/UnitMasterModel.aspx");
+                $('#<%= AddModal.ClientID %>').modal('show');--%>
+            }
+            if (val == 'g') {
+                $('#<%= divgodownmodel.ClientID %>').modal('show');
+            }
+            if (val == 'r') {
+                $('#<%= divrackmodel.ClientID %>').modal('show');
+            }
+           <%-- if (val == 't') {
+                $('#<%=lblModalHeader.ClientID%>').text("Add Tax");
+                $('#<%=ModalIfram.ClientID%>').attr("src", "../MasterModals/TaxMasterModel.aspx")
+                $('#<%= AddModal.ClientID %>').modal('show');
+            }--%>
+
+        }
+
+        $('#<%= ddlCategory.ClientID %>').chosen();
         $("#<%= ddlCategory.ClientID %>-deselect").chosen(
             { allow_single_deselect: true });
 
@@ -540,15 +550,14 @@
         $('#<%= ddlRack.ClientID %>').chosen();
         $("#<%= ddlRack.ClientID %>-deselect").chosen(
         { allow_single_deselect: true });
-     --%>
-      $(document).ready(function () {
-            
-          $('[id*=ddlTaxgroup]').multiselect({
-              includeSelectAllOption: true
-          });
-       
-      });
+
+        $(document).ready(function () {
+
+            $('[id*=ddlTaxgroup]').multiselect({
+                includeSelectAllOption: true
+            });
+
+        });
 
     </script>
 
-</asp:Content>

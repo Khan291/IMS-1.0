@@ -39,8 +39,8 @@ namespace IMS
                 {
                   
                     loadDataTable();
-                    statebind();
-                    txtPartyName.Focus();
+                    //statebind();
+                    //txtPartyName.Focus();
                 }
             }
             catch (Exception ex)
@@ -56,44 +56,44 @@ namespace IMS
         /// </summary>
 
         #region Methods
-        public void statebind()
-        {
+        //public void statebind()
+        //{
 
-            TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+        //    TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
 
-            var title = "WAR AND PEACE";
+        //    var title = "WAR AND PEACE";
 
-            title = textInfo.ToTitleCase(title);
-            //Console.WriteLine(title); //WAR AND PEACE
+        //    title = textInfo.ToTitleCase(title);
+        //    //Console.WriteLine(title); //WAR AND PEACE
 
-            ////You need to call ToLower to make it work
-            //title = textInfo.ToTitleCase(title.ToLower());
-            //Console.WriteLine(title);
+        //    ////You need to call ToLower to make it work
+        //    //title = textInfo.ToTitleCase(title.ToLower());
+        //    //Console.WriteLine(title);
 
 
-            List<tbl_state> gd = context.tbl_state.Where(x => x.status == true).ToList();
-            DataTable dt = new DataTable();
-            dt = helper.LINQToDataTable(gd);
-            IEnumerable<DataRow> rows = dt.Rows.Cast<DataRow>();
+        //    List<tbl_state> gd = context.tbl_state.Where(x => x.status == true).ToList();
+        //    DataTable dt = new DataTable();
+        //    dt = helper.LINQToDataTable(gd);
+        //    IEnumerable<DataRow> rows = dt.Rows.Cast<DataRow>();
 
-            foreach (DataRow row in dt.Rows)
-            {
-                var lowerValue = row["state_name"].ToString();
-                lowerValue = textInfo.ToTitleCase(lowerValue.ToLower());
-                row["state_name"] = lowerValue;
-                //row.SetField(row["state_name"].ToString(), row["state_name"][lowerValue]);
-            }
+        //    foreach (DataRow row in dt.Rows)
+        //    {
+        //        var lowerValue = row["state_name"].ToString();
+        //        lowerValue = textInfo.ToTitleCase(lowerValue.ToLower());
+        //        row["state_name"] = lowerValue;
+        //        //row.SetField(row["state_name"].ToString(), row["state_name"][lowerValue]);
+        //    }
 
-            ddlState.DataSource = dt;
-            ddlState.DataTextField = "state_name";
-            ddlState.DataValueField = "state_id";
-            //gd.ConvertAll(r => textInfo.ToTitleCase(r.state_name.ToLower())).ToList();
-            //ddlState.DataSource = textInfo.ToTitleCase(title.ToLower());
-            //ddlState.DataSource = dt;
-            ddlState.DataBind();
-            ddlState.Items.Insert(0, new ListItem("--Select State--", "0"));
-        }
-        private void loadDataTable()
+        //    ddlState.DataSource = dt;
+        //    ddlState.DataTextField = "state_name";
+        //    ddlState.DataValueField = "state_id";
+        //    //gd.ConvertAll(r => textInfo.ToTitleCase(r.state_name.ToLower())).ToList();
+        //    //ddlState.DataSource = textInfo.ToTitleCase(title.ToLower());
+        //    //ddlState.DataSource = dt;
+        //    ddlState.DataBind();
+        //    ddlState.Items.Insert(0, new ListItem("--Select State--", "0"));
+        //}
+        public void loadDataTable()
         {
             try
             {
@@ -192,108 +192,108 @@ namespace IMS
             return "";
         }
 
-        private void updatelogic()
-        {
-             try
-            {
-                if (hde.Value != "true")
-                {
-                    lblcheckDoubleError.Text = String.Empty;
+        //private void updatelogic()
+        //{
+        //     try
+        //    {
+        //        if (hde.Value != "true")
+        //        {
+        //            lblcheckDoubleError.Text = String.Empty;
                    
-                    int a = Convert.ToInt32(ddlState.SelectedValue);
-                    int party_id = Convert.ToInt32(ViewState["party_id"]);
-                    context.sp_UpdateParty(companyId, branchId, party_id, a, txtPartyName.Text, txtPartyAddress.Text, txtContactNo.Text, ddlPartyType.SelectedItem.Text, txtGSTIN.Text, User_id, DateTime.Today);
-                    btnUpdate.Visible = false;
-                    btnSave.Visible = true;
-                    divalert.Visible = true;
-                    lblAlert.Text = "Party Updated Successfully ";
-                    CLR();
-                    loadDataTable();
-                }
+        //            int a = Convert.ToInt32(ddlState.SelectedValue);
+        //            int party_id = Convert.ToInt32(ViewState["party_id"]);
+        //            context.sp_UpdateParty(companyId, branchId, party_id, a, txtPartyName.Text, txtPartyAddress.Text, txtContactNo.Text, ddlPartyType.SelectedItem.Text, txtGSTIN.Text, User_id, DateTime.Today);
+        //            btnUpdate.Visible = false;
+        //            btnSave.Visible = true;
+        //            divalert.Visible = true;
+        //            lblAlert.Text = "Party Updated Successfully ";
+        //            CLR();
+        //            loadDataTable();
+        //        }
 
-                else
-                {
-                    divalert.Visible = false;
-                    lblcheckDoubleError.ForeColor = System.Drawing.Color.Red;
-                    lblcheckDoubleError.Text = "Party Name is already exists ";
-                }
-            }
+        //        else
+        //        {
+        //            divalert.Visible = false;
+        //            lblcheckDoubleError.ForeColor = System.Drawing.Color.Red;
+        //            lblcheckDoubleError.Text = "Party Name is already exists ";
+        //        }
+        //    }
 
-            catch (Exception ex)
-            {
+        //    catch (Exception ex)
+        //    {
 
-                ErrorLog.saveerror(ex);
-                //Do Logging
-            }
-        }
+        //        ErrorLog.saveerror(ex);
+        //        //Do Logging
+        //    }
+        //}
 
-        private void savedlogic()
-        {
-              try
-            {
+        //private void savedlogic()
+        //{
+        //      try
+        //    {
                
                
-                if (hde.Value != "true")
-                {
-                    if (hd2.Value != "true")
-                    {
-                        lblcheckDoubleError.Text = String.Empty;
-                        tbl_party p = new tbl_party();
-                        p.company_id = companyId;
-                        p.branch_id = branchId;
-                        p.party_name = txtPartyName.Text;
-                        p.party_address = txtPartyAddress.Text;
-                        p.contact_no = txtContactNo.Text;
-                        p.gstin_no = txtGSTIN.Text;
-                        p.party_type = ddlPartyType.SelectedValue;
-                        p.state_id = Convert.ToInt32(ddlState.SelectedValue);
-                        //p.created_by = "admin";
-                        p.created_by = User_id;
-                        p.created_date = DateTime.Today;
-                        p.status = true;
-                        ////Shakeeb
-                        ////p.Insert(p);
-                        //Entity Framework Saving Awais
-                        context.tbl_party.Add(p);
-                        context.SaveChanges();
-                        loadDataTable();
-                        divalert.Visible = true;
-                        lblAlert.Text = "Party Saved Successfully ";
-                        CLR();
-                    }
-                    else
-                    {
-                        divalert.Visible = false;
-                        lblgstinerror.Text = "GSTIN No Must be 15 digit alphanumeric only";
-                    }
-                }
-                else
-                {
-                    divalert.Visible = false;
-                    lblcheckDoubleError.ForeColor = System.Drawing.Color.Red;
-                    lblcheckDoubleError.Text = "Party Name is already exists ";
-                }
+        //        if (hde.Value != "true")
+        //        {
+        //            if (hd2.Value != "true")
+        //            {
+        //                lblcheckDoubleError.Text = String.Empty;
+        //                tbl_party p = new tbl_party();
+        //                p.company_id = companyId;
+        //                p.branch_id = branchId;
+        //                p.party_name = txtPartyName.Text;
+        //                p.party_address = txtPartyAddress.Text;
+        //                p.contact_no = txtContactNo.Text;
+        //                p.gstin_no = txtGSTIN.Text;
+        //                p.party_type = ddlPartyType.SelectedValue;
+        //                p.state_id = Convert.ToInt32(ddlState.SelectedValue);
+        //                //p.created_by = "admin";
+        //                p.created_by = User_id;
+        //                p.created_date = DateTime.Today;
+        //                p.status = true;
+        //                ////Shakeeb
+        //                ////p.Insert(p);
+        //                //Entity Framework Saving Awais
+        //                context.tbl_party.Add(p);
+        //                context.SaveChanges();
+        //                loadDataTable();
+        //                divalert.Visible = true;
+        //                lblAlert.Text = "Party Saved Successfully ";
+        //                CLR();
+        //            }
+        //            else
+        //            {
+        //                divalert.Visible = false;
+        //                lblgstinerror.Text = "GSTIN No Must be 15 digit alphanumeric only";
+        //            }
+        //        }
+        //        else
+        //        {
+        //            divalert.Visible = false;
+        //            lblcheckDoubleError.ForeColor = System.Drawing.Color.Red;
+        //            lblcheckDoubleError.Text = "Party Name is already exists ";
+        //        }
 
 
-            }
-            catch (Exception ex)
-            {
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                ErrorLog.saveerror(ex);
-                //Do Logging
-            }
-        }
+        //        ErrorLog.saveerror(ex);
+        //        //Do Logging
+        //    }
+        //}
 
-             public void CLR()
-        {
-            txtContactNo.Text = string.Empty;
-            txtGSTIN.Text = string.Empty;
-            txtPartyAddress.Text = string.Empty;
-            txtPartyName.Text = string.Empty;
-            ddlPartyType.SelectedIndex = 0;
-            ddlState.SelectedIndex = 0;
+        //     public void CLR()
+        //{
+        //    txtContactNo.Text = string.Empty;
+        //    txtGSTIN.Text = string.Empty;
+        //    txtPartyAddress.Text = string.Empty;
+        //    txtPartyName.Text = string.Empty;
+        //    ddlPartyType.SelectedIndex = 0;
+        //    ddlState.SelectedIndex = 0;
 
-        }
+        //}
 
         #endregion
         /// <summary>
@@ -301,36 +301,28 @@ namespace IMS
         /// </summary>
 
         #region Events
-        protected void btnSave_Click(object sender, EventArgs e)
-        {
-          savedlogic();
-        }
-   
-        protected void btnUpdate_Click(object sender, EventArgs e)
-        {
-           updatelogic();
-        }
+       
 
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-
             try
             {
-                lblcheckDoubleError.Text = String.Empty;
+               // lblcheckDoubleError.Text = String.Empty;
                 GridViewRow row = GridView1.SelectedRow;
                 ViewState["party_id"] = Convert.ToInt32(GridView1.DataKeys[row.RowIndex].Value);
-                txtPartyName.Text = row.Cells[0].Text;
-                txtPartyAddress.Text = row.Cells[1].Text;
-                txtContactNo.Text = row.Cells[2].Text;
-                txtGSTIN.Text = row.Cells[3].Text;
-                ddlPartyType.SelectedValue = row.Cells[4].Text;
-                ddlState.SelectedValue = row.Cells[5].Text;
-                btnSave.Visible = false;
-                btnUpdate.Visible = true;
-                divalert.Visible = false;
-                txtPartyName.Focus();
-                hde.Value = string.Empty;
+                ctrlparty.partyID = GridView1.DataKeys[row.RowIndex].Value.ToString();
+                ctrlparty.partyname = row.Cells[0].Text;
+                ctrlparty.partyaddress = row.Cells[1].Text;
+                ctrlparty.contactno = row.Cells[2].Text;
+                ctrlparty.GSTNo = row.Cells[3].Text;
+                ctrlparty.partytype = row.Cells[4].Text;
+                ctrlparty.partystate = row.Cells[5].Text;
+                //btnSave.Visible = false;
+                //btnUpdate.Visible = true;
+                //divalert.Visible = false;
+                //txtPartyName.Focus();
+                //hde.Value = string.Empty;
             }
 
             catch (Exception ex)
@@ -347,9 +339,9 @@ namespace IMS
             {
                 if (e.CommandName == "DeleteRow")
                 {
-                    lblcheckDoubleError.Text = String.Empty;
+                  //  lblcheckDoubleError.Text = String.Empty;
                     ViewState["unit_id"] = Convert.ToInt32(e.CommandArgument);
-                    divalert.Visible = false;
+                   // divalert.Visible = false;
                     ClientScript.RegisterStartupScript(this.GetType(), "Pop", "openModal();", true);
                
                 }
@@ -371,10 +363,10 @@ namespace IMS
                 int b_id = Convert.ToInt32(Session["branch_id"]);
                 int rowIndex = Convert.ToInt32(ViewState["unit_id"]);
                 context.sp_DeleteParty(c_id, b_id, rowIndex);
-                divalert.Visible = true;
-                lblAlert.Text = "Party Deleted Successfully ";
+                //divalert.Visible = true;
+                //lblAlert.Text = "Party Deleted Successfully ";
                 loadDataTable();
-                CLR();
+              //  CLR();
             }
             catch (Exception ex)
             {
@@ -387,13 +379,13 @@ namespace IMS
         {
             try
             {
-                lblcheckDoubleError.Text = String.Empty;
-                btnSave.Visible = true;
-                btnUpdate.Visible = false;
-                divalert.Visible = false;
-                CLR();
+                //lblcheckDoubleError.Text = String.Empty;
+                //btnSave.Visible = true;
+                //btnUpdate.Visible = false;
+                //divalert.Visible = false;
+                //CLR();
                 ViewState["gridrow"] = null;
-                hde.Value = string.Empty;
+              //  hde.Value = string.Empty;
             }
             catch (Exception ex)
             {

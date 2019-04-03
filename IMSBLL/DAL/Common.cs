@@ -7,6 +7,7 @@ using IMSBLL.EntityModel;
 using System.Data.SqlClient;
 using System.Data;
 
+
 namespace IMSBLL.DAL
 {
    public class Common
@@ -90,5 +91,8 @@ namespace IMSBLL.DAL
        public string StartDate { get; set; }
        public string EndDate { get; set; }
    }
+
+   
+
 
 }

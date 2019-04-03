@@ -31,7 +31,7 @@ namespace IMS
                 {
                  
                     loadDataTable();
-                    txtBatchName.Focus();
+                  //  txtBatchName.Focus();
                 }
             }
                catch (Exception ex)
@@ -54,7 +54,7 @@ namespace IMS
             companyId = Convert.ToInt32(Session["company_id"]);
             branchId = Convert.ToInt32(Session["branch_id"]);
         }
-        private void loadDataTable()
+        public void loadDataTable()
         {
             //List<tbl_batch> dt = context.tbl_batch.Where(x => x.status == true).ToList();
 
@@ -89,85 +89,82 @@ namespace IMS
             }
             return "true";
         }
-        public void savedlogic()
-        {
-            try
-            {
-                if (CheckDouble(txtBatchName.Text) == "false")
-                {
-                    lblcheckDoubleError.Text = String.Empty;
-                    tbl_batch bat = new tbl_batch();
-                    bat.branch_id = branchId;//Convert.ToInt32(Session["branch_id"]); 
-                    bat.company_id = companyId;//Convert.ToInt32(Session["company_id"]);
-                    bat.batch_name = txtBatchName.Text;
-                    bat.created_by = User_id; //Convert.ToString(Session["UserID"]);
-                    bat.created_date = DateTime.Today;
-                    bat.modified_by = "";
-                    bat.modified_date = null;
-                    bat.status = true;                                    
-                    context.tbl_batch.Add(bat);
-                    context.SaveChanges();
+        //public void savedlogic()
+        //{
+        //    try
+        //    {
+        //        if (CheckDouble(txtBatchName.Text) == "false")
+        //        {
+        //            lblcheckDoubleError.Text = String.Empty;
+        //            tbl_batch bat = new tbl_batch();
+        //            bat.branch_id = branchId;//Convert.ToInt32(Session["branch_id"]); 
+        //            bat.company_id = companyId;//Convert.ToInt32(Session["company_id"]);
+        //            bat.batch_name = txtBatchName.Text;
+        //            bat.created_by = User_id; //Convert.ToString(Session["UserID"]);
+        //            bat.created_date = DateTime.Today;
+        //            bat.modified_by = "";
+        //            bat.modified_date = null;
+        //            bat.status = true;                                    
+        //            context.tbl_batch.Add(bat);
+        //            context.SaveChanges();
 
-                    loadDataTable();
-                    divalert.Visible = true;
-                    lblAlert.Text = "Saved Successfully";
-                    txtBatchName.Text = string.Empty;
-                }
-                else
-                {
-                    divalert.Visible = false;
-                    lblcheckDoubleError.ForeColor = System.Drawing.Color.Red;
-                    lblcheckDoubleError.Text = "This Batch name already Exists";
-                    return;
-                }
+        //            loadDataTable();
+        //            divalert.Visible = true;
+        //            lblAlert.Text = "Saved Successfully";
+        //            txtBatchName.Text = string.Empty;
+        //        }
+        //        else
+        //        {
+        //            divalert.Visible = false;
+        //            lblcheckDoubleError.ForeColor = System.Drawing.Color.Red;
+        //            lblcheckDoubleError.Text = "This Batch name already Exists";
+        //            return;
+        //        }
 
-            }
-            catch (Exception ex)
-            {
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                ErrorLog.saveerror(ex);
-                //Do Logging
-            }
+        //        ErrorLog.saveerror(ex);
+        //        //Do Logging
+        //    }
 
-        }
+        //}
 
-        public void updatelogic()
-        {
-            try
-            {
-                if (hd.Value != "true")
-                {
-                    lblcheckDoubleError.Text = String.Empty;
-                    GridViewRow row = GridView1.SelectedRow;
-                    int batch_id = Convert.ToInt32(ViewState["batchid"].ToString());
-                    context.sp_Updatebatch(companyId, batch_id, branchId, txtBatchName.Text, User_id, DateTime.Today);
-                    btnUpdate.Visible = false;
-                    btnSave.Visible = true;
-                    loadDataTable();
-                    divalert.Visible = true;
-                    lblAlert.Text = "Updated Successfully";
-                    txtBatchName.Text = string.Empty;
-                }
-                else
-                {
-                    divalert.Visible = false;
-                    lblcheckDoubleError.ForeColor = System.Drawing.Color.Red;
-                    lblcheckDoubleError.Text = "This Batch name already Exists";
+        //public void updatelogic()
+        //{
+        //    try
+        //    {
+        //        if (hd.Value != "true")
+        //        {
+        //            lblcheckDoubleError.Text = String.Empty;
+        //            GridViewRow row = GridView1.SelectedRow;
+        //            int batch_id = Convert.ToInt32(ViewState["batchid"].ToString());
+        //            context.sp_Updatebatch(companyId, batch_id, branchId, txtBatchName.Text, User_id, DateTime.Today);
+        //            btnUpdate.Visible = false;
+        //            btnSave.Visible = true;
+        //            loadDataTable();
+        //            divalert.Visible = true;
+        //            lblAlert.Text = "Updated Successfully";
+        //            txtBatchName.Text = string.Empty;
+        //        }
+        //        else
+        //        {
+        //            divalert.Visible = false;
+        //            lblcheckDoubleError.ForeColor = System.Drawing.Color.Red;
+        //            lblcheckDoubleError.Text = "This Batch name already Exists";
 
-                }
-            }
-            catch (Exception ex)
-            {
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                ErrorLog.saveerror(ex);
-                //Do Logging
-            }
-        }
+        //        ErrorLog.saveerror(ex);
+        //        //Do Logging
+        //    }
+        //}
         #endregion
-        protected void btnSave_Click(object sender, EventArgs e)
-        {
-            savedlogic();
-        }
+      
 
         /// <summary>
         /// All The Events That are used in coding
@@ -186,11 +183,7 @@ namespace IMS
             }
         }
 
-        protected void btnUpdate_Click(object sender, EventArgs e)
-        {
-            updatelogic();
-        }
-
+       
         protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             try
@@ -198,7 +191,7 @@ namespace IMS
                 if (e.CommandName == "DeleteRow")
                 {
                     ViewState["rowIndex"] = Convert.ToInt32(e.CommandArgument); 
-                    divalert.Visible = false;
+                  //  divalert.Visible = false;
                     ClientScript.RegisterStartupScript(this.GetType(), "Pop", "openModal();", true);
                 }
                 else if (e.CommandName == "UpdateRow")
@@ -206,20 +199,20 @@ namespace IMS
                     int rowIndex = ((GridViewRow)((ImageButton)e.CommandSource).NamingContainer).RowIndex;
                     GridViewRow row = GridView1.Rows[rowIndex];
                     ViewState["batchid"] = Convert.ToInt32(GridView1.DataKeys[row.RowIndex].Value);
-                    if (row.Cells[0].Text.ToString().Contains("&#215;"))
-                    {
-                        txtBatchName.Text = row.Cells[0].Text.ToString().Replace("&#215;","X");
-                    }
-                    else
-                    {
-                        txtBatchName.Text = row.Cells[0].Text.ToString();
-                    }
+                    //if (row.Cells[0].Text.ToString().Contains("&#215;"))
+                    //{
+                    //  //  txtBatchName.Text = row.Cells[0].Text.ToString().Replace("&#215;","X");
+                    //}
+                    //else
+                    //{
+                    //    txtBatchName.Text = row.Cells[0].Text.ToString();
+                    //}
 
-                    btnSave.Visible = false;
-                    btnUpdate.Visible = true;
+                    //btnSave.Visible = false;
+                    //btnUpdate.Visible = true;
                     loadDataTable();
-                    divalert.Visible = false;
-                    hd.Value = string.Empty;
+                   // divalert.Visible = false;
+                   // hd.Value = string.Empty;
                 }
             }
             catch (Exception ex)
@@ -261,8 +254,8 @@ namespace IMS
                 context.sp_Deletebatch(companyId, rowindex, branchId);
                 loadDataTable();
 
-                divalert.Visible = true;
-                lblAlert.Text = "Deleted Successfully";
+                //divalert.Visible = true;
+                //lblAlert.Text = "Deleted Successfully";
             }
             catch (Exception ex)
             {
@@ -276,13 +269,13 @@ namespace IMS
         {
             try
             {
-                lblcheckDoubleError.Text = String.Empty;
-                btnSave.Visible = true;
-                btnUpdate.Visible = false;
-                divalert.Visible = false;
-                txtBatchName.Text = string.Empty;
-                ViewState["gridrow"] = null;
-                hd.Value = string.Empty;
+                //lblcheckDoubleError.Text = String.Empty;
+                //btnSave.Visible = true;
+                //btnUpdate.Visible = false;
+                //divalert.Visible = false;
+                //txtBatchName.Text = string.Empty;
+                //ViewState["gridrow"] = null;
+                //hd.Value = string.Empty;
             }
             catch (Exception ex)
             {

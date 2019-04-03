@@ -1,12 +1,14 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Godown.aspx.cs" Inherits="IMS.Godown" %>
 
+<%@ Register src="~/UserControl/UC_Godown.ascx" TagName="ctrlgodown"  TagPrefix="TWebControlGodwn"%>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type='text/javascript'>
         function openModal() {
             $('#<%=myModal.ClientID%>').modal('show');
         }
     </script>
-    <script type="text/javascript">
+   <%-- <script type="text/javascript">
 
         function CheckDouble() {
 
@@ -51,7 +53,7 @@
         var txt = $("<%=txtGodownName.ClientID%>");
 
         txt.focus();
-    </script>
+    </script>--%>
 
 </asp:Content>
 
@@ -67,92 +69,12 @@
             <div class="panel-heading text-center">
                 <h1>GoDown Master</h1>
             </div>
-            <div class="panel-body" id="pb">
-                <div class="col-md-12">
-                    <div class="col-md-5">
-                        <div class="form-horizontal">
-                            <div class="form-group lef ">
-                                <div class="col-sm-5 leftpadd0">
-                                    <label class="control-label">
-                                        Godown Name :<asp:Label ID="lblStar" runat="server" Text="*" ForeColor="Red"></asp:Label>
-                                    </label>
-                                </div>
-                                <div class="col-sm-7">
-                                    <asp:TextBox ID="txtGodownName" runat="server" onchange="CheckDouble()" CssClass="form-control"></asp:TextBox>
-                                    <asp:Label ID="lblcheckDoubleError" runat="server"></asp:Label>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ValidationGroup="godwn" ErrorMessage="Name is required" ControlToValidate="txtGodownName" Display="Dynamic" ForeColor="Red"></asp:RequiredFieldValidator>
-                                    <asp:HiddenField ID="hd" runat="server" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <div class="form-horizontal">
-                            <div class="form-group">
-                                <div class="col-sm-5 leftpadd0">
-                                    <label class="control-label">
-                                        Address :<asp:Label ID="Label1" runat="server" Text="*" ForeColor="Red"></asp:Label>
-                                    </label>
-                                </div>
-                                <div class="col-sm-7">
-                                    <asp:TextBox ID="txtGodownAddress" runat="server" CssClass="form-control"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ValidationGroup="godwn" ErrorMessage="Address is required" ControlToValidate="txtGodownAddress" Display="Dynamic" ForeColor="Red"></asp:RequiredFieldValidator>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="col-md-5">
-                        <div class="form-horizontal">
-                            <div class="form-group">
-                                <div class="col-sm-5 leftpadd0">
-                                    <label class="control-label">
-                                        Contact No :<asp:Label ID="Label2" runat="server" Text="*" ForeColor="Red"></asp:Label>
-                                    </label>
-                                </div>
-                                <div class="col-sm-7">
-                                    <asp:TextBox ID="txtContactNo" runat="server" CssClass="form-control" onkeypress="return OnlyNumericEntry(event);"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" Display="Dynamic" ValidationGroup="godwn" runat="server" ErrorMessage="Contact is required" ControlToValidate="txtContactNo" ForeColor="Red"></asp:RequiredFieldValidator>
-                                    <asp:RegularExpressionValidator ID="rgx" runat="server" ErrorMessage="Enter valid Phone number in between 10-14 digits"
-                                        ControlToValidate="txtContactNo" Display="Dynamic" ValidationExpression="^[0-9]{10}$" ForeColor="Red" ValidationGroup="godwn">
-                                    </asp:RegularExpressionValidator>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <div class="form-horizontal">
-                            <div class="form-group">
-                                <div class="col-sm-5 leftpadd0">
-                                    <label class="leftpadd0  ">
-                                        Contact Person :<asp:Label ID="Label3" runat="server" Text="*" ForeColor="Red"></asp:Label>
-                                    </label>
-                                </div>
-                                <div class="col-sm-7">
-                                    <asp:TextBox ID="txtContactPerson" runat="server" CssClass="form-control"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ValidationGroup="godwn" Display="Dynamic" runat="server" ErrorMessage="Contact Person is required" ControlToValidate="txtContactPerson" ForeColor="Red"></asp:RequiredFieldValidator>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="panel-footer text-center">
-
-                <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary " Text="Save" OnClick="btnSave_Click" OnClientClick="DisableOnSave(this,'godwn');"  UseSubmitBehavior="false" ValidationGroup="godwn" />
-                <asp:Button ID="btnUpdate" runat="server" CssClass="btn btn-primary" Text="Update" OnClick="btnUpdate_Click" Visible="false" ValidationGroup="godwn" />
-                <input class="btn btn-primary " type="button" value="Clear"  onclick="javascript: window.location = 'Godown.aspx'" />
-                <%--<asp:Button ID="btnCancel" runat="server" CssClass="btn btn-default" Text="Cancel" OnClick="btnCancel_Click" Style="float: right" />--%>
-            </div>
+            
+       
         </div>
-        <div class="row">
-            <div class="alert alert-success" id="divalert" runat="server" visible="false">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <asp:Label ID="lblAlert" runat="server"></asp:Label>
-            </div>
-        </div>
+      
+        <TWebControlGodwn:ctrlgodown ID="ctrlgodown" runat="server" />
+
         <div class="row">
             <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                 <div>

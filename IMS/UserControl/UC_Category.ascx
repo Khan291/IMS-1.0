@@ -55,7 +55,7 @@
                         </div>
                         <div class="col-sm-7">
                             <asp:TextBox ID="txtCategoryName" onchange="CheckDouble()" runat="server" CssClass="form-control"></asp:TextBox>
-                            <asp:RequiredFieldValidator ID="rvaldt1" runat="server" Display="Dynamic" ErrorMessage="Category name is required" ValidationGroup="abc" ControlToValidate="txtCategoryName" ForeColor="Red"></asp:RequiredFieldValidator>
+                            <asp:RequiredFieldValidator ID="rvaldt1" runat="server" Display="Dynamic" ErrorMessage="Category name is required" ValidationGroup="categoryvalidationgroup" ControlToValidate="txtCategoryName" ForeColor="Red"></asp:RequiredFieldValidator>
                             <asp:HiddenField ID="HiddenField1" runat="server" />
                         </div>
                     </div>
@@ -70,8 +70,8 @@
     </div>
     <div class="panel-footer">
 
-        <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary " ValidationGroup="abc" Text="Save" OnClick="btnSave_Click" />
-        <asp:Button ID="btnUpdate" runat="server" CssClass="btn btn-primary" ValidationGroup="abc" Text="Update" Visible="false" OnClick="btnUpdate_Click" />
+        <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary " ValidationGroup="categoryvalidationgroup" Text="Save" OnClick="btnSave_Click" />
+        <asp:Button ID="btnUpdate" runat="server" CssClass="btn btn-primary" ValidationGroup="categoryvalidationgroup" Text="Update" Visible="false" OnClick="btnUpdate_Click" />
         <input class="btn btn-primary " type="button" value="Clear" onclick="javascript: window.location = 'Category.aspx'" />
     </div>
 </div>

@@ -1,12 +1,15 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Party.aspx.cs" Inherits="IMS.Party" %>
 
+
+<%@ Register Src="~/UserControl/UC_Party.ascx" TagName="ctrlparty" TagPrefix="TWebControlparty" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type='text/javascript'>
         function openModal() {
             $('#<%=myModal.ClientID%>').modal('show');
         }
     </script>
-    <script type="text/javascript">
+   <%-- <script type="text/javascript">
 
         function countChar(val) {
 
@@ -116,7 +119,7 @@
        var txt = $("<%=txtPartyName.ClientID%>");
 
         txt.focus();
-    </script>
+    </script>--%>
 </asp:Content>
 
 
@@ -131,132 +134,10 @@
             <div class="panel-heading text-center">
                 <h1>Party Master</h1>
             </div>
-            <div class="panel-body">
-                <div class="col-md-12">
-                    <div class="col-md-5">
-                        <div class="form-horizontal">
-                            <div class="form-group">
-                                <div class="col-sm-4 leftpadd0">
-                                    <label class="control-label   ">
-                                        Party Name:<asp:Label ID="lblStar" runat="server" Text="*" ForeColor="Red"></asp:Label>
-                                    </label>
-                                </div>
-                                <div class="col-sm-8">
-                                    <asp:TextBox ID="txtPartyName" onchange="CheckDouble()" runat="server" CssClass="form-control"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" Display="Dynamic" ValidationGroup="abc" runat="server" ErrorMessage="Party name is required" ControlToValidate="txtPartyName" ForeColor="Red"></asp:RequiredFieldValidator>
-                                    <asp:Label ID="lblcheckDoubleError" runat="server"></asp:Label>
-                                    <asp:HiddenField ID="hde" runat="server" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <div class="form-horizontal">
-                            <div class="form-group">
-                                <div class="col-sm-4 leftpadd0">
-                                    <label class="control-label   ">
-                                        Address:<asp:Label ID="Label1" runat="server" Text="*" ForeColor="Red"></asp:Label>
-                                    </label>
-                                </div>
-                                <div class="col-sm-8">
-                                    <asp:TextBox ID="txtPartyAddress" runat="server" CssClass="form-control"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" Display="Dynamic" ValidationGroup="abc" runat="server" ErrorMessage="Address is required" ControlToValidate="txtPartyAddress" ForeColor="Red"></asp:RequiredFieldValidator>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="col-md-5">
-                        <div class="form-horizontal">
-                            <div class="form-group">
-                                <div class="col-sm-4 leftpadd0">
-                                    <label class="control-label   ">
-                                        Contact No:<asp:Label ID="Label2" runat="server" Text="*" ForeColor="Red"></asp:Label>
-                                    </label>
-                                </div>
-                                <div class="col-sm-8">
-                                    <asp:TextBox ID="txtContactNo" runat="server" onchange="CheckmobileNo()" CssClass="form-control"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ValidationGroup="abc" Display="Dynamic" ErrorMessage="Contact is required" ControlToValidate="txtContactNo" ForeColor="Red"></asp:RequiredFieldValidator>
-                                    <asp:RegularExpressionValidator ID="rgx" runat="server" ValidationGroup="abc" ErrorMessage="Invalid Mobile No" Display="Dynamic"
-                                        ControlToValidate="txtContactNo" ValidationExpression="^[0-9]{10}$" ForeColor="Red">
-                                    </asp:RegularExpressionValidator>
-                                    <asp:Label ID="lblContactNo" ForeColor="Red" runat="server"></asp:Label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <div class="form-horizontal">
-                            <div class="form-group">
-                                <div class="col-sm-4 leftpadd0">
-                                    <label class="control-label   ">
-                                        GSTIN No:<asp:Label ID="Label3" runat="server"></asp:Label>
-                                    </label>
-                                </div>
-                                <div class="col-sm-8">
-                                    <asp:TextBox ID="txtGSTIN" runat="server" onchange="Checkgstin()" CssClass="form-control"></asp:TextBox>
-                                    <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ValidationGroup="abc" Display="Dynamic" ErrorMessage="GSTIN is required" ControlToValidate="txtGSTIN" ForeColor="Red"></asp:RequiredFieldValidator>--%>
-                                    <asp:Label ID="lblgstinerror" ForeColor="Red" runat="server"></asp:Label>
-                                    <asp:HiddenField ID="hd2" runat="server" />
-                                    <asp:RegularExpressionValidator ID="rxgst" runat="server" ErrorMessage="Invalid GSTIN" ForeColor="Red" Display="Dynamic" ValidationExpression="\d{2}[A-Z]{5}\d{4}[A-Z]{1}\d[Z]{1}[A-Z\d]{1}" ControlToValidate="txtGSTIN" ValidationGroup="abc"></asp:RegularExpressionValidator>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="col-md-5">
-                        <div class="form-horizontal">
-                            <div class="form-group">
-                                <div class="col-sm-4 leftpadd0">
-                                    <label class="control-label   ">
-                                        Party Type:<asp:Label ID="Label4" runat="server" Text="*" ForeColor="Red"></asp:Label>
-                                    </label>
-                                </div>
-                                <div class="col-sm-8">
-                                    <asp:DropDownList ID="ddlPartyType" runat="server" CssClass="form-control">
-                                        <asp:ListItem Text="Select Party" Value="0" />
-                                        <asp:ListItem Text="Customer" Value="Customer" />
-                                        <asp:ListItem Text="Vendor" Value="Vendor" />
-                                    </asp:DropDownList>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ValidationGroup="abc" InitialValue="0" Display="Dynamic" ErrorMessage="Select Type" ControlToValidate="ddlPartyType" ForeColor="Red"></asp:RequiredFieldValidator>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <div class="form-horizontal">
-                            <div class="form-group">
-                                <div class="col-sm-4 leftpadd0">
-                                    <label class="control-label   ">
-                                        State:<asp:Label ID="Label5" runat="server" Text="*" ForeColor="Red"></asp:Label>
-                                    </label>
-                                </div>
-                                <div class="col-sm-8">
-                                    <asp:DropDownList ID="ddlState" runat="server" CssClass="form-control">
-                                    </asp:DropDownList>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ValidationGroup="abc" InitialValue="0" Display="Dynamic" ErrorMessage="State is required" ControlToValidate="ddlState" ForeColor="Red"></asp:RequiredFieldValidator>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="panel-footer text-center">
-                <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary " Text="Save" OnClick="btnSave_Click" OnClientClick="DisableOnSave(this,'abc');"  UseSubmitBehavior="false" ValidationGroup="abc" />
-                <asp:Button ID="btnUpdate" runat="server" CssClass="btn btn-primary" Text="Update" OnClick="btnUpdate_Click" Visible="false" ValidationGroup="abc" />
-                <input class="btn btn-primary " type="button" value="Clear"  onclick="javascript: window.location = 'Party.aspx'" />
-                <%--<asp:Button ID="btnCancel" runat="server" CssClass="btn btn-default" Text="Cancel" OnClick="btnCancel_Click" Style="float: right" />--%>
-            </div>
+           
         </div>
-        <div class="row">
-            <div class="alert alert-success" id="divalert" runat="server" visible="false">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <asp:Label ID="lblAlert" runat="server"></asp:Label>
-
-            </div>
-        </div>
+        <TWebControlparty:ctrlparty ID="ctrlparty" runat="server" />
+     
         <div class="row">
             <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                 <div>
