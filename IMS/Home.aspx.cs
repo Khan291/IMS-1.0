@@ -677,6 +677,7 @@ namespace IMS
         {
             try
             {
+                Session["flag"] = flag;
                 DataTable dt_salesreturn = new DataTable();
                 try
                 {
@@ -716,7 +717,7 @@ namespace IMS
         }
         protected void btnMrpSale_Click(object sender, EventArgs e)
         {
-            openModelForMRP("s");
+            openModelForMRP("Sale");
             lblHeaderText.Text = "Most Return Product In Sale";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "mrp", "openMrpProduct();", true);
         }
@@ -726,6 +727,11 @@ namespace IMS
             openModelForMRP("p");
             lblHeaderText.Text = "Most Return Product In Purchase ";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "mrp", "openMrpProduct();", true);
+        }
+
+        protected void btngotoreport_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Reports/Mrp_PurchaseSale_Report.aspx?flag=" + Session["flag"] + "");
         }
     }
 }

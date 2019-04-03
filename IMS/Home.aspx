@@ -831,6 +831,7 @@
                                         <asp:BoundField DataField="product_name" HeaderText="Product Name"></asp:BoundField>
                                         <asp:BoundField DataField="cnt" HeaderText="Number of Time Return"></asp:BoundField>
                                          <asp:BoundField DataField="batch_name" HeaderText="Batch Name"></asp:BoundField>
+                                         <asp:BoundField DataField="hsn_code" HeaderText="HSN Code"></asp:BoundField>
                                         
                                         </Columns>
                                     <HeaderStyle BackColor="#428BCA" ForeColor="White" />
@@ -840,7 +841,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <asp:Button ID="Button5" runat="server" Text="Go to Report" CssClass="btn btn-primary" />
+                        <asp:Button ID="btngotoreport" runat="server" Text="Go to Report" CssClass="btn btn-primary" OnClick="btngotoreport_Click"  />
                     </div>
                 </div>
             </div>

@@ -379,7 +379,7 @@
                         <li id="liStock" runat="server">
                             <a href="../Stock/StockAdjustment.aspx"><i class="fa fa-list-alt fa-fw"></i>Stock Management</a>
                         </li>
-                        <li><a href="#" id="btn-1" data-toggle="collapse" data-target="#submenu1" aria-expanded="false"><i class="fa fa-cart-plus fa-fw"></i>Purcahse</a>
+                        <li><a href="#" id="btn-1" data-toggle="collapse" data-target="#submenu1" aria-expanded="false"><i class="fa fa-cart-plus fa-fw"></i>Purchase <span class="caret" ></span></a>
                             <ul class="nav collapse" id="submenu1" role="menu" aria-labelledby="btn-1">
                                 <li id="lipurchase" runat="server">
                                     <a href="../Purchases/Purchase.aspx"><i class="fa fa-list-alt fa-fw"></i>Purchase Order</a>
@@ -397,7 +397,7 @@
                             </ul>
                         </li>
 
-                        <li><a href="#" id="btn-2" data-toggle="collapse" data-target="#submenu12" aria-expanded="false"><i class="fa fa-cart-plus fa-fw"></i>Sales</a>
+                        <li><a href="#" id="btn-2" data-toggle="collapse" data-target="#submenu12" aria-expanded="false"><i class="fa fa-cart-plus fa-fw"></i>Sales <span class="caret" ></span></a>
                             <ul class="nav collapse" id="submenu12" role="menu" aria-labelledby="btn-2">
                                 <li id="lisale" runat="server">
                                     <a href="../Sales/Sale.aspx"><i class="fa fa-cart-arrow-down fa-fw"></i>Sale Order</a>

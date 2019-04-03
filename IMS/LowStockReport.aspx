@@ -9,7 +9,7 @@
     <asp:GridView class="table  table-striped" ID="gvLowSTockReport" runat="server">
 
     </asp:GridView>
-</div>
+</div>      
     
 
 

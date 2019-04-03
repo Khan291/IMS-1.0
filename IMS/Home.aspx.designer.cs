@@ -256,13 +256,13 @@ namespace IMS {
         protected global::System.Web.UI.WebControls.GridView gvmrProducts;
         
         /// <summary>
-        /// Button5 control.
+        /// btngotoreport control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button5;
+        protected global::System.Web.UI.WebControls.Button btngotoreport;
         
         /// <summary>
         /// HiddenField2 control.

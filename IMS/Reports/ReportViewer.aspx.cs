@@ -1,4 +1,5 @@
-﻿using IMSBLL.EntityModel;
+﻿using IMS.Helpers;
+using IMSBLL.EntityModel;
 using Microsoft.Reporting.WebForms;
 using System;
 using System.Collections.Generic;
@@ -70,7 +71,7 @@ namespace IMS.Reports
                     dataTable = "PurchaseSaleDataTable";
                     reportParam = new ReportParameter("LogoPath", logoPath);
                     ReportViewer1.LocalReport.SetParameters(reportParam);
-                    CreateReport(Connectionstring, "PurchaseOrPurchaseReturnReport", sqlParams, ref ReportViewer1, reportDataSet, dataTable);
+                    CommonHelper.CreateReport(Connectionstring, "PurchaseOrPurchaseReturnReport", sqlParams, ref ReportViewer1, reportDataSet, dataTable);
                     
                     ReportViewer1.LocalReport.Refresh();
                     //ReportViewer1.LocalReport.SubreportProcessing += new Microsoft.Reporting.WebForms.SubreportProcessingEventHandler(PurchaseReturnReport_SubreportProcessing);
@@ -88,7 +89,7 @@ namespace IMS.Reports
                     ReportViewer1.LocalReport.SetParameters(reportParam);                    
                     reportDataSet = "PurchaseSaleReturnDataSet";
                     dataTable = "PurchaseSaleDataTable";
-                    CreateReport(Connectionstring, "PurchaseOrPurchaseReturnReport", sqlParams, ref ReportViewer1, reportDataSet, dataTable);                 
+                    CommonHelper.CreateReport(Connectionstring, "PurchaseOrPurchaseReturnReport", sqlParams, ref ReportViewer1, reportDataSet, dataTable);                 
                     ReportViewer1.LocalReport.Refresh();
                     //ReportViewer1.LocalReport.SubreportProcessing += new Microsoft.Reporting.WebForms.SubreportProcessingEventHandler(PurchaseReturnReport_SubreportProcessing);
                     break;
@@ -105,7 +106,7 @@ namespace IMS.Reports
                     dataTable = "CombineDataTable";
                     reportParam = new ReportParameter("LogoPath", logoPath);
                     ReportViewer1.LocalReport.SetParameters(reportParam);
-                    CreateReport(Connectionstring, "PurchaseOrPurchaseReturnReport", sqlParams, ref ReportViewer1, reportDataSet, dataTable);
+                    CommonHelper.CreateReport(Connectionstring, "PurchaseOrPurchaseReturnReport", sqlParams, ref ReportViewer1, reportDataSet, dataTable);
 
                    SqlParameter[] sqlParams1 = new SqlParameter[] {
                          new SqlParameter("@Id", id),
@@ -113,7 +114,7 @@ namespace IMS.Reports
                     }; 
                    string reportDataSet1 = "PaymentDetailsDataSet";
                    string dataTable1 = "PaymentDetailsDataTable";
-                   CreateReport(Connectionstring, "SaleOrPurchaseOrReturnReport", sqlParams1, ref ReportViewer1, reportDataSet1, dataTable1);    
+                   CommonHelper.CreateReport(Connectionstring, "SaleOrPurchaseOrReturnReport", sqlParams1, ref ReportViewer1, reportDataSet1, dataTable1);    
                     ReportViewer1.LocalReport.Refresh();
                     break;
 
@@ -130,7 +131,7 @@ namespace IMS.Reports
                     dataTable = "PurchaseSaleDataTable";
                     reportParam = new ReportParameter("LogoPath", logoPath);
                     ReportViewer1.LocalReport.SetParameters(reportParam);
-                    CreateReport(Connectionstring, "SaleOrSaleReturnReport", sqlParams, ref ReportViewer1, reportDataSet, dataTable);
+                    CommonHelper.CreateReport(Connectionstring, "SaleOrSaleReturnReport", sqlParams, ref ReportViewer1, reportDataSet, dataTable);
                     ReportViewer1.LocalReport.Refresh();
                     break;
 
@@ -146,7 +147,7 @@ namespace IMS.Reports
                     ReportViewer1.LocalReport.SetParameters(reportParam);
                     reportDataSet = "PurchaseSaleReturnDataSet";
                     dataTable = "PurchaseSaleDataTable";
-                    CreateReport(Connectionstring, "SaleOrSaleReturnReport", sqlParams, ref ReportViewer1, reportDataSet, dataTable);
+                    CommonHelper.CreateReport(Connectionstring, "SaleOrSaleReturnReport", sqlParams, ref ReportViewer1, reportDataSet, dataTable);
                     ReportViewer1.LocalReport.Refresh();
                     break;
 
@@ -162,7 +163,7 @@ namespace IMS.Reports
                         dataTable = "CombineDataTable";
                     reportParam = new ReportParameter("LogoPath", logoPath);
                     ReportViewer1.LocalReport.SetParameters(reportParam);
-                    CreateReport(Connectionstring, "SaleOrSaleReturnReport", sqlParams, ref ReportViewer1, reportDataSet, dataTable);
+                    CommonHelper.CreateReport(Connectionstring, "SaleOrSaleReturnReport", sqlParams, ref ReportViewer1, reportDataSet, dataTable);
 
                     
                     sqlParams1 = new SqlParameter[] {
@@ -171,7 +172,7 @@ namespace IMS.Reports
                     }; 
                     reportDataSet1 = "PaymentDetailsDataSet";
                     dataTable1 = "PaymentDetailsDataTable";
-                   CreateReport(Connectionstring, "SaleOrPurchaseOrReturnReport", sqlParams1, ref ReportViewer1, reportDataSet1, dataTable1);  
+                   CommonHelper.CreateReport(Connectionstring, "SaleOrPurchaseOrReturnReport", sqlParams1, ref ReportViewer1, reportDataSet1, dataTable1);  
 
                     ReportViewer1.LocalReport.Refresh();
                     break;
@@ -190,7 +191,7 @@ namespace IMS.Reports
                     ReportViewer1.LocalReport.SetParameters(reportParam);
                     reportDataSet = "CombineDataSet";
                     dataTable = "CombineDataTable";
-                    CreateReport(Connectionstring, "InventoryReport", sqlParams, ref ReportViewer1, reportDataSet, dataTable);                 
+                    CommonHelper.CreateReport(Connectionstring, "InventoryReport", sqlParams, ref ReportViewer1, reportDataSet, dataTable);                 
                     ReportViewer1.LocalReport.Refresh();
                     break;
 
@@ -204,8 +205,8 @@ namespace IMS.Reports
                     reportParam = new ReportParameter("LogoPath", logoPath, true);
                     ReportViewer1.LocalReport.SetParameters(reportParam);
                     reportDataSet = "SaleOrderDataSet";
-                    dataTable = "SaleOrderDataTable";                    
-                    CreateReport(Connectionstring, "SaleOrderReport", sqlParams, ref ReportViewer1, reportDataSet, dataTable);                    
+                    dataTable = "SaleOrderDataTable";
+                    CommonHelper.CreateReport(Connectionstring, "SaleOrderReport", sqlParams, ref ReportViewer1, reportDataSet, dataTable);                    
                     ReportViewer1.LocalReport.Refresh();
                     break;
                    default:
@@ -239,28 +240,6 @@ namespace IMS.Reports
 
         }
 
-        public void CreateReport(String connectionstring, string storeProcedureName, SqlParameter[] parameter, ref Microsoft.Reporting.WebForms.ReportViewer reportViewer, string reportDataSource, string tableName)
-        {
-            using (SqlConnection con = new SqlConnection(connectionstring))
-            {
-                SqlCommand com = new SqlCommand();
-                com.Connection = con;
-                com.CommandType = CommandType.StoredProcedure;
-                com.CommandText = storeProcedureName;
-                if (parameter != null)
-                {
-                    com.Parameters.AddRange(parameter);
-                }
-                CommonDataSet ds = new CommonDataSet();
-                SqlDataAdapter da = new SqlDataAdapter(com);
-                da.Fill(ds, tableName);
-                ReportDataSource datasource = new ReportDataSource(reportDataSource, ds.Tables[tableName]);
-                //if (ds.Tables[tableName].Rows.Count > 0)
-                //{
-                    //reportViewer.LocalReport.DataSources.Clear();
-                    reportViewer.LocalReport.DataSources.Add(datasource);
-                //}
-            }
-        }
+       
     }
 }

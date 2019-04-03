@@ -5985,7 +5985,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             <End Role="tbl_User" EntitySet="tbl_User" />
             <End Role="tbl_userrole" EntitySet="tbl_userrole" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <ComplexType Name="CommonReport_Result">
           <Property Type="Int32" Name="company_id" Nullable="false" />
           <Property Type="String" Name="Godown" Nullable="true" MaxLength="50" />
@@ -11472,7 +11472,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

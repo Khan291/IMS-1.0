@@ -84,6 +84,7 @@ namespace IMSBLL.DAL
             }
         }
         }
+
    public class InvoiceViewModel
    {
        public string InvoiceNumber { get; set; }
