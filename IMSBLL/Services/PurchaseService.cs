@@ -18,133 +18,75 @@ namespace IMSBLL.Services
             try
             {
 
-                tbl_purchase purchase = new tbl_purchase();
-                purchase.company_id = companyId;
-                purchase.branch_id = branchId;
-                purchase.financialyear_id = financialYearId;
-                purchase.InvoiceNumber = lblInvoice.Text;
-
-                purchase.PaymentMode_id = Convert.ToInt32(ddlPaymentMode.SelectedValue);
-                purchase.status = true;
-                purchase.party_id = Convert.ToInt32(ddlVendor.SelectedValue);
-                purchase.Po_Date = DateTime.ParseExact(txtdate.Text, "dd/MM/yyyy", new CultureInfo("en-US"));
-                purchase.po_no = txtPONo.Text;
-                purchase.Note = txtNotePurchase.Text;
-                purchase.other_expenses = Convert.ToDecimal(txtotherexpence.Text);
-
-                purchase.created_by = user_id;
-                purchase.created_date = DateTime.Now;
-
-                //insert into Purchase Payment Details 
-                tbl_PurchasePaymentDetials purchasePaymentDetail = new tbl_PurchasePaymentDetials();
-                purchasePaymentDetail.TaxAmount = Convert.ToDecimal(lblTaxAmount.Text);
-                purchasePaymentDetail.DiscountAmount = Convert.ToDecimal(lblDiscountAmt.Text);
-                purchasePaymentDetail.SubTotal = Convert.ToDecimal(lblsubtotal.Text);
-                purchasePaymentDetail.GrandTotal = Convert.ToDecimal(lblGrandTotal.Text);
-                purchasePaymentDetail.PaidAmnt = Convert.ToDecimal(txtPaidAmt.Text);
-                purchasePaymentDetail.GivenAmnt = Convert.ToDecimal(txtPaidAmt.Text);
-                purchasePaymentDetail.BalanceAmnt = Convert.ToDecimal(txtBalanceAmt.Text);
-                purchasePaymentDetail.FromTable = "Purchase";
-                purchase.tbl_PurchasePaymentDetials.Add(purchasePaymentDetail);
+                //Purchase purchase = new Purchase();
+                //int CompanyId = Convert.ToInt32(purchaseViewModel.CompanyId);
+                //int BranchId = Convert.ToInt32(purchaseViewModel.BranchId);
 
 
-                for (int i = 0; i <= gvpurchasedetails.Rows.Count - 1; i++)
-                {
-                    int productId = Convert.ToInt32(gvpurchasedetails.Rows[i].Cells[2].Text);
-                    int batchId = Convert.ToInt32(gvpurchasedetails.Rows[i].Cells[4].Text);
-                    tbl_product product = context.tbl_product.Where(w => w.product_id == productId).FirstOrDefault();
-                    var qty = Convert.ToInt32(gvpurchasedetails.Rows[i].Cells[5].Text);
-                    //Add into Purchase Details table for each product
-                    tbl_purchasedetails purchaseDetails = new tbl_purchasedetails();
-                    purchaseDetails.product_id = productId;
-                    purchaseDetails.batch_id = batchId;
-                    // purchaseDetails.tax_id = product.tax_id;
-                    purchaseDetails.unit_id = product.unit_id;
-                    purchaseDetails.tax_amt = Convert.ToDecimal(gvpurchasedetails.Rows[i].Cells[13].Text);
-                    purchaseDetails.dicount_amt = Convert.ToDecimal(gvpurchasedetails.Rows[i].Cells[9].Text);
-                    purchaseDetails.quantity = qty;
-                    purchaseDetails.amount = Convert.ToDecimal(gvpurchasedetails.Rows[i].Cells[10].Text);
-                    purchaseDetails.created_by = Convert.ToString(user_id);
-                    purchaseDetails.created_date = DateTime.Now;
-                    purchaseDetails.status = true;
+                //purchase.CompanyId = CompanyId;
+                //purchase.BranchId = BranchId;
+                //purchase.FinancialyearId = purchaseViewModel.FinancialYearId;
+                //purchase.InvoiceNumber = purchaseViewModel.InvoiceNumber;
 
-                    var groupId = Convert.ToInt32(gvpurchasedetails.Rows[i].Cells[11].Text);
+                //purchase.PaymentModeId = purchaseViewModel.PaymentModeId;
+                //purchase.PartyId = purchaseViewModel.PartyId;
+                //purchase.PoDate = purchaseViewModel.PODate;
+                //purchase.PoNo = purchaseViewModel.PONo;
+                //purchase.Note = purchaseViewModel.Note;
+                //purchase.OtherExpenses = purchaseViewModel.OtherExpenses;
 
-                    DataTable taxgroupTypes = helper.LINQToDataTable(context.SelectProductTaxGroup(groupId, productId, qty));
-                    ViewState["TotalTaxPercent"] = null;
-                    for (int j = 0; j <= taxgroupTypes.Rows.Count - 1; j++)
-                    {
-                        ViewState["TotalTaxPercent"] = taxgroupTypes.Rows[j].Field<decimal>("totalTaxPercetage");
-                    }
+                //purchase.CreatedBy = purchaseViewModel.CreatedBy;
+                //purchase.CreatedOn = purchaseViewModel.CreatedDate;
 
-                    //insert into tax group purchase
-                    tbl_purchasetaxgroup purchaseTaxGroup = new tbl_purchasetaxgroup();
-                    purchaseTaxGroup.group_id = groupId;
-                    purchaseTaxGroup.product_id = productId;
-                    //purchaseTaxGroup.totalTaxPercentage = (Decimal)ViewState["TotalTaxPercent"];
-                    purchaseTaxGroup.group_name = gvpurchasedetails.Rows[i].Cells[12].Text;
-                    //Get the Tax type saved from db 
-                    //insert into tax group detailes
-                    // var taxGroupTypes = context.tbl_productTaxGroup.Join(context.tbl_taxgroup, t => t.group_id, pt => pt.group_id, (t, pt) => new { t.group_id, pt.group_name, t.product_id }).Where(t => t.product_id == productId).ToList();
+                ////insert into Purchase Payment Details 
+                //PurchasePaymentDetial purchasePaymentDetail = new PurchasePaymentDetial();
+                //purchasePaymentDetail.TaxAmount = purchaseViewModel.TaxAmount;
+                //purchasePaymentDetail.DiscountAmount = purchaseViewModel.DiscountAmount;
+                //purchasePaymentDetail.SubTotal = purchaseViewModel.SubTotal;
+                //purchasePaymentDetail.GrandTotal = purchaseViewModel.GrandTotal;
+                //purchasePaymentDetail.PaidAmnt = purchaseViewModel.PaidAmnt;
+                //purchasePaymentDetail.GivenAmnt = purchaseViewModel.GivenAmnt;
+                //purchasePaymentDetail.BalanceAmnt = purchaseViewModel.BalanceAmnt;
+                //purchasePaymentDetail.FromTable = purchaseViewModel.FromTable;
+                //purchase.PurchasePaymentDetials.Add(purchasePaymentDetail);
 
+                //foreach (var purchaseDetail in purchaseViewModel.tbl_purchasedetails)
+                //{
+                //    int productId = Convert.ToInt32(purchaseDetail.ProductId);
+                //    int batchId = Convert.ToInt32(purchaseDetail.BatchId);
 
-                    for (int j = 0; j <= taxgroupTypes.Rows.Count - 1; j++)
-                    {
-                        tbl_purchasetaxgroupdetails purchaseTaxDetails = new tbl_purchasetaxgroupdetails();
-                        purchaseTaxDetails.type_id = taxgroupTypes.Rows[j].Field<int>("type_id");
-                        purchaseTaxDetails.tax_percentage = taxgroupTypes.Rows[j].Field<decimal>("tax_percentage");
-                        purchaseTaxGroup.tbl_purchasetaxgroupdetails.Add(purchaseTaxDetails);
-                    }
+                //    var qty = purchaseDetail.quantity;
+                //    //Add into Purchase Details table for each product
+                //    tbl_purchasedetails purchaseDetails = new tbl_purchasedetails();
+                //    purchaseDetails.ProductId = productId;
+                //    purchaseDetails.BatchId = batchId;
+                //    purchaseDetails.UnitId = purchaseDetail.UnitId;
+                //    purchaseDetails.TaxAmnt = purchaseDetail.TaxAmnt;
+                //    purchaseDetails.DicountAmnt = purchaseDetail.DiscountAmnt;
+                //    purchaseDetails.Quantity = qty;
+                //    purchaseDetails.Amount = purchaseDetail.Amount;
+                //    purchaseDetails.PurchaseRate = purchaseDetail.PurchaseRate;
+                //    purchaseDetails.SaleRate = purchaseDetail.SaleRate;
+                //    purchaseDetails.Amount = purchaseDetail.Amount;
+                //    purchaseDetails.DiscountPercent = purchaseDetail.DiscountPercentage;
+                //    purchaseDetails.TaxPercent = purchaseDetail.TotalTaxPercentage;
 
-                    purchase.tbl_purchasetaxgroup.Add(purchaseTaxGroup);
-                    //Enter Details In tbl_ActualPurchaseTaxAndPrice : to get the original Values at the time of Purchase Return
-                    tbl_ActualPurchaseTaxAndPrice actualPurchase = new tbl_ActualPurchaseTaxAndPrice();
-                    actualPurchase.product_id = productId;
-                    actualPurchase.status = true;
-                    //actualPurchase.tax_percent = Convert.ToDecimal(gvpurchasedetails.Rows[i].Cells[10].Text);
-                    actualPurchase.purchase_rate = Convert.ToDecimal(gvpurchasedetails.Rows[i].Cells[6].Text);
-                    actualPurchase.discount_percent = Convert.ToDecimal(gvpurchasedetails.Rows[i].Cells[8].Text);
-                    actualPurchase.discount_amnt = Convert.ToDecimal(gvpurchasedetails.Rows[i].Cells[9].Text);
-                    actualPurchase.batch_id = batchId;
-                    actualPurchase.sale_price = Convert.ToDecimal(gvpurchasedetails.Rows[i].Cells[7].Text);
-                    actualPurchase.created_by = Convert.ToString(user_id);
-                    actualPurchase.created_date = DateTime.Now;
+                //    var groupId = purchaseDetail.GroupId;
+                //    //insert into tax group purchase
+                //    PurchaseTaxGroup purchaseTaxGroup = new PurchaseTaxGroup();
+                //    purchaseTaxGroup.TaxGroupId = groupId;
+                //    purchaseTaxGroup.ProductId = productId;
 
-                    //Add into Actual Purchase Tax And Return Table
-                    purchase.tbl_ActualPurchaseTaxAndPrice.Add(actualPurchase);
-
-
-                    //Add Stock if not exist or update the Stock against the product
-                    tbl_stock stock = new tbl_stock();
-                    if (!IsProductStockExists(companyId, branchId, productId, batchId))
-                    {
-                        stock.company_id = companyId;
-                        stock.branch_id = branchId;
-                        stock.product_id = productId;
-                        stock.batch_id = batchId;
-                        stock.qty = Convert.ToInt32(gvpurchasedetails.Rows[i].Cells[5].Text);
-                        stock.status = true;
-                        stock.created_by = Convert.ToString(user_id);
-                        stock.created_date = DateTime.Now;
-                        context.tbl_stock.Add(stock);
-                    }
-                    else
-                    {
-                        stock = context.tbl_stock.Where(w => w.company_id == companyId && w.branch_id == branchId && w.product_id == productId && w.batch_id == batchId).FirstOrDefault();
-                        stock.qty = stock.qty + Convert.ToInt32(gvpurchasedetails.Rows[i].Cells[5].Text);
-                        stock.modified_by = Convert.ToString(user_id);
-                        stock.modified_date = DateTime.Now;
-                    }
-                    purchase.tbl_purchasedetails.Add(purchaseDetails);
-                }
-
-
-                context.tbl_purchase.Add(purchase);
-                context.SaveChanges();
-                string order = purchase.InvoiceNumber;
-                Session["p_id"] = purchase.purchase_id;
-                ClientScript.RegisterStartupScript(this.GetType(), "Pop", "openalert('Saved successfully, Your order number is " + order + "');", true);
-            }
+                //    foreach (var taxType in purchaseDetail.TaxGroupDetailsViewModel)
+                //    {
+                //        PurchaseTaxgroupDetail purchaseTaxDetails = new PurchaseTaxgroupDetail();
+                //        purchaseTaxDetails.TypeId = taxType.TypeId;
+                //        purchaseTaxDetails.TaxPercentage = taxType.TaxPercentage;
+                //        purchaseTaxGroup.PurchaseTaxgroupDetails.Add(purchaseTaxDetails);
+                //    }
+                //    purchase.PurchaseTaxGroups.Add(purchaseTaxGroup);
+                //    purchase.PurchaseDetails.Add(purchaseDetails);
+                //}
             catch (Exception ex)
             {
                 ErrorLog.saveerror(ex);
