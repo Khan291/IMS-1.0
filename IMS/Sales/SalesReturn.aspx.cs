@@ -26,6 +26,7 @@ namespace IMS.Sales
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionValue();
+
             if (!IsPostBack)
             {
                 if (ViewState["Details"] == null)
@@ -180,17 +181,17 @@ namespace IMS.Sales
         public void calculation(decimal sub_Total, decimal total_tax, decimal total_discount)
         {
 
-            lblsubtotal.Text = (Convert.ToDecimal(lblsubtotal.Text) + sub_Total).ToString("0.##");
-            lblResultSubTotal.Text = (Convert.ToDecimal(lblTotalAmnt.Text) - Convert.ToDecimal(lblsubtotal.Text)).ToString("0.##");
+            lblsubtotal.Text = (Convert.ToDecimal(Convert.ToDecimal(lblsubtotal.Text == "" ? lblsubtotal.Text = "0" : lblsubtotal.Text) + sub_Total).ToString("0.##"));
+            lblResultSubTotal.Text = (Convert.ToDecimal(lblTotalAmnt.Text == "" ? lblTotalAmnt.Text = "0" : lblTotalAmnt.Text) - Convert.ToDecimal(lblsubtotal.Text)).ToString("0.##");
 
-            lblTaxAmount.Text = (Convert.ToDecimal(lblTaxAmount.Text) + total_tax).ToString("0.##");
-            lblResultTotalTaxAmnt.Text = (Convert.ToDecimal(lblTotalTax.Text) - Convert.ToDecimal(lblTaxAmount.Text)).ToString("0.##");
+            lblTaxAmount.Text = (Convert.ToDecimal(lblTaxAmount.Text == "" ? lblTaxAmount.Text = "0" : lblTaxAmount.Text) + total_tax).ToString("0.##");
+            lblResultTotalTaxAmnt.Text = (Convert.ToDecimal(lblTotalTax.Text == "" ? lblTotalTax.Text = "0" : lblTotalTax.Text) - Convert.ToDecimal(lblTaxAmount.Text)).ToString("0.##");
 
-            lblDiscountAmt.Text = (Convert.ToDecimal(lblDiscountAmt.Text) + total_discount).ToString("0.##");
+            lblDiscountAmt.Text = (Convert.ToDecimal(lblDiscountAmt.Text == "" ? lblDiscountAmt.Text = "0" : lblDiscountAmt.Text) + total_discount).ToString("0.##");
             lblResultTotalDiscount.Text = (Convert.ToDecimal(lblTotalDiscount.Text) - Convert.ToDecimal(lblDiscountAmt.Text)).ToString("0.##");
 
-            lblGrandTotal.Text = (Convert.ToDecimal(lblsubtotal.Text) + Convert.ToDecimal(lblTaxAmount.Text) - Convert.ToDecimal(lblDiscountAmt.Text)).ToString("0.##");
-            lblOriginalGrndTotal.Text = (Convert.ToDecimal(lblTotalAmnt.Text) + Convert.ToDecimal(lblTotalTax.Text) - Convert.ToDecimal(lblTotalDiscount.Text)).ToString("0.##");
+            lblGrandTotal.Text = (Convert.ToDecimal(lblsubtotal.Text == "" ? lblsubtotal.Text = "0" : lblsubtotal.Text) + Convert.ToDecimal(lblTaxAmount.Text == "" ? lblTaxAmount.Text = "0" : lblTaxAmount.Text) - Convert.ToDecimal(lblDiscountAmt.Text)).ToString("0.##");
+            lblOriginalGrndTotal.Text = (Convert.ToDecimal(lblTotalAmnt.Text == "" ? lblTotalAmnt.Text = "0" : lblTotalAmnt.Text) + Convert.ToDecimal(lblTotalTax.Text == "" ? lblTotalTax.Text = "0" : lblTotalTax.Text) - Convert.ToDecimal(lblTotalDiscount.Text)).ToString("0.##");
 
             lblResultGrndTotal.Text = (Convert.ToDecimal(lblOriginalGrndTotal.Text) - Convert.ToDecimal(lblGrandTotal.Text)).ToString("0.##");
 
@@ -353,6 +354,25 @@ namespace IMS.Sales
                 ErrorLog.saveerror(ex);
             }
         }
+        public void clrGvAndlbls()
+        {
+            gvsalesdetails.DataSource = null;
+            gvsalesdetails.DataBind();
+            gvTaxDetailsNew.DataSource = null;
+            gvTaxDetailsNew.DataBind();
+
+            lblTotalAmnt.Text = string.Empty;
+            lblsubtotal.Text = string.Empty;
+            lblResultSubTotal.Text = string.Empty;
+
+            lblTotalTax.Text = string.Empty;
+            lblTaxAmount.Text = string.Empty;
+            lblResultTotalTaxAmnt.Text = string.Empty;
+
+            lblTotalDiscount.Text = string.Empty;
+            lblDiscountAmt.Text = string.Empty;
+            lblResultTotalDiscount.Text = string.Empty;
+        }
         #endregion
 
         /// <summary>
@@ -361,6 +381,8 @@ namespace IMS.Sales
         #region Events
         protected void btnSearch_Click(object sender, EventArgs e)
         {
+            clrGvAndlbls();
+
             OriginalSaleDetails.Visible = true;
             ddlproduct.Items.Clear();
             GetSaleDetails();

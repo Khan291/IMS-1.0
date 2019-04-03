@@ -280,7 +280,7 @@ OnRowEditing="gvtaxdetails_RowEditing" OnRowUpdating="gvtaxdetails_RowUpdating" 
                 <div class="modal-body">
 
                   
-                <p>Do You want to delete This Tax Group? </p>
+                <p>Do you want to delete this Tax Group? </p>
                 </div>
                 <div class="modal-footer">
                     <asp:Button ID="btnYes" runat="server" Text="Yes" CssClass="btn btn-primary" OnClick="btnYes_Click" />

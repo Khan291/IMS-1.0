@@ -60,7 +60,7 @@
                         </div>
                         <div class="col-sm-7">
                             <asp:TextBox ID="txtUnitName" onchange="CheckDouble()" runat="server" CssClass="form-control"></asp:TextBox>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" Display="Dynamic" runat="server" ValidationGroup="v" ErrorMessage="Name is required" ControlToValidate="txtUnitName" ForeColor="Red"></asp:RequiredFieldValidator>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" Display="Dynamic" runat="server" ValidationGroup="unitvalidationgroup" ErrorMessage="Name is required" ControlToValidate="txtUnitName" ForeColor="Red"></asp:RequiredFieldValidator>
                         </div>
                     </div>
                 </div>
@@ -73,8 +73,8 @@
         </div>
     </div>
     <div class="panel-footer">
-        <asp:Button ID="btnunitsave" runat="server" UseSubmitBehavior="false" ValidationGroup="v" CssClass="btn btn-primary " Text="Save" OnClick="btnunitsave_Click"  />
-        <asp:Button ID="btnunitUpdate" runat="server" ValidationGroup="abc" CssClass="btn btn-primary" Text="Update" Visible="false" OnClick="btnunitUpdate_Click" />
+        <asp:Button ID="btnunitsave" runat="server" UseSubmitBehavior="false" ValidationGroup="unitvalidationgroup" CssClass="btn btn-primary " Text="Save" OnClick="btnunitsave_Click"  />
+        <asp:Button ID="btnunitUpdate" runat="server" ValidationGroup="unitvalidationgroup" CssClass="btn btn-primary" Text="Update" Visible="false" OnClick="btnunitUpdate_Click" />
         <input class="btn btn-primary " type="button" value="Clear" />
     </div>
 </div>

@@ -205,7 +205,7 @@ namespace IMS
         {
             try
             {
-                Response.Redirect("~/Branch.aspx");
+                Response.Redirect("~/Branch.aspx", false);
                 //ifm.Visible = true;
                 //ifm.Attributes.Add("src", "../Branch.aspx");
                 //main.Visible = false;

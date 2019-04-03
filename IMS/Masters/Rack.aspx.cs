@@ -54,9 +54,8 @@ namespace IMS
 
         private void PageLoad()
         {
-            ddlgodownbind();
             loadDataTable();
-            txtRackName.Focus();
+            //txtRackName.Focus();
         }
         private void SessionValue()
         {
@@ -96,17 +95,17 @@ namespace IMS
         {
             return "";
         }
-        public void ddlgodownbind()
-        {
-            List<tbl_godown> gd = context.tbl_godown.Where(x => x.status == true && x.company_id == companyId).ToList();
+        //public void ddlgodownbind()
+        //{
+        //    List<tbl_godown> gd = context.tbl_godown.Where(x => x.status == true && x.company_id == companyId).ToList();
 
-            ddlGodownName.DataTextField = "godown_name";
-            ddlGodownName.DataValueField = "godown_id";
-            ddlGodownName.DataSource = gd;
-            ddlGodownName.DataBind();
-            ddlGodownName.Items.Insert(0, new ListItem("--Select Godown--", "0"));
-        }
-        private void loadDataTable()
+        //    ddlGodownName.DataTextField = "godown_name";
+        //    ddlGodownName.DataValueField = "godown_id";
+        //    ddlGodownName.DataSource = gd;
+        //    ddlGodownName.DataBind();
+        //    ddlGodownName.Items.Insert(0, new ListItem("--Select Godown--", "0"));
+        //}
+        public void loadDataTable()
         {
 
             //SqlCommand cmd = new SqlCommand();
@@ -138,98 +137,98 @@ namespace IMS
             }
         }
 
-        private void savecode()
-        {
-            try
-            {
-                if (hd.Value != "true")
-                {
+        //private void savecode()
+        //{
+        //    try
+        //    {
+        //        if (hd.Value != "true")
+        //        {
 
-                    lblcheckDoubleError.Text = String.Empty;
-                    tbl_rack rack = new tbl_rack();
-                    rack.company_id = companyId;
-                    rack.branch_id = branchId;
-                    rack.godown_id = Int32.Parse(ddlGodownName.SelectedValue);
-                    rack.rack_name = txtRackName.Text;
-                    rack.created_by = User_id;
-                    rack.created_date = DateTime.Today;
-                    rack.status = true;
-                    rack.modified_by = "";
-                    rack.modified_date = null;
-                    ////Shakeeb
-                    ////rd.Insert(rd);
-                    //Entity Framework Saving Awais
-                    context.tbl_rack.Add(rack);
-                    context.SaveChanges();
+        //            lblcheckDoubleError.Text = String.Empty;
+        //            tbl_rack rack = new tbl_rack();
+        //            rack.company_id = companyId;
+        //            rack.branch_id = branchId;
+        //            rack.godown_id = Int32.Parse(ddlGodownName.SelectedValue);
+        //            rack.rack_name = txtRackName.Text;
+        //            rack.created_by = User_id;
+        //            rack.created_date = DateTime.Today;
+        //            rack.status = true;
+        //            rack.modified_by = "";
+        //            rack.modified_date = null;
+        //            ////Shakeeb
+        //            ////rd.Insert(rd);
+        //            //Entity Framework Saving Awais
+        //            context.tbl_rack.Add(rack);
+        //            context.SaveChanges();
 
-                    loadDataTable();
-                    divalert.Visible = true;
-                    lblAlert.Text = "Rack Saved Successfully";
-                    clr();
+        //            loadDataTable();
+        //            divalert.Visible = true;
+        //            lblAlert.Text = "Rack Saved Successfully";
+        //            clr();
 
 
-                    //lblError.Text = string.Empty;
-                }
-                else
-                {
-                    divalert.Visible = false;
-                    lblcheckDoubleError.ForeColor = System.Drawing.Color.Red;
-                    lblcheckDoubleError.Text = "This Rack name already Exists";
-                    return;
-                }
+        //            //lblError.Text = string.Empty;
+        //        }
+        //        else
+        //        {
+        //            divalert.Visible = false;
+        //            lblcheckDoubleError.ForeColor = System.Drawing.Color.Red;
+        //            lblcheckDoubleError.Text = "This Rack name already Exists";
+        //            return;
+        //        }
 
-            }
-            catch (Exception ex)
-            {
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                ErrorLog.saveerror(ex);
-                //Do Logging
-            }
+        //        ErrorLog.saveerror(ex);
+        //        //Do Logging
+        //    }
 
-        }
+        //}
 
-        private void updatecode()
-        {
-            try
-            {
-                if (hd.Value != "true")
-                {
-                    lblcheckDoubleError.Text = String.Empty;
-                    GridViewRow row = GridView1.SelectedRow;
-                    int rack_id = Convert.ToInt32(row.Cells[3].Text);
-                    int godown_id = Int32.Parse(ddlGodownName.SelectedValue);
-                    //decimal TaxPercent = decimal.Parse(txtTaxPercent.Text);
-                    context.sp_UpdateRack(companyId, branchId, rack_id, godown_id, txtRackName.Text, User_id, DateTime.Today);
-                    btnUpdate.Visible = false;
-                    btnSave.Visible = true;
-                    divalert.Visible = true;
-                    lblAlert.Text = "Rack Updated Successfully";
-                    ViewState["gridrow"] = 0;
-                    loadDataTable();
-                    clr();
-                }
-                else
-                {
-                    divalert.Visible = false;
-                    lblcheckDoubleError.ForeColor = System.Drawing.Color.Red;
-                    lblcheckDoubleError.Text = "This Rack name already Exists";
-                    return;
-                }
-            }
-            catch (Exception ex)
-            {
+        //private void updatecode()
+        //{
+        //    try
+        //    {
+        //        if (hd.Value != "true")
+        //        {
+        //            lblcheckDoubleError.Text = String.Empty;
+        //            GridViewRow row = GridView1.SelectedRow;
+        //            int rack_id = Convert.ToInt32(row.Cells[3].Text);
+        //            int godown_id = Int32.Parse(ddlGodownName.SelectedValue);
+        //            //decimal TaxPercent = decimal.Parse(txtTaxPercent.Text);
+        //            context.sp_UpdateRack(companyId, branchId, rack_id, godown_id, txtRackName.Text, User_id, DateTime.Today);
+        //            btnUpdate.Visible = false;
+        //            btnSave.Visible = true;
+        //            divalert.Visible = true;
+        //            lblAlert.Text = "Rack Updated Successfully";
+        //            ViewState["gridrow"] = 0;
+        //            loadDataTable();
+        //            clr();
+        //        }
+        //        else
+        //        {
+        //            divalert.Visible = false;
+        //            lblcheckDoubleError.ForeColor = System.Drawing.Color.Red;
+        //            lblcheckDoubleError.Text = "This Rack name already Exists";
+        //            return;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                ErrorLog.saveerror(ex);
-                //Do Logging
-            }
-        }
+        //        ErrorLog.saveerror(ex);
+        //        //Do Logging
+        //    }
+        //}
 
-        public void clr()
-        {
+        //public void clr()
+        //{
 
-            txtRackName.Text = string.Empty;
-            ddlGodownName.SelectedIndex = 0;
-        }
+        //    txtRackName.Text = string.Empty;
+        //    ddlGodownName.SelectedIndex = 0;
+        //}
 
         #endregion
         /// <summary>
@@ -237,27 +236,28 @@ namespace IMS
         /// </summary>
 
         #region Events
-        protected void btnSave_Click(object sender, EventArgs e)
-        {
-            savecode();
-        }
+        //protected void btnSave_Click(object sender, EventArgs e)
+        //{
+        //    savecode();
+        //}
 
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
-                lblcheckDoubleError.Text = String.Empty;
+               // lblcheckDoubleError.Text = String.Empty;
                 GridViewRow row = GridView1.SelectedRow;
                 int rack_id = Convert.ToInt32(GridView1.DataKeys[row.RowIndex].Value);
                 //int taxId = GridView1.SelectedIndex;
                 ViewState["gridrow"] = 1;
-                txtRackName.Text = row.Cells[0].Text;
-                ddlGodownName.SelectedValue=row.Cells[2].Text;
-                btnSave.Visible = false;
-                btnUpdate.Visible = true;
-                divalert.Visible = false;
-                txtRackName.Focus();
-                hd.Value = string.Empty;
+                ctrlrack.rackid = GridView1.DataKeys[row.RowIndex].Value.ToString();
+                ctrlrack.rackname = row.Cells[0].Text;
+                ctrlrack.godownid = row.Cells[2].Text;
+                //btnSave.Visible = false;
+                //btnUpdate.Visible = true;
+                //divalert.Visible = false;
+                //txtRackName.Focus();
+                //hd.Value = string.Empty;
             }
             catch (Exception ex)
             {
@@ -269,10 +269,10 @@ namespace IMS
 
     
 
-        protected void btnUpdate_Click(object sender, EventArgs e)
-        {
-            updatecode();
-        }
+        //protected void btnUpdate_Click(object sender, EventArgs e)
+        //{
+        //    updatecode();
+        //}
 
         protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
         {
@@ -282,16 +282,16 @@ namespace IMS
                 {
                     if (Convert.ToInt32(ViewState["gridrow"]) != 1)
                     {
-                    divalert.Visible = false;
+                  //  divalert.Visible = false;
                     ViewState["unit_id"] = Convert.ToInt32(e.CommandArgument);
                     ClientScript.RegisterStartupScript(this.GetType(), "Pop", "openModal();", true);
                     loadDataTable();
                     }
                     else
                     {
-                        divalert.Visible = true;
+                        //divalert.Visible = true;
                        
-                        lblAlert.Text = "Please Update The rack first";
+                        //lblAlert.Text = "Please Update The rack first";
                     }
                 }
             }
@@ -309,8 +309,8 @@ namespace IMS
             {
                 int rowIndex = Convert.ToInt32(ViewState["unit_id"]);
                 context.sp_DeleteRack(companyId, branchId, rowIndex);
-                divalert.Visible = true;
-                lblAlert.Text = "Rack Deleted ";
+                //divalert.Visible = true;
+                //lblAlert.Text = "Rack Deleted ";
                 loadDataTable();
             }
             catch (Exception ex)
@@ -325,13 +325,13 @@ namespace IMS
         {
             try
             {
-                lblcheckDoubleError.Text = String.Empty;
-                btnSave.Visible = true;
-                btnUpdate.Visible = false;
-                divalert.Visible = false;
-                clr();
+                //lblcheckDoubleError.Text = String.Empty;
+                //btnSave.Visible = true;
+                //btnUpdate.Visible = false;
+                //divalert.Visible = false;
+                //clr();
                 ViewState["gridrow"] = null;
-                hd.Value = string.Empty;
+                //hd.Value = string.Empty;
             }
             catch (Exception ex)
             {
@@ -341,28 +341,28 @@ namespace IMS
 
 
 
-        protected void btnClear_Click(object sender, EventArgs e)
-        {
-            clr();
-        }
+        //protected void btnClear_Click(object sender, EventArgs e)
+        //{
+        // //   clr();
+        //}
 
-        protected void ddlGodownName_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                if (txtRackName.Text != null)
-                {
-                    lblcheckDoubleError.Text = String.Empty;
-                    divalert.Visible = false;
-                    CheckDouble(txtRackName.Text, ddlGodownName.SelectedValue.ToString());
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorLog.saveerror(ex);
-            }
+        //protected void ddlGodownName_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        //if (txtRackName.Text != null)
+        //        //{
+        //        //    lblcheckDoubleError.Text = String.Empty;
+        //        //    divalert.Visible = false;
+        //        //    CheckDouble(txtRackName.Text, ddlGodownName.SelectedValue.ToString());
+        //        //}
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ErrorLog.saveerror(ex);
+        //    }
 
-        }
+        //}
 
         protected void GridView1_PreRender(object sender, EventArgs e)
         {

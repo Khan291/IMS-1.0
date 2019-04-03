@@ -1,8 +1,8 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Product.aspx.cs" Inherits="IMS.clsProduct" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Product.aspx.cs" Inherits="IMS.Product" %>
 
-<%@ Register src="~/UserControl/UC_Category.ascx" TagName="ctrlcategory"  TagPrefix="TWebControl"%>
+<%@ Register Src="~/UserControl/UC_Product.ascx" TagName="ctrlProduct" TagPrefix="TWebControlproduct" %>
 
-<%@ Register src="~/UserControl/UC_Unit.ascx" TagName="ctrlunit"  TagPrefix="abc"%>
+
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
@@ -95,7 +95,7 @@
             <div class="panel-heading text-center">
                 <h1>Product Master</h1>
             </div>
-            <div class="panel-body">
+          <%--  <div class="panel-body">
                 <div class="form-horizontal">
                     <div class="col-md-12">
                         <div class="col-md-5">
@@ -182,7 +182,6 @@
                                                         <asp:Label ID="Label15" runat="server" Text="+" Font-Bold="true" Font-Size="20px" ForeColor="White"></asp:Label></a>
                                                 </span>
                                             </div>
-                                          <%--  <asp:RequiredFieldValidator ID="RequiredFieldValidator3" InitialValue="0" ValidationGroup="adf" runat="server" Display="Dynamic" ErrorMessage="Select Rack" ControlToValidate="ddlRack" ForeColor="Red"></asp:RequiredFieldValidator>--%>
                                             <asp:Label ID="lblrackerror" runat="server" ForeColor="Red"></asp:Label>
                                         </div>
                                     </div>
@@ -294,7 +293,7 @@
                                     </label>
                                 </div>
                                 <div class="col-sm-7">
-                                    <asp:TextBox ID="txtSalesPrice" runat="server" CssClass="form-control" onkeypress="return OnlyNumericEntry(event);"></asp:TextBox><%--^[1-9][0-9]*$--%>
+                                    <asp:TextBox ID="txtSalesPrice" runat="server" CssClass="form-control" onkeypress="return OnlyNumericEntry(event);"></asp:TextBox><%--^[1-9][0-9]*$
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" Display="Dynamic" ValidationGroup="adf" ErrorMessage="Sale price is required" ControlToValidate="txtSalesPrice" ForeColor="Red"></asp:RequiredFieldValidator>
                                     <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ValidationExpression="^(0*[1-9][0-9]*(\.[0-9]+)?|0+\.[0-9]*[1-9][0-9]*)$" runat="server" ValidationGroup="adf" Display="Dynamic" ForeColor="Red" ControlToValidate="txtSalesPrice" ErrorMessage="Sales Price should b greater then 0"></asp:RegularExpressionValidator>
                                 </div>
@@ -304,14 +303,16 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="panel-footer text-center">
+            </div>--%>
+           <%-- <div class="panel-footer text-center">
                 <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary " Text="Save"  OnClick="btnSave_Click" ValidationGroup="adf" OnClientClick="DisableOnSave(this,'adf');"  UseSubmitBehavior="false" />
                 <asp:Button ID="btnUpdate" runat="server" CssClass="btn btn-primary" Text="Update" OnClick="btnUpdate_Click" Visible="false" ValidationGroup="adf" />
                 <input class="btn btn-primary " type="button" value="Clear" onclick="javascript: window.location = 'Product.aspx'" />
-                <%--<asp:Button ID="btnCancel" runat="server" CssClass="btn btn-default" Text="Cancel" OnClick="btnCancel_Click" Style="float: right" />  --%>
-            </div>
+            </div>--%>
+
+              
         </div>
+         <TWebControlproduct:ctrlProduct ID="ctrlProduct" runat="server" />
         <div class="row">
             <div class="alert alert-success" id="divalert" runat="server" visible="false">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -341,7 +342,7 @@
                                     <asp:ImageButton ID="btnimg_update" runat="server" ImageUrl="~/assets/img/edit.png" CommandName="Select" />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Delete" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden">
+                            <asp:TemplateField HeaderText="Delete">
                                 <ItemTemplate>
                                     <asp:ImageButton ID="btnimg_delete" CommandArgument='<%# Eval("product_id") %>' runat="server" ImageUrl="~/assets/img/remove.png" CommandName="DeleteRow" />
                                 </ItemTemplate>
@@ -362,7 +363,7 @@
                     <h4 class="modal-title">Alert</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Do You want to delete This Unit? </p>
+                    <p>Do you want to delete this Product? </p>
                 </div>
                 <div class="modal-footer">
                     <asp:Button ID="btnYes" runat="server" Text="Yes" CssClass="btn btn-primary" OnClick="btnYes_Click" />
@@ -372,7 +373,7 @@
         </div>
     </div>
 
-    <div class="modal fade" role="dialog" id="AddModal" runat="server">
+  <%--  <div class="modal fade" role="dialog" id="AddModal" runat="server">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -389,10 +390,10 @@
                     </div>
             </div>
         </div>
-    </div>
+    </div>--%>
 
     <%--start model popup code for display category usercontrol--%>
-    <div class="modal fade" role="dialog" id="divcategorymodel" runat="server">
+   <%-- <div class="modal fade" role="dialog" id="divcategorymodel" runat="server">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header" style="padding: 0px 10px 0px 10px;">
@@ -405,18 +406,17 @@
                 <div class="modal-body">
                     <asp:UpdatePanel ID="upCIR" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
-                            <%--Call user control to show in popup body--%>
                             <twebcontrol:ctrlcategory  ID="ctrlcategory"  runat="server" />
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </div>
             </div>
         </div>
-    </div>
+    </div>--%>
     <%--end model popup --%>
 
      <%--start model popup code for display Unit usercontrol--%>
-    <div class="modal fade" id="divunitmodel" runat="server">
+  <%--  <div class="modal fade" id="divunitmodel" runat="server">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header" style="padding: 0px 10px 0px 10px;">
@@ -429,7 +429,6 @@
                 <div class="modal-body">
                    <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
-                            <%--Call user control to show in popup body--%>
                             <abc:ctrlunit  ID="ctrlunit"  runat="server" />
                             </ContentTemplate>
                        </asp:UpdatePanel>
@@ -438,7 +437,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>--%>
     <%--end model popup --%>
 
     <script>
@@ -453,7 +452,7 @@
             $('#AddModal').modal('close');
 
         }
-        function CheckDouble() {
+        <%--function CheckDouble() {
             $.ajax({
                 type: "POST",
                 url: '<%= ResolveUrl("~/Masters/Product.aspx/CheckDouble") %>', // this for calling the web method function in cs code.  
@@ -482,7 +481,7 @@
                     hd3.value = false;
                     break;
             }
-        }
+        }--%>
 
         function OnlyNumericEntry(evt) {
             var charCode = (evt.which) ? evt.which : event.keyCode
@@ -492,7 +491,7 @@
             return true;
         }
 
-        function CheckDouble1() {
+      <%--  function CheckDouble1() {
             $.ajax({
                 type: "POST",
                 url: '<%= ResolveUrl("~/Masters/Product.aspx/CheckDouble1") %>', // this for calling the web method function in cs code.  
@@ -521,45 +520,12 @@
                     hd1.value = false;
                     break;
             }
-        }
+        }--%>
 
 
-        function AddSrcToIfram(val) {
-            if (val == 'c') {
 
 
-                $('#<%= divcategorymodel.ClientID %>').modal('show');
-
-               <%-- $('#<%=lblModalHeader.ClientID%>').text("Add Category");
-                $('#<%=ModalIfram.ClientID%>').attr("src", "../MasterModals/CategoryMasterModal.aspx")--%>
-            }
-            if (val == 'u') {
-
-                $('#<%= divunitmodel.ClientID %>').modal('show');
-
-            <%--    $('#<%=lblModalHeader.ClientID%>').text("Add Unit");
-                $('#<%=ModalIfram.ClientID%>').attr("src", "../MasterModals/UnitMasterModel.aspx");
-                $('#<%= AddModal.ClientID %>').modal('show');--%>
-            }
-            if (val == 'g') {
-                $('#<%=lblModalHeader.ClientID%>').text("Add Godown");
-                $('#<%=ModalIfram.ClientID%>').attr("src", "../MasterModals/GodownMasterModel.aspx")
-                $('#<%= AddModal.ClientID %>').modal('show');
-            }
-            if (val == 'r') {
-                $('#<%=lblModalHeader.ClientID%>').text("Add Rack");
-                $('#<%=ModalIfram.ClientID%>').attr("src", "../MasterModals/RackMasterModel.aspx")
-                $('#<%= AddModal.ClientID %>').modal('show');
-            }
-            if (val == 't') {
-                $('#<%=lblModalHeader.ClientID%>').text("Add Tax");
-                $('#<%=ModalIfram.ClientID%>').attr("src", "../MasterModals/TaxMasterModel.aspx")
-                $('#<%= AddModal.ClientID %>').modal('show');
-            }
-            
-        }
-
-        $('#<%= ddlCategory.ClientID %>').chosen();
+      <%--  $('#<%= ddlCategory.ClientID %>').chosen();
         $("#<%= ddlCategory.ClientID %>-deselect").chosen(
             { allow_single_deselect: true });
 
@@ -574,7 +540,7 @@
         $('#<%= ddlRack.ClientID %>').chosen();
         $("#<%= ddlRack.ClientID %>-deselect").chosen(
         { allow_single_deselect: true });
-     
+     --%>
       $(document).ready(function () {
             
           $('[id*=ddlTaxgroup]').multiselect({

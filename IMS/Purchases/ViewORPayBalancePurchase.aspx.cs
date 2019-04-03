@@ -173,6 +173,7 @@ namespace IMS
         {
             try
             {
+                string userName = Session["username"].ToString();
                 lblError.Text = string.Empty;
                 if (ValidCalculation())
                 {
@@ -185,6 +186,8 @@ namespace IMS
                         purchasePaymentDetails.GivenAmnt = Convert.ToDecimal(txtPaidAmnt.Text) + purchasePaymentDetails.GivenAmnt;
                         purchasePaymentDetails.BalanceAmnt = Convert.ToDecimal(txtBalanceAmnt.Text);
                         purchasePaymentDetails.FromTable = "Purchase Pay Balance";
+                        purchasePaymentDetails.ModifiedDate = DateTime.Now;
+                        purchasePaymentDetails.ModifiedBy = userName;
                     }
 
                 

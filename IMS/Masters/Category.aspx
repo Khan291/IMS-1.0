@@ -1,75 +1,19 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Category.aspx.cs" Inherits="IMS.Category" %>
 
-<%@ Register src="~/UserControl/UC_Category.ascx" TagName="ctrlcategory"  TagPrefix="TWebControl"%>
+<%@ Register Src="~/UserControl/UC_Category.ascx" TagName="ctrlcategory" TagPrefix="TWebControl" %>
 
 <%--<!DOCTYPE html>--%>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    
-    
-<%--    <link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/responsive/1.0.7/css/responsive.bootstrap.min.css" />
-    <link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/1.10.9/css/dataTables.bootstrap.min.css" />
-
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/responsive/1.0.7/js/dataTables.responsive.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.9/js/dataTables.bootstrap.min.js"></script>--%>
-   <%-- <script src="../assets/datatable/jquery-3.3.1.js"></script>
-    <script src="../assets/datatable/jquery.dataTables.min.js"></script>
-    <link href="../assets/datatable/dataTables.min.css" rel="stylesheet" />--%>
     <script type="text/javascript">
-
-
         $(document).ready(function () {
             $('#<%= GridView1.ClientID %>').DataTable();
-     });
-    </script>
-    <script type='text/javascript'>
+        });
+
         function openModal() {
             $('#<%=myModal.ClientID%>').modal('show');
         }
     </script>
-    <script type="text/javascript">
-       <%-- function CheckDouble() {
-            $.ajax({
-                type: "POST",
-                url: '<%= ResolveUrl("~/Masters/Category.aspx/CheckDouble") %>', // this for calling the web method function in cs code.  
-                data: '{categoryName: "' + $("#<%=txtCategoryName.ClientID%>")[0].value + '" }',// user name or email value  
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: OnSuccess,
-                failure: function (response) {
-                    alert(response);
-                }
-            });
-        }
-        function OnSuccess(response) {
-            debugger;
-            var msg = $("#<%=lblcheckDoubleError.ClientID%>")[0];
-            var hd1 = $("#<%=hd.ClientID%>")[0];
-            switch (response.d) {
-                case true:
 
-                    msg.style.display = "block";
-                    msg.style.color = "red";
-                    msg.innerHTML = "This category name already Exists";
-                    hd1.value = "true";
-                    break;
-                case false:
-                    msg.style.display = "none";
-                    hd1.value = "false";
-                    break;
-            }
-        }
-        function clearcategory() {
-            cleartextboxes();
-            $("#<%=txtCategoryName.ClientID%>").focus();
-        }--%>
-    </script>
-    <script type="text/javascript">
-        // Reference the textbox and call its focus function
-      <%--  var txt = $("<%=txtCategoryName.ClientID%>");
-
-        txt.focus();--%>
-    </script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -78,22 +22,14 @@
         <div>
             <a href="../Master.aspx" id="bMaster" runat="server">
                 <img src="../assets/img/goback-5-w800.png" height="50" width="130" /></a>
-        </div>
-
-        
-       
-         
-
+        </div>        
         <div class="panel panel-default text-center">
             <div class="panel-heading text-left">
                 <h1>Category Master</h1>
             </div>
-            
-           
-           
         </div>
         <%--calling user control UC_Category.ascx --%>
-        <twebcontrol:ctrlcategory  ID="ctrlcategory"  runat="server" />
+        <TWebControl:ctrlcategory ID="ctrlcategory" runat="server" />
         <div class="row">
             <div class="alert alert-success" id="divalert" runat="server" visible="false">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -114,7 +50,7 @@
                                 </ItemTemplate>
 
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Delete" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden">
+                            <asp:TemplateField HeaderText="Delete">
                                 <ItemTemplate>
                                     <asp:ImageButton CommandName="DeleteRow" CommandArgument='<%# Eval("category_id") %>' ID="btnimg_delete" runat="server" ImageUrl="~/assets/img/remove.png" data-toggle="modal" href="#myModal" />
                                 </ItemTemplate>
@@ -136,7 +72,7 @@
                     <h4 class="modal-title">Alert</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Are You Sure You want to delete This Category? </p>
+                    <p>Do you want to delete This Category? </p>
                 </div>
                 <div class="modal-footer">
                     <asp:Button ID="btnYes" runat="server" Text="Yes" CssClass="btn btn-primary" OnClick="btnYes_Click" />
