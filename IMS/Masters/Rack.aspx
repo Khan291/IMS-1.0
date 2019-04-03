@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Rack.aspx.cs" Inherits="IMS.Rack" %>
 
+<%@ Register Src="~/UserControl/UC_Rack.ascx" TagName="ctrlrack" TagPrefix="TWebControlRack" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type='text/javascript'>
@@ -14,7 +15,7 @@
             $('#<%= GridView1.ClientID %>').DataTable();
         });
     </script>
-    <script type="text/javascript">
+    <%-- <script type="text/javascript">
         function CheckDouble() {
             $.ajax({
                 type: "POST",
@@ -47,7 +48,7 @@
         var txt = $("<%=txtRackName.ClientID%>");
 
         txt.focus();
-    </script>
+    </script>--%>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -61,57 +62,10 @@
             <div class="panel-heading text-center">
                 <h1>Rack Master</h1>
             </div>
-            <div class="panel-body" id="form2" runat="server">
-                <div class="form-horizontal">
-                    <div class="col-md-12">
-                        <div class="col-md-5">
-                            <div class="form-group">
-                                <div class="col-sm-5 leftpadd0">
-                                    <label class="control-label   ">
-                                        Godown Name:<asp:Label ID="lblStar" runat="server" Text="*" ForeColor="Red"></asp:Label>                                             
-                                    </label>
-                                </div>
-                                <div class="col-sm-7">
-                                    <asp:DropDownList ID="ddlGodownName" runat="server" AutoPostBack="true" CssClass="form-control" OnSelectedIndexChanged="ddlGodownName_SelectedIndexChanged" AppendDataBoundItems="true">
-                                    </asp:DropDownList>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" InitialValue="0" ValidationGroup="rck" ErrorMessage="Select Godown" ControlToValidate="ddlGodownName" ForeColor="Red"></asp:RequiredFieldValidator>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="form-group ">
-                                <div class="col-sm-5 leftpadd0">
-                                    <label class="control-label">
-                                        Rack Name:<asp:Label ID="Label1" runat="server" Text="*" ForeColor="Red"></asp:Label>                                            
-                                    </label>
-                                </div>
-                                <div class="col-sm-7">
-                                    <asp:TextBox ID="txtRackName" onchange="CheckDouble()" runat="server" CssClass="form-control"></asp:TextBox>
-                                    <asp:Label ID="lblcheckDoubleError" runat="server"></asp:Label>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ValidationGroup="rck" ErrorMessage="Rack name is required" ControlToValidate="txtRackName" ForeColor="Red"></asp:RequiredFieldValidator>
-                                    <asp:HiddenField ID="hd" runat="server" />
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-            <div class="panel-footer text-center">
-                <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary " Text="Save" OnClick="btnSave_Click" OnClientClick="DisableOnSave(this,'rck');"  UseSubmitBehavior="false" ValidationGroup="rck" />
-                <asp:Button ID="btnUpdate" runat="server" CssClass="btn btn-primary" Text="Update" OnClick="btnUpdate_Click" Visible="false" ValidationGroup="rck" />
-                 <input class="btn btn-primary " type="button" value="Clear"  onclick="javascript: window.location = 'Rack.aspx'" />
-                <%--<asp:Button ID="btnCancel" runat="server" CssClass="btn btn-default" Text="Cancel" OnClick="btnCancel_Click" Style="float: right" />--%>
-            </div>
         </div>
-        <div class="row">
-            <div class="alert alert-success" id="divalert" runat="server" visible="false">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <asp:Label ID="lblAlert" runat="server"></asp:Label>
 
-            </div>
-        </div>
+       <TWebControlRack:ctrlrack ID="ctrlrack" runat="server" />
+
         <div class="row">
             <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                 <div>
