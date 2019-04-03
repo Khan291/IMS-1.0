@@ -79,6 +79,7 @@ namespace IMSBLL.EntityModel
         public virtual DbSet<tbl_setting> tbl_setting { get; set; }
         public virtual DbSet<tbl_state> tbl_state { get; set; }
         public virtual DbSet<tbl_stock> tbl_stock { get; set; }
+        public virtual DbSet<tbl_stockHistory> tbl_stockHistory { get; set; }
         public virtual DbSet<tbl_stocktransaction> tbl_stocktransaction { get; set; }
         public virtual DbSet<tbl_subscription> tbl_subscription { get; set; }
         public virtual DbSet<tbl_tax> tbl_tax { get; set; }
@@ -2950,75 +2951,6 @@ namespace IMSBLL.EntityModel
                 new ObjectParameter("modified_date", typeof(System.DateTime));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_UpdatePMode", company_idParameter, branch_idParameter, paymentode_idParameter, paymentmode_nameParameter, modified_byParameter, modified_dateParameter);
-        }
-    
-        public virtual int sp_UpdateProduct(Nullable<int> company_id, Nullable<int> branch_id, Nullable<int> product_id, Nullable<int> category_id, Nullable<int> rack_id, Nullable<int> godown_id, Nullable<int> tax_id, Nullable<int> unit_id, Nullable<int> reorder_level, Nullable<decimal> purchas_price, Nullable<decimal> sales_price, string product_code, string hsn_code, string product_name, string modified_by, Nullable<System.DateTime> modified_date)
-        {
-            var company_idParameter = company_id.HasValue ?
-                new ObjectParameter("company_id", company_id) :
-                new ObjectParameter("company_id", typeof(int));
-    
-            var branch_idParameter = branch_id.HasValue ?
-                new ObjectParameter("branch_id", branch_id) :
-                new ObjectParameter("branch_id", typeof(int));
-    
-            var product_idParameter = product_id.HasValue ?
-                new ObjectParameter("product_id", product_id) :
-                new ObjectParameter("product_id", typeof(int));
-    
-            var category_idParameter = category_id.HasValue ?
-                new ObjectParameter("category_id", category_id) :
-                new ObjectParameter("category_id", typeof(int));
-    
-            var rack_idParameter = rack_id.HasValue ?
-                new ObjectParameter("rack_id", rack_id) :
-                new ObjectParameter("rack_id", typeof(int));
-    
-            var godown_idParameter = godown_id.HasValue ?
-                new ObjectParameter("godown_id", godown_id) :
-                new ObjectParameter("godown_id", typeof(int));
-    
-            var tax_idParameter = tax_id.HasValue ?
-                new ObjectParameter("tax_id", tax_id) :
-                new ObjectParameter("tax_id", typeof(int));
-    
-            var unit_idParameter = unit_id.HasValue ?
-                new ObjectParameter("unit_id", unit_id) :
-                new ObjectParameter("unit_id", typeof(int));
-    
-            var reorder_levelParameter = reorder_level.HasValue ?
-                new ObjectParameter("reorder_level", reorder_level) :
-                new ObjectParameter("reorder_level", typeof(int));
-    
-            var purchas_priceParameter = purchas_price.HasValue ?
-                new ObjectParameter("purchas_price", purchas_price) :
-                new ObjectParameter("purchas_price", typeof(decimal));
-    
-            var sales_priceParameter = sales_price.HasValue ?
-                new ObjectParameter("sales_price", sales_price) :
-                new ObjectParameter("sales_price", typeof(decimal));
-    
-            var product_codeParameter = product_code != null ?
-                new ObjectParameter("product_code", product_code) :
-                new ObjectParameter("product_code", typeof(string));
-    
-            var hsn_codeParameter = hsn_code != null ?
-                new ObjectParameter("hsn_code", hsn_code) :
-                new ObjectParameter("hsn_code", typeof(string));
-    
-            var product_nameParameter = product_name != null ?
-                new ObjectParameter("product_name", product_name) :
-                new ObjectParameter("product_name", typeof(string));
-    
-            var modified_byParameter = modified_by != null ?
-                new ObjectParameter("modified_by", modified_by) :
-                new ObjectParameter("modified_by", typeof(string));
-    
-            var modified_dateParameter = modified_date.HasValue ?
-                new ObjectParameter("modified_date", modified_date) :
-                new ObjectParameter("modified_date", typeof(System.DateTime));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_UpdateProduct", company_idParameter, branch_idParameter, product_idParameter, category_idParameter, rack_idParameter, godown_idParameter, tax_idParameter, unit_idParameter, reorder_levelParameter, purchas_priceParameter, sales_priceParameter, product_codeParameter, hsn_codeParameter, product_nameParameter, modified_byParameter, modified_dateParameter);
         }
     
         public virtual int sp_UpdatePurchase(Nullable<int> purchase_id, Nullable<int> count, Nullable<int> company_id, Nullable<int> party_id, string po_no, Nullable<decimal> total_tax, Nullable<decimal> actual_amount, Nullable<decimal> grand_total, Nullable<decimal> discount, string modified_by, string modifie_date)

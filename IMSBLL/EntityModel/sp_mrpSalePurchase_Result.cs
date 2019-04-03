@@ -15,5 +15,6 @@ namespace IMSBLL.EntityModel
     {
         public Nullable<int> cnt { get; set; }
         public string product_name { get; set; }
+        public string batch_name { get; set; }
     }
 }

@@ -259,7 +259,7 @@
                                     <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ValidationExpression="^\s*(?=.*[1-9])\d*(?:\.\d{1,5})?\s*$" runat="server" ValidationGroup="grop" Display="Dynamic" ForeColor="Red" ControlToValidate="txtsalesprice" ErrorMessage="Sales Price should b greater then 0"></asp:RegularExpressionValidator>
                                 </div>
                             </div>
-                
+
                             <div class="col-md-4 col-lg-2 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px; margin-top: 20px">
                                 <%-- <div class="col-sm-10 leftpadd0">
                             <asp:CheckBox ID="chk" runat="server" Text="If IGST" Font-Bold="true" CssClass="checkbox" />
@@ -296,12 +296,12 @@
                                 <asp:BoundField DataField="SalePrice" HeaderText="Sale Price" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
                                 <asp:BoundField DataField="Discount" HeaderText="Discount" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
                                 <asp:BoundField DataField="Discount Amount" HeaderText="Discount Amount" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
-                               
-                                <asp:BoundField DataField="group_id" HeaderText="Group ID" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField> 
+
+                                <asp:BoundField DataField="group_id" HeaderText="Group ID" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
                                 <asp:BoundField DataField="group_name" HeaderText="Tax Group" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
                                 <asp:BoundField DataField="taxPercentage" HeaderText="Tax Group" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
                                 <asp:BoundField DataField="totalTaxAmnt" HeaderText="Tax Amount" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
-                                 <asp:BoundField DataField="Sub Total" HeaderText="Total" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
+                                <asp:BoundField DataField="Sub Total" HeaderText="Total" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
                                 <asp:TemplateField HeaderText="Update">
                                     <ItemTemplate>
                                         <asp:ImageButton CommandName="Update Row" ID="btnimg_update" runat="server" ImageUrl="~/assets/img/edit.png" />
@@ -318,7 +318,7 @@
                     </div>
                 </div>
                 <br />
-              
+
 
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -342,29 +342,29 @@
                                         <asp:BoundField DataField="tax_percentage" HeaderText="Tax Type Percent" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
                                         <asp:BoundField DataField="totalTaxPercetage" HeaderText="Total Percentage" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
                                         <asp:BoundField DataField="totalTaxAmnt" HeaderText="Total Tax Amount" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
-                                         <asp:BoundField DataField="type_id" HeaderText="Product id" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
+                                        <asp:BoundField DataField="type_id" HeaderText="Product id" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
                                     </Columns>
                                     <HeaderStyle BackColor="#428BCA" ForeColor="White" />
                                 </asp:GridView>
                             </div>
                         </div>
                         <div class="row">
-                            
                         </div>
                         <div class="row">
-                            
-                              <div class="col-lg-4 pull-right">
-                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 leftpadd0 pull-right" style="padding: 0px;">
+
+                            <div class="col-lg-4 pull-right">
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 leftpadd0 pull-right" style="padding: 0px;">
                                     <div class="form-group">
                                         <div class="col-sm-12 leftpadd0">
                                             <label class="control-label col-sm-9">Other Expenses</label>
-                                             <asp:TextBox ID="txtotherexpence" runat="server" CssClass="form-control"  AutoPostBack="true" OnTextChanged="txtotherexpence_TextChanged" onkeypress="return OnlyNumericEntry(event);"></asp:TextBox>
+                                            <asp:TextBox ID="txtotherexpence" runat="server" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtotherexpence_TextChanged" onkeypress="return OnlyNumericEntry(event);"></asp:TextBox>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 leftpadd0 pull-right" style="padding: 0px;">
                                     <div class="form-group">
-                                        <div class="col-sm-12 leftpadd0"><br />
+                                        <div class="col-sm-12 leftpadd0">
+                                            <br />
                                             <label class="control-label col-sm-9">Sub Total</label>
                                             <asp:Label ID="lblsubtotal" runat="server" CssClass="control-label" Text="0"></asp:Label>
                                         </div>
@@ -386,17 +386,17 @@
                                         </div>
                                     </div>
                                 </div>
-                                </div>
-                           
-                           
+                            </div>
+
+
                         </div>
                         <div class="row">
-                             <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 pull-right">
+                            <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 pull-right">
                                 <div style="border: 1px solid black; margin-top: 10px; margin-bottom: 10px;"></div>
                             </div>
                         </div>
                         <div class="row">
-                            
+
                             <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 pull-right">
                                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 leftpadd0 pull-right" style="padding: 0px;">
                                     <div class="form-group">
@@ -461,15 +461,22 @@
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </div>
-             <!--=====================================================Note field ====================================================================-->
-                <div class="row">
-                <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px; margin-left:15px;">
-                                <div class="col-sm-10 leftpadd0">
-                                    <label class="control-label">Note</label>
-                                    <asp:TextBox ID="txtNotePurchase" runat="server" TextMode="MultiLine" CssClass="form-control" style="display:block; resize:none;"></asp:TextBox>
-                                </div>
-                            </div>
-                        </div>
+            <!--=====================================================Attachment field ====================================================================-->
+            <div class="row">
+                <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px; margin-left: 15px;">
+                    <div class="col-sm-10 leftpadd0">
+                        <label class="control-label">Attach File</label>
+                        <asp:FileUpload ID="fuAttacheFile" runat="server" />
+                    </div>
+                </div>
+            <!--=====================================================Note field ====================================================================-->
+                <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px; margin-left: 15px;">
+                    <div class="col-sm-10 leftpadd0">
+                        <label class="control-label">Note</label>
+                        <asp:TextBox ID="txtNotePurchase" runat="server" TextMode="MultiLine" CssClass="form-control" Style="display: block; resize: none;"></asp:TextBox>
+                    </div>
+                </div>
+            </div>
             <%--<div style="border:1px solid black"></div>--%>
         </div>
         <div class="panel-footer ">
@@ -543,7 +550,7 @@
         function OnlyNumericEntry(evt) {
             var charCode = (evt.which) ? evt.which : event.keyCode
             if (charCode != 46 && charCode > 31
-              && (charCode < 48 || charCode > 57))
+                && (charCode < 48 || charCode > 57))
                 return false;
             return true;
         }
@@ -588,7 +595,7 @@
 
         $('#<%= ddlVendor.ClientID %>').chosen();
         $("#<%= ddlVendor.ClientID %>-deselect").chosen(
-        { allow_single_deselect: true });
+            { allow_single_deselect: true });
 
 
         $('#<%= ddlBatch.ClientID %>').chosen();

@@ -85,6 +85,15 @@ namespace IMS {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl limaster;
         
         /// <summary>
+        /// liStock control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liStock;
+        
+        /// <summary>
         /// lipurchase control.
         /// </summary>
         /// <remarks>
@@ -101,6 +110,15 @@ namespace IMS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl lipurchasereturn;
+        
+        /// <summary>
+        /// li2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl li2;
         
         /// <summary>
         /// lipurchaseReport control.
@@ -146,6 +164,15 @@ namespace IMS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl li1;
+        
+        /// <summary>
+        /// li3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl li3;
         
         /// <summary>
         /// ScriptManager1 control.

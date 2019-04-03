@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using IMSBLL.EntityModel;
 using IMSBLL.DAL;
 using System.Configuration;
+using System.IO;
 
 namespace IMS.Sales
 {
@@ -21,9 +22,11 @@ namespace IMS.Sales
         string connectionstring =  ConfigurationManager.ConnectionStrings["TestDBConnection"].ConnectionString;
         SqlHelper helper = new SqlHelper();
         static int companyId = 0, branchId = 0, financialYearId = 0; string user_id = string.Empty;
+      
         protected void Page_Load(object sender, EventArgs e)
         {
             SessionValue();
+
             if (!IsPostBack)
             {
                 if (ViewState["Details"] == null)
@@ -178,17 +181,17 @@ namespace IMS.Sales
         public void calculation(decimal sub_Total, decimal total_tax, decimal total_discount)
         {
 
-            lblsubtotal.Text = (Convert.ToDecimal(lblsubtotal.Text) + sub_Total).ToString("0.##");
-            lblResultSubTotal.Text = (Convert.ToDecimal(lblTotalAmnt.Text) - Convert.ToDecimal(lblsubtotal.Text)).ToString("0.##");
+            lblsubtotal.Text = (Convert.ToDecimal(Convert.ToDecimal(lblsubtotal.Text == "" ? lblsubtotal.Text = "0" : lblsubtotal.Text) + sub_Total).ToString("0.##"));
+            lblResultSubTotal.Text = (Convert.ToDecimal(lblTotalAmnt.Text == "" ? lblTotalAmnt.Text = "0" : lblTotalAmnt.Text) - Convert.ToDecimal(lblsubtotal.Text)).ToString("0.##");
 
-            lblTaxAmount.Text = (Convert.ToDecimal(lblTaxAmount.Text) + total_tax).ToString("0.##");
-            lblResultTotalTaxAmnt.Text = (Convert.ToDecimal(lblTotalTax.Text) - Convert.ToDecimal(lblTaxAmount.Text)).ToString("0.##");
+            lblTaxAmount.Text = (Convert.ToDecimal(lblTaxAmount.Text == "" ? lblTaxAmount.Text = "0" : lblTaxAmount.Text) + total_tax).ToString("0.##");
+            lblResultTotalTaxAmnt.Text = (Convert.ToDecimal(lblTotalTax.Text == "" ? lblTotalTax.Text = "0" : lblTotalTax.Text) - Convert.ToDecimal(lblTaxAmount.Text)).ToString("0.##");
 
-            lblDiscountAmt.Text = (Convert.ToDecimal(lblDiscountAmt.Text) + total_discount).ToString("0.##");
+            lblDiscountAmt.Text = (Convert.ToDecimal(lblDiscountAmt.Text == "" ? lblDiscountAmt.Text = "0" : lblDiscountAmt.Text) + total_discount).ToString("0.##");
             lblResultTotalDiscount.Text = (Convert.ToDecimal(lblTotalDiscount.Text) - Convert.ToDecimal(lblDiscountAmt.Text)).ToString("0.##");
 
-            lblGrandTotal.Text = (Convert.ToDecimal(lblsubtotal.Text) + Convert.ToDecimal(lblTaxAmount.Text) - Convert.ToDecimal(lblDiscountAmt.Text)).ToString("0.##");
-            lblOriginalGrndTotal.Text = (Convert.ToDecimal(lblTotalAmnt.Text) + Convert.ToDecimal(lblTotalTax.Text) - Convert.ToDecimal(lblTotalDiscount.Text)).ToString("0.##");
+            lblGrandTotal.Text = (Convert.ToDecimal(lblsubtotal.Text == "" ? lblsubtotal.Text = "0" : lblsubtotal.Text) + Convert.ToDecimal(lblTaxAmount.Text == "" ? lblTaxAmount.Text = "0" : lblTaxAmount.Text) - Convert.ToDecimal(lblDiscountAmt.Text)).ToString("0.##");
+            lblOriginalGrndTotal.Text = (Convert.ToDecimal(lblTotalAmnt.Text == "" ? lblTotalAmnt.Text = "0" : lblTotalAmnt.Text) + Convert.ToDecimal(lblTotalTax.Text == "" ? lblTotalTax.Text = "0" : lblTotalTax.Text) - Convert.ToDecimal(lblTotalDiscount.Text)).ToString("0.##");
 
             lblResultGrndTotal.Text = (Convert.ToDecimal(lblOriginalGrndTotal.Text) - Convert.ToDecimal(lblGrandTotal.Text)).ToString("0.##");
 
@@ -266,8 +269,20 @@ namespace IMS.Sales
                     return;
                 }
 
+                string path = "~/Uploads/AttachedFiles/Sale/";//path without filename to save file
+                bool fileupMsg = uploadfile(fuAttacheFile, path, "");
+
+
+                decimal remainingBalance = Convert.ToDecimal(lblResultGrndTotal.Text) - Convert.ToDecimal(lblGivenAmnt.Text);
+                decimal paidAmnt = Convert.ToDecimal(txtPaidAmt.Text);
+
                 var sale = context.tbl_sale.Where(pd => pd.sale_id == saleId && pd.company_id == companyId && pd.branch_id == branchId).FirstOrDefault();
                 tbl_salereturn saleReturn = new tbl_salereturn();
+                if (fileupMsg)
+                {
+                    path = path + Path.GetFileName(fuAttacheFile.PostedFile.FileName);
+                    saleReturn.attachmentUrl = path;
+                }
                 saleReturn.sale_id = saleId;
                 saleReturn.company_id = companyId;
                 saleReturn.branch_id = branchId;
@@ -278,7 +293,15 @@ namespace IMS.Sales
                 saleReturn.party_id = Convert.ToInt32(sale.party_id);             
                 saleReturn.created_by = user_id;
                 saleReturn.created_date = DateTime.Now;
-
+                decimal givenAmnt = 0;
+                if (remainingBalance<paidAmnt)
+                {
+                   givenAmnt= Convert.ToDecimal(lblGivenAmnt.Text) - Convert.ToDecimal(txtPaidAmt.Text);
+                }
+                else
+                {
+                    givenAmnt= Convert.ToDecimal(lblGivenAmnt.Text) + Convert.ToDecimal(txtPaidAmt.Text);
+                }
                 //Update into Sale Payment Details 
                 tbl_SalePaymentDetails salePaymentDetails = context.tbl_SalePaymentDetails.Where(w => w.SaleId == saleId).FirstOrDefault();
                 salePaymentDetails.PaidAmnt = Convert.ToDecimal(txtPaidAmt.Text);
@@ -286,7 +309,7 @@ namespace IMS.Sales
                 salePaymentDetails.DiscountAmount = Convert.ToDecimal(lblResultTotalDiscount.Text);
                 salePaymentDetails.SubTotal = Convert.ToDecimal(lblResultSubTotal.Text);
                 salePaymentDetails.GrandTotal = Convert.ToDecimal(lblResultGrndTotal.Text);
-                salePaymentDetails.GivenAmnt = Convert.ToDecimal(lblGivenAmnt.Text) - Convert.ToDecimal(txtPaidAmt.Text);
+                salePaymentDetails.GivenAmnt = givenAmnt;
                 salePaymentDetails.BalanceAmnt = Convert.ToDecimal(txtBalanceAmt.Text);
                 salePaymentDetails.FromTable = "Return";
                 sale.tbl_SalePaymentDetails.Add(salePaymentDetails);
@@ -331,6 +354,25 @@ namespace IMS.Sales
                 ErrorLog.saveerror(ex);
             }
         }
+        public void clrGvAndlbls()
+        {
+            gvsalesdetails.DataSource = null;
+            gvsalesdetails.DataBind();
+            gvTaxDetailsNew.DataSource = null;
+            gvTaxDetailsNew.DataBind();
+
+            lblTotalAmnt.Text = string.Empty;
+            lblsubtotal.Text = string.Empty;
+            lblResultSubTotal.Text = string.Empty;
+
+            lblTotalTax.Text = string.Empty;
+            lblTaxAmount.Text = string.Empty;
+            lblResultTotalTaxAmnt.Text = string.Empty;
+
+            lblTotalDiscount.Text = string.Empty;
+            lblDiscountAmt.Text = string.Empty;
+            lblResultTotalDiscount.Text = string.Empty;
+        }
         #endregion
 
         /// <summary>
@@ -339,6 +381,8 @@ namespace IMS.Sales
         #region Events
         protected void btnSearch_Click(object sender, EventArgs e)
         {
+            clrGvAndlbls();
+
             OriginalSaleDetails.Visible = true;
             ddlproduct.Items.Clear();
             GetSaleDetails();
@@ -438,7 +482,7 @@ namespace IMS.Sales
                         decimal discount_percent = (Convert.ToDecimal(oneproductDetail.FirstOrDefault().dicount_amt) * 100) / Convert.ToDecimal(oneproductDetail.FirstOrDefault().amount);
                         decimal discountamt = a * Convert.ToDecimal(discount_percent.ToString("0.##"));
                         decimal tax_amount=0;//= a * Convert.ToDecimal(oneproductDetail.FirstOrDefault().tax_percentage);
-
+                        decimal taxPercentage = 0;
                         clr();
                         
                         txtPaidAmt.Enabled = true;
@@ -456,11 +500,13 @@ namespace IMS.Sales
                                           SaleTaxGroupDataTable.Rows[i].Field<decimal>("totaltaxPercentage"),
                                               SaleTaxGroupDataTable.Rows[i].Field<int>("type_id")
                                               );
-                                tax_amount=SaleTaxGroupDataTable.Rows[i].Field<decimal>("totaltaxPercentage");
+                                taxPercentage = SaleTaxGroupDataTable.Rows[i].Field<decimal>("totaltaxPercentage");
                             }
                         }
                         ViewState["TaxDetails"] = dt2;
                         this.BindTaxGrid();
+
+                        tax_amount = taxPercentage * a;
                         DataTable tbl = (DataTable)ViewState["Details"];
 
                         tbl.Rows.Add(oneproductDetail.FirstOrDefault().saledetails_id
@@ -863,59 +909,48 @@ namespace IMS.Sales
         {
             try
             {
-                //decimal remainingBalance = Convert.ToDecimal(lblGrandTotal.Text) - Convert.ToDecimal(lblGivenAmnt.Text);
-
-                //if (txtPaidAmt.Text == "0" || string.IsNullOrEmpty(txtPaidAmt.Text))
-                //{
-                //    txtBalanceAmt.Text = remainingBalance.ToString();
-                //    return;
-                //}
-
-                //if(remainingBalance<0)
-                //{
-                //    txtBalanceAmt.Text = (remainingBalance + Convert.ToDecimal(txtPaidAmt.Text)).ToString();
-                //}
-                //else
-                //{
-                //    txtBalanceAmt.Text = (remainingBalance - Convert.ToDecimal(txtPaidAmt.Text)).ToString();
-                //}
+               
                 decimal remainingBalance = Convert.ToDecimal(lblResultGrndTotal.Text) - Convert.ToDecimal(lblGivenAmnt.Text);
 
-                //if (remainingBalance < 0)
-                //{
-                //    btnPayBack.Visible = true;
-                //    txtBalanceAmt.Text = (remainingBalance + Convert.ToDecimal(txtPaidAmt.Text)).ToString();
-                //}
-                //else if (txtPaidAmt.Text == "0" || string.IsNullOrEmpty(txtPaidAmt.Text))
-                //{
-                //    btnPayBack.Visible = false;
-                //    txtBalanceAmt.Text = remainingBalance.ToString();
-                //    return;
-                //}
-                //else
-                //{
-                //    txtBalanceAmt.Text = (remainingBalance - Convert.ToDecimal(txtPaidAmt.Text)).ToString();
-                //}
+                decimal grandTotal = Convert.ToDecimal(lblGrandTotal.Text);
+                decimal paidAmnt = Convert.ToDecimal(txtPaidAmt.Text);
+                decimal Amnt = Convert.ToDecimal(txtBalanceAmt.Text);
 
-                decimal a = Convert.ToDecimal(lblGrandTotal.Text);
-                decimal b = Convert.ToDecimal(txtPaidAmt.Text);
-                if (txtPaidAmt.Text == "0" || string.IsNullOrEmpty(txtPaidAmt.Text))
+                decimal amntTobeTaken = remainingBalance - (remainingBalance * 2);
+                if (remainingBalance < paidAmnt)
+                {
+                    if (remainingBalance < 0)
+                    {
+                        txtBalanceAmt.Text = (remainingBalance + paidAmnt).ToString();
+                        btnPayBack.Visible = true;
+                    }
+                    else if (paidAmnt == amntTobeTaken)
+                    {
+                        txtPaidAmt.Text = amntTobeTaken.ToString();
+                        txtBalanceAmt.Text = "0";
+                    }
+                }
+                else if (txtPaidAmt.Text == "0" || string.IsNullOrEmpty(txtPaidAmt.Text))
                 {
                     btnPayBack.Visible = false;
                     txtBalanceAmt.Text = remainingBalance.ToString();
-                    return;
+                    //return;
                 }
-
-                else if (remainingBalance < b)
+                else if (remainingBalance > paidAmnt)
                 {
-                    txtPaidAmt.Text = remainingBalance.ToString();
-                    txtBalanceAmt.Text = "0";
+                    
+                    if (paidAmnt> remainingBalance)
+                    {
+                        txtPaidAmt.Text = amntTobeTaken.ToString();
+                        txtBalanceAmt.Text = "0";
+                    }
+                    else
+                    {
+                        remainingBalance = remainingBalance - paidAmnt;
+                        txtBalanceAmt.Text = remainingBalance.ToString();
+                    }
                 }
-                else
-                {
-                    decimal c = Convert.ToDecimal(lblGrandTotal.Text) - Convert.ToDecimal(txtPaidAmt.Text);
-                    txtBalanceAmt.Text = c.ToString();
-                } 
+               
                 UpdatePanel1.Update();
             }
             catch (Exception ex)
@@ -924,6 +959,26 @@ namespace IMS.Sales
                 ErrorLog.saveerror(ex);
                 //Do Logging
             }
+        }
+        //--============File Attachment Code done by as Afroz for sale return =========================>
+        public bool uploadfile(FileUpload _fileUpload, string _path, string _filename)
+        {
+            bool returnMsg = false;
+            try
+            {
+                if (_fileUpload.HasFile)
+                {
+                    _filename = Path.GetFileName(_fileUpload.PostedFile.FileName);
+                    _fileUpload.PostedFile.SaveAs(Server.MapPath(_path) + _filename);
+                    returnMsg = true;
+                }
+            }
+            catch (Exception ex)
+
+            {
+                ErrorLog.saveerror(ex);
+            }
+            return returnMsg;
         }
         #endregion
     }

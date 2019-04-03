@@ -87,6 +87,7 @@
                                      <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtSoNo" ErrorMessage="*" ForeColor="Red" ValidationGroup="searchvalidation"></asp:RequiredFieldValidator>
                                 </label>
                                 <asp:TextBox ID="txtSoNo" runat="server" CssClass="form-control"></asp:TextBox>
+                                <div id="listPlacement" style="height:100px; overflow-y:scroll;" ></div>
                                 <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender1" runat="server"
                                     ServiceMethod="GetPoNumbers"
                                     MinimumPrefixLength="2"
@@ -94,7 +95,8 @@
                                     EnableCaching="false"
                                     CompletionSetCount="10"
                                     TargetControlID="txtSoNo"
-                                    FirstRowSelected="false">
+                                    FirstRowSelected="false"
+                                    CompletionListElementID="listPlacement">
                                 </ajaxToolkit:AutoCompleteExtender>
                             </div>
 
@@ -389,6 +391,15 @@
                 </asp:UpdatePanel>
             </div>
         </div>
+        <!--=====================================================Attachment field ====================================================================-->
+        <div class="row">
+            <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px; margin-left: 30px;">
+                <div class="col-sm-10 leftpadd0">
+                    <label class="control-label">Attach File</label>
+                       <asp:FileUpload   ID="fuAttacheFile"  runat="server" />
+               </div>
+           </div>
+        </div><br />
 
         <div class="panel-footer leftpadd0">
             <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary " OnClick="btnSave_Click" Text="Save" ValidationGroup="savesale" OnClientClick="DisableOnSave(this,'savesale');" UseSubmitBehavior="false" />

@@ -147,6 +147,8 @@
     <Content Include="assets\css\404Css.css" />
     <Content Include="assets\css\bootstrap-multiselect.css" />
     <Content Include="assets\css\chosen.css" />
+    <Content Include="assets\css\SideNav.css" />
+    <Content Include="assets\css\simple-sidebar.css" />
     <Content Include="assets\font-awesome1\fonts\font-awesome-4.7.0.zip" />
     <Content Include="assets\font-awesome1\fonts\fontawesome-webfont.eot" />
     <Content Include="assets\font-awesome1\fonts\fontawesome-webfont.svg" />
@@ -230,6 +232,7 @@
     <Content Include="assets\Homeasst\js\slick.min.js" />
     <Content Include="assets\Homeasst\style.css" />
     <Content Include="assets\img\backgroundbanner.png" />
+    <Content Include="assets\img\cancel.png" />
     <Content Include="assets\img\goback-5-w800.png" />
     <Content Include="assets\plugins\bootstrap\bootstrap-3.0.3-dist.zip" />
     <Content Include="assets\plugins\bootstrap\bootstrap-3.0.3.zip" />
@@ -244,9 +247,14 @@
     <Content Include="assets\scripts\bootstrap-multiselect.js" />
     <Content Include="assets\scripts\chosen.jquery.js" />
     <Content Include="assets\scripts\jquery.min.js" />
+    <Content Include="assets\src\bootstrap.bundle.js" />
+    <Content Include="assets\src\bootstrap.bundle.min.js" />
+    <Content Include="assets\src\bootstrap.js" />
+    <Content Include="assets\src\bootstrap.min.js" />
     <Content Include="assets\src\CommonFuntion.js" />
     <Content Include="assets\src\jquery-customselect.css" />
     <Content Include="assets\src\jquery-customselect.js" />
+    <Content Include="Balance\PartyBalance.aspx" />
     <Content Include="Barcode.aspx" />
     <Content Include="ErrorPages\403.aspx" />
     <Content Include="ErrorPages\404.aspx" />
@@ -299,6 +307,9 @@
     <Content Include="MasterReports.aspx" />
     <Content Include="CommonReport.aspx" />
     <Content Include="Reports\CombineReport.aspx" />
+    <Content Include="Reports\InvoiceTemplate\InvoiceReport3.PNG" />
+    <Content Include="Reports\InvoiceTemplate\InvoicReport1.PNG" />
+    <Content Include="Reports\InvoiceTemplate\IvoiceReport2.PNG" />
     <Content Include="Reports\PurchaseSaleReturnReport.aspx" />
     <Content Include="Reports\ReportViewer.aspx" />
     <Content Include="assets\invoicedesign\base.css" />
@@ -332,6 +343,13 @@
     <Content Include="Sales\SalesReturn.aspx" />
     <Content Include="Sales\ViewORPayBalanceSale.aspx" />
     <Content Include="ErrorPages\Web.config" />
+    <Content Include="assets\src\bootstrap.bundle.js.map" />
+    <Content Include="assets\src\bootstrap.bundle.min.js.map" />
+    <Content Include="assets\src\bootstrap.js.map" />
+    <Content Include="assets\src\bootstrap.min.js.map" />
+    <Content Include="Reports\PurchaseSaleReturnReport1.rdlc" />
+    <Content Include="Reports\PurchaseSaleReturnReport2.rdlc" />
+    <Content Include="Reports\PurchaseSaleReturnReport3.rdlc" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
@@ -352,7 +370,17 @@
     <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Web.config" />
+    <Content Include="Stock\StockAdjustment.aspx" />
+    <Content Include="UserControl\UC_Batch.ascx" />
+    <Content Include="UserControl\UC_Category.ascx" />
+    <Content Include="UserControl\UC_Godown.ascx" />
+    <Content Include="UserControl\UC_Party.ascx" />
+    <Content Include="UserControl\UC_Product.ascx" />
+    <Content Include="UserControl\UC_Rack.ascx" />
+    <Content Include="UserControl\UC_Unit.ascx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -418,6 +446,13 @@
     <Content Include="assets\scripts\siminta.js" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Balance\PartyBalance.aspx.cs">
+      <DependentUpon>PartyBalance.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Balance\PartyBalance.aspx.designer.cs">
+      <DependentUpon>PartyBalance.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Barcode.aspx.cs">
       <DependentUpon>Barcode.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -770,7 +805,6 @@
     </Compile>
     <Compile Include="MasterReports.aspx.cs">
       <DependentUpon>MasterReports.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="MasterReports.aspx.designer.cs">
       <DependentUpon>MasterReports.aspx</DependentUpon>
@@ -867,11 +901,69 @@
       <DependentUpon>Branch.aspx</DependentUpon>
     </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />
+    <Compile Include="Stock\StockAdjustment.aspx.cs">
+      <DependentUpon>StockAdjustment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Stock\StockAdjustment.aspx.designer.cs">
+      <DependentUpon>StockAdjustment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\UC_Batch.ascx.cs">
+      <DependentUpon>UC_Batch.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControl\UC_Batch.ascx.designer.cs">
+      <DependentUpon>UC_Batch.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\UC_Category.ascx.cs">
+      <DependentUpon>UC_Category.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControl\UC_Category.ascx.designer.cs">
+      <DependentUpon>UC_Category.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\UC_Godown.ascx.cs">
+      <DependentUpon>UC_Godown.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControl\UC_Godown.ascx.designer.cs">
+      <DependentUpon>UC_Godown.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\UC_Party.ascx.cs">
+      <DependentUpon>UC_Party.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControl\UC_Party.ascx.designer.cs">
+      <DependentUpon>UC_Party.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\UC_Product.ascx.cs">
+      <DependentUpon>UC_Product.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControl\UC_Product.ascx.designer.cs">
+      <DependentUpon>UC_Product.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\UC_Rack.ascx.cs">
+      <DependentUpon>UC_Rack.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControl\UC_Rack.ascx.designer.cs">
+      <DependentUpon>UC_Rack.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\UC_Unit.ascx.cs">
+      <DependentUpon>UC_Unit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControl\UC_Unit.ascx.designer.cs">
+      <DependentUpon>UC_Unit.ascx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
     <Folder Include="App_Data\" />
     <Folder Include="App_Themes\" />
+    <Folder Include="Uploads\AttachedFiles\Purchase\" />
+    <Folder Include="Uploads\AttachedFiles\Sale\" />
     <Folder Include="Uploads\Logos\" />
   </ItemGroup>
   <ItemGroup>

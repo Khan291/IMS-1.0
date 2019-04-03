@@ -86,6 +86,7 @@
                                      <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtPoNo" ErrorMessage="*" ForeColor="Red" ValidationGroup="searchvalidation"></asp:RequiredFieldValidator>
                                 </label>
                                 <asp:TextBox ID="txtPoNo" runat="server" CssClass="form-control" ValidationGroup="searchvalidation"></asp:TextBox>
+                                <div id="listPlacement" style="height:100px; overflow-y:scroll;" ></div>
                                 <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender1" runat="server"
                                     ServiceMethod="GetPoNumbers"
                                     MinimumPrefixLength="2"
@@ -93,7 +94,8 @@
                                     EnableCaching="false"
                                     CompletionSetCount="10"
                                     TargetControlID="txtPoNo"
-                                    FirstRowSelected="false">
+                                    FirstRowSelected="false"
+                                    CompletionListElementID="listPlacement">
                                 </ajaxToolkit:AutoCompleteExtender>
                             </div>
 
@@ -237,7 +239,7 @@
                                         <asp:BoundField DataField="group_name" HeaderText="Tax Group" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
                                         <asp:BoundField DataField="type_name" HeaderText="Tax Type" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
                                         <asp:BoundField DataField="tax_percentage" HeaderText="Tax Type Percent" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>  
-                                        <asp:BoundField DataField="totaltaxPercentage" HeaderText="Total Tax Percent" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
+                                        <asp:BoundField DataField="totaltaxPercentage" HeaderText="Total Tax Percent" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
                                         <asp:BoundField DataField="type_id" HeaderText="Product id" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
                                     </Columns>
                                     <HeaderStyle BackColor="#428BCA" ForeColor="White" />
@@ -256,7 +258,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6 pull-right">
+                         
+                        </div>
+                        <div class="row">
+                               <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6 pull-right">
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <label class="control-label col-sm-3">Sub Total</label>
@@ -400,7 +405,15 @@
                 </asp:UpdatePanel>
             </div>
         </div>
-
+        <!--=====================================================Attachment field ====================================================================-->
+        <div class="row">
+            <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px; margin-left: 30px;">
+                <div class="col-sm-10 leftpadd0">
+                    <label class="control-label">Attach File</label>
+                       <asp:FileUpload ID="fuAttacheFile" runat="server" />
+               </div>
+           </div>
+        </div><br />
         <div class="panel-footer leftpadd0">
             <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary " Text="Save" OnClick="btnSave_Click" ValidationGroup="savesale" OnClientClick="DisableOnSave(this,'savesale');" UseSubmitBehavior="false" />
             <asp:Button ID="btnCancel" runat="server" CssClass="btn btn-primary " OnClick="btnCancel_Click" Text="Cancel" />

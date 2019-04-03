@@ -156,7 +156,9 @@
                                             <asp:ListItem Text="Customer" Value="Customer" />
                                             <asp:ListItem Text="Vendor" Value="Vendor" />
                                         </asp:DropDownList>
-                                       
+                                       <asp:RequiredFieldValidator ID="RequiredFieldValidator2" Display="Dynamic" ValidationGroup="abc" runat="server" InitialValue="0" ErrorMessage="Party type is required" ControlToValidate="ddlPartyType" ForeColor="Red"></asp:RequiredFieldValidator>
+                                     
+                                      
                                     </div>
                                 </div>
                             </div>

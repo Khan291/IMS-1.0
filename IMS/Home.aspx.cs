@@ -671,7 +671,7 @@ namespace IMS
             }
         }
 
-        // -------============Sales and purchase top 10 Return product on dashhboard--=============================>
+        // -------============Sales and purchase top 10 Most Return product on dashhboard--=============================>
 
         private void openModelForMRP(string flag)
         {
@@ -717,12 +717,14 @@ namespace IMS
         protected void btnMrpSale_Click(object sender, EventArgs e)
         {
             openModelForMRP("s");
+            lblHeaderText.Text = "Most Return Product In Sale";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "mrp", "openMrpProduct();", true);
         }
 
         protected void btnMrpPurchase_Click(object sender, EventArgs e)
         {
             openModelForMRP("p");
+            lblHeaderText.Text = "Most Return Product In Purchase ";
             ScriptManager.RegisterStartupScript(this, this.GetType(), "mrp", "openMrpProduct();", true);
         }
     }

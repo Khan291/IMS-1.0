@@ -362,10 +362,10 @@ namespace IMS.Masters
                 }
                 else if (e.CommandName == "DeleteRow")
                 {
-                    int a = Convert.ToInt32(e.CommandArgument);
+                    int userbranch_id = Convert.ToInt32(e.CommandArgument);
                     int rowIndex = ((GridViewRow)((ImageButton)e.CommandSource).NamingContainer).RowIndex;
                     GridViewRow row = GridView1.Rows[rowIndex];
-                    ViewState["unit_id"] = a;
+                    ViewState["userbranch_id"] = userbranch_id;
                     ViewState["user_id"] = row.Cells[7].Text;
                     ViewState["branch_id"] = row.Cells[8].Text;
                     ClientScript.RegisterStartupScript(this.GetType(), "Pop", "openModal();", true);
@@ -391,7 +391,7 @@ namespace IMS.Masters
                 ////Shakeeb
                 ////p.Delete(p);
 
-                 context.sp_DeleteUser(companyId, Convert.ToInt32(ViewState["unit_id"]), Convert.ToInt32(ViewState["user_id"]), branchId);
+                 context.sp_DeleteUser(companyId, Convert.ToInt32(ViewState["userbranch_id"]), Convert.ToInt32(ViewState["user_id"]), branchId);
                     gridbind();
 
                     divalert.Visible = true;

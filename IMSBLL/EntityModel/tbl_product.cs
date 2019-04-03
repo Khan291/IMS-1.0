@@ -23,6 +23,7 @@ namespace IMSBLL.EntityModel
             this.tbl_purchasetaxgroup = new HashSet<tbl_purchasetaxgroup>();
             this.tbl_stock = new HashSet<tbl_stock>();
             this.tbl_stocktransaction = new HashSet<tbl_stocktransaction>();
+            this.tbl_stock1 = new HashSet<tbl_stock>();
             this.tbl_purchasereturndetails = new HashSet<tbl_purchasereturndetails>();
             this.tbl_saledetails = new HashSet<tbl_saledetails>();
             this.tbl_salereturndetails = new HashSet<tbl_salereturndetails>();
@@ -55,12 +56,12 @@ namespace IMSBLL.EntityModel
         public virtual tbl_company tbl_company { get; set; }
         public virtual tbl_godown tbl_godown { get; set; }
         public virtual ICollection<tbl_productTaxGroup> tbl_productTaxGroup { get; set; }
-        public virtual tbl_rack tbl_rack { get; set; }
         public virtual tbl_unit tbl_unit { get; set; }
         public virtual ICollection<tbl_purchasedetails> tbl_purchasedetails { get; set; }
         public virtual ICollection<tbl_purchasetaxgroup> tbl_purchasetaxgroup { get; set; }
         public virtual ICollection<tbl_stock> tbl_stock { get; set; }
         public virtual ICollection<tbl_stocktransaction> tbl_stocktransaction { get; set; }
+        public virtual ICollection<tbl_stock> tbl_stock1 { get; set; }
         public virtual ICollection<tbl_purchasereturndetails> tbl_purchasereturndetails { get; set; }
         public virtual ICollection<tbl_saledetails> tbl_saledetails { get; set; }
         public virtual ICollection<tbl_salereturndetails> tbl_salereturndetails { get; set; }

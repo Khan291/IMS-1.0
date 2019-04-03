@@ -11,6 +11,7 @@ using IMSBLL.DAL;
 using System.Configuration;
 using IMS.Reports;
 using System.Globalization;
+using System.IO;
 
 namespace IMS
 {
@@ -89,29 +90,8 @@ namespace IMS
 
         public void ddltaxBind(int p_id, int batchID)
         {
-            int batchId=Convert.ToInt32(ddlBatch.SelectedValue) ;
-            var taxGroup = context.tbl_ActualPurchaseTaxAndPrice.Join(
-                context.tbl_purchasetaxgroup, t =>  t.purchase_id , pt =>  pt.purchaseId ,
-                (t, pt) => new
-                {
-                    pt.group_id,
-                    pt.group_name,
-                    t.product_id,
-                    t.batch_id,
-                    pt.purchasetaxgroup_id
-                }).Where(t => t.batch_id == batchId && t.product_id == p_id).Select(a => new { a.group_name, a.group_id }).Distinct().ToList();
-            //var taxGroup = (from ap in context.tbl_ActualPurchaseTaxAndPrice
-            //                join ptg in context.tbl_purchasetaxgroup on ap.product_id equals ptg.product_id                             
-            //                where s.company_id == companyId
-            //                group sd by new { p.product_name, sd.product_id } into g
-            //                select new DashboardChartViewModel
-            //                {
-            //                    ProductId = g.Select(f => f.product_id).FirstOrDefault(),
-            //                    ProductName = g.Select(ty => ty.tbl_product.product_name).FirstOrDefault(),
-            //                    Quantity = g.Sum(t3 => t3.quantity).Value
-            //                }
-
-            //                    ).Take(10).ToList();
+            //int batchId=Convert.ToInt32(ddlBatch.SelectedValue) ;
+            var taxGroup = context.tbl_purchasetaxgroup.Where(a=> a.product_id==p_id && a.batchId==batchID).Select(p => new { p.group_name, p.group_id }).Distinct().ToList();
             ddlTaxGroup.DataValueField = "group_id";
             ddlTaxGroup.DataTextField = "group_name";
             ddlTaxGroup.DataSource = taxGroup;
@@ -313,8 +293,16 @@ namespace IMS
         protected void Save()
         {
             try
-            {
+            {//added by ather for file attachment url
+                string path = "~/Uploads/AttachedFiles/Sale/"; //path without filename to save file
+                bool fileupMsg = uploadFile(fuAttacheFile, path, "");
+
                 tbl_sale sale = new tbl_sale();
+                if (fileupMsg)
+                {
+                    path = path + Path.GetFileName(fuAttacheFile.PostedFile.FileName); //path with filename to save in DB
+                    sale.attachmentUrl = path;
+                }
                 sale.company_id = companyId;
                 sale.branch_id = branchId;
                 sale.financialyear_id = financialYearId;               
@@ -343,7 +331,7 @@ namespace IMS
                 for (int i = 0; i <= gvSalesdetails.Rows.Count - 1; i++)
                 {
                     int productId = Convert.ToInt32(gvSalesdetails.Rows[i].Cells[3].Text);
-                    int batchId = Convert.ToInt32(gvSalesdetails.Rows[i].Cells[9].Text);
+                    int batchId = Convert.ToInt32(gvSalesdetails.Rows[i].Cells[8].Text);
                     decimal qty = Convert.ToDecimal(gvSalesdetails.Rows[i].Cells[4].Text);
                     tbl_product product = context.tbl_product.Where(w => w.product_id == productId).FirstOrDefault();
 
@@ -352,10 +340,10 @@ namespace IMS
                     saleDetails.product_id = productId;
                     saleDetails.batch_id = batchId;
                     saleDetails.unit_id = product.unit_id;
-                    saleDetails.tax_amt = Convert.ToDecimal(gvSalesdetails.Rows[i].Cells[11].Text);
+                    saleDetails.tax_amt = Convert.ToDecimal(gvSalesdetails.Rows[i].Cells[10].Text);
                     saleDetails.dicount_amt = Convert.ToDecimal(gvSalesdetails.Rows[i].Cells[7].Text);
                     saleDetails.quantity = qty;
-                    saleDetails.amount = Convert.ToDecimal(gvSalesdetails.Rows[i].Cells[8].Text);
+                    saleDetails.amount = Convert.ToDecimal(gvSalesdetails.Rows[i].Cells[11].Text);
                     saleDetails.created_by = Convert.ToString(User_id);
                     saleDetails.created_date = Convert.ToDateTime(DateTime.Now);
                     saleDetails.status = true;
@@ -375,7 +363,7 @@ namespace IMS
                     saleTaxGroup.group_id = groupId;
                     saleTaxGroup.product_id = productId;
                     saleTaxGroup.totalTaxPercentage = (Decimal)ViewState["TotalTaxPercent"];
-                    saleTaxGroup.group_name = gvSalesdetails.Rows[i].Cells[10].Text;
+                    saleTaxGroup.group_name = gvSalesdetails.Rows[i].Cells[9].Text;
                     sale.tbl_saleTaxGroup.Add(saleTaxGroup);
 
                     //Get the Tax type saved from db 
@@ -424,6 +412,25 @@ namespace IMS
             }
         }
 
+        private bool uploadFile(FileUpload _fileUpload, string _path, string _fileName)
+        {
+            bool returnedMsg = false;
+            try
+            {
+                if (_fileUpload.HasFile)
+                {
+                    _fileName = Path.GetFileName(_fileUpload.PostedFile.FileName);
+                    _fileUpload.PostedFile.SaveAs(Server.MapPath(_path) + _fileName);
+                    returnedMsg = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.saveerror(ex);
+            }
+            return returnedMsg;
+        }
+
         public void orerid()
         {
             try
@@ -449,6 +456,7 @@ namespace IMS
         protected void btnAdd_Click(object sender, EventArgs e)
         {
             lblcheckDoubleError.Text = string.Empty;
+            txtotherexpence.Text = "0";
             try
             {
                 decimal quantity=Convert.ToDecimal(txtquantity.Text);
@@ -854,6 +862,10 @@ namespace IMS
                     txtotherexpence.Text = "0";
                 }
                 lblGrandTotal.Text = hdfGrandTotalWithoutExpenses.Value;
+                if (string.IsNullOrWhiteSpace(lblGrandTotal.Text))
+                {
+                    lblGrandTotal.Text = "0";
+                }
                 decimal grandTotal = Convert.ToDecimal(lblGrandTotal.Text);
                 lblGrandTotal.Text = Convert.ToString(grandTotal + Convert.ToDecimal(txtotherexpence.Text));
                 

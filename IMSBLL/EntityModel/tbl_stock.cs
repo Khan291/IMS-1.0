@@ -27,8 +27,12 @@ namespace IMSBLL.EntityModel
         public Nullable<System.DateTime> modified_date { get; set; }
     
         public virtual tbl_batch tbl_batch { get; set; }
+        public virtual tbl_batch tbl_batch1 { get; set; }
         public virtual tbl_branch tbl_branch { get; set; }
+        public virtual tbl_branch tbl_branch1 { get; set; }
         public virtual tbl_company tbl_company { get; set; }
+        public virtual tbl_company tbl_company1 { get; set; }
         public virtual tbl_product tbl_product { get; set; }
+        public virtual tbl_product tbl_product1 { get; set; }
     }
 }

@@ -14,11 +14,6 @@ namespace IMSBLL.EntityModel
     
     public partial class tbl_rack
     {
-        public tbl_rack()
-        {
-            this.tbl_product = new HashSet<tbl_product>();
-        }
-    
         public int rack_id { get; set; }
         public Nullable<int> company_id { get; set; }
         public Nullable<int> branch_id { get; set; }
@@ -33,6 +28,5 @@ namespace IMSBLL.EntityModel
         public virtual tbl_branch tbl_branch { get; set; }
         public virtual tbl_company tbl_company { get; set; }
         public virtual tbl_godown tbl_godown { get; set; }
-        public virtual ICollection<tbl_product> tbl_product { get; set; }
     }
 }

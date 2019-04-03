@@ -31,7 +31,7 @@ namespace IMS
             {
                
                 loadDataTable();
-                txtGodownName.Focus();
+             //   txtGodownName.Focus();
             }
         }
 
@@ -40,20 +40,20 @@ namespace IMS
         /// </summary>
 
         #region Methods
-        private void loadDataTable()
+        public void loadDataTable()
         {
             GridView1.DataSource = context.sp_Selectgodown(companyId,branchId);
             GridView1.DataBind();
         }
 
-        public void clr()
-        {
+        //public void clr()
+        //{
 
-            txtContactNo.Text = string.Empty;
-            txtContactPerson.Text = string.Empty;
-            txtGodownAddress.Text = string.Empty;
-            txtGodownName.Text = string.Empty;
-        }
+        //    txtContactNo.Text = string.Empty;
+        //    txtContactPerson.Text = string.Empty;
+        //    txtGodownAddress.Text = string.Empty;
+        //    txtGodownName.Text = string.Empty;
+        //}
         [System.Web.Services.WebMethod]
         public static string CheckDouble(string useroremail)
         {
@@ -84,82 +84,82 @@ namespace IMS
         {
             return "";
         }
-        private void savedlogic()
-        {
-            string User_id = Convert.ToString(Session["UserID"]);
-            try
-            {
-                if (CheckDouble(txtGodownName.Text) == "false")
-                {
-                    lblcheckDoubleError.Text = String.Empty;
-                    tbl_godown g = new tbl_godown();
-                    g.company_id = companyId;
-                    g.branch_id = branchId;
-                    g.godown_name = txtGodownName.Text;
-                    g.godown_address = txtGodownAddress.Text;
-                    g.contact_no = txtContactNo.Text;
-                    g.contact_person = txtContactPerson.Text;
-                    //g.created_by = "admin";
-                    g.created_by = User_id;
-                    g.created_date = DateTime.Today;
-                    g.status = true;
-                    g.modified_by = "";
-                    g.modified_date = null;
-                    ////Shakeeb
-                    ////g.AddGodown(g);
-                    //Entity Framework Saving Awais
-                    context.tbl_godown.Add(g);
-                    context.SaveChanges();
-                    clr();
-                    loadDataTable();
-                    divalert.Visible = true;
-                    lblAlert.Text = "Godown Saved Successfully";
-                }
-                else
-                {
-                    divalert.Visible = false;
-                    lblcheckDoubleError.ForeColor = System.Drawing.Color.Red;
-                    lblcheckDoubleError.Text = "This Godown name already Exists";
-                    return;
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorLog.saveerror(ex);
-                //Do Logging
-            }
-        }
+        //private void savedlogic()
+        //{
+        //    string User_id = Convert.ToString(Session["UserID"]);
+        //    try
+        //    {
+        //        if (CheckDouble(txtGodownName.Text) == "false")
+        //        {
+        //            lblcheckDoubleError.Text = String.Empty;
+        //            tbl_godown g = new tbl_godown();
+        //            g.company_id = companyId;
+        //            g.branch_id = branchId;
+        //            g.godown_name = txtGodownName.Text;
+        //            g.godown_address = txtGodownAddress.Text;
+        //            g.contact_no = txtContactNo.Text;
+        //            g.contact_person = txtContactPerson.Text;
+        //            //g.created_by = "admin";
+        //            g.created_by = User_id;
+        //            g.created_date = DateTime.Today;
+        //            g.status = true;
+        //            g.modified_by = "";
+        //            g.modified_date = null;
+        //            ////Shakeeb
+        //            ////g.AddGodown(g);
+        //            //Entity Framework Saving Awais
+        //            context.tbl_godown.Add(g);
+        //            context.SaveChanges();
+        //            clr();
+        //            loadDataTable();
+        //            divalert.Visible = true;
+        //            lblAlert.Text = "Godown Saved Successfully";
+        //        }
+        //        else
+        //        {
+        //            divalert.Visible = false;
+        //            lblcheckDoubleError.ForeColor = System.Drawing.Color.Red;
+        //            lblcheckDoubleError.Text = "This Godown name already Exists";
+        //            return;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ErrorLog.saveerror(ex);
+        //        //Do Logging
+        //    }
+        //}
 
-        private void updatelogic()
-        {
-            try
-            {
-                if (hd.Value != "true")
-                {
-                    lblcheckDoubleError.Text = String.Empty;
-                    int godown_id = Convert.ToInt32(ViewState["godown_id"]);
-                    context.sp_UpdateGodown(companyId, branchId, godown_id, txtGodownName.Text, txtGodownAddress.Text, txtContactNo.Text, txtContactPerson.Text, Convert.ToString(Session["UserID"]), DateTime.Today);
-                    btnUpdate.Visible = false;
-                    btnSave.Visible = true;
-                    clr();
-                    divalert.Visible = true;
-                    lblAlert.Text = "Godown Updated Successfully";
-                    loadDataTable();
-                }
-                else
-                {
-                    divalert.Visible = false;
-                    lblcheckDoubleError.ForeColor = System.Drawing.Color.Red;
-                    lblcheckDoubleError.Text = "This Godown name already Exists";
-                    return;
-                }
-            }
-             catch (Exception ex)
-            {
-                ErrorLog.saveerror(ex);
-                //Do Logging
-            }
-        }
+        //private void updatelogic()
+        //{
+        //    try
+        //    {
+        //        if (hd.Value != "true")
+        //        {
+        //            lblcheckDoubleError.Text = String.Empty;
+        //            int godown_id = Convert.ToInt32(ViewState["godown_id"]);
+        //            context.sp_UpdateGodown(companyId, branchId, godown_id, txtGodownName.Text, txtGodownAddress.Text, txtContactNo.Text, txtContactPerson.Text, Convert.ToString(Session["UserID"]), DateTime.Today);
+        //            btnUpdate.Visible = false;
+        //            btnSave.Visible = true;
+        //            clr();
+        //            divalert.Visible = true;
+        //            lblAlert.Text = "Godown Updated Successfully";
+        //            loadDataTable();
+        //        }
+        //        else
+        //        {
+        //            divalert.Visible = false;
+        //            lblcheckDoubleError.ForeColor = System.Drawing.Color.Red;
+        //            lblcheckDoubleError.Text = "This Godown name already Exists";
+        //            return;
+        //        }
+        //    }
+        //     catch (Exception ex)
+        //    {
+        //        ErrorLog.saveerror(ex);
+        //        //Do Logging
+        //    }
+        //}
 
         #endregion
 
@@ -170,7 +170,7 @@ namespace IMS
         #region Events
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            savedlogic();
+            //savedlogic();
         }
 
       
@@ -181,24 +181,26 @@ namespace IMS
                 int rowIndex = ((GridViewRow)((ImageButton)e.CommandSource).NamingContainer).RowIndex;
                 GridViewRow row = GridView1.Rows[rowIndex];
                 ViewState["godown_id"] = Convert.ToInt32(GridView1.DataKeys[row.RowIndex].Value);
-                txtGodownName.Text = row.Cells[0].Text;
-                txtGodownAddress.Text = row.Cells[1].Text;
-                txtContactNo.Text = row.Cells[2].Text;
-                txtContactPerson.Text = row.Cells[3].Text;
-                btnSave.Visible = false;
-                btnUpdate.Visible = true;
-                divalert.Visible = false;
+                ctrlgodown.godownID = GridView1.DataKeys[row.RowIndex].Value.ToString();
+                ctrlgodown.godownname = row.Cells[0].Text;
+                ctrlgodown.godownaddress = row.Cells[1].Text;
+                ctrlgodown.contactno = row.Cells[2].Text;
+                ctrlgodown.contactperson = row.Cells[3].Text;
+                
+                //btnSave.Visible = false;
+                //btnUpdate.Visible = true;
+                //divalert.Visible = false;
                 loadDataTable();
-                lblcheckDoubleError.Text = String.Empty;
-                txtGodownName.Focus();
-                hd.Value = string.Empty;
+                //lblcheckDoubleError.Text = String.Empty;
+                //txtGodownName.Focus();
+                //hd.Value = string.Empty;
             }
 
             else if (e.CommandName == "DeleteRow")
             {
                 GridViewRow row = GridView1.SelectedRow;
                 ViewState["unit_id"] = Convert.ToInt32(e.CommandArgument);
-                divalert.Visible = false;
+               // divalert.Visible = false;
                 ClientScript.RegisterStartupScript(this.GetType(), "Pop", "openModal();", true);
                 loadDataTable();
             }
@@ -210,14 +212,14 @@ namespace IMS
         {
             try
             {
-                lblcheckDoubleError.Text = String.Empty;
-                btnSave.Visible = true;
-                btnUpdate.Visible = false;
-                divalert.Visible = false;
-                lblcheckDoubleError.Text = String.Empty;
-                clr();
+                //lblcheckDoubleError.Text = String.Empty;
+                //btnSave.Visible = true;
+                //btnUpdate.Visible = false;
+                //divalert.Visible = false;
+                //lblcheckDoubleError.Text = String.Empty;
+                //clr();
                 ViewState["gridrow"] = null;
-                hd.Value = string.Empty;
+              //  hd.Value = string.Empty;
             }
             catch (Exception ex)
             {
@@ -229,7 +231,7 @@ namespace IMS
 
         protected void btnUpdate_Click(object sender, EventArgs e)
         {
-            updatelogic();
+          //  updatelogic();
         }
 
         protected void btnYes_Click(object sender, EventArgs e)
@@ -238,8 +240,8 @@ namespace IMS
             {
                 int godown_id = Convert.ToInt32(ViewState["unit_id"]);
                 context.sp_DeleteGodown(companyId, branchId, godown_id);
-                divalert.Visible = true;
-                lblAlert.Text = "Godown Deleted ";
+                //divalert.Visible = true;
+                //lblAlert.Text = "Godown Deleted ";
                 loadDataTable();
             }
             catch (Exception ex)
