@@ -65,6 +65,7 @@ namespace IMS
                     //cmd.ExecuteNonQuery();
 
                     Int32 ErrorId = (Int32)cmd.ExecuteScalar();
+                    HttpContext.Current.Session["ErrorId"] = null;
                     HttpContext.Current.Session["ErrorId"] = ErrorId;
                     con.Close();
                 }

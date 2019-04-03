@@ -15,10 +15,14 @@
     <AssemblyName>IMS</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>44301</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
-    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <IISExpressSSLPort>
+    </IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>
+    </IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>
+    </IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>
+    </IISExpressUseClassicPipelineMode>
     <UseGlobalApplicationHostFile />
     <Use64BitIISExpress />
   </PropertyGroup>
@@ -303,6 +307,9 @@
     <Content Include="MasterReports.aspx" />
     <Content Include="CommonReport.aspx" />
     <Content Include="Reports\CombineReport.aspx" />
+    <Content Include="Reports\InvoiceTemplate\InvoiceReport3.PNG" />
+    <Content Include="Reports\InvoiceTemplate\InvoicReport1.PNG" />
+    <Content Include="Reports\InvoiceTemplate\IvoiceReport2.PNG" />
     <Content Include="Reports\PurchaseSaleReturnReport.aspx" />
     <Content Include="Reports\ReportViewer.aspx" />
     <Content Include="assets\invoicedesign\base.css" />
@@ -340,6 +347,9 @@
     <Content Include="assets\src\bootstrap.bundle.min.js.map" />
     <Content Include="assets\src\bootstrap.js.map" />
     <Content Include="assets\src\bootstrap.min.js.map" />
+    <Content Include="Reports\PurchaseSaleReturnReport1.rdlc" />
+    <Content Include="Reports\PurchaseSaleReturnReport2.rdlc" />
+    <Content Include="Reports\PurchaseSaleReturnReport3.rdlc" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
@@ -361,7 +371,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Stock\StockAdjustment.aspx" />
+    <Content Include="UserControl\UC_Batch.ascx" />
     <Content Include="UserControl\UC_Category.ascx" />
+    <Content Include="UserControl\UC_Godown.ascx" />
+    <Content Include="UserControl\UC_Party.ascx" />
+    <Content Include="UserControl\UC_Product.ascx" />
+    <Content Include="UserControl\UC_Rack.ascx" />
     <Content Include="UserControl\UC_Unit.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -790,7 +805,6 @@
     </Compile>
     <Compile Include="MasterReports.aspx.cs">
       <DependentUpon>MasterReports.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="MasterReports.aspx.designer.cs">
       <DependentUpon>MasterReports.aspx</DependentUpon>
@@ -894,12 +908,47 @@
     <Compile Include="Stock\StockAdjustment.aspx.designer.cs">
       <DependentUpon>StockAdjustment.aspx</DependentUpon>
     </Compile>
+    <Compile Include="UserControl\UC_Batch.ascx.cs">
+      <DependentUpon>UC_Batch.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControl\UC_Batch.ascx.designer.cs">
+      <DependentUpon>UC_Batch.ascx</DependentUpon>
+    </Compile>
     <Compile Include="UserControl\UC_Category.ascx.cs">
       <DependentUpon>UC_Category.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="UserControl\UC_Category.ascx.designer.cs">
       <DependentUpon>UC_Category.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\UC_Godown.ascx.cs">
+      <DependentUpon>UC_Godown.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControl\UC_Godown.ascx.designer.cs">
+      <DependentUpon>UC_Godown.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\UC_Party.ascx.cs">
+      <DependentUpon>UC_Party.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControl\UC_Party.ascx.designer.cs">
+      <DependentUpon>UC_Party.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\UC_Product.ascx.cs">
+      <DependentUpon>UC_Product.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControl\UC_Product.ascx.designer.cs">
+      <DependentUpon>UC_Product.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\UC_Rack.ascx.cs">
+      <DependentUpon>UC_Rack.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControl\UC_Rack.ascx.designer.cs">
+      <DependentUpon>UC_Rack.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControl\UC_Unit.ascx.cs">
       <DependentUpon>UC_Unit.ascx</DependentUpon>

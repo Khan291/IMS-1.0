@@ -22,10 +22,6 @@ namespace IMS.Masters
         int companyId;
         int branchId;
         string User_id;
-
-
-
-
         #endregion
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -316,8 +312,6 @@ namespace IMS.Masters
                 ErrorLog.saveerror(ex);
             }
         }
-
-
 
         protected void ddlTaxType_SelectedIndexChanged(object sender, EventArgs e)
         {

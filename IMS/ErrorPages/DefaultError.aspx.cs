@@ -14,6 +14,7 @@ namespace IMS.ErrorPages
             if(Session["ErrorId"]!= null)
             {
                 lblErrorID.InnerText = Session["ErrorId"].ToString();
+                Session["ErrorId"] = null;
             }
         }
     }

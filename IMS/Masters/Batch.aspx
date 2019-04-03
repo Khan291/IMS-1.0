@@ -73,7 +73,7 @@
                     <h4 class="modal-title">Alert</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Are You Sure You want to delete? </p>
+                    <p>Do you want to delete this Batch? </p>
                 </div>
                 <div class="modal-footer">
                     <asp:Button ID="btnYes" runat="server" Text="Yes" CssClass="btn btn-primary" OnClick="btnYes_Click" />

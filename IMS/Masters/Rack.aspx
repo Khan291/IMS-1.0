@@ -80,7 +80,7 @@
                                     <asp:ImageButton CommandName="Select" ID="btnimg_update" runat="server" ImageUrl="~/assets/img/edit.png" />
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Delete" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden">
+                            <asp:TemplateField HeaderText="Delete">
                                 <ItemTemplate>
                                     <asp:ImageButton CommandName="DeleteRow" CommandArgument='<%# Eval("rack_id") %>' ID="btnimg_delete" runat="server" ImageUrl="~/assets/img/remove.png" />
                                 </ItemTemplate>
@@ -102,7 +102,7 @@
                     <h4 class="modal-title">Success</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Do You want to delete This Unit? </p>
+                    <p>Do You want to delete This Rack? </p>
                 </div>
                 <div class="modal-footer">
                     <asp:Button ID="btnYes" runat="server" Text="Yes" CssClass="btn btn-primary" OnClick="btnYes_Click" />
