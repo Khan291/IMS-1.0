@@ -28,6 +28,14 @@ namespace IMS.Reports
                 {
                     flag = Request.QueryString["flag"].ToString();
                     mrp_PurchaseSale(flag);
+                    if(flag == "Sale")
+                    {
+                        lblmrpReportHeading.Text = "Top 10 Most Returned Products of Sale";
+                    }
+                    else
+                    {
+                        lblmrpReportHeading.Text = "Top 10 Most Returned Products of Purchase";
+                    }
                 }
                 //string strQuery = "[sp_mrpSalePurchase]";
                 //SqlDataAdapter da = new SqlDataAdapter(strQuery, con);

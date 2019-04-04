@@ -10,12 +10,13 @@
 namespace IMSBLL.EntityModel
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class sp_mrpSalePurchase_Result
+    public partial class TaxGroupWithTaxType
     {
-        public Nullable<int> cnt { get; set; }
-        public string product_name { get; set; }
-        public string batch_name { get; set; }
-        public string hsn_code { get; set; }
+        public int TaxGroupTaxTypeId { get; set; }
+        public Nullable<int> TaxGroupId { get; set; }
+        public Nullable<int> TypeId { get; set; }
+        public Nullable<decimal> TaxPercentage { get; set; }
     }
 }

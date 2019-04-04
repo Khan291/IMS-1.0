@@ -239,6 +239,9 @@
       <DependentUpon>IMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\Tax.cs" />
+    <Compile Include="EntityModel\TaxGroupWithTaxType.cs">
+      <DependentUpon>IMSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityModel\Tax_percent.cs" />
     <Compile Include="EntityModel\tbl_ActualPurchaseTaxAndPrice.cs">
       <DependentUpon>IMSModel.tt</DependentUpon>

@@ -32,8 +32,7 @@
         <div class="panel panel-default text-center">
             <div class="panel-heading">
                 <h1>Batch Master</h1>
-            </div>
-        
+            </div>        
         </div>
 
         <TWebControlbatch:ctrlbatch ID="ctrlbatch" runat="server" />
