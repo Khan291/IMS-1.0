@@ -88,7 +88,7 @@ namespace IMS
                 ddlVendor.DataValueField = "party_id";
                 ddlVendor.DataSource = cd;
                 ddlVendor.DataBind();
-                ddlVendor.Items.Insert(0, new ListItem("--Select Vendor--", "0"));
+                ddlVendor.Items.Insert(0, new ListItem("--Select Customer--", "0"));
             }
             catch (Exception ex)
             {
