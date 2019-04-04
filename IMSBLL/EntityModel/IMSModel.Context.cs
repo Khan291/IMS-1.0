@@ -28,6 +28,7 @@ namespace IMSBLL.EntityModel
         }
     
         public virtual DbSet<ELMAH_Error> ELMAH_Error { get; set; }
+        public virtual DbSet<TaxGroupWithTaxType> TaxGroupWithTaxTypes { get; set; }
         public virtual DbSet<tbl_ActualPurchaseTaxAndPrice> tbl_ActualPurchaseTaxAndPrice { get; set; }
         public virtual DbSet<tbl_ActualSalesTaxAndPrice> tbl_ActualSalesTaxAndPrice { get; set; }
         public virtual DbSet<tbl_batch> tbl_batch { get; set; }

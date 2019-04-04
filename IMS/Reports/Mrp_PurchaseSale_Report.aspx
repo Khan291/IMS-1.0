@@ -1,26 +1,25 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true"  CodeBehind="Mrp_PurchaseSale_Report.aspx.cs" Inherits="IMS.Reports.Mrp_PurchaseSale_Report" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Main.Master" CodeBehind="Mrp_PurchaseSale_Report.aspx.cs" Inherits="IMS.Reports.Mrp_PurchaseSale_Report" %>
 
-<%@ Register assembly="Microsoft.ReportViewer.WebForms" namespace="Microsoft.Reporting.WebForms" tagprefix="rsweb" %>
+<%@ Register Assembly="Microsoft.ReportViewer.WebForms" Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
 
-<!DOCTYPE html>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+</asp:Content>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
+
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div>
+        <br />
         <div>
-            <asp:ScriptManager ID="ScriptManager1" runat="server">
-        </asp:ScriptManager> 
-             
-            <rsweb:ReportViewer ID="ReportViewer1" runat="server" Height="861px" Width="1347px">
-                <LocalReport ReportPath="Reports\Mrp_PurchaseSale_Report.rdlc" EnableExternalImages="True">
-                </LocalReport>
-            </rsweb:ReportViewer>
-            
-        
+            <a href="../Home.aspx" id="bMaster" runat="server">
+                <img src="../assets/img/goback-5-w800.png" height="50" width="130" /></a>
         </div>
-    </form>
-</body>
-</html>
+        <asp:label id="lblmrpReportHeading" runat="server"></asp:label>
+        <br />
+        <rsweb:ReportViewer ID="ReportViewer1" runat="server" Height="861px" Width="100%">
+            <LocalReport ReportPath="Reports\Mrp_PurchaseSale_Report.rdlc" EnableExternalImages="True">
+            </LocalReport>
+        </rsweb:ReportViewer>
+
+    </div>
+
+</asp:Content>
