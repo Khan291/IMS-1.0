@@ -90,7 +90,7 @@
                                 <div id="listPlacement" style="height:100px; overflow-y:scroll;" ></div>
                                 <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender1" runat="server"
                                     ServiceMethod="GetPoNumbers"
-                                    MinimumPrefixLength="2"
+                                    MinimumPrefixLength="1"
                                     CompletionInterval="100"
                                     EnableCaching="false"
                                     CompletionSetCount="10"

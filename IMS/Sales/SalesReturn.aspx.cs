@@ -78,7 +78,7 @@ namespace IMS.Sales
             //    using (SqlCommand cmd = new SqlCommand())
             //    {
                     int year = DateTime.Now.Year;
-                    prefixText = year.ToString() + "S" + prefixText;
+                    //prefixText = year.ToString() + "S" + prefixText;
                     var result = context.tbl_sale.Where(p => p.InvoiceNumber.Contains(prefixText) && p.company_id == companyId);
                     List<string> customers = new List<string>();
                     customers = result.Select(p => p.InvoiceNumber).ToList<string>();
@@ -775,6 +775,10 @@ namespace IMS.Sales
 
 
                     }
+                }
+                else
+                {
+                    lblcheckDoubleError.Text = ValidateQuantity(enteredQuantity, productId, saleId)[1];
                 }
             }
             catch (Exception ex)

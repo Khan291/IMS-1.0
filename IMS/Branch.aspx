@@ -67,7 +67,7 @@
                             <img src="../assets/img/goback-5-w800.png" height="50" width="130" /></a>
                     </div>
                     <div class="panel-heading text-center">
-                        <h1>Branch Master</h1>
+                        <h1>Company Master</h1>
                     </div>
                     <div class="panel-body">
                         <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">

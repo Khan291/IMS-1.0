@@ -82,7 +82,7 @@ namespace IMS
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     int year = DateTime.Now.Year;
-                    prefixText = year.ToString() + "P" + prefixText;
+                    //prefixText = year.ToString() + "P" + prefixText;
                     var result = context.tbl_purchase.Where(p => p.InvoiceNumber.Contains(prefixText) && p.company_id == companyId);
                     List<string> customers = new List<string>();
                     customers = result.Select(p => p.InvoiceNumber).ToList<string>();
@@ -854,6 +854,10 @@ namespace IMS
                         btnUpdate.Visible = false;
                         btnAdd.Visible = true;
                     }
+                }
+                else
+                {
+                    lblcheckDoubleError.Text = ValidateQuantity(enteredQuantity, productId, purchaseId)[1];
                 }
             }
             catch (Exception ex)
