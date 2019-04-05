@@ -959,8 +959,21 @@ namespace IMS
         {
             string balanceAmnt = txtBalanceAmt.Text.Replace('-', ' ');
             decimal paidAmnt = txtPaidAmt.Text == "" ? 0 : Convert.ToDecimal(txtPaidAmt.Text);
-            txtPaidAmt.Text = (Convert.ToDecimal(balanceAmnt) + paidAmnt).ToString();
+            decimal remainingBalance = Convert.ToDecimal(lblResultGrndTotal.Text) - Convert.ToDecimal(lblGivenAmnt.Text);
+            decimal amntTobeTaken = remainingBalance - (remainingBalance * 2);
+            decimal ResultAmt = remainingBalance + paidAmnt;
+            if (ResultAmt > remainingBalance)
+            {
+                txtPaidAmt.Text = amntTobeTaken.ToString();
+               // txtBalanceAmt.Text = "0";
+            }
+            else
+            {
+                txtBalanceAmt.Text = (ResultAmt).ToString();
+                // btnGetRefund.Visible = true;
+            }
             txtBalanceAmt.Text = "0";
+
             btnGetRefund.Visible = false;
         }
 
@@ -993,7 +1006,7 @@ namespace IMS
                     if (remainingBalance < 0)
                     {
                         decimal ResultAmt = remainingBalance + paidAmnt;
-                        if (ResultAmt > amntTobeTaken)
+                        if (ResultAmt > remainingBalance)
                         {
                             txtPaidAmt.Text = amntTobeTaken.ToString();
                             txtBalanceAmt.Text = "0";

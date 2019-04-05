@@ -906,7 +906,19 @@ namespace IMS.Sales
         {
             string balanceAmnt = txtBalanceAmt.Text.Replace('-', ' ');
             decimal paidAmnt = txtPaidAmt.Text == "" ? 0 : Convert.ToDecimal(txtPaidAmt.Text);
-            txtPaidAmt.Text = (Convert.ToDecimal(balanceAmnt) + paidAmnt).ToString();
+            decimal remainingBalance = Convert.ToDecimal(lblResultGrndTotal.Text) - Convert.ToDecimal(lblGivenAmnt.Text);
+            decimal amntTobeTaken = remainingBalance - (remainingBalance * 2);
+            decimal ResultAmt = remainingBalance + paidAmnt;
+            if (ResultAmt > remainingBalance)
+            {
+                txtPaidAmt.Text = amntTobeTaken.ToString();
+                // txtBalanceAmt.Text = "0";
+            }
+            else
+            {
+                txtBalanceAmt.Text = (ResultAmt).ToString();
+                // btnGetRefund.Visible = true;
+            }
             txtBalanceAmt.Text = "0";
             btnPayBack.Visible = false;
 
@@ -942,16 +954,36 @@ namespace IMS.Sales
                 decimal Amnt = Convert.ToDecimal(txtBalanceAmt.Text);
 
                 decimal amntTobeTaken = remainingBalance - (remainingBalance * 2);
+
+
+
+
+
                 if (remainingBalance < paidAmnt)
                 {
                     if (remainingBalance < 0)
                     {
-                        txtBalanceAmt.Text = (remainingBalance + paidAmnt).ToString();
-                        btnPayBack.Visible = true;
+                        decimal ResultAmt = remainingBalance + paidAmnt;
+                        if (ResultAmt > remainingBalance)
+                        {
+                            txtPaidAmt.Text = amntTobeTaken.ToString();
+                            txtBalanceAmt.Text = "0";
+                        }
+                        else
+                        {
+                            txtBalanceAmt.Text = (ResultAmt).ToString();
+                            // btnGetRefund.Visible = true;
+                        }
+
                     }
                     else if (paidAmnt == amntTobeTaken)
                     {
                         txtPaidAmt.Text = amntTobeTaken.ToString();
+                        txtBalanceAmt.Text = "0";
+                    }
+                    else
+                    {
+                        txtPaidAmt.Text = remainingBalance.ToString();
                         txtBalanceAmt.Text = "0";
                     }
                 }
