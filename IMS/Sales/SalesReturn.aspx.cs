@@ -31,41 +31,52 @@ namespace IMS.Sales
             {
                 if (ViewState["Details"] == null)
                 {
-                    DataTable dataTable = new DataTable();
-
-                    dataTable.Columns.Add("saledetails_id");
-                    dataTable.Columns.Add("Product_id");
-                    dataTable.Columns.Add("batch_id");
-                    dataTable.Columns.Add("unit_id");
-                    dataTable.Columns.Add("group_id");
-                    dataTable.Columns.Add("amount");
-                    dataTable.Columns.Add("dicount_amt");
-                    dataTable.Columns.Add("tax_amt");
-                    dataTable.Columns.Add("sale_rate");
-                    dataTable.Columns.Add("quantity");
-                    dataTable.Columns.Add("product_name");
-                    dataTable.Columns.Add("unit_name");
-                    dataTable.Columns.Add("batch_name");
-                    dataTable.Columns.Add("tax_percentage");
-                    ViewState["Details"] = dataTable;
+                    gvTableassign();
                 } 
                 
                 if (ViewState["TaxDetails"] == null)
                 {
-                    DataTable dataTable2 = new DataTable();
-
-                    dataTable2.Columns.Add("product_id");
-                    dataTable2.Columns.Add("group_id");
-                    dataTable2.Columns.Add("group_name");
-                    dataTable2.Columns.Add("type_name");
-                    dataTable2.Columns.Add("tax_percentage");
-                    dataTable2.Columns.Add("totaltaxPercentage");
-                    dataTable2.Columns.Add("type_id");
-                    ViewState["TaxDetails"] = dataTable2;
+                    gvTaxTable();
                 }
                 this.BindTaxGrid();
                 ddlpaymentmodebind();
             }
+        }
+
+
+        public void gvTableassign()
+        {
+            DataTable dataTable = new DataTable();
+
+            dataTable.Columns.Add("saledetails_id");
+            dataTable.Columns.Add("Product_id");
+            dataTable.Columns.Add("batch_id");
+            dataTable.Columns.Add("unit_id");
+            dataTable.Columns.Add("group_id");
+            dataTable.Columns.Add("amount");
+            dataTable.Columns.Add("dicount_amt");
+            dataTable.Columns.Add("tax_amt");
+            dataTable.Columns.Add("sale_rate");
+            dataTable.Columns.Add("quantity");
+            dataTable.Columns.Add("product_name");
+            dataTable.Columns.Add("unit_name");
+            dataTable.Columns.Add("batch_name");
+            dataTable.Columns.Add("tax_percentage");
+            ViewState["Details"] = dataTable;
+        }
+
+        public void gvTaxTable()
+        {
+            DataTable dataTable2 = new DataTable();
+
+            dataTable2.Columns.Add("product_id");
+            dataTable2.Columns.Add("group_id");
+            dataTable2.Columns.Add("group_name");
+            dataTable2.Columns.Add("type_name");
+            dataTable2.Columns.Add("tax_percentage");
+            dataTable2.Columns.Add("totaltaxPercentage");
+            dataTable2.Columns.Add("type_id");
+            ViewState["TaxDetails"] = dataTable2;
         }
         [System.Web.Script.Services.ScriptMethod()]
         [System.Web.Services.WebMethod]
@@ -360,18 +371,28 @@ namespace IMS.Sales
             gvsalesdetails.DataBind();
             gvTaxDetailsNew.DataSource = null;
             gvTaxDetailsNew.DataBind();
+            ViewState["Details"] = null;
+            ViewState["TaxDetails"] = null;
+            gvTableassign();
+            gvTaxTable();
 
-            lblTotalAmnt.Text = string.Empty;
-            lblsubtotal.Text = string.Empty;
-            lblResultSubTotal.Text = string.Empty;
+            lblTotalAmnt.Text = "0";
+            lblsubtotal.Text = "0";
+            lblResultSubTotal.Text = "0";
 
-            lblTotalTax.Text = string.Empty;
-            lblTaxAmount.Text = string.Empty;
-            lblResultTotalTaxAmnt.Text = string.Empty;
+            lblTotalTax.Text = "0";
+            lblTaxAmount.Text = "0";
+            lblResultTotalTaxAmnt.Text = "0";
 
-            lblTotalDiscount.Text = string.Empty;
-            lblDiscountAmt.Text = string.Empty;
-            lblResultTotalDiscount.Text = string.Empty;
+            lblTotalDiscount.Text = "0";
+            lblDiscountAmt.Text = "0";
+            lblResultTotalDiscount.Text = "0";
+
+            lblResultGrndTotal.Text = "0";
+            lblGrandTotal.Text = "0";
+
+            txtBalanceAmt.Text = "0";
+            txtPaidAmt.Text = "0";
         }
         #endregion
 
