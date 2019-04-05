@@ -18,7 +18,7 @@ namespace IMS
     public partial class ViewORPayBalanceSale : System.Web.UI.Page
     {
         IMS_TESTEntities context = new IMS_TESTEntities();
-        int companyId = 0, branchId = 0, financialYearId = 0;
+        static int companyId = 0, branchId = 0, financialYearId = 0;
         string user_id = string.Empty;
         bool viewOrPayBalance = false;
         int sale_Id = 0;
@@ -43,7 +43,10 @@ namespace IMS
                 SessionValue();
                 if (!IsPostBack)
                 {
-                    this.FetchData(sale_Id);
+                    if (sale_Id != 0)
+                    {
+                        this.FetchData(sale_Id);
+                    }
                 }
             }
             catch (Exception ex)
@@ -53,6 +56,44 @@ namespace IMS
         }
 
         //Methods------------------
+
+
+        [System.Web.Script.Services.ScriptMethod()]
+        [System.Web.Services.WebMethod]
+        public static List<string> GetPoNumbers(string prefixText, int count)
+        {
+            IMS_TESTEntities context = new IMS_TESTEntities();
+
+
+
+            int year = DateTime.Now.Year;
+            prefixText = year.ToString() + "S" + prefixText;
+            var result = context.tbl_sale.Where(p => p.InvoiceNumber.Contains(prefixText) && p.company_id == companyId);
+            List<string> customers = new List<string>();
+            customers = result.Select(p => p.InvoiceNumber).ToList<string>();
+            return customers;
+
+        }
+
+        public void GetsaleDetails()
+        {
+            try
+            {
+                var sale = context.tbl_sale.Where(w => w.InvoiceNumber == txtSearchBox.Text && w.company_id == companyId && w.branch_id == branchId).FirstOrDefault();
+                if (sale == null)
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "Pop", "openalert('Invoice does not exist, Please enter valid Invoice Number.','True');", true);
+                    return;
+                }
+                hdnSaleId.Value = sale.sale_id.ToString();
+                sale_Id = sale.sale_id;
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.saveerror(ex);
+            }
+        }
+
         private void FetchData(int purchaseId)
         {
 
@@ -102,10 +143,10 @@ namespace IMS
                 //DataRow drreturn = ds.Tables["Table"].Select("Type='Return'").FirstOrDefault();
                 var v = context.tbl_SalePaymentDetails.Where(s => s.SaleId == purchaseId).FirstOrDefault();
 
-                lblsubtotal.Text = subTotal.ToString();
-                lblTaxAmount.Text = totalTax.ToString();
-                lblDiscountAmt.Text = totalDiscount.ToString();
-                lblGrandTotal.Text = grandTotal.ToString();
+                lblsubtotal.Text = v.SubTotal.ToString();
+                lblTaxAmount.Text = v.TaxAmount.ToString();
+                lblDiscountAmt.Text = v.DiscountAmount.ToString();
+                lblGrandTotal.Text = v.GrandTotal.ToString();
                 lblGivenAmnt.Text = v.GivenAmnt.ToString();
 
                 balanceAmnt = Convert.ToDecimal(v.BalanceAmnt);
@@ -117,7 +158,12 @@ namespace IMS
                 lblBalanceAmnt.Text = balanceAmnt.ToString();
 
                 gvsaledetails.DataSource = ds.Tables["Table"];
-                gvsaledetails.DataBind();              
+                gvsaledetails.DataBind();
+                if (balanceAmnt > 0)
+                {
+                    btnSave.Enabled = true;
+                    txtPaidAmnt.Enabled = true;
+                }
             }
         }
 
@@ -128,6 +174,7 @@ namespace IMS
                 lblError.Text = string.Empty;
                 if (ValidCalculation())
                 {
+                    sale_Id = Convert.ToInt32(hdnSaleId.Value);
                     var salePaymentDetails = context.tbl_SalePaymentDetails.Where(w => w.SaleId == sale_Id).FirstOrDefault();
                     if (salePaymentDetails != null)
                     {
@@ -135,6 +182,8 @@ namespace IMS
                         salePaymentDetails.GivenAmnt = Convert.ToDecimal(txtPaidAmnt.Text) + salePaymentDetails.GivenAmnt;
                         salePaymentDetails.BalanceAmnt = Convert.ToDecimal(txtBalanceAmnt.Text);
                         salePaymentDetails.FromTable = "Sale Pay Balance";
+                        salePaymentDetails.ModifiedDate = DateTime.Now;
+                        salePaymentDetails.ModifiedBy = user_id;
                     }
                     context.SaveChanges();
                     int? order = salePaymentDetails.SaleId;
@@ -171,7 +220,7 @@ namespace IMS
 
             return valid;
         }
-
+        
         private void SessionValue()
         {
             if (Session["UserID"] == null || Session["company_id"] == null || Session["branch_id"] == null || Session["financialyear_id"] == null)
@@ -295,7 +344,17 @@ namespace IMS
                 ErrorLog.saveerror(ex);
             }
         }
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
 
+            GetsaleDetails();
+            //BindOrigianlPurchaseGrid();
+            if (!string.IsNullOrEmpty(hdnSaleId.Value))
+            {
+                sale_Id = Convert.ToInt32(hdnSaleId.Value);
+                FetchData(sale_Id);
+            }
+        }
 
     }
 }

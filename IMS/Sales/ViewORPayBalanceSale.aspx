@@ -11,6 +11,12 @@
             return true;
 
         }
+        function openalert(msg) {
+            debugger;
+            alertify.alert('Success', msg).setting({
+                'onok': function () { window.location.href = "ViewORPayBalanceSale.aspx"; }
+            });
+        }
         function keypress() {
             var balance = $('#<%=lblGrandTotal.ClientID%>').value() - ($('#<%=lblGivenAmnt.ClientID%>').value() + $('#<%=txtPaidAmnt.ClientID%>').value())
             $('#<%=txtBalanceAmnt.ClientID%>').value(balance);
@@ -24,6 +30,48 @@
         </div>
         <div class="panel-body">
             <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px;">
+                        <div class="form-horizontal Fhorizontal">
+                            <div class="col-sm-10 leftpadd0">
+                                <asp:HiddenField ID="hdnSaleId" runat="server" />
+                                <label class="control-label">
+                                    Enter Invoice No.
+                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtSearchBox" ErrorMessage="*" ForeColor="Red" ValidationGroup="searchvalidation"></asp:RequiredFieldValidator>
+                                </label>
+                                <asp:TextBox ID="txtSearchBox" runat="server" CssClass="form-control" ValidationGroup="searchvalidation"></asp:TextBox>
+                                <div id="listPlacement" style="height: 100px; overflow-y: scroll;"></div>
+                                <ajaxToolkit:AutoCompleteExtender ID="AutoCompleteExtender1" runat="server"
+                                    ServiceMethod="GetPoNumbers"
+                                    MinimumPrefixLength="2"
+                                    CompletionInterval="100"
+                                    EnableCaching="false"
+                                    CompletionSetCount="10"
+                                    TargetControlID="txtSearchBox"
+                                    CompletionListElementID="listPlacement"
+                                    FirstRowSelected="false">
+                                </ajaxToolkit:AutoCompleteExtender>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-2 col-lg-2 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px; margin-top: 27px">
+                        <div class="form-horizontal Fhorizontal">
+                            <div class="col-sm-10 leftpadd0">
+                                <%--<asp:Button ID="btnAdd" runat="server" CssClass="btn btn-primary" OnClick="btnAdd_Click" Text="Add" Width="100px" />--%>
+                                <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-primary" Width="100px" OnClick="btnSearch_Click"   ValidationGroup="searchvalidation" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px; margin-top: 27px">
+                        <div class="text-center">
+                            <asp:Label ID="lblInvoice" runat="server" Font-Bold="true" Font-Size="23px" ForeColor="Red"></asp:Label>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <br />
                 <div class="row">                   
                     <div class="col-md-3 col-lg-3 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px;">
                         <div class="form-horizontal Fhorizontal">

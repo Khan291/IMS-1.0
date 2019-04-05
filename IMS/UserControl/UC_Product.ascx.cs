@@ -226,7 +226,7 @@ namespace IMS.UserControl
         public void ddlrackbind(int godownid)
         {
             int g_id = Convert.ToInt32(ddlGodown.SelectedValue);
-            List<tbl_rack> cd = context.tbl_rack.Where(x => x.status == true && x.company_id == companyId && x.branch_id == branchId && x.godown_id == godownid).ToList();
+            List<tbl_rack> cd = context.tbl_rack.Where(x => x.status == true && x.company_id == companyId  && x.godown_id == godownid).ToList();
             ddlRack.DataTextField = "rack_name";
             ddlRack.DataValueField = "rack_id";
             ddlRack.DataSource = cd;

@@ -92,6 +92,7 @@ namespace IMS
                     ddlVendorbind();
                     ddlproductbind();
                     ddlbatchbind();
+                    CalendarExtender1.SelectedDate = DateTime.Today;
                     //txtdate.Text = DateTime.Now.ToString();
                     ddlpaymentmodebind();
                     getdate();
@@ -435,7 +436,7 @@ namespace IMS
                 hd2.Value = finicialyear.end_date;
 
                 CalendarExtender1.StartDate = Convert.ToDateTime(finicialyear.start_date);
-                CalendarExtender1.EndDate = Convert.ToDateTime(finicialyear.end_date);
+                CalendarExtender1.EndDate =DateTime.Today;
             }
             catch (Exception ex)
             {
