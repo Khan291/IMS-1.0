@@ -75,6 +75,7 @@ namespace IMS
                     ddlproductbind();
                     ddlpaymentmodebind();
                     getdate();
+                    CalendarExtender1.SelectedDate = DateTime.Today;
                     txtSONo.Text = Common.GenerateInvoicenumber(companyId, branchId, Constants.Sale);
                     ClearAll();
                 }
@@ -151,7 +152,7 @@ namespace IMS
                 hd1.Value = finicialyear.start_date;
                 hd2.Value = finicialyear.end_date;
                 CalendarExtender1.StartDate = Convert.ToDateTime(finicialyear.start_date);
-                CalendarExtender1.EndDate = Convert.ToDateTime(finicialyear.end_date);
+                CalendarExtender1.EndDate = DateTime.Today;
             }
             catch (Exception ex)
             {
@@ -522,6 +523,7 @@ namespace IMS
                     clr();                   
                     txtGivenAmt.ReadOnly = false;
                     calculation(subTotal, tax_amnt, discountamt);
+                    txtGivenAmt.Text = lblGrandTotal.Text;
                 }
             }
             catch (Exception ex)

@@ -651,7 +651,7 @@ namespace IMS
 
                         ViewState["TaxDetails"] = dt2;
                         this.BindTaxGrid();
-
+                        
                     }
                 }
             }
@@ -1006,15 +1006,21 @@ namespace IMS
                     if (remainingBalance < 0)
                     {
                         decimal ResultAmt = remainingBalance + paidAmnt;
-                        if (ResultAmt > remainingBalance)
+                        if (ResultAmt > amntTobeTaken)
                         {
                             txtPaidAmt.Text = amntTobeTaken.ToString();
                             txtBalanceAmt.Text = "0";
                         }
-                        else
+                        else if (ResultAmt<0)
                         {
                             txtBalanceAmt.Text = (ResultAmt).ToString();
-                           // btnGetRefund.Visible = true;
+                        }
+                        else
+                        {
+                            
+                            // btnGetRefund.Visible = true;
+                            txtPaidAmt.Text = amntTobeTaken.ToString();
+                            txtBalanceAmt.Text = "0";
                         }
                        
                     }

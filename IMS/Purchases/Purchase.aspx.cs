@@ -508,7 +508,10 @@ namespace IMS
                     lblcheckDoubleError.Text = string.Empty;
                     clr();
                     txtPaidAmt.Enabled = true;
+                  
                     calculation(subTotal, tax_amnt, discountamt);
+                    txtPaidAmt.Text = lblGrandTotal.Text;
+
                 }
             }
             catch (Exception ex)
