@@ -233,7 +233,7 @@ namespace IMS.Registration
             string enPswd = EncryptionHelper.GetSwcSHA1(txtPassword.Text);
             //r.password = enPswd;
             ////Shakeeb
-            var r = context.tbl_User.Where(g => g.user_name == txtEmail.Text && g.password == enPswd && g.status == true).FirstOrDefault();
+            var r = context.tbl_User.Where(g => (g.user_name == txtEmail.Text || g.user_mobieno == txtEmail.Text) && g.password == enPswd && g.status == true).FirstOrDefault();
             // r.userID(r);
 
             Session["username"] = txtEmail.Text;

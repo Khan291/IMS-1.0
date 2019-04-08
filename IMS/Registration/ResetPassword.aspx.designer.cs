@@ -22,13 +22,13 @@ namespace IMS.Registration {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divresetpassword;
         
         /// <summary>
-        /// myInput control.
+        /// password control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputPassword myInput;
+        protected global::System.Web.UI.HtmlControls.HtmlInputPassword password;
         
         /// <summary>
         /// chkpassword control.

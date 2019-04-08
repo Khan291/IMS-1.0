@@ -345,7 +345,7 @@
                                                 <label for="email" class="control-label">Email :</label>
                                                 <i class="fa fa-envelope"></i>
 
-                                                <input type="email" name="txtEmail" onchange="CheckDouble()" class="form-control" runat="server" required="required" id="email" autocomplete="off" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                                <input type="email" name="txtEmail" onchange="CheckDouble()" class="form-control" runat="server" id="email" autocomplete="off" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                                                     title="Please enter your Email" />
                                                 <asp:Label ID="lblcheckDoubleError" runat="server"></asp:Label>
                                                 <asp:HiddenField ID="hd" runat="server" />

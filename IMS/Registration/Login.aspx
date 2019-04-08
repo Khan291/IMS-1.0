@@ -49,7 +49,7 @@
                             <fieldset>
                                 <div class="form-group">
                                     <label class="sr-only" for="form-about-yourself">Passowrd</label>
-                                    <asp:TextBox ID="txtEmail" runat="server" placeholder="Email..." CssClass="form-last-name form-control"></asp:TextBox>
+                                    <asp:TextBox ID="txtEmail" runat="server" placeholder="Enter Mobile No. or Email..." CssClass="form-last-name form-control"></asp:TextBox>
                                 </div>
                                 <div class="form-group">
                                     <label class="sr-only" for="form-about-yourself">Passowrd</label>

@@ -2,7 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
-     <link href="../assets/plugins/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="../assets/plugins/bootstrap/bootstrap.css" rel="stylesheet" />
     <link href="../assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
     <link href="../assets/css/style.css" rel="stylesheet" />
     <link href="../assets/css/main-style.css" rel="stylesheet" />
@@ -30,7 +30,7 @@
     <script type="text/javascript">
         $(function () {
             $("#<%=chkpassword.ClientID%>").bind("click", function () {
-                var txtPassword = $("#<%=myInput.ClientID%>");
+                var txtPassword = $("#<%=password.ClientID%>");
                 if ($(this).is(":checked")) {
                     txtPassword.after('<input onchange = "PasswordChanged(this);" id = "txt_' + txtPassword.attr("id") + '" type = "text" class="form-control" value = "' + txtPassword.val() + '" />');
                     txtPassword.hide();
@@ -41,68 +41,90 @@
                 }
             });
         });
-    </script>
-      <script type='text/javascript'>
 
+        function validatePassword(val) {
+            debugger
+            var password = $("#<%= password.ClientID %>").val(),
+                confirm_password = $("#<%= Cpassword.ClientID %>").val();
+            if (val == 'first') {
+                confirm_password = "";
+                if (password.length < 6) {
+                    $("#passLengthError").html("Password does not match with the given format");
+                }
+                else {
+                    $("#passLengthError").html("");
+                }
+            }
+            else {
+                if (password != confirm_password) {
+                    $("#passError").html("Password does not match");
+                    //confirm_password.setCustomValidity("Passwords Don't Match");
+                } else {
+                    $("#passError").html("");
+                }
+            }
+        }
 
-          function openalert(msg, val) {
-              alertify.alert('Success', msg).setting({
-                  'onok': function () {
-                      if (val == 'True') {
-                          window.location.href = "Login.aspx";
-                      }
+        function openalert(msg, val) {
+            alertify.alert('Success', msg).setting({
+                'onok': function () {
+                    if (val == 'True') {
+                        window.location.href = "Login.aspx";
+                    }
 
-                  }
-              });
-
-          }
+                }
+            });
+        }
 
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div id="divresetpassword" runat="server">
-    <div class="containr">
-        <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-                <div class="login-panel panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title"><b>Reset Password</b></h3>
-                    </div>
-                    <div class="panel-body">
-                        <div role="form">
-                            <fieldset>
-                                <div class="form-group">
-                                    <label class="sr-only" for="form-about-yourself">Passowrd</label>
-                                    <i class="fa fa-key"></i>
-                                                
-                                                    <input type="password" class="form-control" id="myInput" runat="server" required="required" autocomplete="off" onkeypress="handleSpace(event)" placeholder="Enter Password" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
-                                                        title="Please enter your password e.g:Password@123" />
-                                                (Password must contain atleast 8 characters,One upper case,One number,One special symbol)
+        <div class="containr">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="login-panel panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><b>Reset Password</b></h3>
+                        </div>
+                        <div class="panel-body">
+                            <div role="form">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label class="sr-only" for="form-about-yourself">Passowrd</label>
+                                        <i class="fa fa-key"></i>
+
+                                        <input type="password" class="form-control" id="password" runat="server" required="required" autocomplete="off" onkeypress="handleSpace(event)" placeholder="Enter Password"
+                                            title="Please enter your password" onchange="validatePassword('first')" onkeyup="validatePassword('first')" />
+                                        (Password must contain atleast 6 characters)<br />
                                                 <br />
-                                    <input type="checkbox" id="chkpassword" runat="server" />Show Password
-                                </div>
-                                <div class="form-group">
-                                    <label class="sr-only" for="form-about-yourself">Passowrd</label>
-                                     <input type="password" name="txtCpassword" class="form-control" required="required" runat="server" id="Cpassword" autocomplete="off" placeholder="Confirm Password......"
-                                                    pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
-                                                    title="Confirm Password"  />
-                                </div>
-                                <!-- Change this to a button or input when using this as a form -->
-                                <asp:Button ID="btnSubmit" CssClass="btn btn-info btn-lg" runat="server" Text="Confirm" OnClick="btnSubmit_Click" />
-                            </fieldset>
+                                        <input type="checkbox" id="chkpassword" runat="server" />Show Password
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="sr-only" for="form-about-yourself">Passowrd</label>
+                                        <input type="password" name="txtCpassword" class="form-control" required="required" runat="server" id="Cpassword" autocomplete="off" placeholder="Confirm Password......"
+                                            title="Confirm Password" onchange="validatePassword('first')" onkeyup="validatePassword('first')" />
+                                        <span style="color: red" id="passError"></span>
+                                    </div>
+                                    <!-- Change this to a button or input when using this as a form -->
+                                    <asp:Button ID="btnSubmit" CssClass="btn btn-info btn-lg" runat="server" Text="Confirm" OnClick="btnSubmit_Click" />
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
                         </div>
                     </div>
-                    <div class="panel-footer">
-                    </div>
                 </div>
+
+
             </div>
-
-
         </div>
     </div>
-        </div>
-    <div id="divclickhere" runat="server">
-          <h3>Click Below Button to Login</h3>.
+    <div id="divclickhere" class="col-md-4 col-md-offset-4" runat="server">
+        <center>
+        <h3>Click Below Button to Login</h3>
         <a href="Login.aspx" class="btn btn-primary">Login</a>
+        </center>
     </div>
+    <br /><br />
 </asp:Content>

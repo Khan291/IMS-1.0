@@ -145,11 +145,11 @@ namespace IMS.Registration
                 ClientScript.RegisterStartupScript(this.GetType(), "Pop", "openalert('Please Enter Proper Mobile Number','False');", true);
                 return false;
             }
-            if (v.emialvalidation(email.Value) == false)
-            {
-                ClientScript.RegisterStartupScript(this.GetType(), "Pop", "openalert('Please Enter Proper Email','False');", true);
-                return false;
-            }
+            //if (v.emialvalidation(email.Value) == false)
+            //{
+            //    ClientScript.RegisterStartupScript(this.GetType(), "Pop", "openalert('Please Enter Proper Email','False');", true);
+            //    return false;
+            //}
             string[] array = new string[] { txtfirstname.Value, txtlastname.Value, txtcompanyname.Value, txtzip.Value, txtmobile.Value };
             if (v.emtystringvalidtion(array) == false)
             {

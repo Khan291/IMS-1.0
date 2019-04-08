@@ -53,14 +53,14 @@
                         <fieldset>
                             <div class="form-group">
                                 <label class="sr-only" for="form-email">Email</label>
-                                <input type="email" name="txtEmail"  class="form-control" runat="server" required="required" id="email" autocomplete="off" placeholder="Please Enter Register Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                                                    title="Please enter your Email" />
+                                <input type="number" name="Mobile"  class="form-control" runat="server" required="required" id="txtMobile" autocomplete="off" placeholder="Please Enter Registered Mobile No." pattern="^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$"
+                                                    title="Please enter your Registered Mobile No." />
                             </div>
                            
 
                             <!-- Change this to a button or input when using this as a form -->
                             <div class="col-sm-6">
-                                <asp:Button ID="btnsendmail" runat="server" CssClass="btn btn-lg btn-success btn-block" Text="Send Email" OnClick="btnsendmail_Click" />
+                                <asp:Button ID="btnsendmail" runat="server" CssClass="btn btn-lg btn-success btn-block" Text="Send Message" OnClick="btnsendmail_Click" />
                             </div>
                             <div class="col-sm-6">
                                 <a href="Login.aspx" class="btn btn-lg btn-success btn-block">Cancel</a>
