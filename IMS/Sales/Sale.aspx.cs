@@ -98,7 +98,6 @@ namespace IMS
             ddlTaxGroup.DataSource = taxGroup;
 
             ddlTaxGroup.DataBind();
-            ddlTaxGroup.Items.Insert(0, new ListItem("--Select tax--", "0"));
         }
         protected void BindTaxGrid()
         {

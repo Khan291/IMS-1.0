@@ -139,10 +139,10 @@
                     <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px;">
                         <div class="col-sm-10 leftpadd0">
                             <label class="control-label">
-                                Vendor Receipt No. <span style="color: red">*</span>
+                                Vendor Receipt No. 
                             </label>
                             <asp:TextBox ID="txtPONo" runat="server" CssClass="form-control"></asp:TextBox>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*" ForeColor="Red" Text="Please Enter Receipt No" ValidationGroup="purchvalidationgrp" ControlToValidate="txtPONo"></asp:RequiredFieldValidator>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*" ForeColor="Red" Text="Please Enter Receipt No" ControlToValidate="txtPONo"></asp:RequiredFieldValidator>
                         </div>
                     </div>
                     <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px;">
@@ -250,7 +250,7 @@
                             <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px;">
                                 <div class="col-sm-10 leftpadd0">
                                     <label class="control-label">
-                                        Tax Group %
+                                        Tax Group % <span style="color: red">*</span>
                                     </label>
                                     <asp:DropDownList runat="server" ID="ddlTaxGroup" CssClass="form-control">
                                     </asp:DropDownList>
