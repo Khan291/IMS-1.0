@@ -1,5 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Sale.aspx.cs" Inherits="IMS.Sale" %>
 
+<%@ Register Src="~/UserControl/UC_Party.ascx" TagName="ctrlparty" TagPrefix="TWebControlparty" %>
+
+
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <style>
@@ -91,6 +95,7 @@
     <script src="../assets/scripts/chosen.jquery.js"></script>
 
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="panel panel-default ">
         <div class="panel-heading text-center">
@@ -294,11 +299,11 @@
                             <asp:BoundField DataField="Price" HeaderText="Price" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
                             <asp:BoundField DataField="Discount" HeaderText="Discount" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
                             <asp:BoundField DataField="Discount Amount" HeaderText="Discount Amount" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
-                         
+
                             <asp:BoundField DataField="batch_id" HeaderText="Batch id" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
                             <asp:BoundField DataField="group_name" HeaderText="Tax Group" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
                             <asp:BoundField DataField="totalTaxAmnt" HeaderText="Tax Amount" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
-                               <asp:BoundField DataField="Sub Total" HeaderText="Total" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
+                            <asp:BoundField DataField="Sub Total" HeaderText="Total" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
                             <asp:BoundField DataField="group_id" HeaderText="Product id" ItemStyle-CssClass="hidden" HeaderStyle-CssClass="hidden"></asp:BoundField>
                             <asp:TemplateField HeaderText="Update">
                                 <ItemTemplate>
@@ -311,7 +316,7 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
-                        <HeaderStyle BackColor="#428BCA" ForeColor="White"  />
+                        <HeaderStyle BackColor="#428BCA" ForeColor="White" />
                     </asp:GridView>
                 </div>
             </div>
@@ -446,11 +451,11 @@
         <!--=====================================================Note field ====================================================================-->
         <div class="row">
             <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px; margin-left: 25px;">
-                    <div class="col-sm-10 leftpadd0">
-                        <label class="control-label">Attach File</label>
-                        <asp:FileUpload ID="fuAttacheFile" runat="server" />
-                    </div>
+                <div class="col-sm-10 leftpadd0">
+                    <label class="control-label">Attach File</label>
+                    <asp:FileUpload ID="fuAttacheFile" runat="server" />
                 </div>
+            </div>
             <div class="col-md-2 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px; margin-left: 25px;">
                 <div class="col-sm-10 leftpadd0">
                     <label class="control-label">Note</label>
@@ -511,6 +516,30 @@
         </div>
     </div>
 
+    <%--start model popup code for display Party usercontrol--%>
+    <div class="modal fade" role="dialog" id="divcustomermodel" runat="server">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="padding: 0px 10px 0px 10px;">
+                    <button type="button" class="close" data-dismiss="modal" id="btncloseofmodelprty" runat="server" onserverclick="btncloseofmodelprty_ServerClick">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3>
+                        <asp:Label ID="Label16" runat="server" Text="Add Customer"></asp:Label></h3>
+                </div>
+                <div class="modal-body">
+                    <asp:UpdatePanel ID="upCIR" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <TWebControlparty:ctrlparty ID="ctrlparty" runat="server" />
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%--end model popup --%>
+   
+
     <script type="text/javascript">
 
         function openModal() {
@@ -543,18 +572,19 @@
 
         function AddSrcToIfram(val) {
             if (val == 'c') {
-                $('#<%=lblModalHeader.ClientID%>').text("Add Customer");
-                $('#<%=ModalIfram.ClientID%>').attr("src", "../MasterModals/PartyMasterModel.aspx")
+                $('#<%= divcustomermodel.ClientID %>').modal('show');
             }
-            if (val == 'p') {
-                $('#<%=lblModalHeader.ClientID%>').text("Add Product");
+           <%-- if (val == 'p') {
+               
+               <%-- $('#<%=lblModalHeader.ClientID%>').text("Add Product");
                 $('#<%=ModalIfram.ClientID%>').attr("src", "../MasterModals/ProductMasterModel.aspx")
             }
             if (val == 'b') {
-                $('#<%=lblModalHeader.ClientID%>').text("Add Batch");
+               
+                <%--$('#<%=lblModalHeader.ClientID%>').text("Add Batch");
                 $('#<%=ModalIfram.ClientID%>').attr("src", "../MasterModals/BatchMasterModel.aspx")
             }
-            $('#<%= AddModal.ClientID %>').modal('show');
+            $('#<%= AddModal.ClientID %>').modal('show');--%>
         }
 
 
@@ -571,6 +601,6 @@
         $("#<%= ddlBatch.ClientID %>-deselect").chosen(
             { allow_single_deselect: true });--%>
 
-</script>
+    </script>
 
 </asp:Content>

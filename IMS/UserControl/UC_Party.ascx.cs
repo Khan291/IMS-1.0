@@ -6,6 +6,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
@@ -217,9 +218,21 @@ namespace IMS.UserControl
         {
             try
             {
+
                 User_id = Convert.ToString(Session["UserID"]);
                 companyId = Convert.ToInt32(Session["company_id"]);
                 branchId = Convert.ToInt32(Session["branch_id"]);
+                 string pagename= Path.GetFileName(Request.Path);
+                 if (pagename == "Purchase.aspx")
+                 {
+                     ddlPartyType.SelectedValue = "Vendor";
+                     ddlPartyType.Enabled = false;
+                 }
+                 if (pagename == "Sale.aspx")
+                 {
+                     ddlPartyType.SelectedValue = "Customer";
+                     ddlPartyType.Enabled = false;
+                 }
                 if (!IsPostBack)
                 {
 

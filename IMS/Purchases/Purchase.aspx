@@ -1,5 +1,14 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Purchase.aspx.cs" Inherits="IMS.Purchase" %>
 
+
+<%@ Register Src="~/UserControl/UC_Party.ascx" TagName="ctrlparty" TagPrefix="TWebControlparty" %>
+
+<%@ Register Src="~/UserControl/UC_Product.ascx" TagName="ctrlProduct" TagPrefix="TWebControlproduct" %>
+
+<%@ Register Src="~/UserControl/UC_Batch.ascx" TagName="ctrlBatch" TagPrefix="TWebControlbatch" %>
+
+
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <style>
@@ -102,7 +111,7 @@
                         <asp:Label ID="lblInvoice" runat="server" ForeColor="Red"></asp:Label>
                     </div>
                     <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px;">
-                        <div class="form-horizontal Fhorizontal">
+                        <div>
                             <div class="col-sm-10 leftpadd0">
                                 <label class="control-label">
                                     Select Vendor <span style="color: red">*</span>
@@ -122,7 +131,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="*" ForeColor="Red" Text="Please Select Vendor" ValidationGroup="grop" ControlToValidate="ddlVendor" InitialValue="0"></asp:RequiredFieldValidator>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="*" ForeColor="Red" Text="Please Select Vendor" ValidationGroup="purchvalidationgrp" ControlToValidate="ddlVendor" InitialValue="0"></asp:RequiredFieldValidator>
                             </div>
 
                         </div>
@@ -133,7 +142,7 @@
                                 Vendor Receipt No. <span style="color: red">*</span>
                             </label>
                             <asp:TextBox ID="txtPONo" runat="server" CssClass="form-control"></asp:TextBox>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*" ForeColor="Red" Text="Please Enter Receipt No" ValidationGroup="grop" ControlToValidate="txtPONo"></asp:RequiredFieldValidator>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*" ForeColor="Red" Text="Please Enter Receipt No" ValidationGroup="purchvalidationgrp" ControlToValidate="txtPONo"></asp:RequiredFieldValidator>
                         </div>
                     </div>
                     <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px;">
@@ -146,7 +155,7 @@
                                 <asp:HiddenField ID="hd2" runat="server" />
                                 <asp:TextBox ID="txtdate" runat="server" CssClass="form-control"></asp:TextBox>
                                 <ajaxToolkit:CalendarExtender ID="CalendarExtender1" Format="dd/MM/yyyy" TargetControlID="txtdate" runat="server" />
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Date is Required " ForeColor="Red" Text="Please Select Date" ValidationGroup="grop" ControlToValidate="txtdate"></asp:RequiredFieldValidator>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Date is Required " ForeColor="Red" Text="Please Select Date" ValidationGroup="purchvalidationgrp" ControlToValidate="txtdate"></asp:RequiredFieldValidator>
                             </div>
                         </div>
                     </div>
@@ -174,7 +183,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ErrorMessage="Please Select Product" ForeColor="Red" Text="Please Select Product" ValidationGroup="grop" ControlToValidate="ddlproduct" InitialValue="0"></asp:RequiredFieldValidator>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ErrorMessage="Please Select Product" ForeColor="Red" Text="Please Select Product" ValidationGroup="purchvalidationgrp" ControlToValidate="ddlproduct" InitialValue="0"></asp:RequiredFieldValidator>
                                 </div>
 
                             </div>
@@ -202,7 +211,7 @@
 
                                         </div>
                                     </div>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ErrorMessage="Please Select Batch" ForeColor="Red" Text="Please Select Product" ValidationGroup="grop" ControlToValidate="ddlBatch" InitialValue="0"></asp:RequiredFieldValidator>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ErrorMessage="Please Select Batch" ForeColor="Red" Text="Please Select Product" ValidationGroup="purchvalidationgrp" ControlToValidate="ddlBatch" InitialValue="0"></asp:RequiredFieldValidator>
 
                                 </div>
                             </div>
@@ -212,7 +221,7 @@
                                         Quantity <span style="color: red">*</span>
                                     </label>
                                     <asp:TextBox ID="txtquantity" runat="server" CssClass="form-control" onkeypress="return OnlyNumericEntry(event);"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Date is Required " ForeColor="Red" Text="Please Enter Quantity" ValidationGroup="grop" ControlToValidate="txtquantity"></asp:RequiredFieldValidator>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Date is Required " ForeColor="Red" Text="Please Enter Quantity" ValidationGroup="purchvalidationgrp" ControlToValidate="txtquantity"></asp:RequiredFieldValidator>
                                     <asp:RegularExpressionValidator ID="RegularExpressionValidator6" ValidationExpression="^\s*(?=.*[1-9])\d*(?:\.\d{1,5})?\s*$" runat="server" ValidationGroup="adf" Display="Dynamic" ForeColor="Red" ControlToValidate="txtquantity" ErrorMessage="Quantity should b greater then 0"></asp:RegularExpressionValidator>
                                 </div>
                             </div>
@@ -222,7 +231,7 @@
                                         Price Per Unit <span style="color: red">*</span>
                                     </label>
                                     <asp:TextBox ID="txtprice" runat="server" CssClass="form-control"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Please Enter Price" ForeColor="Red" Text="" ValidationGroup="grop" ControlToValidate="txtprice"></asp:RequiredFieldValidator>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Please Enter Price" ForeColor="Red" Text="" ValidationGroup="purchvalidationgrp" ControlToValidate="txtprice"></asp:RequiredFieldValidator>
                                     <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ValidationExpression="^\s*(?=.*[1-9])\d*(?:\.\d{1,5})?\s*$" runat="server" ValidationGroup="adf" Display="Dynamic" ForeColor="Red" ControlToValidate="txtprice" ErrorMessage="Price should b greater then 0"></asp:RegularExpressionValidator>
                                 </div>
                             </div>
@@ -245,7 +254,7 @@
                                     </label>
                                     <asp:DropDownList runat="server" ID="ddlTaxGroup" CssClass="form-control">
                                     </asp:DropDownList>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" InitialValue="0" ControlToValidate="ddlTaxGroup" ErrorMessage="Please Select TAX Group" ForeColor="Red" ValidationGroup="grop"></asp:RequiredFieldValidator>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" InitialValue="0" ControlToValidate="ddlTaxGroup" ErrorMessage="Please Select TAX Group" ForeColor="Red" ValidationGroup="purchvalidationgrp"></asp:RequiredFieldValidator>
 
                                 </div>
                             </div>
@@ -255,8 +264,8 @@
                                         Sales Price <span style="color: red">*</span>
                                     </label>
                                     <asp:TextBox ID="txtsalesprice" runat="server" CssClass="form-control"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ForeColor="Red" ErrorMessage="Please Enter Sales Price" Text="" ValidationGroup="grop" ControlToValidate="txtsalesprice"></asp:RequiredFieldValidator>
-                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ValidationExpression="^\s*(?=.*[1-9])\d*(?:\.\d{1,5})?\s*$" runat="server" ValidationGroup="grop" Display="Dynamic" ForeColor="Red" ControlToValidate="txtsalesprice" ErrorMessage="Sales Price should b greater then 0"></asp:RegularExpressionValidator>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ForeColor="Red" ErrorMessage="Please Enter Sales Price" Text="" ValidationGroup="purchvalidationgrp" ControlToValidate="txtsalesprice"></asp:RequiredFieldValidator>
+                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ValidationExpression="^\s*(?=.*[1-9])\d*(?:\.\d{1,5})?\s*$" runat="server" ValidationGroup="purchvalidationgrp" Display="Dynamic" ForeColor="Red" ControlToValidate="txtsalesprice" ErrorMessage="Sales Price should b greater then 0"></asp:RegularExpressionValidator>
                                 </div>
                             </div>
 
@@ -273,8 +282,8 @@
                     <asp:Label ID="lblcheckDoubleError" runat="server" Visible="false" ForeColor="Red"></asp:Label>
                     <div class="col-md-4 col-lg-2 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px; margin-top: 20px">
                         <div class="col-sm-10 leftpadd0">
-                            <asp:Button ID="btnAdd" runat="server" OnClick="btnAdd_Click" ValidationGroup="grop" CssClass="btn btn-primary" Text="Add" Width="100px" />
-                            <asp:Button ID="btnUpdate" runat="server" Text="Update" OnClick="btnUpdate_Click" ValidationGroup="grop" CssClass="btn btn-primary" Width="100px" Visible="false" />
+                            <asp:Button ID="btnAdd" runat="server" OnClick="btnAdd_Click" ValidationGroup="purchvalidationgrp" CssClass="btn btn-primary" Text="Add" Width="100px" />
+                            <asp:Button ID="btnUpdate" runat="server" Text="Update" OnClick="btnUpdate_Click" ValidationGroup="purchvalidationgrp" CssClass="btn btn-primary" Width="100px" Visible="false" />
                         </div>
                     </div>
                 </div>
@@ -450,7 +459,6 @@
                                                 Balance Amount                                      
                                             </label>
                                             <asp:TextBox ID="txtBalanceAmt" runat="server" CssClass="form-control" Enabled="false" onkeypress="return OnlyNumericEntry(event);"></asp:TextBox>
-                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="txtBalanceAmt" ErrorMessage="Please Enter Balance Amount" ValidationGroup="savesale" ForeColor="Red"></asp:RequiredFieldValidator>
                                             <%-- <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ForeColor="Red" ControlToValidate="txtBalanceAmt" ErrorMessage="Balance Amount Should be digits only" ValidationGroup="savesale" ValidationExpression="^\s*(?=.*[0-9])\d*(?:\.\d{1,5})?\s*$" Display="Dynamic">
                                             </asp:RegularExpressionValidator>--%>
                                         </div>
@@ -469,7 +477,7 @@
                         <asp:FileUpload ID="fuAttacheFile" runat="server" />
                     </div>
                 </div>
-            <!--=====================================================Note field ====================================================================-->
+                <!--=====================================================Note field ====================================================================-->
                 <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px; margin-left: 15px;">
                     <div class="col-sm-10 leftpadd0">
                         <label class="control-label">Note</label>
@@ -506,6 +514,73 @@
         </div>
 
 
+        <%--start model popup code for display Party usercontrol--%>
+        <div class="modal fade" role="dialog" id="divpartymodel" runat="server">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header" style="padding: 0px 10px 0px 10px;">
+                        <button type="button" class="close" data-dismiss="modal" id="btncloseofmodelprty" runat="server" onserverclick="btncloseofmodelprty_ServerClick">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h3>
+                            <asp:Label ID="Label16" runat="server" Text="Add Vendor"></asp:Label></h3>
+                    </div>
+                    <div class="modal-body">
+                        <asp:UpdatePanel ID="upCIR" runat="server" UpdateMode="Conditional">
+                            <ContentTemplate>
+                                <TWebControlparty:ctrlparty ID="ctrlparty" runat="server" />
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%--end model popup --%>
+        <%--start model popup code for display Product usercontrol--%>
+        <div class="modal fade" role="dialog" id="divproductmodel" runat="server">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header" style="padding: 0px 10px 0px 10px;">
+                        <button type="button" class="close" data-dismiss="modal" id="btncloseprodmodel" runat="server" onserverclick="btncloseprodmodel_ServerClick">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h3>
+                            <asp:Label ID="Label3" runat="server" Text="Add Product"></asp:Label></h3>
+                    </div>
+                    <div class="modal-body">
+                        <asp:UpdatePanel ID="UpdatePanel5" runat="server" UpdateMode="Conditional">
+                            <ContentTemplate>
+                                <TWebControlproduct:ctrlProduct ID="ctrlProduct" runat="server" />
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%--end model popup --%>
+        <%--start model popup code for display Batch usercontrol--%>
+        <div class="modal fade" role="dialog" id="divbatchmodel" runat="server">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header" style="padding: 0px 10px 0px 10px;">
+                        <button type="button" class="close" data-dismiss="modal" id="btncloseBtchmodel" runat="server" onserverclick="btncloseBtchmodel_ServerClick">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h3>
+                            <asp:Label ID="Label4" runat="server" Text="Add Batch"></asp:Label></h3>
+                    </div>
+                    <div class="modal-body">
+                        <asp:UpdatePanel ID="UpdatePanel4" runat="server" UpdateMode="Conditional">
+                            <ContentTemplate>
+                                <TWebControlbatch:ctrlBatch ID="ctrlBatch" runat="server" />
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%--end model popup --%>
+     
         <div class="modal fade" role="dialog" id="AddModal" runat="server">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -535,6 +610,10 @@
     </div>
 
     <script type="text/javascript">
+
+
+        $("#ddlCategory_chzn").removeAttr("style");
+
 
         function openModal() {
             $('#<%=myModal.ClientID%>').modal('show');
@@ -574,18 +653,23 @@
 
         function AddSrcToIfram(val) {
             if (val == 'v') {
-                $('#<%=lblModalHeader.ClientID%>').text("Add Vender");
-                $('#<%=ModalIfram.ClientID%>').attr("src", "../MasterModals/PartyMasterModel.aspx")
+
+                $('#<%= divpartymodel.ClientID %>').modal('show');
+
+
             }
             if (val == 'p') {
-                $('#<%=lblModalHeader.ClientID%>').text("Add Product");
+
+                <%--$('#<%=lblModalHeader.ClientID%>').text("Add Product");
                 $('#<%=ModalIfram.ClientID%>').attr("src", "../MasterModals/ProductMasterModel.aspx")
+                $('#<%= AddModal.ClientID %>').modal('show');--%>
+                $('#<%= divproductmodel.ClientID %>').modal('show');
             }
             if (val == 'b') {
-                $('#<%=lblModalHeader.ClientID%>').text("Add Batch");
-                $('#<%=ModalIfram.ClientID%>').attr("src", "../MasterModals/BatchMasterModel.aspx")
+                $('#<%= divbatchmodel.ClientID %>').modal('show');
             }
-            $('#<%= AddModal.ClientID %>').modal('show');
+           
+          <%--  $('#<%= AddModal.ClientID %>').modal('show');--%>
         }
 
 
