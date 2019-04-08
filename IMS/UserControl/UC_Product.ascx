@@ -97,7 +97,7 @@
                                         <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control">
                                             <asp:ListItem Text="Choose Category" />
                                         </asp:DropDownList>
-                                        <span class="input-group-addons">
+                                        <span class="input-group-addons" id="spncategory" runat="server">
                                             <a href="javascript:AddSrcToIfram('c')">
                                                 <asp:Label ID="Label12" runat="server" Text="+" Font-Bold="true" Font-Size="20px" ForeColor="White"></asp:Label></a>
                                         </span>
@@ -118,7 +118,7 @@
                                         <asp:DropDownList ID="ddlUnit" runat="server" CssClass="form-control">
                                             <asp:ListItem Text="Choose Unit" />
                                         </asp:DropDownList>
-                                        <span class="input-group-addons">
+                                        <span class="input-group-addons" id="spnunit" runat="server">
                                             <a href="javascript:AddSrcToIfram('u')">
                                                 <asp:Label ID="Label13" runat="server" Text="+" Font-Bold="true" Font-Size="20px" ForeColor="White"></asp:Label></a>
                                         </span>
@@ -143,7 +143,7 @@
                                                 <asp:DropDownList ID="ddlGodown" runat="server" CssClass="form-control" OnSelectedIndexChanged="ddlGodown_SelectedIndexChanged" AutoPostBack="true">
                                                     <asp:ListItem Text="Choose godown" Value="0" />
                                                 </asp:DropDownList>
-                                                <span class="input-group-addons">
+                                                <span class="input-group-addons" id="spngodown" runat="server">
                                                     <a href="javascript:AddSrcToIfram('g')">
                                                         <asp:Label ID="Label14" runat="server" Text="+" Font-Bold="true" Font-Size="20px" ForeColor="White"></asp:Label></a>
                                                 </span>
@@ -164,7 +164,7 @@
                                                 <asp:DropDownList ID="ddlRack" runat="server" CssClass="form-control">
                                                     <asp:ListItem Text="Choose Rack" Value="0" />
                                                 </asp:DropDownList>
-                                                <span class="input-group-addons">
+                                                <span class="input-group-addons" id="spnrack" runat="server">
                                                     <a href="javascript:AddSrcToIfram('r')">
                                                         <asp:Label ID="Label15" runat="server" Text="+" Font-Bold="true" Font-Size="20px" ForeColor="White"></asp:Label></a>
                                                 </span>
@@ -202,10 +202,10 @@
                                     </label>
                                 </div>
                                 <div class="col-sm-7">
-                                    <asp:TextBox ID="txtProductName" runat="server" onchange="CheckDouble1()" CssClass="form-control"></asp:TextBox>
+                                    <asp:TextBox ID="txtProductName" runat="server" onchange="CheckDoubleProductName()" CssClass="form-control"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" Display="Dynamic" ValidationGroup="prdvalidationgrp" ErrorMessage="Name is required" ControlToValidate="txtProductName" ForeColor="Red"></asp:RequiredFieldValidator>
-                                    <asp:Label ID="Label1" runat="server"></asp:Label>
-                                    <asp:HiddenField ID="hd" runat="server" />
+                                    <asp:Label ID="lblmsgprodname" runat="server"></asp:Label>
+                                    <asp:HiddenField ID="hdprodname" runat="server" />
                                     <asp:HiddenField ID="hdproductid" runat="server" />
                                 </div>
                             </div>
@@ -220,10 +220,10 @@
                                     </label>
                                 </div>
                                 <div class="col-sm-7">
-                                    <asp:TextBox ID="txtProductCode" runat="server" onchange="CheckDouble()" CssClass="form-control"></asp:TextBox>
-                                    <asp:Label ID="lblcheckDoubleError" runat="server"></asp:Label>
+                                    <asp:TextBox ID="txtProductCode" runat="server" onchange="CheckDoubleProductCode()" CssClass="form-control"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" Display="Dynamic" ValidationGroup="prdvalidationgrp" ErrorMessage="Product code is required" ControlToValidate="txtProductName" ForeColor="Red"></asp:RequiredFieldValidator>
-                                    <asp:HiddenField ID="hde" runat="server" />
+                                    <asp:Label ID="lblcheckDoubleError" runat="server"></asp:Label>
+                                    <asp:HiddenField ID="hdprodcode" runat="server" />
                                 </div>
                             </div>
                         </div>
@@ -414,13 +414,13 @@
                         <asp:Label ID="Label19" runat="server" Text="Add Rack"></asp:Label></h3>
                 </div>
                 <div class="modal-body">
-                   <asp:UpdatePanel ID="UpdatePanel4" runat="server" UpdateMode="Conditional">
-                        <ContentTemplate>
+                  <%-- <asp:UpdatePanel ID="UpdatePanel4" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>--%>
                             <%--Call user control to show in popup body--%>
                               <TWebControlRack:ctrlrack ID="ctrlrack" runat="server" />
-                            </ContentTemplate>
+                           <%-- </ContentTemplate>
                        </asp:UpdatePanel>
-                    
+                    --%>
                        
                 </div>
             </div>
@@ -433,33 +433,33 @@
             $('#AddModal').modal('close');
 
         }
-        function CheckDouble() {
+        function CheckDoubleProductCode() {
             $.ajax({
                 type: "POST",
-                url: '<%= ResolveUrl("~/Masters/Product.aspx/CheckDouble") %>', // this for calling the web method function in cs code.  
+                url: '<%= ResolveUrl("~/Masters/Product.aspx/CheckDoubleProductCode") %>', // this for calling the web method function in cs code.  
                 data: '{useroremail: "' + $("#<%=txtProductCode.ClientID%>")[0].value + '" }',// user name or email value  
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                success: OnSuccess,
+                success: OnSuccessproductcode,
                 failure: function (response) {
                     alert(response);
                 }
             });
         }
 
-        function OnSuccess(response) {
-            var msg = $("#<%=lblcheckDoubleError.ClientID%>")[0];
-            var hd3 = $("#<%=hde.ClientID%>")[0];
+        function OnSuccessproductcode(response) {
+            var msgprodcode = $("#<%=lblcheckDoubleError.ClientID%>")[0];
+            var hdprodcode = $("#<%=hdprodcode.ClientID%>")[0];
             switch (response.d) {
                 case "true":
-                    msg.style.display = "block";
-                    msg.style.color = "red";
-                    msg.innerHTML = "This Product Code name already Exists";
-                    hd3.value = true;
+                    msgprodcode.style.display = "block";
+                    msgprodcode.style.color = "red";
+                    msgprodcode.innerHTML = "This Product Code name already Exists";
+                    hdprodcode.value = true;
                     break;
                 case "false":
-                    msg.style.display = "none";
-                    hd3.value = false;
+                    msgprodcode.style.display = "none";
+                    hdprodcode.value = false;
                     break;
             }
         }
@@ -472,33 +472,33 @@
             return true;
         }
 
-        function CheckDouble1() {
+        function CheckDoubleProductName() {
             $.ajax({
                 type: "POST",
-                url: '<%= ResolveUrl("~/Masters/Product.aspx/CheckDouble1") %>', // this for calling the web method function in cs code.  
+                url: '<%= ResolveUrl("~/Masters/Product.aspx/CheckDoubleProductName") %>', // this for calling the web method function in cs code.  
                 data: '{useroremail: "' + $("#<%=txtProductName.ClientID%>")[0].value + '" }',// user name or email value  
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                success: OnSuccess1,
+                success: OnSuccessproductname,
                 failure: function (response) {
                     alert(response);
                 }
             });
         }
 
-        function OnSuccess1(response) {
-            var msg = $("#<%=Label1.ClientID%>")[0];
-            var hd1 = $("#<%=hd.ClientID%>")[0];
+        function OnSuccessproductname(response) {
+            var msgprdname = $("#<%=lblmsgprodname.ClientID%>")[0];
+            var hdprdname = $("#<%=hdprodname.ClientID%>")[0];
             switch (response.d) {
                 case "true":
-                    msg.style.display = "block";
-                    msg.style.color = "red";
-                    msg.innerHTML = "This Product name already Exists";
-                    hd1.value = true;
+                    msgprdname.style.display = "block";
+                    msgprdname.style.color = "red";
+                    msgprdname.innerHTML = "This Product name already Exists";
+                    hdprdname.value = true;
                     break;
                 case "false":
-                    msg.style.display = "none";
-                    hd1.value = false;
+                    msgprdname.style.display = "none";
+                    hdprdname.value = false;
                     break;
             }
         }

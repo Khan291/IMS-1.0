@@ -31,6 +31,15 @@ namespace IMS.UserControl {
         protected global::System.Web.UI.WebControls.DropDownList ddlCategory;
         
         /// <summary>
+        /// spncategory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl spncategory;
+        
+        /// <summary>
         /// Label12 control.
         /// </summary>
         /// <remarks>
@@ -65,6 +74,15 @@ namespace IMS.UserControl {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlUnit;
+        
+        /// <summary>
+        /// spnunit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl spnunit;
         
         /// <summary>
         /// Label13 control.
@@ -112,6 +130,15 @@ namespace IMS.UserControl {
         protected global::System.Web.UI.WebControls.DropDownList ddlGodown;
         
         /// <summary>
+        /// spngodown control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl spngodown;
+        
+        /// <summary>
         /// Label14 control.
         /// </summary>
         /// <remarks>
@@ -146,6 +173,15 @@ namespace IMS.UserControl {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlRack;
+        
+        /// <summary>
+        /// spnrack control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl spnrack;
         
         /// <summary>
         /// Label15 control.
@@ -220,22 +256,22 @@ namespace IMS.UserControl {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
         
         /// <summary>
-        /// Label1 control.
+        /// lblmsgprodname control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Label lblmsgprodname;
         
         /// <summary>
-        /// hd control.
+        /// hdprodname control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hd;
+        protected global::System.Web.UI.WebControls.HiddenField hdprodname;
         
         /// <summary>
         /// hdproductid control.
@@ -265,15 +301,6 @@ namespace IMS.UserControl {
         protected global::System.Web.UI.WebControls.TextBox txtProductCode;
         
         /// <summary>
-        /// lblcheckDoubleError control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblcheckDoubleError;
-        
-        /// <summary>
         /// RequiredFieldValidator7 control.
         /// </summary>
         /// <remarks>
@@ -283,13 +310,22 @@ namespace IMS.UserControl {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator7;
         
         /// <summary>
-        /// hde control.
+        /// lblcheckDoubleError control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hde;
+        protected global::System.Web.UI.WebControls.Label lblcheckDoubleError;
+        
+        /// <summary>
+        /// hdprodcode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdprodcode;
         
         /// <summary>
         /// Label8 control.
@@ -623,15 +659,6 @@ namespace IMS.UserControl {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label19;
-        
-        /// <summary>
-        /// UpdatePanel4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel4;
         
         /// <summary>
         /// ctrlrack control.

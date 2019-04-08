@@ -11,6 +11,8 @@ namespace IMS.UserControl
 {
     public partial class UC_Category : System.Web.UI.UserControl
     {
+      
+
         private string M_Category_id;
 
         #region properties
@@ -28,13 +30,13 @@ namespace IMS.UserControl
                 txtCategoryName.Text = value;
                 if (txtCategoryName.Text != "")
                 {
-                    btnUpdate.Visible = true;
-                    btnSave.Visible = false;
+                    btnctgryUpdate.Visible = true;
+                    btnctgrySave123.Visible = false;
                 }
                 else
                 {
-                    btnSave.Visible = true;
-                    btnUpdate.Visible = false;
+                    btnctgrySave123.Visible = true;
+                    btnctgryUpdate.Visible = false;
                 }
             }
 
@@ -71,20 +73,12 @@ namespace IMS.UserControl
             }
         }
       
-        protected void btnSave_Click(object sender, EventArgs e)
-        {
-            Save();
-        }
-
-        protected void btnUpdate_Click(object sender, EventArgs e)
-        {
-            Update();
-        }
+      
         #endregion
 
         #region methods
         [System.Web.Services.WebMethod]
-        public static bool CheckDouble(string categoryName)
+        public static bool CheckDouble_category(string categoryName)
         {
             try
             {
@@ -115,7 +109,7 @@ namespace IMS.UserControl
             try
             {
 
-                if (CheckDouble(txtCategoryName.Text) == false)
+                if (CheckDouble_category(txtCategoryName.Text) == false)
                 {
                     tbl_category cat = new tbl_category();
                     cat.branch_id = branchId;
@@ -164,8 +158,8 @@ namespace IMS.UserControl
                     int category_id = Convert.ToInt32(hdcategoryid.Value);
                     //context.sp_UpdateCategory(c_id, category_id, b_id, txtCategoryName.Text, "admin", DateTime.Today);
                     context.sp_UpdateCategory(companyId, category_id, txtCategoryName.Text, Convert.ToString(Session["UserID"]), DateTime.Today);
-                    btnUpdate.Visible = false;
-                    btnSave.Visible = true;
+                    btnctgryUpdate.Visible = false;
+                    btnctgrySave123.Visible = true;
                     ViewState["gridrow"] = null;
                     ((Category)this.Page).loadDataTable();
                     divalert.Visible = true;
@@ -189,6 +183,18 @@ namespace IMS.UserControl
             }
         }
         #endregion
+
+       
+
+        protected void btnctgryUpdate_Click(object sender, EventArgs e)
+        {
+            Update();
+        }
+
+        protected void btnctgrySave123_Click(object sender, EventArgs e)
+        {
+            Save();
+        }
 
       
     }
