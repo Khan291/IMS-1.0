@@ -86,7 +86,33 @@ namespace IMS.Balance
 
         protected void gvPartyDetails_PreRender(object sender, EventArgs e)
         {
+            try
+            {
+                if (gvPartyDetails.Rows.Count > 0)
+                {
+                    gvPartyDetails.UseAccessibleHeader = false;
+                    gvPartyDetails.HeaderRow.TableSection = TableRowSection.TableHeader;
+                    gvPartyDetails.FooterRow.TableSection = TableRowSection.TableFooter;
+                    int CellCount = gvPartyDetails.FooterRow.Cells.Count;
+                    gvPartyDetails.FooterRow.Cells.Clear();
+                    gvPartyDetails.FooterRow.Cells.Add(new TableCell());
+                    gvPartyDetails.FooterRow.Cells[0].ColumnSpan = CellCount - 1;
+                    gvPartyDetails.FooterRow.Cells[0].HorizontalAlign = HorizontalAlign.Right;
+                    gvPartyDetails.FooterRow.Cells.Add(new TableCell());
 
+                    TableFooterRow tfr = new TableFooterRow();
+                    for (int i = 0; i < CellCount; i++)
+                    {
+                        tfr.Cells.Add(new TableCell());
+                    }
+                    gvPartyDetails.FooterRow.Controls[1].Controls.Add(tfr);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.saveerror(ex);
+            }
+            
         }
 
         protected void gvPartyDetails_SelectedIndexChanged(object sender, EventArgs e)
@@ -120,6 +146,8 @@ namespace IMS.Balance
                                                BalanceAmnt = ppd.BalanceAmnt,
                                                message = (ppd.BalanceAmnt > 0) ? "Amount to be Paid" : "Amount to be Received"
                                            }).ToList();
+
+                    gridBind("v");
                 }
                 else
                 {
@@ -139,6 +167,7 @@ namespace IMS.Balance
                                                BalanceAmnt = spd.BalanceAmnt,
                                                message = (spd.BalanceAmnt > 0) ? "Amount to be Received" : "Amount to be Paid"
                                            }).ToList();
+                    gridBind("c");
                 }
                
                 gvPartyInvoiceDetails.DataSource = PartyInvoiceDetails;
@@ -150,7 +179,32 @@ namespace IMS.Balance
 
         protected void gvPartyInvoiceDetails_PreRender(object sender, EventArgs e)
         {
+            try
+            {
+                if (gvPartyInvoiceDetails.Rows.Count > 0)
+                {
+                    gvPartyInvoiceDetails.UseAccessibleHeader = false;
+                    gvPartyInvoiceDetails.HeaderRow.TableSection = TableRowSection.TableHeader;
+                    gvPartyInvoiceDetails.FooterRow.TableSection = TableRowSection.TableFooter;
+                    int CellCount = gvPartyInvoiceDetails.FooterRow.Cells.Count;
+                    gvPartyInvoiceDetails.FooterRow.Cells.Clear();
+                    gvPartyInvoiceDetails.FooterRow.Cells.Add(new TableCell());
+                    gvPartyInvoiceDetails.FooterRow.Cells[0].ColumnSpan = CellCount - 1;
+                    gvPartyInvoiceDetails.FooterRow.Cells[0].HorizontalAlign = HorizontalAlign.Right;
+                    gvPartyInvoiceDetails.FooterRow.Cells.Add(new TableCell());
 
+                    TableFooterRow tfr = new TableFooterRow();
+                    for (int i = 0; i < CellCount; i++)
+                    {
+                        tfr.Cells.Add(new TableCell());
+                    }
+                    gvPartyInvoiceDetails.FooterRow.Controls[1].Controls.Add(tfr);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.saveerror(ex);
+            }
         }
 
         protected void gvPartyInvoiceDetails_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -220,14 +274,34 @@ namespace IMS.Balance
             {
                 var amntToBePaid = 0.00;
                 btnPay.Visible = true;
+                int rowCount = gvPartyInvoiceDetails.Rows.Count;
+                int cbCount = 0;
+                var CheckBox = gvPartyInvoiceDetails.HeaderRow.FindControl("checkAll") as CheckBox;
                 foreach (GridViewRow row in gvPartyInvoiceDetails.Rows)
                 {
                     var chb = row.FindControl("chbCheck") as CheckBox;
                     if (chb.Checked)
                     {
                         amntToBePaid += Convert.ToDouble(row.Cells[9].Text);
+                        cbCount ++;
                     }
                     lblAmtToBePaid.Text = amntToBePaid.ToString();
+                    if(cbCount == rowCount)
+                    {
+                        CheckBox.Checked = true;
+                    }
+                    else
+                    {
+                        CheckBox.Checked = false;
+                    }
+                }
+                if (0 == Convert.ToInt32(lblAmtToBePaid.Text))
+                {
+                    btnPay.Visible = false;
+                }
+                else
+                {
+                    btnPay.Visible = true;
                 }
                 if (0 > Convert.ToInt32(lblAmtToBePaid.Text))
                 {
@@ -237,8 +311,6 @@ namespace IMS.Balance
                 {
                     btnPay.Text = "Pay";
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -265,6 +337,7 @@ namespace IMS.Balance
                 }
                 else
                 {
+                    btnPay.Visible = false;
                     foreach (GridViewRow row in gvPartyInvoiceDetails.Rows)
                     {
                         var chb = row.FindControl("chbCheck") as CheckBox;

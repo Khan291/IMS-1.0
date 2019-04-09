@@ -1,6 +1,13 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="PartyBalance.aspx.cs" Inherits="IMS.Balance.PartyBalance" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <link href="../assets/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+    <script type='text/javascript'>
+        function addDataTableToGv() {
+            $('#<%= gvPartyDetails.ClientID %>').DataTable();
+             $('#<%= gvPartyInvoiceDetails.ClientID %>').DataTable();
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="panel panel-default">
@@ -25,7 +32,8 @@
                                     <asp:RadioButton ID="rbtnCustomer" AutoPostBack="true" runat="server" Text="Customer"
                                         OnCheckedChanged="rbtnCustomer_CheckedChanged" GroupName="party" />
                                 </div>
-                            </div><br />
+                            </div>
+                            <br />
                             <div class="row">
                                 <div class="col-md-1">
                                 </div>
@@ -54,7 +62,7 @@
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                         </Columns>
-                                        <HeaderStyle BackColor="#428BCA" />
+                                        <HeaderStyle ForeColor="Black" BackColor="#ffffff" />
                                     </asp:GridView>
                                 </div>
                                 <div class="col-md-1">
@@ -94,7 +102,7 @@
                                             <asp:BoundField DataField="BalanceAmnt" HeaderText="Amount"></asp:BoundField>
                                             <asp:BoundField DataField="message" HeaderText="Message"></asp:BoundField>
                                         </Columns>
-                                        <HeaderStyle BackColor="#428BCA" />
+                                        <HeaderStyle ForeColor="Black" BackColor="#ffffff" />
                                     </asp:GridView>
                                 </div>
                                 <br />
@@ -110,7 +118,7 @@
                                         </div>
                                         <br />
                                         <div class="row">
-                                            <div class="col-md-10">
+                                            <div class="col-md-10" style="height:50px">
                                                 <asp:Button ID="btnPay" runat="server" OnClick="btnPay_Click" Visible="false" CssClass="btn btn-primary" />
                                             </div>
                                         </div>
@@ -127,4 +135,7 @@
             <br />
         </div>
     </div>
+    <script type='text/javascript'>
+        Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(addDataTableToGv);
+    </script>
 </asp:Content>
