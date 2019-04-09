@@ -95,7 +95,7 @@ namespace IMS
             }
         }
         [System.Web.Services.WebMethod]
-        public static string CheckDouble(string useroremail)
+        public static string CheckDoubleProductCode(string useroremail)
         {
             try
             {
@@ -121,7 +121,7 @@ namespace IMS
         }
 
         [System.Web.Services.WebMethod]
-        public static string CheckDouble1(string useroremail)
+        public static string CheckDoubleProductName(string useroremail)
         {
             try
             {

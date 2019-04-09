@@ -991,5 +991,28 @@ namespace IMS
             }
             return returnedMsg;
         }
+        protected void btncloseofmodelprty_ServerClick(object sender, EventArgs e)
+        {
+            var set = context.tbl_party.Where(x => x.status == true && x.company_id == companyId && x.party_type == "Vendor").OrderByDescending(x => x.party_id).FirstOrDefault();
+            ddlVendorbind();
+            ddlVendor.SelectedValue = set.party_id.ToString();
+        }
+
+        protected void btncloseBtchmodel_ServerClick(object sender, EventArgs e)
+        {
+            var set = context.tbl_batch.Where(x => x.status == true && x.company_id == companyId).OrderByDescending(x => x.batch_id).FirstOrDefault();
+            ddlbatchbind();
+            ddlBatch.SelectedValue = set.batch_id.ToString();
+
+        }
+
+        protected void btncloseprodmodel_ServerClick(object sender, EventArgs e)
+        {
+            var set = context.tbl_product.Where(x => x.status == true && x.company_id == companyId).OrderByDescending(x => x.product_id).FirstOrDefault();
+            ddlproductbind();
+            ddlproduct.SelectedValue = set.product_id.ToString();
+            txtprice.Text = set.purchas_price.ToString();
+            ddltaxBind(set.product_id);
+        }
     }
 }

@@ -76,22 +76,22 @@ namespace IMS.UserControl {
         protected global::System.Web.UI.WebControls.HiddenField hdcategoryid;
         
         /// <summary>
-        /// btnSave control.
+        /// btnctgrySave123 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSave;
+        protected global::System.Web.UI.WebControls.Button btnctgrySave123;
         
         /// <summary>
-        /// btnUpdate control.
+        /// btnctgryUpdate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnUpdate;
+        protected global::System.Web.UI.WebControls.Button btnctgryUpdate;
         
         /// <summary>
         /// divalert control.

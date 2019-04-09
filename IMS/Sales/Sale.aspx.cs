@@ -98,7 +98,6 @@ namespace IMS
             ddlTaxGroup.DataSource = taxGroup;
 
             ddlTaxGroup.DataBind();
-            ddlTaxGroup.Items.Insert(0, new ListItem("--Select tax--", "0"));
         }
         protected void BindTaxGrid()
         {
@@ -908,6 +907,15 @@ namespace IMS
                 //Do Logging
             }
         }
+
+        protected void btncloseofmodelprty_ServerClick(object sender, EventArgs e)
+        {
+            var set = context.tbl_party.Where(x => x.status == true && x.company_id == companyId && x.party_type == "Customer").OrderByDescending(x => x.party_id).FirstOrDefault();
+            ddlCustomerbind();
+            ddlVendor.SelectedValue = set.party_id.ToString();
+        }
+
+    
 
     }
 }

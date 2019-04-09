@@ -3,35 +3,35 @@
 
 
 <script type="text/javascript">
-    function CheckDouble() {
+    function CheckDouble_category() {
         debugger;
         $.ajax({
             type: "POST",
-            url: '<%= ResolveUrl("~/Masters/Category.aspx/CheckDouble") %>', // this for calling the web method function in cs code.  
+            url: '<%= ResolveUrl("~/Masters/Category.aspx/CheckDouble_category") %>', // this for calling the web method function in cs code.  
                 data: '{categoryName: "' + $("#<%=txtCategoryName.ClientID%>")[0].value + '" }',// user name or email value  
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                success: OnSuccess,
+                success: OnSuccess_category,
                 failure: function (response) {
                     alert(response);
                 }
             });
         }
-        function OnSuccess(response) {
+    function OnSuccess_category(response) {
             debugger;
-            var msg = $("#<%=lblcheckDoubleError.ClientID%>")[0];
-            var hd1 = $("#<%=hd.ClientID%>")[0];
+            var msg_category = $("#<%=lblcheckDoubleError.ClientID%>")[0];
+            var hdcategory = $("#<%=hd.ClientID%>")[0];
             switch (response.d) {
                 case true:
 
-                    msg.style.display = "block";
-                    msg.style.color = "red";
-                    msg.innerHTML = "This category name already Exists";
-                    hd1.value = "true";
+                    msg_category.style.display = "block";
+                    msg_category.style.color = "red";
+                    msg_category.innerHTML = "This category name already Exists";
+                    hdcategory.value = "true";
                     break;
                 case false:
-                    msg.style.display = "none";
-                    hd1.value = "false";
+                    msg_category.style.display = "none";
+                    hdcategory.value = "false";
                     break;
             }
         }
@@ -54,7 +54,7 @@
                             </label>
                         </div>
                         <div class="col-sm-7">
-                            <asp:TextBox ID="txtCategoryName" onchange="CheckDouble()" runat="server" CssClass="form-control"></asp:TextBox>
+                            <asp:TextBox ID="txtCategoryName" onchange="CheckDouble_category()" runat="server" CssClass="form-control"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="rvaldt1" runat="server" Display="Dynamic" ErrorMessage="Category name is required" ValidationGroup="categoryvalidationgroup" ControlToValidate="txtCategoryName" ForeColor="Red"></asp:RequiredFieldValidator>
                             <asp:HiddenField ID="HiddenField1" runat="server" />
                         </div>
@@ -70,9 +70,9 @@
     </div>
     <div class="panel-footer">
 
-        <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary " ValidationGroup="categoryvalidationgroup" Text="Save" OnClick="btnSave_Click" />
-        <asp:Button ID="btnUpdate" runat="server" CssClass="btn btn-primary" ValidationGroup="categoryvalidationgroup" Text="Update" Visible="false" OnClick="btnUpdate_Click" />
-        <input class="btn btn-primary " type="button" value="Clear" onclick="javascript: window.location = 'Category.aspx'" />
+        <asp:Button ID="btnctgrySave123" runat="server" CssClass="btn btn-primary" ValidationGroup="categoryvalidationgroup"  Text="Save" OnClick="btnctgrySave123_Click"  />
+        <asp:Button ID="btnctgryUpdate" runat="server" CssClass="btn btn-primary" ValidationGroup="categoryvalidationgroup" Text="Update" Visible="false" OnClick="btnctgryUpdate_Click" />
+        <input class="btn btn-primary " type="button" value="Clear" />
     </div>
 </div>
 <div class="row">

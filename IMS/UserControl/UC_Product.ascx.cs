@@ -11,6 +11,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using IMS.Masters;
+using System.IO;
 
 namespace IMS.UserControl
 {
@@ -113,57 +114,7 @@ namespace IMS.UserControl
             branchId = Convert.ToInt32(Session["branch_id"]);
         }
      
-        [System.Web.Services.WebMethod]
-        public static string CheckDouble(string useroremail)
-        {
-            try
-            {
-                if (HttpContext.Current.Session["company_id"] != null)
-                {
-                    SqlHelper helper = new SqlHelper();
-                    DataTable data = helper.CheckDoubleValues(Convert.ToInt32(HttpContext.Current.Session["company_id"]), Convert.ToInt32(HttpContext.Current.Session["branch_id"]), "tbl_product", "product_code", useroremail);
-                    if (data.Rows.Count > 0)
-                    {
-                        return "true";
-                    }
-                    else
-                    {
-                        return "false";
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorLog.saveerror(ex);
-            }
-            return "true";
-        }
-
-        [System.Web.Services.WebMethod]
-        public static string CheckDouble1(string useroremail)
-        {
-            try
-            {
-                if (HttpContext.Current.Session["company_id"] != null)
-                {
-                    SqlHelper helper = new SqlHelper();
-                    DataTable data = helper.CheckDoubleValues(Convert.ToInt32(HttpContext.Current.Session["company_id"]), Convert.ToInt32(HttpContext.Current.Session["branch_id"]), "tbl_product", "product_name", useroremail);
-                    if (data.Rows.Count > 0)
-                    {
-                        return "true";
-                    }
-                    else
-                    {
-                        return "false";
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorLog.saveerror(ex);
-            }
-            return "true";
-        }
+      
 
         public static DataTable ToDataTable<T>(List<T> items)
         {
@@ -255,11 +206,11 @@ namespace IMS.UserControl
         {
             try
             {
-                if (hd.Value == "false")
+                if (hdprodname.Value == "false")
                 {
-                    if (hde.Value == "false")
+                    if (hdprodname.Value == "false")
                     {
-                        Label1.Text = String.Empty;
+                        lblmsgprodname.Text = String.Empty;
                         lblcheckDoubleError.Text = String.Empty;
                         tbl_product product = new tbl_product();
                         product.company_id = companyId;
@@ -319,8 +270,8 @@ namespace IMS.UserControl
                 else
                 {
                     divalert.Visible = false;
-                    Label1.ForeColor = System.Drawing.Color.Red;
-                    Label1.Text = "This Product name already Exists";
+                    lblmsgprodname.ForeColor = System.Drawing.Color.Red;
+                    lblmsgprodname.Text = "This Product name already Exists";
                 }
             }
             catch (Exception ex)
@@ -335,11 +286,11 @@ namespace IMS.UserControl
         {
             try
             {
-                if (hd.Value != "true")
+                if (hdprodname.Value != "true")
                 {
-                    if (hde.Value != "true")
+                    if (hdprodcode.Value != "true")
                     {
-                        Label1.Text = string.Empty;
+                        lblmsgprodname.Text = string.Empty;
                         lblcheckDoubleError.Text = String.Empty;
                       //  GridViewRow row = GridView1.SelectedRow;
                         int product_id = Convert.ToInt32(hdproductid.Value);
@@ -417,8 +368,8 @@ namespace IMS.UserControl
                 else
                 {
                     divalert.Visible = false;
-                    Label1.ForeColor = System.Drawing.Color.Red;
-                    Label1.Text = "This Product Name already Exists";
+                    lblmsgprodname.ForeColor = System.Drawing.Color.Red;
+                    lblmsgprodname.Text = "This Product Name already Exists";
                 }
             }
             catch (Exception ex)
@@ -452,6 +403,21 @@ namespace IMS.UserControl
         {
             try
             {
+                string pagename= Path.GetFileName(Request.Path);
+                if (pagename == "Purchase.aspx" || pagename == "Sale.aspx")
+                {
+                    spncategory.Visible = false;
+                    spnunit.Visible = false;
+                    spngodown.Visible = false;
+                    spnrack.Visible = false;
+                }
+                else
+                {
+                    spncategory.Visible = true;
+                    spnunit.Visible = true;
+                    spngodown.Visible = true;
+                    spnrack.Visible = true;
+                }
                 SessionValue();
                 if (!IsPostBack)
                 {
