@@ -116,6 +116,13 @@ namespace IMS
                 //added by ather for file attachment url
                 string path = "~/Uploads/AttachedFiles/Purchase/"; //path without filename to save file
                 bool fileupMsg = uploadFile(fuAttacheFile, path, "");
+                decimal balanceAmt = 0;// Convert.ToDecimal(txtBalanceAmt.Text);
+
+                if ( !string.IsNullOrEmpty(txtBalanceAmt.Text))
+                {
+                    balanceAmt = Convert.ToDecimal(txtBalanceAmt.Text);
+                }
+
 
                 tbl_purchase purchase = new tbl_purchase();
                 if (fileupMsg)
@@ -148,7 +155,7 @@ namespace IMS
                 purchasePaymentDetail.GrandTotal = Convert.ToDecimal(lblGrandTotal.Text);
                 purchasePaymentDetail.PaidAmnt = Convert.ToDecimal(txtPaidAmt.Text);
                 purchasePaymentDetail.GivenAmnt = Convert.ToDecimal(txtPaidAmt.Text);
-                purchasePaymentDetail.BalanceAmnt = Convert.ToDecimal(txtBalanceAmt.Text);
+                purchasePaymentDetail.BalanceAmnt = balanceAmt;
                 purchasePaymentDetail.CreatedDate = DateTime.Now;
                 purchasePaymentDetail.CreatedBy = user_id;
                 purchasePaymentDetail.FromTable = "Purchase";
@@ -466,10 +473,7 @@ namespace IMS
                     decimal a = subTotal / 100;
                     decimal discountamt = a * decimal.Parse(discount);
                     int groupTaxId = int.Parse(ddlTaxGroup.SelectedValue);
-
-
-
-
+                    
                     //Pouct Tax Group details Gridview Code
 
 

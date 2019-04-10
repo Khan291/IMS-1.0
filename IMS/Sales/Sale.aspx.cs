@@ -296,7 +296,12 @@ namespace IMS
             {//added by ather for file attachment url
                 string path = "~/Uploads/AttachedFiles/Sale/"; //path without filename to save file
                 bool fileupMsg = uploadFile(fuAttacheFile, path, "");
+                decimal balanceAmt = 0;// Convert.ToDecimal(txtBalanceAmt.Text);
 
+                if (!string.IsNullOrEmpty(txtBalanceAmt.Text))
+                {
+                    balanceAmt = Convert.ToDecimal(txtBalanceAmt.Text);
+                }
                 tbl_sale sale = new tbl_sale();
                 if (fileupMsg)
                 {
@@ -324,7 +329,7 @@ namespace IMS
                 salePaymentDetails.GrandTotal = Convert.ToDecimal(lblGrandTotal.Text);
                 salePaymentDetails.PaidAmnt = Convert.ToDecimal(txtGivenAmt.Text);
                 salePaymentDetails.GivenAmnt = Convert.ToDecimal(txtGivenAmt.Text);
-                salePaymentDetails.BalanceAmnt = Convert.ToDecimal(txtBalanceAmt.Text);
+                salePaymentDetails.BalanceAmnt = balanceAmt;
                 salePaymentDetails.FromTable = "Sale";
                 sale.tbl_SalePaymentDetails.Add(salePaymentDetails);
 
