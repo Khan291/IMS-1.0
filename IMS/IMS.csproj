@@ -805,6 +805,9 @@
     <Compile Include="CommonReport.aspx.designer.cs">
       <DependentUpon>CommonReport.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\CommonDataSet.cs">
+      <DependentUpon>CommonDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Reports\CommonDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1040,6 +1043,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\ProductWiseStockReport.rdlc" />
     <EmbeddedResource Include="Reports\PurchaseSaleReturnReport.rdlc" />
+    <EmbeddedResource Include="Reports\PurchaseTransationHistoryReport.rdlc" />
+    <EmbeddedResource Include="Reports\SaleTransationHistoryReport.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

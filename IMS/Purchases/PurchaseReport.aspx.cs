@@ -212,7 +212,8 @@ namespace IMS
             try
             {
                 GridViewRow grv = ((GridViewRow)((LinkButton)e.CommandSource).NamingContainer);
-                int id = Convert.ToInt32(e.CommandArgument);
+                var id = e.CommandArgument;
+
                 if (e.CommandName == "Order")
                 {
                    Response.Write(String.Format("<script>window.open('{0}','_blank')</script>", ResolveUrl(string.Format("~/Reports/ReportViewer.aspx?Id={0}&ReportName={1}", id, "PurchaseReport"))));
@@ -227,6 +228,11 @@ namespace IMS
                 {
                     Response.Write(String.Format("<script>window.open('{0}','_blank')</script>", ResolveUrl(string.Format("~/Reports/ReportViewer.aspx?Id={0}&ReportName={1}", id, "PurchaseReturnReport"))));
                    // Response.Write(String.Format("<script>window.open('{0}','_blank')</script>", ResolveUrl(string.Format("~/Reports/PurchaseSaleReturnReport.aspx?Id={0}&ReportName={1}", id, "PurchaseReturnReport"))));
+                }
+                else if (e.CommandName == "PurchaseTransationHistory")
+                {
+                    Response.Write(String.Format("<script>window.open('{0}','_blank')</script>", ResolveUrl(string.Format("~/Reports/ReportViewer.aspx?Id={0}&ReportName={1}", id, "PurchaseTransationHistory"))));
+                    // Response.Write(String.Format("<script>window.open('{0}','_blank')</script>", ResolveUrl(string.Format("~/Reports/PurchaseSaleReturnReport.aspx?Id={0}&ReportName={1}", id, "PurchaseTransationHistory"))));
                 }
                 else if (e.CommandName == "ViewORPayBalance")
                 {

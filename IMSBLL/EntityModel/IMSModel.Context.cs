@@ -3435,5 +3435,23 @@ namespace IMSBLL.EntityModel
     
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<Split_Result>("[IMS_TESTEntities].[Split](@List, @SplitOn)", listParameter, splitOnParameter);
         }
+    
+        public virtual ObjectResult<sp_purchaseTransationHistory_Result> sp_purchaseTransationHistory(string invoiceNumber)
+        {
+            var invoiceNumberParameter = invoiceNumber != null ?
+                new ObjectParameter("InvoiceNumber", invoiceNumber) :
+                new ObjectParameter("InvoiceNumber", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_purchaseTransationHistory_Result>("sp_purchaseTransationHistory", invoiceNumberParameter);
+        }
+    
+        public virtual ObjectResult<sp_saleTransationHistory_Result> sp_saleTransationHistory(string invoiceNumber)
+        {
+            var invoiceNumberParameter = invoiceNumber != null ?
+                new ObjectParameter("InvoiceNumber", invoiceNumber) :
+                new ObjectParameter("InvoiceNumber", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_saleTransationHistory_Result>("sp_saleTransationHistory", invoiceNumberParameter);
+        }
     }
 }

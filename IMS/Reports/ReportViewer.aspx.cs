@@ -17,7 +17,8 @@ namespace IMS.Reports
     {
         IMS_TESTEntities context = new IMS_TESTEntities();
         string Connectionstring = ConfigurationManager.ConnectionStrings["TestDBConnection"].ToString();
-        int id ,partyId= 0;
+        int partyId= 0;
+        string id = string.Empty;
         string reportName = string.Empty;
         DateTime StartDate;
         DateTime EndDate;
@@ -26,7 +27,7 @@ namespace IMS.Reports
             if (!IsPostBack)
            {
                  reportName = Request.QueryString["ReportName"].ToString();
-                 id = Convert.ToInt32(Request.QueryString["Id"]);
+                 id = Request.QueryString["Id"];
                 ////used only for Inventory Report
                 if (Request.QueryString["StartDate"] != null && Request.QueryString["EndDate"]!= null && Request.QueryString["PartyId"] != null)
                 {
@@ -44,7 +45,7 @@ namespace IMS.Reports
             
             SqlParameter[] sqlParams;
             ReportParameter reportParam;
-
+           
             int companyId = Convert.ToInt32(Session["company_id"]);
             var logo = context.tbl_company.Where(w => w.company_id == companyId).Select(s=>s.logo).SingleOrDefault();
             string logoPath = new Uri(Server.MapPath(logo)).AbsoluteUri;
@@ -93,6 +94,39 @@ namespace IMS.Reports
                     ReportViewer1.LocalReport.Refresh();
                     //ReportViewer1.LocalReport.SubreportProcessing += new Microsoft.Reporting.WebForms.SubreportProcessingEventHandler(PurchaseReturnReport_SubreportProcessing);
                     break;
+
+                //Purchase Transaction History Report
+                case "PurchaseTransationHistory":
+                    sqlParams = new SqlParameter[] {
+                         new SqlParameter("@Purchase_id", id)
+                    };
+                    ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/Reports/PurchaseTransationHistoryReport.rdlc");
+                    ReportViewer1.LocalReport.EnableExternalImages = true;
+                    reportParam = new ReportParameter("LogoPath", logoPath);
+                    ReportViewer1.LocalReport.SetParameters(reportParam);
+                    reportDataSet = "PurchaseTransactionDataSet";
+                    dataTable = "PurchaseTransHistoryData";
+                    CommonHelper.CreateReport(Connectionstring, "sp_purchaseTransationHistory", sqlParams, ref ReportViewer1, reportDataSet, dataTable);
+                    ReportViewer1.LocalReport.Refresh();
+                    //ReportViewer1.LocalReport.SubreportProcessing += new Microsoft.Reporting.WebForms.SubreportProcessingEventHandler(PurchaseReturnReport_SubreportProcessing);
+                    break;
+
+                //Only Sale Transaction History Report
+                case "SaleTransationHistory":
+                    sqlParams = new SqlParameter[] {
+                         new SqlParameter("@Sale_id", id)
+                    };
+                    ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/Reports/SaleTransationHistoryReport.rdlc");
+                    ReportViewer1.LocalReport.EnableExternalImages = true;
+                    reportParam = new ReportParameter("LogoPath", logoPath);
+                    ReportViewer1.LocalReport.SetParameters(reportParam);
+                    reportDataSet = "SaleTransactionDataSet";
+                    dataTable = "SaleTransHistoryData";
+                    CommonHelper.CreateReport(Connectionstring, "sp_saleTransationHistory", sqlParams, ref ReportViewer1, reportDataSet, dataTable);
+                    ReportViewer1.LocalReport.Refresh();
+                    //ReportViewer1.LocalReport.SubreportProcessing += new Microsoft.Reporting.WebForms.SubreportProcessingEventHandler(PurchaseReturnReport_SubreportProcessing);
+                    break;
+
 
                 //Combine Purchase Return Order Report 
                 case "CombinePurchaseAndReturnReport":

@@ -183,6 +183,7 @@
                                 <asp:LinkButton ID="LinkButton5" runat="server" CommandName="Invoice" Font-Size="Small" CommandArgument='<%# Eval("sale_id") %>' CssClass="btn btn-danger"><i class="fa fa-edit" aria-hidden="true"> Combine Invoice</i></asp:LinkButton>
                                 <asp:LinkButton ID="LinkButton6" runat="server" CommandName="Return" Font-Size="Small" CommandArgument='<%# Eval("sale_id") %>' CssClass="btn btn-warning"><i class="fa fa-edit" aria-hidden="true"> Return</i></asp:LinkButton>
                                 <asp:LinkButton ID="LinkPayBalance" runat="server" CommandName="ViewORPayBalance" Font-Size="Small" CommandArgument='<%# Eval("sale_id") %>' CssClass="btn btn-primary"><i class="fa fa-edit" aria-hidden="true"> View/Pay Balance</i></asp:LinkButton>
+                                <asp:LinkButton ID="TransationHistory" runat="server" CommandName="SaleTransationHistory" Font-Size="Small" CommandArgument='<%# Eval("sale_id") %>' CssClass="btn btn-info"><i class="fa fa-edit" aria-hidden="true">Transaction History</i></asp:LinkButton>
                             </ItemTemplate>
                         </asp:TemplateField>
 

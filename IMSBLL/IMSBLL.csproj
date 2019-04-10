@@ -160,7 +160,13 @@
     <Compile Include="EntityModel\sp_product_relorderlevel_report_forcompany_only_Result.cs">
       <DependentUpon>IMSModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="EntityModel\sp_purchaseTransationHistory_Result.cs">
+      <DependentUpon>IMSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="EntityModel\sp_Register_Result.cs">
+      <DependentUpon>IMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityModel\sp_saleTransationHistory_Result.cs">
       <DependentUpon>IMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EntityModel\sp_selectbatchbyproduct_Result.cs">

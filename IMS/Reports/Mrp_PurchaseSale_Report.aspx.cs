@@ -37,17 +37,7 @@ namespace IMS.Reports
                         lblmrpReportHeading.Text = "Top 10 Most Returned Products of Purchase";
                     }
                 }
-                //string strQuery = "[sp_mrpSalePurchase]";
-                //SqlDataAdapter da = new SqlDataAdapter(strQuery, con);
-                //DataTable dt = new DataTable();
-                //da.Fill(dt);
-                //RDLC ds = new RDLC();
-                //ds.Tables[""].Merge(dt);
-
-
-
-
-            }
+           }
 
         }
 

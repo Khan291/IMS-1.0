@@ -189,6 +189,11 @@ namespace IMS
                     Response.Write(String.Format("<script>window.open('{0}','_blank')</script>", ResolveUrl(string.Format("~/Reports/ReportViewer.aspx?Id={0}&ReportName={1}", id, "SaleReturnReport"))));
                     //Response.Write(String.Format("<script>window.open('{0}','_blank')</script>", ResolveUrl(string.Format("~/Reports/PurchaseSaleReturnReport.aspx?Id={0}&ReportName={1}", id, "SaleReturnReport"))));
                 }
+                else if (e.CommandName == "SaleTransationHistory")
+                {
+                    Response.Write(String.Format("<script>window.open('{0}','_blank')</script>", ResolveUrl(string.Format("~/Reports/ReportViewer.aspx?Id={0}&ReportName={1}", id, "SaleTransationHistory"))));
+                    //Response.Write(String.Format("<script>window.open('{0}','_blank')</script>", ResolveUrl(string.Format("~/Reports/PurchaseSaleReturnReport.aspx?Id={0}&ReportName={1}", id, "SaleReturnReport"))));
+                }
                 else if (e.CommandName == "ViewORPayBalance")
                 {
                     bool enablePayBalance = false;
