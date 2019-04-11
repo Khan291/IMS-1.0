@@ -64,6 +64,7 @@ namespace IMS
                 {
                     HttpException httpException = (HttpException)error;
                     var httpCode = httpException.GetHttpCode();
+                    ErrorLog.saveerror(error);
                     switch (httpCode)
                     {
                         case 403:

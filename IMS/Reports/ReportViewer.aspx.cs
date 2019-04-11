@@ -82,7 +82,7 @@ namespace IMS.Reports
                 case "PurchaseReturnReport":
                     sqlParams = new SqlParameter[] {
                          new SqlParameter("@Id", id),
-                         new SqlParameter("@FromTable","PURCHASERETRUN")
+                         new SqlParameter("@FromTable","PURCHASERETURN")
                     };
                     //ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/Reports/PurchaseSaleReturnReport.rdlc");
                     //ReportViewer1.LocalReport.EnableExternalImages = true;

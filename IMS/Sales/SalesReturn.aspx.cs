@@ -909,7 +909,7 @@ namespace IMS.Sales
             decimal remainingBalance = Convert.ToDecimal(lblResultGrndTotal.Text) - Convert.ToDecimal(lblGivenAmnt.Text);
             decimal amntTobeTaken = remainingBalance - (remainingBalance * 2);
             decimal ResultAmt = remainingBalance + paidAmnt;
-            if (ResultAmt > remainingBalance)
+            if (ResultAmt >= remainingBalance)
             {
                 txtPaidAmt.Text = amntTobeTaken.ToString();
                 // txtBalanceAmt.Text = "0";
