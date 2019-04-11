@@ -436,7 +436,7 @@
                                             Balance Amount                                              
                                         </label>
                                         <asp:TextBox ID="txtBalanceAmt" runat="server" CssClass="form-control" ReadOnly="true" onkeypress="return OnlyNumericEntry(event);"></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="txtBalanceAmt" ForeColor="Red" ErrorMessage="Please Enter Balance Amount" ValidationGroup="savesale"></asp:RequiredFieldValidator>
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="txtBalanceAmt" ForeColor="Red" ErrorMessage="Please Enter Balance Amount"></asp:RequiredFieldValidator>
                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ForeColor="Red" ControlToValidate="txtGivenAmt" ErrorMessage="Balance Amount Should be digits only" ValidationExpression="^\s*(?=.*[1-9])\d*(?:\.\d{1,5})?\s*$" Display="Dynamic" ValidationGroup="savesale">
                                         </asp:RegularExpressionValidator>
                                     </div>
