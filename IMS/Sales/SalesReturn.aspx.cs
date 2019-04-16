@@ -422,30 +422,42 @@ namespace IMS.Sales
                          new SqlParameter("@Id", saleId),
                          new SqlParameter("@FromTable","COMBINESALEANDRETURN")
                     };
-
+            decimal? givenAmnt = 0, totalDiscount = 0, subTotal = 0, grandTotal = 0, totalTax = 0;
             var ds = Common.FillDataSet(connectionstring, "SaleOrSaleReturnReport", sqlParams);
 
             if (ds.Tables["Table"] != null)
             {
-                decimal givenAmnt = 0, totalDiscount = 0, subTotal = 0, grandTotal = 0, totalTax = 0;
+                //    decimal givenAmnt = 0, totalDiscount = 0, subTotal = 0, grandTotal = 0, totalTax = 0;
 
-                for (int i = 0; i < ds.Tables["Table"].Rows.Count; i++)
-                {
-                    if (ds.Tables["Table"].Rows[i]["Type"].ToString() == "Sale")
-                    {
-                        totalTax = totalTax + Convert.ToDecimal(ds.Tables["Table"].Rows[i]["TaxAmnt"]);
-                        totalDiscount = totalDiscount + Convert.ToDecimal(ds.Tables["Table"].Rows[i]["DiscountAmnt"]);
-                        subTotal = subTotal + Convert.ToDecimal(ds.Tables["Table"].Rows[i]["ProductAmount"]);
-                    }
-                    else if (ds.Tables["Table"].Rows[i]["Type"].ToString() == "Return")
-                    {
-                        totalTax = totalTax - Convert.ToDecimal(ds.Tables["Table"].Rows[i]["TaxAmnt"]);
-                        totalDiscount = totalDiscount - Convert.ToDecimal(ds.Tables["Table"].Rows[i]["DiscountAmnt"]);
-                        subTotal = subTotal - Convert.ToDecimal(ds.Tables["Table"].Rows[i]["ProductAmount"]);
-                    }
-                    givenAmnt = Convert.ToDecimal(ds.Tables["Table"].Rows[i]["GivenAmnt"]);
-                }
-                grandTotal = subTotal + totalTax - totalDiscount;
+                //    for (int i = 0; i < ds.Tables["Table"].Rows.Count; i++)
+                //    {
+                //        if (ds.Tables["Table"].Rows[i]["Type"].ToString() == "Sale")
+                //        {
+                //            totalTax = totalTax + Convert.ToDecimal(ds.Tables["Table"].Rows[i]["TaxAmnt"]);
+                //            totalDiscount = totalDiscount + Convert.ToDecimal(ds.Tables["Table"].Rows[i]["DiscountAmnt"]);
+                //            subTotal = subTotal + Convert.ToDecimal(ds.Tables["Table"].Rows[i]["ProductAmount"]);
+                //        }
+                //        else if (ds.Tables["Table"].Rows[i]["Type"].ToString() == "Return")
+                //        {
+                //            totalTax = totalTax - Convert.ToDecimal(ds.Tables["Table"].Rows[i]["TaxAmnt"]);
+                //            totalDiscount = totalDiscount - Convert.ToDecimal(ds.Tables["Table"].Rows[i]["DiscountAmnt"]);
+                //            subTotal = subTotal - Convert.ToDecimal(ds.Tables["Table"].Rows[i]["ProductAmount"]);
+                //        }
+                //        givenAmnt = Convert.ToDecimal(ds.Tables["Table"].Rows[i]["GivenAmnt"]);
+                //    }
+
+                var paymentDetails = context.tbl_SalePaymentDetails.Where(w => w.SaleId == saleId)
+              .Select(s => new { s.GivenAmnt, s.BalanceAmnt, s.GrandTotal, s.SubTotal, s.PaidAmnt, s.TaxAmount, s.DiscountAmount }).FirstOrDefault();
+            if (paymentDetails != null)
+            {
+                givenAmnt = paymentDetails.GivenAmnt;
+                //balanceAmnt = paymentDetails.BalanceAmnt;
+                subTotal = paymentDetails.SubTotal;
+                totalTax = paymentDetails.TaxAmount;
+                totalDiscount = paymentDetails.DiscountAmount;
+            }
+
+            grandTotal = subTotal + totalTax - totalDiscount;
 
                 //DataRow dr = ds.Tables["Table"].Select("Id=" + saleId + "").FirstOrDefault();
 

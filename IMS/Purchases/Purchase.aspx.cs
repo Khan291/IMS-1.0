@@ -46,6 +46,7 @@ namespace IMS
                 SessionValue();
                 if (!IsPostBack)
                 {
+                    txtOtherExpLabel.Text = "Other Expenses";
                    // CalendarExtender1.StartDate = DateTime.Now.Date;
                     //txtdate.Text = DateTime.Now.ToString();
                     if (ViewState["Details"] == null)
@@ -141,6 +142,7 @@ namespace IMS
                 purchase.Po_Date = DateTime.ParseExact(txtdate.Text, "dd/MM/yyyy", new CultureInfo("en-US"));
                 purchase.po_no = txtPONo.Text;
                 purchase.Note = txtNotePurchase.Text;
+                purchase.OtherExpLabel = txtOtherExpLabel.Text;
                 purchase.other_expenses = Convert.ToDecimal(txtotherexpence.Text);
                 
                 purchase.created_by = user_id;
@@ -159,6 +161,19 @@ namespace IMS
                 purchasePaymentDetail.CreatedDate = DateTime.Now;
                 purchasePaymentDetail.CreatedBy = user_id;
                 purchasePaymentDetail.FromTable = "Purchase";
+                string otherExp = txtotherexpence.Text;
+                if (otherExp.Contains("-"))
+                {
+                    var calculatedDiscount = Convert.ToDecimal(lblDiscountAmt.Text);
+                    var overAllDisc = Convert.ToDecimal(otherExp.Substring(otherExp.LastIndexOf('-') + 0));
+                    var totalDiscount = calculatedDiscount - overAllDisc;
+
+                    purchasePaymentDetail.DiscountAmount = totalDiscount;
+                }
+                else
+                {
+                    purchasePaymentDetail.DiscountAmount = Convert.ToDecimal(lblDiscountAmt.Text);
+                }
                 purchase.tbl_PurchasePaymentDetials.Add(purchasePaymentDetail);
                 
 
@@ -912,7 +927,12 @@ namespace IMS
         {
             try
             {
-                if(string.IsNullOrWhiteSpace(txtotherexpence.Text))
+                string otherExp = txtotherexpence.Text;
+                if (otherExp.Contains("-"))
+                {
+                    txtotherexpence.Text = otherExp.Substring(otherExp.LastIndexOf('-') + 0);
+                }
+                if (string.IsNullOrWhiteSpace(txtotherexpence.Text))
                 {
                     txtotherexpence.Text= "0";
                 }
@@ -923,6 +943,9 @@ namespace IMS
                 }
                 decimal grandTotal = Convert.ToDecimal(lblGrandTotal.Text);
                 lblGrandTotal.Text = Convert.ToString(grandTotal + Convert.ToDecimal(txtotherexpence.Text));
+
+                txtPaidAmt.Text = lblGrandTotal.Text;
+                UpdatePanel2.Update();
             }
             catch (Exception ex){
 
@@ -1014,9 +1037,12 @@ namespace IMS
         {
             var set = context.tbl_product.Where(x => x.status == true && x.company_id == companyId).OrderByDescending(x => x.product_id).FirstOrDefault();
             ddlproductbind();
-            ddlproduct.SelectedValue = set.product_id.ToString();
-            txtprice.Text = set.purchas_price.ToString();
-            ddltaxBind(set.product_id);
+            if(set!=null)
+            {
+                ddlproduct.SelectedValue = set.product_id.ToString();
+                txtprice.Text = set.purchas_price.ToString();
+                ddltaxBind(set.product_id);
+            }
         }
     }
 }

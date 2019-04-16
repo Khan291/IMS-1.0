@@ -328,9 +328,15 @@
                         <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 pull-right">
                             <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 leftpadd0 pull-right" style="padding: 0px;">
                                 <div class="form-group">
-                                    <div class="col-sm-12 leftpadd0">
-                                        <label class="control-label col-sm-9">Other Expenses</label>
-                                        <asp:TextBox ID="txtotherexpence" runat="server" CssClass="form-control" OnTextChanged="txtotherexpence_TextChanged" AutoPostBack="true" onkeypress="return OnlyNumericEntry(event);"></asp:TextBox>
+                                    <div class="col-sm-6 leftpadd0">
+                                        <%--<label class="control-label col-sm-9">Other Expenses</label>--%>
+                                        <asp:TextBox ID="txtOtherExpLabel" runat="server" CssClass="form-control"
+                                             ToolTip="You can change this text as per your need"></asp:TextBox>
+                                    </div>
+                                    <div class="col-sm-6 leftpadd0">
+                                        <asp:TextBox ID="txtotherexpence" runat="server" CssClass="form-control" 
+                                            placeHolder="Enter Amount" ToolTip="Type Amount to be Add or Minus."
+                                            OnTextChanged="txtotherexpence_TextChanged" AutoPostBack="true" onkeypress="return OnlyNumericEntry(event);"></asp:TextBox>
                                     </div>
                                 </div>
                             </div>
@@ -538,7 +544,7 @@
         </div>
     </div>
     <%--end model popup --%>
-   
+
 
     <script type="text/javascript">
 
@@ -557,8 +563,8 @@
 
             $('#<%=lblcheckDoubleError.ClientID%>').text('');
 
-            var charCode = (evt.which) ? evt.which : event.keyCode
-            if (charCode != 46 && charCode > 31
+            var charCode = (evt.which) ? evt.which : event.keyCode            
+            if (charCode != 46 && charCode > 31 && charCode != 45
                 && (charCode < 48 || charCode > 57))
                 return false;
             return true;
@@ -601,6 +607,6 @@
         $("#<%= ddlBatch.ClientID %>-deselect").chosen(
             { allow_single_deselect: true });--%>
 
-    </script>
+</script>
 
 </asp:Content>

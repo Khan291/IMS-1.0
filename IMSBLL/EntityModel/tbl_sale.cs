@@ -37,6 +37,7 @@ namespace IMSBLL.EntityModel
         public Nullable<int> paymentmode_id { get; set; }
         public Nullable<System.DateTime> sale_date { get; set; }
         public string Note { get; set; }
+        public string OtherExpLabel { get; set; }
         public Nullable<decimal> other_expenses { get; set; }
         public string attachmentUrl { get; set; }
     

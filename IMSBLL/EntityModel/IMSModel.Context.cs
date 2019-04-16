@@ -1792,6 +1792,15 @@ namespace IMSBLL.EntityModel
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Purchaseinsert", company_idParameter, branch_idParameter, party_idParameter, po_noParameter, po_DateParameter, total_taxParameter, total_amntParameter, grand_totalParameter, total_discountParameter, created_byParameter, created_dateParameter, invoiceNumberParameter, paymentMode_idParameter, given_amntParameter, balance_amntParameter, purchase_id);
         }
     
+        public virtual ObjectResult<sp_purchaseTransationHistory_Result> sp_purchaseTransationHistory(string purchase_id)
+        {
+            var purchase_idParameter = purchase_id != null ?
+                new ObjectParameter("Purchase_id", purchase_id) :
+                new ObjectParameter("Purchase_id", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_purchaseTransationHistory_Result>("sp_purchaseTransationHistory", purchase_idParameter);
+        }
+    
         public virtual int sp_rackInsert(Nullable<int> company_id, Nullable<int> branch_id, Nullable<int> godown_id, string rack_name, Nullable<bool> status, string created_by, Nullable<System.DateTime> created_date, string modified_by, Nullable<System.DateTime> modified_date)
         {
             var company_idParameter = company_id.HasValue ?
@@ -2065,6 +2074,15 @@ namespace IMSBLL.EntityModel
                 new ObjectParameter("salereturnmain_id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_SalesreturnProduct", salereturnmain_idParameter);
+        }
+    
+        public virtual ObjectResult<sp_saleTransationHistory_Result> sp_saleTransationHistory(string sale_Id)
+        {
+            var sale_IdParameter = sale_Id != null ?
+                new ObjectParameter("sale_Id", sale_Id) :
+                new ObjectParameter("sale_Id", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_saleTransationHistory_Result>("sp_saleTransationHistory", sale_IdParameter);
         }
     
         public virtual ObjectResult<Nullable<int>> sp_saveerror(Nullable<int> company_id, Nullable<int> branch_id, string error_type, string error_msg, string created_by, Nullable<System.DateTime> created_date)
@@ -3434,24 +3452,6 @@ namespace IMSBLL.EntityModel
                 new ObjectParameter("SplitOn", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<Split_Result>("[IMS_TESTEntities].[Split](@List, @SplitOn)", listParameter, splitOnParameter);
-        }
-    
-        public virtual ObjectResult<sp_purchaseTransationHistory_Result> sp_purchaseTransationHistory(string invoiceNumber)
-        {
-            var invoiceNumberParameter = invoiceNumber != null ?
-                new ObjectParameter("InvoiceNumber", invoiceNumber) :
-                new ObjectParameter("InvoiceNumber", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_purchaseTransationHistory_Result>("sp_purchaseTransationHistory", invoiceNumberParameter);
-        }
-    
-        public virtual ObjectResult<sp_saleTransationHistory_Result> sp_saleTransationHistory(string invoiceNumber)
-        {
-            var invoiceNumberParameter = invoiceNumber != null ?
-                new ObjectParameter("InvoiceNumber", invoiceNumber) :
-                new ObjectParameter("InvoiceNumber", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_saleTransationHistory_Result>("sp_saleTransationHistory", invoiceNumberParameter);
         }
     }
 }

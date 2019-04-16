@@ -412,6 +412,7 @@
           <Property Name="InvoiceNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="PaymentMode_id" Type="int" />
           <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="OtherExpLabel" Type="nvarchar(max)" />
           <Property Name="other_expenses" Type="decimal" Precision="18" Scale="0" />
           <Property Name="attachmentUrl" Type="nvarchar(max)" />
         </EntityType>
@@ -662,6 +663,7 @@
           <Property Name="paymentmode_id" Type="int" />
           <Property Name="sale_date" Type="smalldatetime" />
           <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="OtherExpLabel" Type="nvarchar(max)" />
           <Property Name="other_expenses" Type="decimal" Precision="18" Scale="0" />
           <Property Name="attachmentUrl" Type="nvarchar(max)" />
         </EntityType>
@@ -3289,7 +3291,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <Parameter Name="purchase_id" Type="int" Mode="InOut" />
         </Function>
         <Function Name="sp_purchaseTransationHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="InvoiceNumber" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Purchase_id" Type="nvarchar(max)" Mode="In" />
         </Function>
         <Function Name="sp_rackInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="company_id" Type="int" Mode="In" />
@@ -3368,7 +3370,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <Parameter Name="salereturnmain_id" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_saleTransationHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="InvoiceNumber" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="sale_Id" Type="nvarchar(max)" Mode="In" />
         </Function>
         <Function Name="sp_saveerror" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="company_id" Type="int" Mode="In" />
@@ -4928,6 +4930,9 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             <Parameter Name="balance_amnt" Mode="In" Type="Decimal" />
             <Parameter Name="purchase_id" Mode="InOut" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="sp_purchaseTransationHistory" ReturnType="Collection(IMS_TESTModel.sp_purchaseTransationHistory_Result)">
+          <Parameter Name="Purchase_id" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="sp_rackInsert">
             <Parameter Name="company_id" Mode="In" Type="Int32" />
             <Parameter Name="branch_id" Mode="In" Type="Int32" />
@@ -5003,6 +5008,9 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           </FunctionImport>
           <FunctionImport Name="sp_SalesreturnProduct">
           <Parameter Name="salereturnmain_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_saleTransationHistory" ReturnType="Collection(IMS_TESTModel.sp_saleTransationHistory_Result)">
+          <Parameter Name="sale_Id" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_saveerror" ReturnType="Collection(Int32)">
             <Parameter Name="company_id" Mode="In" Type="Int32" />
@@ -6002,12 +6010,6 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             <End Role="tbl_User" EntitySet="tbl_User" />
             <End Role="tbl_userrole" EntitySet="tbl_userrole" />
           </AssociationSet>
-          <FunctionImport Name="sp_purchaseTransationHistory" ReturnType="Collection(IMS_TESTModel.sp_purchaseTransationHistory_Result)">
-            <Parameter Name="InvoiceNumber" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_saleTransationHistory" ReturnType="Collection(IMS_TESTModel.sp_saleTransationHistory_Result)">
-            <Parameter Name="InvoiceNumber" Mode="In" Type="String" />
-          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CommonReport_Result">
           <Property Type="Int32" Name="company_id" Nullable="false" />
@@ -6268,10 +6270,38 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <Property Type="Int32" Name="qty" Nullable="true" />
           <Property Type="Int32" Name="reorder_level" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="sp_purchaseTransationHistory_Result">
+          <Property Type="String" Name="InvoiceNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="product_name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="product_code" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="InvoiceNumber1" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="SubTotal" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="BalanceAmnt" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="GivenAmnt" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="DiscountAmount" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="GrandTotal" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="PaidAmnt" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="FromTable" Nullable="true" MaxLength="50" />
+        </ComplexType>
         <ComplexType Name="sp_Register_Result">
           <Property Type="String" Name="Column1" Nullable="true" MaxLength="201" />
           <Property Type="Int32" Name="user_id" Nullable="false" />
           <Property Type="String" Name="uniqueidentifier" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_saleTransationHistory_Result">
+          <Property Type="String" Name="InvoiceNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="product_name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="product_code" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="InvoiceNumber1" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="SubTotal" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="BalanceAmnt" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="GivenAmnt" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="DiscountAmount" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="GrandTotal" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="PaidAmnt" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="FromTable" Nullable="true" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="sp_SelectBatch_Result">
           <Property Type="Int32" Name="batch_id" Nullable="false" />
@@ -7024,6 +7054,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <Property Name="InvoiceNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PaymentMode_id" Type="Int32" />
           <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OtherExpLabel" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="other_expenses" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="attachmentUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tbl_ActualPurchaseTaxAndPrice" Relationship="IMS_TESTModel.FK_tbl_ActualPurchaseTaxAndPrice_tbl_purchase" FromRole="tbl_purchase" ToRole="tbl_ActualPurchaseTaxAndPrice" />
@@ -7317,6 +7348,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <Property Name="paymentmode_id" Type="Int32" />
           <Property Name="sale_date" Type="DateTime" Precision="0" />
           <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OtherExpLabel" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="other_expenses" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="attachmentUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tbl_ActualSalesTaxAndPrice" Relationship="IMS_TESTModel.FK__tbl_Actua__sale___5D2BD0E6" FromRole="tbl_sale" ToRole="tbl_ActualSalesTaxAndPrice" />
@@ -9535,34 +9567,6 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="sp_purchaseTransationHistory_Result">
-          <Property Type="String" Name="InvoiceNumber" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="product_name" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="product_code" Nullable="true" MaxLength="500" />
-          <Property Type="String" Name="InvoiceNumber1" Nullable="true" MaxLength="50" />
-          <Property Type="Decimal" Name="SubTotal" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="BalanceAmnt" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="GivenAmnt" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="DiscountAmount" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="GrandTotal" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
-          <Property Type="Decimal" Name="PaidAmnt" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="String" Name="FromTable" Nullable="true" MaxLength="50" />
-        </ComplexType>
-        <ComplexType Name="sp_saleTransationHistory_Result">
-          <Property Type="String" Name="InvoiceNumber" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="product_name" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="product_code" Nullable="true" MaxLength="500" />
-          <Property Type="String" Name="InvoiceNumber1" Nullable="true" MaxLength="50" />
-          <Property Type="Decimal" Name="SubTotal" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="BalanceAmnt" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="GivenAmnt" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="DiscountAmount" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="GrandTotal" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
-          <Property Type="Decimal" Name="PaidAmnt" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="String" Name="FromTable" Nullable="true" MaxLength="50" />
-        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -9961,6 +9965,24 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_PurchaseDetailinsert" FunctionName="IMS_TESTModel.Store.sp_PurchaseDetailinsert" />
           <FunctionImportMapping FunctionImportName="sp_Purchaseinsert" FunctionName="IMS_TESTModel.Store.sp_Purchaseinsert" />
+          <FunctionImportMapping FunctionImportName="sp_purchaseTransationHistory" FunctionName="IMS_TESTModel.Store.sp_purchaseTransationHistory">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_purchaseTransationHistory_Result">
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="product_code" ColumnName="product_code" />
+                <ScalarProperty Name="InvoiceNumber1" ColumnName="InvoiceNumber1" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="BalanceAmnt" ColumnName="BalanceAmnt" />
+                <ScalarProperty Name="GivenAmnt" ColumnName="GivenAmnt" />
+                <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
+                <ScalarProperty Name="GrandTotal" ColumnName="GrandTotal" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="PaidAmnt" ColumnName="PaidAmnt" />
+                <ScalarProperty Name="FromTable" ColumnName="FromTable" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_rackInsert" FunctionName="IMS_TESTModel.Store.sp_rackInsert" />
           <FunctionImportMapping FunctionImportName="sp_Register" FunctionName="IMS_TESTModel.Store.sp_Register">
             <ResultMapping>
@@ -9976,6 +9998,24 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <FunctionImportMapping FunctionImportName="sp_SalesDetailinsert" FunctionName="IMS_TESTModel.Store.sp_SalesDetailinsert" />
           <FunctionImportMapping FunctionImportName="sp_Salesinsert" FunctionName="IMS_TESTModel.Store.sp_Salesinsert" />
           <FunctionImportMapping FunctionImportName="sp_SalesreturnProduct" FunctionName="IMS_TESTModel.Store.sp_SalesreturnProduct" />
+          <FunctionImportMapping FunctionImportName="sp_saleTransationHistory" FunctionName="IMS_TESTModel.Store.sp_saleTransationHistory">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_saleTransationHistory_Result">
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="product_code" ColumnName="product_code" />
+                <ScalarProperty Name="InvoiceNumber1" ColumnName="InvoiceNumber1" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="BalanceAmnt" ColumnName="BalanceAmnt" />
+                <ScalarProperty Name="GivenAmnt" ColumnName="GivenAmnt" />
+                <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
+                <ScalarProperty Name="GrandTotal" ColumnName="GrandTotal" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="PaidAmnt" ColumnName="PaidAmnt" />
+                <ScalarProperty Name="FromTable" ColumnName="FromTable" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_saveerror" FunctionName="IMS_TESTModel.Store.sp_saveerror" />
           <FunctionImportMapping FunctionImportName="sp_SelectBatch" FunctionName="IMS_TESTModel.Store.sp_SelectBatch">
             <ResultMapping>
@@ -10738,6 +10778,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
               <MappingFragment StoreEntitySet="tbl_purchase">
                 <ScalarProperty Name="attachmentUrl" ColumnName="attachmentUrl" />
                 <ScalarProperty Name="other_expenses" ColumnName="other_expenses" />
+                <ScalarProperty Name="OtherExpLabel" ColumnName="OtherExpLabel" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="PaymentMode_id" ColumnName="PaymentMode_id" />
                 <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
@@ -11003,6 +11044,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
               <MappingFragment StoreEntitySet="tbl_sale">
                 <ScalarProperty Name="attachmentUrl" ColumnName="attachmentUrl" />
                 <ScalarProperty Name="other_expenses" ColumnName="other_expenses" />
+                <ScalarProperty Name="OtherExpLabel" ColumnName="OtherExpLabel" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="sale_date" ColumnName="sale_date" />
                 <ScalarProperty Name="paymentmode_id" ColumnName="paymentmode_id" />
@@ -11544,42 +11586,6 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="sp_purchaseTransationHistory" FunctionName="IMS_TESTModel.Store.sp_purchaseTransationHistory">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_purchaseTransationHistory_Result">
-                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
-                <ScalarProperty Name="product_name" ColumnName="product_name" />
-                <ScalarProperty Name="product_code" ColumnName="product_code" />
-                <ScalarProperty Name="InvoiceNumber1" ColumnName="InvoiceNumber1" />
-                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
-                <ScalarProperty Name="BalanceAmnt" ColumnName="BalanceAmnt" />
-                <ScalarProperty Name="GivenAmnt" ColumnName="GivenAmnt" />
-                <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
-                <ScalarProperty Name="GrandTotal" ColumnName="GrandTotal" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="PaidAmnt" ColumnName="PaidAmnt" />
-                <ScalarProperty Name="FromTable" ColumnName="FromTable" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_saleTransationHistory" FunctionName="IMS_TESTModel.Store.sp_saleTransationHistory">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_saleTransationHistory_Result">
-                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
-                <ScalarProperty Name="product_name" ColumnName="product_name" />
-                <ScalarProperty Name="product_code" ColumnName="product_code" />
-                <ScalarProperty Name="InvoiceNumber1" ColumnName="InvoiceNumber1" />
-                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
-                <ScalarProperty Name="BalanceAmnt" ColumnName="BalanceAmnt" />
-                <ScalarProperty Name="GivenAmnt" ColumnName="GivenAmnt" />
-                <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
-                <ScalarProperty Name="GrandTotal" ColumnName="GrandTotal" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="PaidAmnt" ColumnName="PaidAmnt" />
-                <ScalarProperty Name="FromTable" ColumnName="FromTable" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

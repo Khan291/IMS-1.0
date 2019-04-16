@@ -241,38 +241,53 @@ namespace IMS
                          new SqlParameter("@Id", purchaseId),
                          new SqlParameter("@FromTable","COMBINEPURCHASEANDRETURN")
                     };
-
+            decimal? givenAmnt = 0, totalDiscount = 0, subTotal = 0, grandTotal = 0, totalTax = 0, balanceAmnt = 0;
             var ds = Common.FillDataSet(connectionstring, "PurchaseOrPurchaseReturnReport", sqlParams);
 
             if (ds.Tables["Table"] != null)
             {
-                decimal givenAmnt = 0, totalDiscount = 0, subTotal = 0, grandTotal = 0, totalTax = 0, balanceAmnt = 0;
+                //decimal givenAmnt = 0, totalDiscount = 0, subTotal = 0, grandTotal = 0, totalTax = 0, balanceAmnt = 0;
 
-                for (int i = 0; i < ds.Tables["Table"].Rows.Count; i++)
-                {
-                    if (ds.Tables["Table"].Rows[i]["Type"].ToString() == "Purchase")
-                    {
-                        totalTax = totalTax + Convert.ToDecimal(ds.Tables["Table"].Rows[i]["TaxAmnt"]);
-                        totalDiscount = totalDiscount + Convert.ToDecimal(ds.Tables["Table"].Rows[i]["DiscountAmnt"]);
-                        subTotal = subTotal + Convert.ToDecimal(ds.Tables["Table"].Rows[i]["ProductAmount"]);
+                //for (int i = 0; i < ds.Tables["Table"].Rows.Count; i++)
+                //{
+                //    if (ds.Tables["Table"].Rows[i]["Type"].ToString() == "Purchase")
+                //    {
+                //        totalTax = totalTax + Convert.ToDecimal(ds.Tables["Table"].Rows[i]["TaxAmnt"]);
+                //        totalDiscount = totalDiscount + Convert.ToDecimal(ds.Tables["Table"].Rows[i]["DiscountAmnt"]);
+                //        subTotal = subTotal + Convert.ToDecimal(ds.Tables["Table"].Rows[i]["ProductAmount"]);
 
-                    }
-                    else if (ds.Tables["Table"].Rows[i]["Type"].ToString() == "Return")
-                    {
-                        totalTax = totalTax - Convert.ToDecimal(ds.Tables["Table"].Rows[i]["TaxAmnt"]);
-                        totalDiscount = totalDiscount - Convert.ToDecimal(ds.Tables["Table"].Rows[i]["DiscountAmnt"]);
-                        subTotal = subTotal - Convert.ToDecimal(ds.Tables["Table"].Rows[i]["ProductAmount"]);
+                //    }
+                //    else if (ds.Tables["Table"].Rows[i]["Type"].ToString() == "Return")
+                //    {
+                //        totalTax = totalTax - Convert.ToDecimal(ds.Tables["Table"].Rows[i]["TaxAmnt"]);
+                //        totalDiscount = totalDiscount - Convert.ToDecimal(ds.Tables["Table"].Rows[i]["DiscountAmnt"]);
+                //        subTotal = subTotal - Convert.ToDecimal(ds.Tables["Table"].Rows[i]["ProductAmount"]);
 
-                    }
-                    givenAmnt = Convert.ToDecimal(ds.Tables["Table"].Rows[i]["GivenAmnt"]);
-                    balanceAmnt= Convert.ToDecimal(ds.Tables["Table"].Rows[i]["BalanceAmnt"]);
-                }
-                grandTotal = subTotal + totalTax - totalDiscount;
+                //    }
+                //    givenAmnt = Convert.ToDecimal(ds.Tables["Table"].Rows[i]["GivenAmnt"]);
+                //    balanceAmnt = Convert.ToDecimal(ds.Tables["Table"].Rows[i]["BalanceAmnt"]);
+                //}
+
 
                 //DataRow dr = ds.Tables["Table"].Select("Id=" + purchaseId + "").FirstOrDefault();
 
                 //assign it to the the current return screen as well as the original purchase field
-                lblGivenAmnt.Text = givenAmnt.ToString();
+
+
+                var paymentDetails = context.tbl_PurchasePaymentDetials.Where(w => w.PurchaseId == purchaseId)
+                .Select(s => new { s.GivenAmnt, s.BalanceAmnt, s.GrandTotal, s.SubTotal, s.PaidAmnt, s.TaxAmount, s.DiscountAmount }).FirstOrDefault();
+            if (paymentDetails != null)
+            {
+                givenAmnt = paymentDetails.GivenAmnt;
+                balanceAmnt = paymentDetails.BalanceAmnt;
+                subTotal = paymentDetails.SubTotal;
+                totalTax = paymentDetails.TaxAmount;
+                totalDiscount = paymentDetails.DiscountAmount;       
+            }
+            
+            grandTotal = subTotal + totalTax - totalDiscount;
+
+            lblGivenAmnt.Text = givenAmnt.ToString();
                 lblTotalAmnt.Text = subTotal.ToString();
                 lblTotalTax.Text = totalTax.ToString();
                 lblTotalDiscount.Text = totalDiscount.ToString();
@@ -349,7 +364,7 @@ namespace IMS
             lblResultGrndTotal.Text = (Convert.ToDecimal(lblOriginalGrndTotal.Text) - Convert.ToDecimal(lblGrandTotal.Text)).ToString("0.##");
 
 
-            txtBalanceAmt.Text = (Convert.ToDecimal(lblResultGrndTotal.Text) - Convert.ToDecimal(lblGivenAmnt.Text)).ToString("0.##");
+            txtBalanceAmt.Text = (Convert.ToDecimal(lblResultGrndTotal.Text) - Convert.ToDecimal(lblGivenAmnt.Text == "" ? lblGivenAmnt.Text = "0" : lblGivenAmnt.Text)).ToString("0.##");
             if (Convert.ToDecimal(txtBalanceAmt.Text) < 0)
             {
                 btnGetRefund.Visible = true;
@@ -765,7 +780,7 @@ namespace IMS
 
             if (Convert.ToDecimal(lblGrandTotal.Text) > 0)
             {
-                txtBalanceAmt.Text = (Convert.ToDecimal(lblGrandTotal.Text) - Convert.ToDecimal(lblGivenAmnt.Text)).ToString("0.##");
+                txtBalanceAmt.Text = (Convert.ToDecimal(lblGrandTotal.Text) - Convert.ToDecimal(lblGivenAmnt.Text == "" ? lblGivenAmnt.Text = "0" : lblGivenAmnt.Text)).ToString("0.##");
             }
             else
             {
