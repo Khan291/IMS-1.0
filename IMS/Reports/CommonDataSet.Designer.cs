@@ -2054,6 +2054,10 @@ namespace IMS.Reports {
             
             private global::System.Data.DataColumn columnPaidAmnt;
             
+            private global::System.Data.DataColumn columncompany_name;
+            
+            private global::System.Data.DataColumn columncompany_address;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public PurchaseTransHistoryDataDataTable() {
@@ -2153,6 +2157,22 @@ namespace IMS.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn company_nameColumn {
+                get {
+                    return this.columncompany_name;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn company_addressColumn {
+                get {
+                    return this.columncompany_address;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2188,7 +2208,7 @@ namespace IMS.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public PurchaseTransHistoryDataRow AddPurchaseTransHistoryDataRow(string InvoiceNumber, string product_name, string SubTotal, string BalanceAmnt, string GivenAmnt, string DiscountAmount, string GrandTotal, string PaidAmnt) {
+            public PurchaseTransHistoryDataRow AddPurchaseTransHistoryDataRow(string InvoiceNumber, string product_name, string SubTotal, string BalanceAmnt, string GivenAmnt, string DiscountAmount, string GrandTotal, string PaidAmnt, string company_name, string company_address) {
                 PurchaseTransHistoryDataRow rowPurchaseTransHistoryDataRow = ((PurchaseTransHistoryDataRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         InvoiceNumber,
@@ -2198,7 +2218,9 @@ namespace IMS.Reports {
                         GivenAmnt,
                         DiscountAmount,
                         GrandTotal,
-                        PaidAmnt};
+                        PaidAmnt,
+                        company_name,
+                        company_address};
                 rowPurchaseTransHistoryDataRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowPurchaseTransHistoryDataRow);
                 return rowPurchaseTransHistoryDataRow;
@@ -2229,6 +2251,8 @@ namespace IMS.Reports {
                 this.columnDiscountAmount = base.Columns["DiscountAmount"];
                 this.columnGrandTotal = base.Columns["GrandTotal"];
                 this.columnPaidAmnt = base.Columns["PaidAmnt"];
+                this.columncompany_name = base.Columns["company_name"];
+                this.columncompany_address = base.Columns["company_address"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2250,6 +2274,10 @@ namespace IMS.Reports {
                 base.Columns.Add(this.columnGrandTotal);
                 this.columnPaidAmnt = new global::System.Data.DataColumn("PaidAmnt", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPaidAmnt);
+                this.columncompany_name = new global::System.Data.DataColumn("company_name", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncompany_name);
+                this.columncompany_address = new global::System.Data.DataColumn("company_address", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncompany_address);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2399,6 +2427,10 @@ namespace IMS.Reports {
             
             private global::System.Data.DataColumn columnPaidAmnt;
             
+            private global::System.Data.DataColumn columncompany_name;
+            
+            private global::System.Data.DataColumn columncompany_address;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public SaleTransHistoryDataDataTable() {
@@ -2498,6 +2530,22 @@ namespace IMS.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn company_nameColumn {
+                get {
+                    return this.columncompany_name;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn company_addressColumn {
+                get {
+                    return this.columncompany_address;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2533,7 +2581,7 @@ namespace IMS.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public SaleTransHistoryDataRow AddSaleTransHistoryDataRow(string InvoiceNumber, string product_name, string SubTotal, string BalanceAmnt, string GivenAmnt, string DiscountAmount, string GrandTotal, string PaidAmnt) {
+            public SaleTransHistoryDataRow AddSaleTransHistoryDataRow(string InvoiceNumber, string product_name, string SubTotal, string BalanceAmnt, string GivenAmnt, string DiscountAmount, string GrandTotal, string PaidAmnt, string company_name, string company_address) {
                 SaleTransHistoryDataRow rowSaleTransHistoryDataRow = ((SaleTransHistoryDataRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         InvoiceNumber,
@@ -2543,7 +2591,9 @@ namespace IMS.Reports {
                         GivenAmnt,
                         DiscountAmount,
                         GrandTotal,
-                        PaidAmnt};
+                        PaidAmnt,
+                        company_name,
+                        company_address};
                 rowSaleTransHistoryDataRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSaleTransHistoryDataRow);
                 return rowSaleTransHistoryDataRow;
@@ -2574,6 +2624,8 @@ namespace IMS.Reports {
                 this.columnDiscountAmount = base.Columns["DiscountAmount"];
                 this.columnGrandTotal = base.Columns["GrandTotal"];
                 this.columnPaidAmnt = base.Columns["PaidAmnt"];
+                this.columncompany_name = base.Columns["company_name"];
+                this.columncompany_address = base.Columns["company_address"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2595,6 +2647,10 @@ namespace IMS.Reports {
                 base.Columns.Add(this.columnGrandTotal);
                 this.columnPaidAmnt = new global::System.Data.DataColumn("PaidAmnt", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPaidAmnt);
+                this.columncompany_name = new global::System.Data.DataColumn("company_name", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncompany_name);
+                this.columncompany_address = new global::System.Data.DataColumn("company_address", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncompany_address);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4192,6 +4248,40 @@ namespace IMS.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string company_name {
+                get {
+                    try {
+                        return ((string)(this[this.tablePurchaseTransHistoryData.company_nameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'company_name\' in table \'PurchaseTransHistoryData\' is DBNull" +
+                                ".", e);
+                    }
+                }
+                set {
+                    this[this.tablePurchaseTransHistoryData.company_nameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string company_address {
+                get {
+                    try {
+                        return ((string)(this[this.tablePurchaseTransHistoryData.company_addressColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'company_address\' in table \'PurchaseTransHistoryData\' is DBN" +
+                                "ull.", e);
+                    }
+                }
+                set {
+                    this[this.tablePurchaseTransHistoryData.company_addressColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsInvoiceNumberNull() {
                 return this.IsNull(this.tablePurchaseTransHistoryData.InvoiceNumberColumn);
             }
@@ -4284,6 +4374,30 @@ namespace IMS.Reports {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetPaidAmntNull() {
                 this[this.tablePurchaseTransHistoryData.PaidAmntColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool Iscompany_nameNull() {
+                return this.IsNull(this.tablePurchaseTransHistoryData.company_nameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void Setcompany_nameNull() {
+                this[this.tablePurchaseTransHistoryData.company_nameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool Iscompany_addressNull() {
+                return this.IsNull(this.tablePurchaseTransHistoryData.company_addressColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void Setcompany_addressNull() {
+                this[this.tablePurchaseTransHistoryData.company_addressColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -4431,6 +4545,39 @@ namespace IMS.Reports {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string company_name {
+                get {
+                    try {
+                        return ((string)(this[this.tableSaleTransHistoryData.company_nameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'company_name\' in table \'SaleTransHistoryData\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSaleTransHistoryData.company_nameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string company_address {
+                get {
+                    try {
+                        return ((string)(this[this.tableSaleTransHistoryData.company_addressColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'company_address\' in table \'SaleTransHistoryData\' is DBNull." +
+                                "", e);
+                    }
+                }
+                set {
+                    this[this.tableSaleTransHistoryData.company_addressColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsInvoiceNumberNull() {
                 return this.IsNull(this.tableSaleTransHistoryData.InvoiceNumberColumn);
             }
@@ -4523,6 +4670,30 @@ namespace IMS.Reports {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetPaidAmntNull() {
                 this[this.tableSaleTransHistoryData.PaidAmntColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool Iscompany_nameNull() {
+                return this.IsNull(this.tableSaleTransHistoryData.company_nameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void Setcompany_nameNull() {
+                this[this.tableSaleTransHistoryData.company_nameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool Iscompany_addressNull() {
+                return this.IsNull(this.tableSaleTransHistoryData.company_addressColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void Setcompany_addressNull() {
+                this[this.tableSaleTransHistoryData.company_addressColumn] = global::System.Convert.DBNull;
             }
         }
         

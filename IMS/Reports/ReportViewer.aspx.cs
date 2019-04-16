@@ -97,7 +97,7 @@ namespace IMS.Reports
 
                 //Purchase Transaction History Report
                 case "PurchaseTransationHistory":
-                    sqlParams = new SqlParameter[] {
+                        sqlParams = new SqlParameter[] {
                          new SqlParameter("@Purchase_id", id)
                     };
                     ReportViewer1.LocalReport.ReportPath = Server.MapPath("~/Reports/PurchaseTransationHistoryReport.rdlc");
