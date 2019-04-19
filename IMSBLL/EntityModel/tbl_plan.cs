@@ -14,6 +14,7 @@ namespace IMSBLL.EntityModel
     
     public partial class tbl_plan
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tbl_plan()
         {
             this.tbl_subscription = new HashSet<tbl_subscription>();
@@ -29,6 +30,7 @@ namespace IMSBLL.EntityModel
         public string modified_by { get; set; }
         public Nullable<System.DateTime> modified_date { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_subscription> tbl_subscription { get; set; }
     }
 }

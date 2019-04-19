@@ -399,6 +399,12 @@
                        <asp:FileUpload   ID="fuAttacheFile"  runat="server" />
                </div>
            </div>
+            <div class="col-md-2 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px; margin-left: 25px;">
+                <div class="col-sm-10 leftpadd0">
+                    <label class="control-label">Note</label>
+                    <asp:TextBox ID="txtSaleNote" runat="server" TextMode="MultiLine" CssClass="form-control" Style="display: block; resize: none"></asp:TextBox>
+                </div>
+            </div>
         </div><br />
 
         <div class="panel-footer leftpadd0">

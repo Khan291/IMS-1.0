@@ -46,7 +46,7 @@ namespace IMS
                 SessionValue();
                 if (!IsPostBack)
                 {
-                    txtOtherExpLabel.Text = "Other Expenses";
+                    txtOtherExpenseLabel.Text = "Other Expenses";
                    // CalendarExtender1.StartDate = DateTime.Now.Date;
                     //txtdate.Text = DateTime.Now.ToString();
                     if (ViewState["Details"] == null)
@@ -148,7 +148,7 @@ namespace IMS
                 purchase.Po_Date = DateTime.ParseExact(txtdate.Text, "dd/MM/yyyy", new CultureInfo("en-US"));
                 purchase.po_no = txtPONo.Text;
                 purchase.Note = txtNotePurchase.Text;
-                purchase.OtherExpLabel = txtOtherExpLabel.Text;
+                purchase.OtherExpLabel = txtOtherExpenseLabel.Text;
                 purchase.other_expenses = Convert.ToDecimal(txtotherexpence.Text);
                 
                 purchase.created_by = user_id;

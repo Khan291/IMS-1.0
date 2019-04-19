@@ -57,6 +57,10 @@
           <DataField>company_address</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="FromTable">
+          <DataField>FromTable</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>CommonDataSet</rd:DataSetName>
@@ -77,6 +81,9 @@
               <TablixColumns>
                 <TablixColumn>
                   <Width>3.32192cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.5cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.81921cm</Width>
@@ -121,6 +128,40 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox13</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BackgroundColor>Orange</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox2">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>      Type </Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Color>White</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox2</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -380,7 +421,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="SubTotal">
+                        <Textbox Name="FromTable">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -388,6 +429,40 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value xml:space="preserve">   </Value>
+                                  <Style />
+                                </TextRun>
+                                <TextRun>
+                                  <Value>=Fields!FromTable.Value</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>FromTable</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="SubTotal">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value xml:space="preserve">     </Value>
                                   <Style />
                                 </TextRun>
                                 <TextRun>
@@ -421,7 +496,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value xml:space="preserve">  </Value>
+                                  <Value xml:space="preserve">   </Value>
                                   <Style />
                                 </TextRun>
                                 <TextRun>
@@ -455,7 +530,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value xml:space="preserve">  </Value>
+                                  <Value xml:space="preserve">     </Value>
                                   <Style />
                                 </TextRun>
                                 <TextRun>
@@ -523,7 +598,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value xml:space="preserve">  </Value>
+                                  <Value xml:space="preserve">   </Value>
                                   <Style />
                                 </TextRun>
                                 <TextRun>
@@ -557,7 +632,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value xml:space="preserve">  </Value>
+                                  <Value xml:space="preserve">    </Value>
                                   <Style />
                                 </TextRun>
                                 <TextRun>
@@ -595,6 +670,7 @@
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
+                <TablixMember />
               </TablixMembers>
             </TablixColumnHierarchy>
             <TablixRowHierarchy>
@@ -611,7 +687,7 @@
             <Top>4.49474cm</Top>
             <Left>0.28425cm</Left>
             <Height>2.57584cm</Height>
-            <Width>21.56467cm</Width>
+            <Width>24.06466cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -652,10 +728,10 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox3</rd:DefaultName>
-            <Top>1.08162cm</Top>
-            <Left>15.43308cm</Left>
+            <Top>1.11689cm</Top>
+            <Left>17.77433cm</Left>
             <Height>1.12917cm</Height>
-            <Width>6.41583cm</Width>
+            <Width>6.57458cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -686,10 +762,10 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox4</rd:DefaultName>
-            <Top>2.28134cm</Top>
-            <Left>15.43308cm</Left>
+            <Top>2.3519cm</Top>
+            <Left>17.77433cm</Left>
             <Height>0.94437cm</Height>
-            <Width>6.41583cm</Width>
+            <Width>6.57458cm</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
@@ -705,7 +781,7 @@
         <Height>3in</Height>
         <Style />
       </Body>
-      <Width>8.64584in</Width>
+      <Width>9.63827in</Width>
       <Page>
         <PageHeader>
           <Height>3.04271cm</Height>

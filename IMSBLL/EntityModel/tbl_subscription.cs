@@ -14,6 +14,7 @@ namespace IMSBLL.EntityModel
     
     public partial class tbl_subscription
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tbl_subscription()
         {
             this.tbl_paidpayment = new HashSet<tbl_paidpayment>();
@@ -32,6 +33,7 @@ namespace IMSBLL.EntityModel
         public Nullable<int> company_id { get; set; }
     
         public virtual tbl_company tbl_company { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_paidpayment> tbl_paidpayment { get; set; }
         public virtual tbl_plan tbl_plan { get; set; }
         public virtual tbl_User tbl_User { get; set; }

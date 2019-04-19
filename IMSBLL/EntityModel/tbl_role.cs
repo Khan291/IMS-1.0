@@ -14,6 +14,7 @@ namespace IMSBLL.EntityModel
     
     public partial class tbl_role
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tbl_role()
         {
             this.tbl_userbranch = new HashSet<tbl_userbranch>();
@@ -28,7 +29,9 @@ namespace IMSBLL.EntityModel
         public string modified_by { get; set; }
         public Nullable<System.DateTime> modified_date { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_userbranch> tbl_userbranch { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_userrole> tbl_userrole { get; set; }
     }
 }

@@ -14,6 +14,7 @@ namespace IMSBLL.EntityModel
     
     public partial class tbl_expense
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tbl_expense()
         {
             this.tbl_expenseentry = new HashSet<tbl_expenseentry>();
@@ -31,6 +32,7 @@ namespace IMSBLL.EntityModel
     
         public virtual tbl_branch tbl_branch { get; set; }
         public virtual tbl_company tbl_company { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_expenseentry> tbl_expenseentry { get; set; }
     }
 }

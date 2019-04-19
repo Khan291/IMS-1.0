@@ -30,7 +30,7 @@ namespace IMS
                 SessionValue();
                 if (!IsPostBack)
                 {
-                    txtOtherExpLabel.Text = "Other Expenses";
+                    txtOtherExpenseLabel.Text = "Other Expenses";
                     if (ViewState["Details"] == null)
                     {
                         DataTable dataTable = new DataTable();
@@ -324,7 +324,7 @@ namespace IMS
                 sale.created_by = User_id;
                 sale.created_date = DateTime.Now;
                 sale.Note = txtSaleNote.Text;
-                sale.OtherExpLabel = txtOtherExpLabel.Text;
+                sale.OtherExpLabel = txtOtherExpenseLabel.Text;
                 sale.other_expenses = Convert.ToDecimal(txtotherexpence.Text);
 
                 //insert into Sale Payment Details 

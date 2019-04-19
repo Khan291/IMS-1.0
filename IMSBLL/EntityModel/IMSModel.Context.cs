@@ -95,6 +95,20 @@ namespace IMSBLL.EntityModel
         public virtual DbSet<View_PurchaseDetails> View_PurchaseDetails { get; set; }
         public virtual DbSet<View_SaleDetails> View_SaleDetails { get; set; }
     
+        [DbFunction("IMS_TESTEntities", "Split")]
+        public virtual IQueryable<Split_Result> Split(string list, string splitOn)
+        {
+            var listParameter = list != null ?
+                new ObjectParameter("List", list) :
+                new ObjectParameter("List", typeof(string));
+    
+            var splitOnParameter = splitOn != null ?
+                new ObjectParameter("SplitOn", splitOn) :
+                new ObjectParameter("SplitOn", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<Split_Result>("[IMS_TESTEntities].[Split](@List, @SplitOn)", listParameter, splitOnParameter);
+        }
+    
         public virtual ObjectResult<CommonReport_Result> CommonReport(string reportType, Nullable<int> companyId, string filterIds, Nullable<System.DateTime> start_date, Nullable<System.DateTime> end_date)
         {
             var reportTypeParameter = reportType != null ?
@@ -3438,20 +3452,6 @@ namespace IMSBLL.EntityModel
                 new ObjectParameter("mobileno", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SpGetExistsMobile", mobilenoParameter);
-        }
-    
-        [DbFunction("IMS_TESTEntities", "Split")]
-        public virtual IQueryable<Split_Result> Split(string list, string splitOn)
-        {
-            var listParameter = list != null ?
-                new ObjectParameter("List", list) :
-                new ObjectParameter("List", typeof(string));
-    
-            var splitOnParameter = splitOn != null ?
-                new ObjectParameter("SplitOn", splitOn) :
-                new ObjectParameter("SplitOn", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<Split_Result>("[IMS_TESTEntities].[Split](@List, @SplitOn)", listParameter, splitOnParameter);
         }
     }
 }
