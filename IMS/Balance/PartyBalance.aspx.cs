@@ -1,4 +1,5 @@
-﻿using IMSBLL.EntityModel;
+﻿using IMSBLL.DAL;
+using IMSBLL.EntityModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace IMS.Balance
     public partial class PartyBalance : System.Web.UI.Page
     {
         IMS_TESTEntities context = new IMS_TESTEntities();
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             btnPay.Visible = false;
@@ -231,7 +233,7 @@ namespace IMS.Balance
                                                  join p in context.tbl_purchase on ppd.PurchaseId equals p.purchase_id
                                                  where p.purchase_id == id
                                                  select ppd).ToList().FirstOrDefault();
-                            tblPaymentDetails.FromTable = "Vender Pay Balance";
+                            tblPaymentDetails.FromTable = Constants.VendorPayBalance;
                         }
                         else
                         {
@@ -240,7 +242,7 @@ namespace IMS.Balance
                                                  join s in context.tbl_sale on spd.SaleId equals s.sale_id
                                                  where s.sale_id == id
                                                  select spd).ToList().FirstOrDefault();
-                            tblPaymentDetails.FromTable = "Customer Pay Balance";
+                            tblPaymentDetails.FromTable = Constants.CustomerPayBalance;
                         }
                         decimal BalAmnt = tblPaymentDetails.BalanceAmnt;
                         decimal GivenAmnt = tblPaymentDetails.GivenAmnt;

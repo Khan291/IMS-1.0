@@ -456,6 +456,8 @@ namespace IMS
                 purchasePaymentDetail.SubTotal = Convert.ToDecimal(lblResultSubTotal.Text);
                 purchasePaymentDetail.GrandTotal = Convert.ToDecimal(lblResultGrndTotal.Text);
                 purchasePaymentDetail.FromTable = "Return";
+                purchasePaymentDetail.ModifiedBy = user_id;
+                purchasePaymentDetail.ModifiedDate = DateTime.Now;
                 purchase.tbl_PurchasePaymentDetials.Add(purchasePaymentDetail);
 
                 for (int i = 0; i <= gvpurchasedetails.Rows.Count - 1; i++)

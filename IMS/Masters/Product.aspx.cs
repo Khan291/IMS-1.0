@@ -467,7 +467,7 @@ namespace IMS
 
                 List<tbl_taxgroup> cd = context.tbl_taxgroup.Where(x => x.status == true && x.company_id == companyId && x.branch_id == branchId).ToList();
                 dataTable = ToDataTable(cd);
-
+                List<string> taxgroup = new List<string>();
                 if (productId != 0)
                 {
                     List<tbl_productTaxGroup> selectedItem = context.tbl_productTaxGroup.Where(p => p.product_id == productId).ToList();
@@ -484,16 +484,19 @@ namespace IMS
                                 int group_id = Convert.ToInt32(dataTable.Rows[i]["group_id"]);
                                 if (group_id == groupID)
                                 {
-                                    ctrlProduct.Taxdropdown.SelectedValue = groupID.ToString();
-                                    ctrlProduct.Taxdropdown.Items[j].Value = groupID.ToString();
-                                    ctrlProduct.Taxdropdown.Items[i].Selected = true;
+                                    taxgroup.Add(groupID.ToString());
+                                    //taxgroup.Items[j].Value = groupID.ToString();
+                                    //taxgroup.Items[i].Selected = true;
                                     break;
                                 }
 
                             }
 
                         }
+                        
                     }
+                    ctrlProduct.Taxdropdown.DataSource = taxgroup;
+                    //ctrlProduct.Taxdropdown.DataBind();
                 }
 
 
@@ -623,6 +626,7 @@ namespace IMS
                 }
                 GridView1.FooterRow.Controls[1].Controls.Add(tfr);
             }
+            divalert.Visible = false;
         }
 
         protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)

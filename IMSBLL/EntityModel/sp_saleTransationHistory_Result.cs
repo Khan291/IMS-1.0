@@ -14,8 +14,6 @@ namespace IMSBLL.EntityModel
     public partial class sp_saleTransationHistory_Result
     {
         public string InvoiceNumber { get; set; }
-        public string product_name { get; set; }
-        public string product_code { get; set; }
         public string InvoiceNumber1 { get; set; }
         public Nullable<decimal> SubTotal { get; set; }
         public Nullable<decimal> BalanceAmnt { get; set; }
@@ -25,5 +23,7 @@ namespace IMSBLL.EntityModel
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<decimal> PaidAmnt { get; set; }
         public string FromTable { get; set; }
+        public string company_name { get; set; }
+        public string company_address { get; set; }
     }
 }

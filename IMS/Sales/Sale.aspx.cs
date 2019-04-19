@@ -331,6 +331,9 @@ namespace IMS
                 salePaymentDetails.GivenAmnt = Convert.ToDecimal(txtGivenAmt.Text);
                 salePaymentDetails.BalanceAmnt = balanceAmt;
                 salePaymentDetails.FromTable = "Sale";
+                salePaymentDetails.CreatedBy = User_id;
+                salePaymentDetails.CreatedDate = DateTime.Now;
+
 
                 string otherExp = txtotherexpence.Text;
                 if (otherExp.Contains("-"))

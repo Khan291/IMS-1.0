@@ -323,6 +323,8 @@ namespace IMS.Sales
                 salePaymentDetails.GivenAmnt = givenAmnt;
                 salePaymentDetails.BalanceAmnt = Convert.ToDecimal(txtBalanceAmt.Text);
                 salePaymentDetails.FromTable = "Return";
+                salePaymentDetails.ModifiedBy = user_id;
+                salePaymentDetails.ModifiedDate = DateTime.Now;
                 sale.tbl_SalePaymentDetails.Add(salePaymentDetails);
 
                 for (int i = 0; i <= gvsalesdetails.Rows.Count - 1; i++)
@@ -343,7 +345,6 @@ namespace IMS.Sales
                     saleeReturnDetails.amount = Convert.ToDecimal(gvsalesdetails.Rows[i].Cells[10].Text);
                     saleeReturnDetails.created_by = Convert.ToString(user_id);
                     saleeReturnDetails.created_date = Convert.ToDateTime(DateTime.Now);
-                    saleeReturnDetails.Sales_taxGroupId = taxGroupId;
                     saleeReturnDetails.status = true;
 
                     tbl_stock stock = new tbl_stock();

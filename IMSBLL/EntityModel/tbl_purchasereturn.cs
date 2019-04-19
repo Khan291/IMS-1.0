@@ -16,6 +16,7 @@ namespace IMSBLL.EntityModel
     {
         public tbl_purchasereturn()
         {
+            this.tbl_PurchasePaymentDetials = new HashSet<tbl_PurchasePaymentDetials>();
             this.tbl_purchasereturndetails = new HashSet<tbl_purchasereturndetails>();
         }
     
@@ -33,6 +34,7 @@ namespace IMSBLL.EntityModel
         public string InvoiceNumber { get; set; }
         public Nullable<int> paymentmode_id { get; set; }
         public string attachmentUrl { get; set; }
+        public string Note { get; set; }
     
         public virtual tbl_branch tbl_branch { get; set; }
         public virtual tbl_company tbl_company { get; set; }
@@ -40,6 +42,7 @@ namespace IMSBLL.EntityModel
         public virtual tbl_party tbl_party { get; set; }
         public virtual tbl_paymentmode tbl_paymentmode { get; set; }
         public virtual tbl_purchase tbl_purchase { get; set; }
+        public virtual ICollection<tbl_PurchasePaymentDetials> tbl_PurchasePaymentDetials { get; set; }
         public virtual ICollection<tbl_purchasereturndetails> tbl_purchasereturndetails { get; set; }
     }
 }

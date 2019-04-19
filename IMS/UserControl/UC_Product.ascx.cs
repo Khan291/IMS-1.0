@@ -22,8 +22,15 @@ namespace IMS.UserControl
         {
             get
             {
+                foreach (ListItem item in ddlTaxgroup.Items)
+                {
+                    item.Selected = true;
+                }
                 return this.ddlTaxgroup;
+               
             }
+           
+
         }  
         public string productid
         {

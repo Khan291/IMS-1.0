@@ -257,7 +257,7 @@ namespace IMS.Masters
                 divalert.Visible = true;
                 lblAlert.Text = "Update Successfully";
                 txtGrouphName.Text = string.Empty;
-                ClientScript.RegisterStartupScript(this.GetType(), "Pop", "openalert('Update successfully);", true);
+                ClientScript.RegisterStartupScript(this.GetType(), "Pop", "openalert('Update successfully');", true);
             }
             catch (Exception ex)
             {
