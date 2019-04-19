@@ -28,7 +28,9 @@ namespace IMSBLL.EntityModel
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public string ModifiedBy { get; set; }
+        public Nullable<int> SaleReturnId { get; set; }
     
         public virtual tbl_sale tbl_sale { get; set; }
+        public virtual tbl_salereturn tbl_salereturn { get; set; }
     }
 }

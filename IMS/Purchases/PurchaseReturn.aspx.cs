@@ -420,6 +420,7 @@ namespace IMS
                 purchaseReturn.party_id = Convert.ToInt32(purchase.party_id);
                 purchaseReturn.created_by = user_id;
                 purchaseReturn.created_date = DateTime.Now;
+                purchaseReturn.Note = txtNotePurchase.Text;
 
                 decimal givenAmnt = 0;
                 if (remainingBalance < paidAmnt)

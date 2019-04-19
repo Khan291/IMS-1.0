@@ -3436,22 +3436,22 @@ namespace IMSBLL.EntityModel
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<Split_Result>("[IMS_TESTEntities].[Split](@List, @SplitOn)", listParameter, splitOnParameter);
         }
     
-        public virtual ObjectResult<sp_purchaseTransationHistory_Result> sp_purchaseTransationHistory(string invoiceNumber)
+        public virtual ObjectResult<sp_purchaseTransationHistory_Result> sp_purchaseTransationHistory(string purchase_id)
         {
-            var invoiceNumberParameter = invoiceNumber != null ?
-                new ObjectParameter("InvoiceNumber", invoiceNumber) :
-                new ObjectParameter("InvoiceNumber", typeof(string));
+            var purchase_idParameter = purchase_id != null ?
+                new ObjectParameter("Purchase_id", purchase_id) :
+                new ObjectParameter("Purchase_id", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_purchaseTransationHistory_Result>("sp_purchaseTransationHistory", invoiceNumberParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_purchaseTransationHistory_Result>("sp_purchaseTransationHistory", purchase_idParameter);
         }
     
-        public virtual ObjectResult<sp_saleTransationHistory_Result> sp_saleTransationHistory(string invoiceNumber)
+        public virtual ObjectResult<sp_saleTransationHistory_Result> sp_saleTransationHistory(string sale_Id)
         {
-            var invoiceNumberParameter = invoiceNumber != null ?
-                new ObjectParameter("InvoiceNumber", invoiceNumber) :
-                new ObjectParameter("InvoiceNumber", typeof(string));
+            var sale_IdParameter = sale_Id != null ?
+                new ObjectParameter("sale_Id", sale_Id) :
+                new ObjectParameter("sale_Id", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_saleTransationHistory_Result>("sp_saleTransationHistory", invoiceNumberParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_saleTransationHistory_Result>("sp_saleTransationHistory", sale_IdParameter);
         }
     }
 }

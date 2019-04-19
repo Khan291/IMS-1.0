@@ -412,6 +412,7 @@
           <Property Name="InvoiceNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="PaymentMode_id" Type="int" />
           <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="OtherExpLabel" Type="nvarchar(max)" />
           <Property Name="other_expenses" Type="decimal" Precision="18" Scale="0" />
           <Property Name="attachmentUrl" Type="nvarchar(max)" />
         </EntityType>
@@ -496,6 +497,7 @@
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedDate" Type="datetime" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="PurchaseReturnId" Type="int" />
         </EntityType>
         <EntityType Name="tbl_PurchasePaymentDetialsHistory">
           <Key>
@@ -516,6 +518,7 @@
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedDate" Type="datetime" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="PurchaseReturnId" Type="int" />
         </EntityType>
         <EntityType Name="tbl_purchasereturn">
           <Key>
@@ -535,6 +538,7 @@
           <Property Name="InvoiceNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="paymentmode_id" Type="int" />
           <Property Name="attachmentUrl" Type="nvarchar(max)" />
+          <Property Name="Note" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="tbl_purchasereturndetails">
           <Key>
@@ -653,15 +657,16 @@
           <Property Name="financialyear_id" Type="int" />
           <Property Name="status" Type="bit" />
           <Property Name="created_by" Type="nvarchar" MaxLength="500" />
-          <Property Name="created_date" Type="smalldatetime" />
+          <Property Name="created_date" Type="datetime" />
           <Property Name="modified_by" Type="nvarchar" MaxLength="500" />
-          <Property Name="modified_date" Type="smalldatetime" />
+          <Property Name="modified_date" Type="datetime" />
           <Property Name="company_id" Type="int" />
           <Property Name="branch_id" Type="int" />
           <Property Name="InvoiceNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="paymentmode_id" Type="int" />
-          <Property Name="sale_date" Type="smalldatetime" />
+          <Property Name="sale_date" Type="datetime" />
           <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="OtherExpLabel" Type="nvarchar(max)" />
           <Property Name="other_expenses" Type="decimal" Precision="18" Scale="0" />
           <Property Name="attachmentUrl" Type="nvarchar(max)" />
         </EntityType>
@@ -679,10 +684,10 @@
           <Property Name="quantity" Type="decimal" Precision="18" Scale="0" />
           <Property Name="amount" Type="decimal" Precision="18" Scale="0" />
           <Property Name="created_by" Type="nvarchar" MaxLength="500" />
-          <Property Name="created_date" Type="smalldatetime" />
+          <Property Name="created_date" Type="datetime" />
           <Property Name="status" Type="bit" />
           <Property Name="modified_by" Type="nvarchar" MaxLength="500" />
-          <Property Name="modified_date" Type="smalldatetime" />
+          <Property Name="modified_date" Type="datetime" />
         </EntityType>
         <EntityType Name="tbl_saledetailsHistory">
           <Key>
@@ -700,10 +705,10 @@
           <Property Name="quantity" Type="decimal" Precision="18" Scale="0" />
           <Property Name="amount" Type="decimal" Precision="18" Scale="0" />
           <Property Name="created_by" Type="nvarchar" MaxLength="500" />
-          <Property Name="created_date" Type="smalldatetime" />
+          <Property Name="created_date" Type="datetime" />
           <Property Name="status" Type="bit" />
           <Property Name="modified_by" Type="nvarchar" MaxLength="500" />
-          <Property Name="modified_date" Type="smalldatetime" />
+          <Property Name="modified_date" Type="datetime" />
         </EntityType>
         <EntityType Name="tbl_saleHistory">
           <Key>
@@ -715,9 +720,9 @@
           <Property Name="financialyear_id" Type="int" />
           <Property Name="status" Type="bit" />
           <Property Name="created_by" Type="nvarchar" MaxLength="500" />
-          <Property Name="created_date" Type="smalldatetime" />
+          <Property Name="created_date" Type="datetime" />
           <Property Name="modified_by" Type="nvarchar" MaxLength="500" />
-          <Property Name="modified_date" Type="smalldatetime" />
+          <Property Name="modified_date" Type="datetime" />
           <Property Name="company_id" Type="int" />
           <Property Name="branch_id" Type="int" />
           <Property Name="InvoiceNumber" Type="nvarchar" MaxLength="50" />
@@ -743,6 +748,7 @@
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedDate" Type="datetime" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="SaleReturnId" Type="int" />
         </EntityType>
         <EntityType Name="tbl_SalePaymentDetailsHistory">
           <Key>
@@ -763,6 +769,7 @@
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ModifiedDate" Type="datetime" />
           <Property Name="ModifiedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="SaleReturnId" Type="int" />
         </EntityType>
         <EntityType Name="tbl_salereturn">
           <Key>
@@ -775,13 +782,14 @@
           <Property Name="financialyear_id" Type="int" />
           <Property Name="status" Type="bit" />
           <Property Name="created_by" Type="nvarchar" MaxLength="500" />
-          <Property Name="created_date" Type="smalldatetime" />
+          <Property Name="created_date" Type="datetime" />
           <Property Name="modified_by" Type="nvarchar" MaxLength="500" />
-          <Property Name="modified_date" Type="smalldatetime" />
+          <Property Name="modified_date" Type="datetime" />
           <Property Name="paymentmode_id" Type="int" />
           <Property Name="InvoiceNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="party_id" Type="int" />
           <Property Name="attachmentUrl" Type="nvarchar(max)" />
+          <Property Name="Note" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="tbl_salereturndetails">
           <Key>
@@ -796,9 +804,9 @@
           <Property Name="amount" Type="decimal" Precision="18" Scale="0" />
           <Property Name="status" Type="bit" />
           <Property Name="created_by" Type="nvarchar" MaxLength="500" />
-          <Property Name="created_date" Type="smalldatetime" />
+          <Property Name="created_date" Type="datetime" />
           <Property Name="modified_by" Type="nvarchar" MaxLength="500" />
-          <Property Name="modified_date" Type="smalldatetime" />
+          <Property Name="modified_date" Type="datetime" />
           <Property Name="dicount_amt" Type="decimal" Precision="18" Scale="0" />
           <Property Name="salereturn_id" Type="int" />
           <Property Name="Sales_taxGroupId" Type="int" />
@@ -817,9 +825,9 @@
           <Property Name="amount" Type="decimal" Precision="18" Scale="0" />
           <Property Name="status" Type="bit" />
           <Property Name="created_by" Type="nvarchar" MaxLength="500" />
-          <Property Name="created_date" Type="smalldatetime" />
+          <Property Name="created_date" Type="datetime" />
           <Property Name="modified_by" Type="nvarchar" MaxLength="500" />
-          <Property Name="modified_date" Type="smalldatetime" />
+          <Property Name="modified_date" Type="datetime" />
           <Property Name="dicount_amt" Type="decimal" Precision="18" Scale="0" />
           <Property Name="salereturn_id" Type="int" />
           <Property Name="Sales_taxGroupId" Type="int" />
@@ -836,9 +844,9 @@
           <Property Name="financialyear_id" Type="int" />
           <Property Name="status" Type="bit" />
           <Property Name="created_by" Type="nvarchar" MaxLength="500" />
-          <Property Name="created_date" Type="smalldatetime" />
+          <Property Name="created_date" Type="datetime" />
           <Property Name="modified_by" Type="nvarchar" MaxLength="500" />
-          <Property Name="modified_date" Type="smalldatetime" />
+          <Property Name="modified_date" Type="datetime" />
           <Property Name="paymentmode_id" Type="int" />
           <Property Name="InvoiceNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="party_id" Type="int" />
@@ -2343,6 +2351,18 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tbl_PurchasePaymentDetials_tbl_purchasereturn">
+          <End Role="tbl_purchasereturn" Type="Self.tbl_purchasereturn" Multiplicity="0..1" />
+          <End Role="tbl_PurchasePaymentDetials" Type="Self.tbl_PurchasePaymentDetials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_purchasereturn">
+              <PropertyRef Name="purchasereturn_id" />
+            </Principal>
+            <Dependent Role="tbl_PurchasePaymentDetials">
+              <PropertyRef Name="PurchaseReturnId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tbl_purchasereturn_tbl_branch">
           <End Role="tbl_branch" Type="Self.tbl_branch" Multiplicity="0..1" />
           <End Role="tbl_purchasereturn" Type="Self.tbl_purchasereturn" Multiplicity="*" />
@@ -2616,6 +2636,18 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             </Principal>
             <Dependent Role="tbl_SalePaymentDetails">
               <PropertyRef Name="SaleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_SalePaymentDetails_tbl_salereturn">
+          <End Role="tbl_salereturn" Type="Self.tbl_salereturn" Multiplicity="0..1" />
+          <End Role="tbl_SalePaymentDetails" Type="Self.tbl_SalePaymentDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_salereturn">
+              <PropertyRef Name="salereturn_id" />
+            </Principal>
+            <Dependent Role="tbl_SalePaymentDetails">
+              <PropertyRef Name="SaleReturnId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3289,7 +3321,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <Parameter Name="purchase_id" Type="int" Mode="InOut" />
         </Function>
         <Function Name="sp_purchaseTransationHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="InvoiceNumber" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Purchase_id" Type="nvarchar(max)" Mode="In" />
         </Function>
         <Function Name="sp_rackInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="company_id" Type="int" Mode="In" />
@@ -3368,7 +3400,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <Parameter Name="salereturnmain_id" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_saleTransationHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="InvoiceNumber" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="sale_Id" Type="nvarchar(max)" Mode="In" />
         </Function>
         <Function Name="sp_saveerror" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="company_id" Type="int" Mode="In" />
@@ -4282,6 +4314,10 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             <End Role="tbl_purchase" EntitySet="tbl_purchase" />
             <End Role="tbl_PurchasePaymentDetials" EntitySet="tbl_PurchasePaymentDetials" />
           </AssociationSet>
+          <AssociationSet Name="FK_tbl_PurchasePaymentDetials_tbl_purchasereturn" Association="Self.FK_tbl_PurchasePaymentDetials_tbl_purchasereturn">
+            <End Role="tbl_purchasereturn" EntitySet="tbl_purchasereturn" />
+            <End Role="tbl_PurchasePaymentDetials" EntitySet="tbl_PurchasePaymentDetials" />
+          </AssociationSet>
           <AssociationSet Name="FK_tbl_purchasereturn_tbl_branch" Association="Self.FK_tbl_purchasereturn_tbl_branch">
             <End Role="tbl_branch" EntitySet="tbl_branch" />
             <End Role="tbl_purchasereturn" EntitySet="tbl_purchasereturn" />
@@ -4372,6 +4408,10 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           </AssociationSet>
           <AssociationSet Name="FK_tbl_SalePaymentDetails_tbl_sale" Association="Self.FK_tbl_SalePaymentDetails_tbl_sale">
             <End Role="tbl_sale" EntitySet="tbl_sale" />
+            <End Role="tbl_SalePaymentDetails" EntitySet="tbl_SalePaymentDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_SalePaymentDetails_tbl_salereturn" Association="Self.FK_tbl_SalePaymentDetails_tbl_salereturn">
+            <End Role="tbl_salereturn" EntitySet="tbl_salereturn" />
             <End Role="tbl_SalePaymentDetails" EntitySet="tbl_SalePaymentDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_tbl_salereturn_tbl_branch" Association="Self.FK_tbl_salereturn_tbl_branch">
@@ -5391,6 +5431,12 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             <Parameter Name="List" Mode="In" Type="String" />
             <Parameter Name="SplitOn" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="sp_purchaseTransationHistory" ReturnType="Collection(IMS_TESTModel.sp_purchaseTransationHistory_Result)">
+          <Parameter Name="Purchase_id" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_saleTransationHistory" ReturnType="Collection(IMS_TESTModel.sp_saleTransationHistory_Result)">
+          <Parameter Name="sale_Id" Mode="In" Type="String" />
+          </FunctionImport>
           <EntitySet Name="ELMAH_Error" EntityType="IMS_TESTModel.ELMAH_Error" />
           <EntitySet Name="TaxGroupWithTaxTypes" EntityType="IMS_TESTModel.TaxGroupWithTaxType" />
           <EntitySet Name="tbl_ActualPurchaseTaxAndPrice" EntityType="IMS_TESTModel.tbl_ActualPurchaseTaxAndPrice" />
@@ -5914,6 +5960,10 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             <End Role="tbl_unit" EntitySet="tbl_unit" />
             <End Role="tbl_purchasedetails" EntitySet="tbl_purchasedetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_tbl_PurchasePaymentDetials_tbl_purchasereturn" Association="IMS_TESTModel.FK_tbl_PurchasePaymentDetials_tbl_purchasereturn">
+            <End Role="tbl_purchasereturn" EntitySet="tbl_purchasereturn" />
+            <End Role="tbl_PurchasePaymentDetials" EntitySet="tbl_PurchasePaymentDetials" />
+          </AssociationSet>
           <AssociationSet Name="FK_tbl_purchasereturndetails_tbl_purchasereturn" Association="IMS_TESTModel.FK_tbl_purchasereturndetails_tbl_purchasereturn">
             <End Role="tbl_purchasereturn" EntitySet="tbl_purchasereturn" />
             <End Role="tbl_purchasereturndetails" EntitySet="tbl_purchasereturndetails" />
@@ -5962,6 +6012,10 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             <End Role="tbl_unit" EntitySet="tbl_unit" />
             <End Role="tbl_saledetails" EntitySet="tbl_saledetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_tbl_SalePaymentDetails_tbl_salereturn" Association="IMS_TESTModel.FK_tbl_SalePaymentDetails_tbl_salereturn">
+            <End Role="tbl_salereturn" EntitySet="tbl_salereturn" />
+            <End Role="tbl_SalePaymentDetails" EntitySet="tbl_SalePaymentDetails" />
+          </AssociationSet>
           <AssociationSet Name="FK_tbl_salereturndetails_tbl_salereturn" Association="IMS_TESTModel.FK_tbl_salereturndetails_tbl_salereturn">
             <End Role="tbl_salereturn" EntitySet="tbl_salereturn" />
             <End Role="tbl_salereturndetails" EntitySet="tbl_salereturndetails" />
@@ -6002,12 +6056,6 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             <End Role="tbl_User" EntitySet="tbl_User" />
             <End Role="tbl_userrole" EntitySet="tbl_userrole" />
           </AssociationSet>
-          <FunctionImport Name="sp_purchaseTransationHistory" ReturnType="Collection(IMS_TESTModel.sp_purchaseTransationHistory_Result)">
-            <Parameter Name="InvoiceNumber" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_saleTransationHistory" ReturnType="Collection(IMS_TESTModel.sp_saleTransationHistory_Result)">
-            <Parameter Name="InvoiceNumber" Mode="In" Type="String" />
-          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CommonReport_Result">
           <Property Type="Int32" Name="company_id" Nullable="false" />
@@ -6472,6 +6520,34 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
         <ComplexType Name="Split_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
           <Property Type="String" Name="Value" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="sp_purchaseTransationHistory_Result">
+          <Property Type="String" Name="InvoiceNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="product_name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="product_code" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="InvoiceNumber1" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="SubTotal" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="BalanceAmnt" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="GivenAmnt" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="DiscountAmount" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="GrandTotal" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="PaidAmnt" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="FromTable" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_saleTransationHistory_Result">
+          <Property Type="String" Name="InvoiceNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="product_name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="product_code" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="InvoiceNumber1" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="SubTotal" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="BalanceAmnt" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="GivenAmnt" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="DiscountAmount" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="GrandTotal" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="PaidAmnt" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="FromTable" Nullable="true" MaxLength="50" />
         </ComplexType>
         <EntityType Name="ELMAH_Error">
           <Key>
@@ -7024,6 +7100,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <Property Name="InvoiceNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PaymentMode_id" Type="Int32" />
           <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OtherExpLabel" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="other_expenses" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="attachmentUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tbl_ActualPurchaseTaxAndPrice" Relationship="IMS_TESTModel.FK_tbl_ActualPurchaseTaxAndPrice_tbl_purchase" FromRole="tbl_purchase" ToRole="tbl_ActualPurchaseTaxAndPrice" />
@@ -7127,7 +7204,9 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PurchaseReturnId" Type="Int32" />
           <NavigationProperty Name="tbl_purchase" Relationship="IMS_TESTModel.FK_tbl_PurchasePaymentDetials_tbl_PurchasePaymentDetials" FromRole="tbl_PurchasePaymentDetials" ToRole="tbl_purchase" />
+          <NavigationProperty Name="tbl_purchasereturn" Relationship="IMS_TESTModel.FK_tbl_PurchasePaymentDetials_tbl_purchasereturn" FromRole="tbl_PurchasePaymentDetials" ToRole="tbl_purchasereturn" />
         </EntityType>
         <EntityType Name="tbl_PurchasePaymentDetialsHistory">
           <Key>
@@ -7148,6 +7227,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PurchaseReturnId" Type="Int32" />
         </EntityType>
         <EntityType Name="tbl_purchasereturn">
           <Key>
@@ -7167,12 +7247,14 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <Property Name="InvoiceNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="paymentmode_id" Type="Int32" />
           <Property Name="attachmentUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tbl_branch" Relationship="IMS_TESTModel.FK_tbl_purchasereturn_tbl_branch" FromRole="tbl_purchasereturn" ToRole="tbl_branch" />
           <NavigationProperty Name="tbl_company" Relationship="IMS_TESTModel.FK_tbl_purchasereturn_tbl_company" FromRole="tbl_purchasereturn" ToRole="tbl_company" />
           <NavigationProperty Name="tbl_financialyear" Relationship="IMS_TESTModel.FK_tbl_purchasereturn_tbl_financialyear" FromRole="tbl_purchasereturn" ToRole="tbl_financialyear" />
           <NavigationProperty Name="tbl_party" Relationship="IMS_TESTModel.FK_tbl_purchasereturn_tbl_party" FromRole="tbl_purchasereturn" ToRole="tbl_party" />
           <NavigationProperty Name="tbl_paymentmode" Relationship="IMS_TESTModel.FK_tbl_purchasereturn_tbl_paymentmode" FromRole="tbl_purchasereturn" ToRole="tbl_paymentmode" />
           <NavigationProperty Name="tbl_purchase" Relationship="IMS_TESTModel.FK_tbl_purchasereturn_tbl_purchasereturn" FromRole="tbl_purchasereturn" ToRole="tbl_purchase" />
+          <NavigationProperty Name="tbl_PurchasePaymentDetials" Relationship="IMS_TESTModel.FK_tbl_PurchasePaymentDetials_tbl_purchasereturn" FromRole="tbl_purchasereturn" ToRole="tbl_PurchasePaymentDetials" />
           <NavigationProperty Name="tbl_purchasereturndetails" Relationship="IMS_TESTModel.FK_tbl_purchasereturndetails_tbl_purchasereturn" FromRole="tbl_purchasereturn" ToRole="tbl_purchasereturndetails" />
         </EntityType>
         <EntityType Name="tbl_purchasereturndetails">
@@ -7308,15 +7390,16 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <Property Name="financialyear_id" Type="Int32" />
           <Property Name="status" Type="Boolean" />
           <Property Name="created_by" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="created_date" Type="DateTime" Precision="0" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
           <Property Name="modified_by" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="modified_date" Type="DateTime" Precision="0" />
+          <Property Name="modified_date" Type="DateTime" Precision="3" />
           <Property Name="company_id" Type="Int32" />
           <Property Name="branch_id" Type="Int32" />
           <Property Name="InvoiceNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="paymentmode_id" Type="Int32" />
-          <Property Name="sale_date" Type="DateTime" Precision="0" />
+          <Property Name="sale_date" Type="DateTime" Precision="3" />
           <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OtherExpLabel" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="other_expenses" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="attachmentUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tbl_ActualSalesTaxAndPrice" Relationship="IMS_TESTModel.FK__tbl_Actua__sale___5D2BD0E6" FromRole="tbl_sale" ToRole="tbl_ActualSalesTaxAndPrice" />
@@ -7344,10 +7427,10 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <Property Name="quantity" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="amount" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="created_by" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="created_date" Type="DateTime" Precision="0" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
           <Property Name="status" Type="Boolean" />
           <Property Name="modified_by" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="modified_date" Type="DateTime" Precision="0" />
+          <Property Name="modified_date" Type="DateTime" Precision="3" />
           <NavigationProperty Name="tbl_batch" Relationship="IMS_TESTModel.FK_tbl_saledetails_tbl_batch" FromRole="tbl_saledetails" ToRole="tbl_batch" />
           <NavigationProperty Name="tbl_product" Relationship="IMS_TESTModel.FK_tbl_saledetails_tbl_product" FromRole="tbl_saledetails" ToRole="tbl_product" />
           <NavigationProperty Name="tbl_sale" Relationship="IMS_TESTModel.FK_tbl_saledetails_tbl_sale" FromRole="tbl_saledetails" ToRole="tbl_sale" />
@@ -7369,10 +7452,10 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <Property Name="quantity" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="amount" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="created_by" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="created_date" Type="DateTime" Precision="0" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
           <Property Name="status" Type="Boolean" />
           <Property Name="modified_by" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="modified_date" Type="DateTime" Precision="0" />
+          <Property Name="modified_date" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="tbl_saleHistory">
           <Key>
@@ -7384,9 +7467,9 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <Property Name="financialyear_id" Type="Int32" />
           <Property Name="status" Type="Boolean" />
           <Property Name="created_by" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="created_date" Type="DateTime" Precision="0" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
           <Property Name="modified_by" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="modified_date" Type="DateTime" Precision="0" />
+          <Property Name="modified_date" Type="DateTime" Precision="3" />
           <Property Name="company_id" Type="Int32" />
           <Property Name="branch_id" Type="Int32" />
           <Property Name="InvoiceNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -7412,7 +7495,9 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SaleReturnId" Type="Int32" />
           <NavigationProperty Name="tbl_sale" Relationship="IMS_TESTModel.FK_tbl_SalePaymentDetails_tbl_sale" FromRole="tbl_SalePaymentDetails" ToRole="tbl_sale" />
+          <NavigationProperty Name="tbl_salereturn" Relationship="IMS_TESTModel.FK_tbl_SalePaymentDetails_tbl_salereturn" FromRole="tbl_SalePaymentDetails" ToRole="tbl_salereturn" />
         </EntityType>
         <EntityType Name="tbl_SalePaymentDetailsHistory">
           <Key>
@@ -7433,6 +7518,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SaleReturnId" Type="Int32" />
         </EntityType>
         <EntityType Name="tbl_salereturn">
           <Key>
@@ -7445,19 +7531,21 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <Property Name="financialyear_id" Type="Int32" />
           <Property Name="status" Type="Boolean" />
           <Property Name="created_by" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="created_date" Type="DateTime" Precision="0" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
           <Property Name="modified_by" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="modified_date" Type="DateTime" Precision="0" />
+          <Property Name="modified_date" Type="DateTime" Precision="3" />
           <Property Name="paymentmode_id" Type="Int32" />
           <Property Name="InvoiceNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="party_id" Type="Int32" />
           <Property Name="attachmentUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tbl_branch" Relationship="IMS_TESTModel.FK_tbl_salereturn_tbl_branch" FromRole="tbl_salereturn" ToRole="tbl_branch" />
           <NavigationProperty Name="tbl_company" Relationship="IMS_TESTModel.FK_tbl_salereturn_tbl_company" FromRole="tbl_salereturn" ToRole="tbl_company" />
           <NavigationProperty Name="tbl_financialyear" Relationship="IMS_TESTModel.FK_tbl_salereturn_tbl_financialyear" FromRole="tbl_salereturn" ToRole="tbl_financialyear" />
           <NavigationProperty Name="tbl_party" Relationship="IMS_TESTModel.FK_tbl_salereturn_tbl_party" FromRole="tbl_salereturn" ToRole="tbl_party" />
           <NavigationProperty Name="tbl_paymentmode" Relationship="IMS_TESTModel.FK_tbl_salereturn_tbl_paymentmode" FromRole="tbl_salereturn" ToRole="tbl_paymentmode" />
           <NavigationProperty Name="tbl_sale" Relationship="IMS_TESTModel.FK_tbl_salereturn_tbl_sale" FromRole="tbl_salereturn" ToRole="tbl_sale" />
+          <NavigationProperty Name="tbl_SalePaymentDetails" Relationship="IMS_TESTModel.FK_tbl_SalePaymentDetails_tbl_salereturn" FromRole="tbl_salereturn" ToRole="tbl_SalePaymentDetails" />
           <NavigationProperty Name="tbl_salereturndetails" Relationship="IMS_TESTModel.FK_tbl_salereturndetails_tbl_salereturn" FromRole="tbl_salereturn" ToRole="tbl_salereturndetails" />
         </EntityType>
         <EntityType Name="tbl_salereturndetails">
@@ -7473,9 +7561,9 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <Property Name="amount" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="status" Type="Boolean" />
           <Property Name="created_by" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="created_date" Type="DateTime" Precision="0" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
           <Property Name="modified_by" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="modified_date" Type="DateTime" Precision="0" />
+          <Property Name="modified_date" Type="DateTime" Precision="3" />
           <Property Name="dicount_amt" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="salereturn_id" Type="Int32" />
           <Property Name="Sales_taxGroupId" Type="Int32" />
@@ -7498,9 +7586,9 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <Property Name="amount" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="status" Type="Boolean" />
           <Property Name="created_by" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="created_date" Type="DateTime" Precision="0" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
           <Property Name="modified_by" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="modified_date" Type="DateTime" Precision="0" />
+          <Property Name="modified_date" Type="DateTime" Precision="3" />
           <Property Name="dicount_amt" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="salereturn_id" Type="Int32" />
           <Property Name="Sales_taxGroupId" Type="Int32" />
@@ -7517,9 +7605,9 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <Property Name="financialyear_id" Type="Int32" />
           <Property Name="status" Type="Boolean" />
           <Property Name="created_by" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="created_date" Type="DateTime" Precision="0" />
+          <Property Name="created_date" Type="DateTime" Precision="3" />
           <Property Name="modified_by" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="modified_date" Type="DateTime" Precision="0" />
+          <Property Name="modified_date" Type="DateTime" Precision="3" />
           <Property Name="paymentmode_id" Type="Int32" />
           <Property Name="InvoiceNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="party_id" Type="Int32" />
@@ -9271,6 +9359,18 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tbl_PurchasePaymentDetials_tbl_purchasereturn">
+          <End Type="IMS_TESTModel.tbl_purchasereturn" Role="tbl_purchasereturn" Multiplicity="0..1" />
+          <End Type="IMS_TESTModel.tbl_PurchasePaymentDetials" Role="tbl_PurchasePaymentDetials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_purchasereturn">
+              <PropertyRef Name="purchasereturn_id" />
+            </Principal>
+            <Dependent Role="tbl_PurchasePaymentDetials">
+              <PropertyRef Name="PurchaseReturnId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tbl_purchasereturndetails_tbl_purchasereturn">
           <End Type="IMS_TESTModel.tbl_purchasereturn" Role="tbl_purchasereturn" Multiplicity="0..1" />
           <End Type="IMS_TESTModel.tbl_purchasereturndetails" Role="tbl_purchasereturndetails" Multiplicity="*" />
@@ -9415,6 +9515,18 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tbl_SalePaymentDetails_tbl_salereturn">
+          <End Type="IMS_TESTModel.tbl_salereturn" Role="tbl_salereturn" Multiplicity="0..1" />
+          <End Type="IMS_TESTModel.tbl_SalePaymentDetails" Role="tbl_SalePaymentDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_salereturn">
+              <PropertyRef Name="salereturn_id" />
+            </Principal>
+            <Dependent Role="tbl_SalePaymentDetails">
+              <PropertyRef Name="SaleReturnId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tbl_salereturndetails_tbl_salereturn">
           <End Type="IMS_TESTModel.tbl_salereturn" Role="tbl_salereturn" Multiplicity="0..1" />
           <End Type="IMS_TESTModel.tbl_salereturndetails" Role="tbl_salereturndetails" Multiplicity="*" />
@@ -9535,34 +9647,6 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="sp_purchaseTransationHistory_Result">
-          <Property Type="String" Name="InvoiceNumber" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="product_name" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="product_code" Nullable="true" MaxLength="500" />
-          <Property Type="String" Name="InvoiceNumber1" Nullable="true" MaxLength="50" />
-          <Property Type="Decimal" Name="SubTotal" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="BalanceAmnt" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="GivenAmnt" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="DiscountAmount" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="GrandTotal" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
-          <Property Type="Decimal" Name="PaidAmnt" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="String" Name="FromTable" Nullable="true" MaxLength="50" />
-        </ComplexType>
-        <ComplexType Name="sp_saleTransationHistory_Result">
-          <Property Type="String" Name="InvoiceNumber" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="product_name" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="product_code" Nullable="true" MaxLength="500" />
-          <Property Type="String" Name="InvoiceNumber1" Nullable="true" MaxLength="50" />
-          <Property Type="Decimal" Name="SubTotal" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="BalanceAmnt" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="GivenAmnt" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="DiscountAmount" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="GrandTotal" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
-          <Property Type="Decimal" Name="PaidAmnt" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="String" Name="FromTable" Nullable="true" MaxLength="50" />
-        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -10321,6 +10405,42 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_purchaseTransationHistory" FunctionName="IMS_TESTModel.Store.sp_purchaseTransationHistory">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_purchaseTransationHistory_Result">
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="product_code" ColumnName="product_code" />
+                <ScalarProperty Name="InvoiceNumber1" ColumnName="InvoiceNumber1" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="BalanceAmnt" ColumnName="BalanceAmnt" />
+                <ScalarProperty Name="GivenAmnt" ColumnName="GivenAmnt" />
+                <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
+                <ScalarProperty Name="GrandTotal" ColumnName="GrandTotal" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="PaidAmnt" ColumnName="PaidAmnt" />
+                <ScalarProperty Name="FromTable" ColumnName="FromTable" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_saleTransationHistory" FunctionName="IMS_TESTModel.Store.sp_saleTransationHistory">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_saleTransationHistory_Result">
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="product_code" ColumnName="product_code" />
+                <ScalarProperty Name="InvoiceNumber1" ColumnName="InvoiceNumber1" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="BalanceAmnt" ColumnName="BalanceAmnt" />
+                <ScalarProperty Name="GivenAmnt" ColumnName="GivenAmnt" />
+                <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
+                <ScalarProperty Name="GrandTotal" ColumnName="GrandTotal" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="PaidAmnt" ColumnName="PaidAmnt" />
+                <ScalarProperty Name="FromTable" ColumnName="FromTable" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <EntitySetMapping Name="ELMAH_Error">
             <EntityTypeMapping TypeName="IMS_TESTModel.ELMAH_Error">
               <MappingFragment StoreEntitySet="ELMAH_Error">
@@ -10738,6 +10858,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
               <MappingFragment StoreEntitySet="tbl_purchase">
                 <ScalarProperty Name="attachmentUrl" ColumnName="attachmentUrl" />
                 <ScalarProperty Name="other_expenses" ColumnName="other_expenses" />
+                <ScalarProperty Name="OtherExpLabel" ColumnName="OtherExpLabel" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="PaymentMode_id" ColumnName="PaymentMode_id" />
                 <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
@@ -10825,6 +10946,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <EntitySetMapping Name="tbl_PurchasePaymentDetials">
             <EntityTypeMapping TypeName="IMS_TESTModel.tbl_PurchasePaymentDetials">
               <MappingFragment StoreEntitySet="tbl_PurchasePaymentDetials">
+                <ScalarProperty Name="PurchaseReturnId" ColumnName="PurchaseReturnId" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
@@ -10845,6 +10967,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <EntitySetMapping Name="tbl_PurchasePaymentDetialsHistory">
             <EntityTypeMapping TypeName="IMS_TESTModel.tbl_PurchasePaymentDetialsHistory">
               <MappingFragment StoreEntitySet="tbl_PurchasePaymentDetialsHistory">
+                <ScalarProperty Name="PurchaseReturnId" ColumnName="PurchaseReturnId" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
@@ -10866,6 +10989,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <EntitySetMapping Name="tbl_purchasereturn">
             <EntityTypeMapping TypeName="IMS_TESTModel.tbl_purchasereturn">
               <MappingFragment StoreEntitySet="tbl_purchasereturn">
+                <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="attachmentUrl" ColumnName="attachmentUrl" />
                 <ScalarProperty Name="paymentmode_id" ColumnName="paymentmode_id" />
                 <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
@@ -11003,6 +11127,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
               <MappingFragment StoreEntitySet="tbl_sale">
                 <ScalarProperty Name="attachmentUrl" ColumnName="attachmentUrl" />
                 <ScalarProperty Name="other_expenses" ColumnName="other_expenses" />
+                <ScalarProperty Name="OtherExpLabel" ColumnName="OtherExpLabel" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="sale_date" ColumnName="sale_date" />
                 <ScalarProperty Name="paymentmode_id" ColumnName="paymentmode_id" />
@@ -11086,6 +11211,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <EntitySetMapping Name="tbl_SalePaymentDetails">
             <EntityTypeMapping TypeName="IMS_TESTModel.tbl_SalePaymentDetails">
               <MappingFragment StoreEntitySet="tbl_SalePaymentDetails">
+                <ScalarProperty Name="SaleReturnId" ColumnName="SaleReturnId" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
@@ -11106,6 +11232,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <EntitySetMapping Name="tbl_SalePaymentDetailsHistory">
             <EntityTypeMapping TypeName="IMS_TESTModel.tbl_SalePaymentDetailsHistory">
               <MappingFragment StoreEntitySet="tbl_SalePaymentDetailsHistory">
+                <ScalarProperty Name="SaleReturnId" ColumnName="SaleReturnId" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
@@ -11127,6 +11254,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
           <EntitySetMapping Name="tbl_salereturn">
             <EntityTypeMapping TypeName="IMS_TESTModel.tbl_salereturn">
               <MappingFragment StoreEntitySet="tbl_salereturn">
+                <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="attachmentUrl" ColumnName="attachmentUrl" />
                 <ScalarProperty Name="party_id" ColumnName="party_id" />
                 <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
@@ -11544,42 +11672,6 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="sp_purchaseTransationHistory" FunctionName="IMS_TESTModel.Store.sp_purchaseTransationHistory">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_purchaseTransationHistory_Result">
-                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
-                <ScalarProperty Name="product_name" ColumnName="product_name" />
-                <ScalarProperty Name="product_code" ColumnName="product_code" />
-                <ScalarProperty Name="InvoiceNumber1" ColumnName="InvoiceNumber1" />
-                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
-                <ScalarProperty Name="BalanceAmnt" ColumnName="BalanceAmnt" />
-                <ScalarProperty Name="GivenAmnt" ColumnName="GivenAmnt" />
-                <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
-                <ScalarProperty Name="GrandTotal" ColumnName="GrandTotal" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="PaidAmnt" ColumnName="PaidAmnt" />
-                <ScalarProperty Name="FromTable" ColumnName="FromTable" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_saleTransationHistory" FunctionName="IMS_TESTModel.Store.sp_saleTransationHistory">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_saleTransationHistory_Result">
-                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
-                <ScalarProperty Name="product_name" ColumnName="product_name" />
-                <ScalarProperty Name="product_code" ColumnName="product_code" />
-                <ScalarProperty Name="InvoiceNumber1" ColumnName="InvoiceNumber1" />
-                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
-                <ScalarProperty Name="BalanceAmnt" ColumnName="BalanceAmnt" />
-                <ScalarProperty Name="GivenAmnt" ColumnName="GivenAmnt" />
-                <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
-                <ScalarProperty Name="GrandTotal" ColumnName="GrandTotal" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="PaidAmnt" ColumnName="PaidAmnt" />
-                <ScalarProperty Name="FromTable" ColumnName="FromTable" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
