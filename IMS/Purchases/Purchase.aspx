@@ -366,7 +366,7 @@
                                     <div class="form-group">
                                         <div class="col-sm-6 leftpadd0">
                                             <%--<label class="control-label col-sm-9">Other Expenses</label>--%>
-                                            <asp:TextBox ID="txtOtherExpLabel" runat="server" CssClass="form-control"
+                                            <asp:TextBox ID="txtOtherExpenseLabel" runat="server" CssClass="form-control"
                                                 ToolTip="You can change this text as per your need"></asp:TextBox>
                                         </div>
                                         <div class="col-sm-6 leftpadd0">

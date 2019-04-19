@@ -95,6 +95,20 @@ namespace IMSBLL.EntityModel
         public virtual DbSet<View_PurchaseDetails> View_PurchaseDetails { get; set; }
         public virtual DbSet<View_SaleDetails> View_SaleDetails { get; set; }
     
+        [DbFunction("IMS_TESTEntities", "Split")]
+        public virtual IQueryable<Split_Result> Split(string list, string splitOn)
+        {
+            var listParameter = list != null ?
+                new ObjectParameter("List", list) :
+                new ObjectParameter("List", typeof(string));
+    
+            var splitOnParameter = splitOn != null ?
+                new ObjectParameter("SplitOn", splitOn) :
+                new ObjectParameter("SplitOn", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<Split_Result>("[IMS_TESTEntities].[Split](@List, @SplitOn)", listParameter, splitOnParameter);
+        }
+    
         public virtual ObjectResult<CommonReport_Result> CommonReport(string reportType, Nullable<int> companyId, string filterIds, Nullable<System.DateTime> start_date, Nullable<System.DateTime> end_date)
         {
             var reportTypeParameter = reportType != null ?
@@ -3438,38 +3452,6 @@ namespace IMSBLL.EntityModel
                 new ObjectParameter("mobileno", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("SpGetExistsMobile", mobilenoParameter);
-        }
-    
-        [DbFunction("IMS_TESTEntities", "Split")]
-        public virtual IQueryable<Split_Result> Split(string list, string splitOn)
-        {
-            var listParameter = list != null ?
-                new ObjectParameter("List", list) :
-                new ObjectParameter("List", typeof(string));
-    
-            var splitOnParameter = splitOn != null ?
-                new ObjectParameter("SplitOn", splitOn) :
-                new ObjectParameter("SplitOn", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<Split_Result>("[IMS_TESTEntities].[Split](@List, @SplitOn)", listParameter, splitOnParameter);
-        }
-    
-        public virtual ObjectResult<sp_purchaseTransationHistory_Result> sp_purchaseTransationHistory(string purchase_id)
-        {
-            var purchase_idParameter = purchase_id != null ?
-                new ObjectParameter("Purchase_id", purchase_id) :
-                new ObjectParameter("Purchase_id", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_purchaseTransationHistory_Result>("sp_purchaseTransationHistory", purchase_idParameter);
-        }
-    
-        public virtual ObjectResult<sp_saleTransationHistory_Result> sp_saleTransationHistory(string sale_Id)
-        {
-            var sale_IdParameter = sale_Id != null ?
-                new ObjectParameter("sale_Id", sale_Id) :
-                new ObjectParameter("sale_Id", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_saleTransationHistory_Result>("sp_saleTransationHistory", sale_IdParameter);
         }
     }
 }
