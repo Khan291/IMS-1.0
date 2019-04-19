@@ -297,7 +297,12 @@ namespace IMS
                 string path = "~/Uploads/AttachedFiles/Sale/"; //path without filename to save file
                 bool fileupMsg = uploadFile(fuAttacheFile, path, "");
                 decimal balanceAmt = 0;// Convert.ToDecimal(txtBalanceAmt.Text);
+                decimal paidAmnt = 0;
 
+                if (!string.IsNullOrEmpty(txtGivenAmt.Text))
+                {
+                    paidAmnt = Convert.ToDecimal(txtGivenAmt.Text);
+                }
                 if (!string.IsNullOrEmpty(txtBalanceAmt.Text))
                 {
                     balanceAmt = Convert.ToDecimal(txtBalanceAmt.Text);
@@ -327,8 +332,8 @@ namespace IMS
                 salePaymentDetails.TaxAmount = Convert.ToDecimal(lblTaxAmount.Text);
                 salePaymentDetails.SubTotal = Convert.ToDecimal(lblsubtotal.Text);
                 salePaymentDetails.GrandTotal = Convert.ToDecimal(lblGrandTotal.Text);
-                salePaymentDetails.PaidAmnt = Convert.ToDecimal(txtGivenAmt.Text);
-                salePaymentDetails.GivenAmnt = Convert.ToDecimal(txtGivenAmt.Text);
+                salePaymentDetails.PaidAmnt = paidAmnt;
+                salePaymentDetails.GivenAmnt = paidAmnt;
                 salePaymentDetails.BalanceAmnt = balanceAmt;
                 salePaymentDetails.FromTable = "Sale";
                 salePaymentDetails.CreatedBy = User_id;

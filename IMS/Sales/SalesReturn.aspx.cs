@@ -10,6 +10,7 @@ using IMSBLL.EntityModel;
 using IMSBLL.DAL;
 using System.Configuration;
 using System.IO;
+using System.Data.Entity;
 
 namespace IMS.Sales
 {
@@ -279,13 +280,17 @@ namespace IMS.Sales
                     ClientScript.RegisterStartupScript(this.GetType(), "Pop", "openalert('Please Enter Sale No','False');", true);
                     return;
                 }
-
+                decimal paidAmt = 0;
+                if (!string.IsNullOrEmpty(txtPaidAmt.Text))
+                {
+                    paidAmt = Convert.ToDecimal(txtPaidAmt.Text);
+                }
                 string path = "~/Uploads/AttachedFiles/Sale/";//path without filename to save file
                 bool fileupMsg = uploadfile(fuAttacheFile, path, "");
 
 
                 decimal remainingBalance = Convert.ToDecimal(lblResultGrndTotal.Text) - Convert.ToDecimal(lblGivenAmnt.Text);
-                decimal paidAmnt = Convert.ToDecimal(txtPaidAmt.Text);
+               // decimal paidAmnt = Convert.ToDecimal(txtPaidAmt.Text);
 
                 var sale = context.tbl_sale.Where(pd => pd.sale_id == saleId && pd.company_id == companyId && pd.branch_id == branchId).FirstOrDefault();
                 tbl_salereturn saleReturn = new tbl_salereturn();
@@ -305,17 +310,17 @@ namespace IMS.Sales
                 saleReturn.created_by = user_id;
                 saleReturn.created_date = DateTime.Now;
                 decimal givenAmnt = 0;
-                if (remainingBalance<paidAmnt)
+                if (remainingBalance< paidAmt)
                 {
-                   givenAmnt= Convert.ToDecimal(lblGivenAmnt.Text) - Convert.ToDecimal(txtPaidAmt.Text);
+                   givenAmnt= Convert.ToDecimal(lblGivenAmnt.Text) - paidAmt;
                 }
                 else
                 {
-                    givenAmnt= Convert.ToDecimal(lblGivenAmnt.Text) + Convert.ToDecimal(txtPaidAmt.Text);
+                    givenAmnt= Convert.ToDecimal(lblGivenAmnt.Text) + paidAmt;
                 }
                 //Update into Sale Payment Details 
                 tbl_SalePaymentDetails salePaymentDetails = context.tbl_SalePaymentDetails.Where(w => w.SaleId == saleId).FirstOrDefault();
-                salePaymentDetails.PaidAmnt = Convert.ToDecimal(txtPaidAmt.Text);
+                salePaymentDetails.PaidAmnt = paidAmt;
                 salePaymentDetails.TaxAmount = Convert.ToDecimal(lblResultTotalTaxAmnt.Text);
                 salePaymentDetails.DiscountAmount = Convert.ToDecimal(lblResultTotalDiscount.Text);
                 salePaymentDetails.SubTotal = Convert.ToDecimal(lblResultSubTotal.Text);
@@ -325,7 +330,11 @@ namespace IMS.Sales
                 salePaymentDetails.FromTable = "Return";
                 salePaymentDetails.ModifiedBy = user_id;
                 salePaymentDetails.ModifiedDate = DateTime.Now;
-                sale.tbl_SalePaymentDetails.Add(salePaymentDetails);
+                
+                //sale.tbl_SalePaymentDetails.Add(salePaymentDetails);
+               // context.Entry(sale.tbl_SalePaymentDetails).State = EntityState.Deleted;
+                //context.SaveChanges();
+                saleReturn.tbl_SalePaymentDetails.Add(salePaymentDetails);
 
                 for (int i = 0; i <= gvsalesdetails.Rows.Count - 1; i++)
                 {
