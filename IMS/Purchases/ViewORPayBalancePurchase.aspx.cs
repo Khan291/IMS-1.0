@@ -185,7 +185,7 @@ namespace IMS
                         purchasePaymentDetails.PaidAmnt = Convert.ToDecimal(txtPaidAmnt.Text);
                         purchasePaymentDetails.GivenAmnt = Convert.ToDecimal(txtPaidAmnt.Text) + purchasePaymentDetails.GivenAmnt;
                         purchasePaymentDetails.BalanceAmnt = Convert.ToDecimal(txtBalanceAmnt.Text);
-                        purchasePaymentDetails.FromTable = "Purchase Pay Balance";
+                        purchasePaymentDetails.FromTable = Constants.PurchasePayBalance;
                         purchasePaymentDetails.ModifiedDate = DateTime.Now;
                         purchasePaymentDetails.ModifiedBy = userName;
                     }

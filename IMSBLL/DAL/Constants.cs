@@ -11,5 +11,9 @@ namespace IMSBLL.DAL
     {
         public const string Purchase = "Purchase";
         public const string Sale = "Sale";
+        public const string  CustomerPayBalance= "Customer Pay Balance";
+        public const string VendorPayBalance = "Vendor Pay Balance";
+        public const string PurchasePayBalance = "Purcahse Pay Balance";
+        public const string SalePayBalance = "Sale Pay Balance";
     }
 }

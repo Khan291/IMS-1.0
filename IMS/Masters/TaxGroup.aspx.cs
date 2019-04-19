@@ -194,7 +194,7 @@ namespace IMS.Masters
                     string txtpercentage = gvtaxdetails.Rows[i].Cells[2].Text;
                     tbl_taxdetails taxDetailes = new tbl_taxdetails();
                     taxDetailes.type_id = Convert.ToInt32(gvtaxdetails.Rows[i].Cells[2].Text);
-                    taxDetailes.tax_percentage = Convert.ToInt32(gvtaxdetails.Rows[i].Cells[1].Text);
+                    taxDetailes.tax_percentage = Convert.ToDecimal(gvtaxdetails.Rows[i].Cells[1].Text);
                     taxDetailes.status = true;
                     taxDetailes.created_by = User_id;
                     taxDetailes.created_date = DateTime.Now;
@@ -257,7 +257,7 @@ namespace IMS.Masters
                 divalert.Visible = true;
                 lblAlert.Text = "Update Successfully";
                 txtGrouphName.Text = string.Empty;
-                ClientScript.RegisterStartupScript(this.GetType(), "Pop", "openalert('Update successfully);", true);
+                ClientScript.RegisterStartupScript(this.GetType(), "Pop", "openalert('Update successfully');", true);
             }
             catch (Exception ex)
             {
@@ -293,7 +293,7 @@ namespace IMS.Masters
                 {
                     int TypeId = Convert.ToInt32(ViewState["type_id"]);
                     string TypeName = ViewState["type_name"].ToString();
-                    int percentage = Convert.ToInt32(txtPercent.Text);
+                    decimal percentage = Convert.ToDecimal(txtPercent.Text);
                     //TextBox txtpercentage = (TextBox)gvtaxdetails.FooterRow.FindControl("tax_percentage");
                     DataTable tbl = (DataTable)ViewState["Details"];
 

@@ -208,7 +208,7 @@ namespace IMS.Registration
                     Session["userdetails"] = dt;
                     SendMail();
                     Session["regisFlag"] = null;
-                    ClientScript.RegisterStartupScript(this.GetType(), "Pop", "openalert('Thank you for signing up please confirm your E-mail','True');", true);
+                    ClientScript.RegisterStartupScript(this.GetType(), "Pop", "openalert('Thank you for signing up please confirm your Mobile No.','True');", true);
                 }
             }
             catch (Exception ex)

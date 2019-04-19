@@ -4480,6 +4480,625 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
     <edmx:ConceptualModels>
       <Schema Namespace="IMS_TESTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="IMS_TESTEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ELMAH_Error" EntityType="IMS_TESTModel.ELMAH_Error" />
+          <EntitySet Name="TaxGroupWithTaxTypes" EntityType="IMS_TESTModel.TaxGroupWithTaxType" />
+          <EntitySet Name="tbl_ActualPurchaseTaxAndPrice" EntityType="IMS_TESTModel.tbl_ActualPurchaseTaxAndPrice" />
+          <EntitySet Name="tbl_ActualSalesTaxAndPrice" EntityType="IMS_TESTModel.tbl_ActualSalesTaxAndPrice" />
+          <EntitySet Name="tbl_batch" EntityType="IMS_TESTModel.tbl_batch" />
+          <EntitySet Name="tbl_branch" EntityType="IMS_TESTModel.tbl_branch" />
+          <EntitySet Name="tbl_category" EntityType="IMS_TESTModel.tbl_category" />
+          <EntitySet Name="tbl_company" EntityType="IMS_TESTModel.tbl_company" />
+          <EntitySet Name="tbl_country" EntityType="IMS_TESTModel.tbl_country" />
+          <EntitySet Name="tbl_currency" EntityType="IMS_TESTModel.tbl_currency" />
+          <EntitySet Name="Tbl_EmailVerify" EntityType="IMS_TESTModel.Tbl_EmailVerify" />
+          <EntitySet Name="tbl_error_log" EntityType="IMS_TESTModel.tbl_error_log" />
+          <EntitySet Name="tbl_expense" EntityType="IMS_TESTModel.tbl_expense" />
+          <EntitySet Name="tbl_expenseentry" EntityType="IMS_TESTModel.tbl_expenseentry" />
+          <EntitySet Name="tbl_financialyear" EntityType="IMS_TESTModel.tbl_financialyear" />
+          <EntitySet Name="tbl_godown" EntityType="IMS_TESTModel.tbl_godown" />
+          <EntitySet Name="tbl_mony" EntityType="IMS_TESTModel.tbl_mony" />
+          <EntitySet Name="tbl_monytransaction" EntityType="IMS_TESTModel.tbl_monytransaction" />
+          <EntitySet Name="tbl_paidpayment" EntityType="IMS_TESTModel.tbl_paidpayment" />
+          <EntitySet Name="tbl_party" EntityType="IMS_TESTModel.tbl_party" />
+          <EntitySet Name="tbl_paymentmode" EntityType="IMS_TESTModel.tbl_paymentmode" />
+          <EntitySet Name="tbl_plan" EntityType="IMS_TESTModel.tbl_plan" />
+          <EntitySet Name="tbl_product" EntityType="IMS_TESTModel.tbl_product" />
+          <EntitySet Name="tbl_productTaxGroup" EntityType="IMS_TESTModel.tbl_productTaxGroup" />
+          <EntitySet Name="tbl_purchase" EntityType="IMS_TESTModel.tbl_purchase" />
+          <EntitySet Name="tbl_purchasedetails" EntityType="IMS_TESTModel.tbl_purchasedetails" />
+          <EntitySet Name="tbl_purchasedetailsHistory" EntityType="IMS_TESTModel.tbl_purchasedetailsHistory" />
+          <EntitySet Name="tbl_purchaseHistory" EntityType="IMS_TESTModel.tbl_purchaseHistory" />
+          <EntitySet Name="tbl_PurchasePaymentDetials" EntityType="IMS_TESTModel.tbl_PurchasePaymentDetials" />
+          <EntitySet Name="tbl_PurchasePaymentDetialsHistory" EntityType="IMS_TESTModel.tbl_PurchasePaymentDetialsHistory" />
+          <EntitySet Name="tbl_purchasereturn" EntityType="IMS_TESTModel.tbl_purchasereturn" />
+          <EntitySet Name="tbl_purchasereturndetails" EntityType="IMS_TESTModel.tbl_purchasereturndetails" />
+          <EntitySet Name="tbl_purchasereturndetailsHistory" EntityType="IMS_TESTModel.tbl_purchasereturndetailsHistory" />
+          <EntitySet Name="tbl_purchasereturnHistory" EntityType="IMS_TESTModel.tbl_purchasereturnHistory" />
+          <EntitySet Name="tbl_purchasetaxgroup" EntityType="IMS_TESTModel.tbl_purchasetaxgroup" />
+          <EntitySet Name="tbl_purchasetaxgroupdetails" EntityType="IMS_TESTModel.tbl_purchasetaxgroupdetails" />
+          <EntitySet Name="tbl_rack" EntityType="IMS_TESTModel.tbl_rack" />
+          <EntitySet Name="tbl_role" EntityType="IMS_TESTModel.tbl_role" />
+          <EntitySet Name="tbl_sale" EntityType="IMS_TESTModel.tbl_sale" />
+          <EntitySet Name="tbl_saledetails" EntityType="IMS_TESTModel.tbl_saledetails" />
+          <EntitySet Name="tbl_saledetailsHistory" EntityType="IMS_TESTModel.tbl_saledetailsHistory" />
+          <EntitySet Name="tbl_saleHistory" EntityType="IMS_TESTModel.tbl_saleHistory" />
+          <EntitySet Name="tbl_SalePaymentDetails" EntityType="IMS_TESTModel.tbl_SalePaymentDetails" />
+          <EntitySet Name="tbl_SalePaymentDetailsHistory" EntityType="IMS_TESTModel.tbl_SalePaymentDetailsHistory" />
+          <EntitySet Name="tbl_salereturn" EntityType="IMS_TESTModel.tbl_salereturn" />
+          <EntitySet Name="tbl_salereturndetails" EntityType="IMS_TESTModel.tbl_salereturndetails" />
+          <EntitySet Name="tbl_salereturndetailsHistory" EntityType="IMS_TESTModel.tbl_salereturndetailsHistory" />
+          <EntitySet Name="tbl_salereturnHistory" EntityType="IMS_TESTModel.tbl_salereturnHistory" />
+          <EntitySet Name="tbl_saleTaxGroup" EntityType="IMS_TESTModel.tbl_saleTaxGroup" />
+          <EntitySet Name="tbl_saleTaxGroupDetailes" EntityType="IMS_TESTModel.tbl_saleTaxGroupDetailes" />
+          <EntitySet Name="tbl_setting" EntityType="IMS_TESTModel.tbl_setting" />
+          <EntitySet Name="tbl_state" EntityType="IMS_TESTModel.tbl_state" />
+          <EntitySet Name="tbl_stock" EntityType="IMS_TESTModel.tbl_stock" />
+          <EntitySet Name="tbl_stockHistory" EntityType="IMS_TESTModel.tbl_stockHistory" />
+          <EntitySet Name="tbl_stocktransaction" EntityType="IMS_TESTModel.tbl_stocktransaction" />
+          <EntitySet Name="tbl_subscription" EntityType="IMS_TESTModel.tbl_subscription" />
+          <EntitySet Name="tbl_tax" EntityType="IMS_TESTModel.tbl_tax" />
+          <EntitySet Name="tbl_taxdetails" EntityType="IMS_TESTModel.tbl_taxdetails" />
+          <EntitySet Name="tbl_taxgroup" EntityType="IMS_TESTModel.tbl_taxgroup" />
+          <EntitySet Name="tbl_taxtype" EntityType="IMS_TESTModel.tbl_taxtype" />
+          <EntitySet Name="tbl_unit" EntityType="IMS_TESTModel.tbl_unit" />
+          <EntitySet Name="tbl_User" EntityType="IMS_TESTModel.tbl_User" />
+          <EntitySet Name="tbl_userbranch" EntityType="IMS_TESTModel.tbl_userbranch" />
+          <EntitySet Name="tbl_userrole" EntityType="IMS_TESTModel.tbl_userrole" />
+          <EntitySet Name="Tbl_VerifyResetPass" EntityType="IMS_TESTModel.Tbl_VerifyResetPass" />
+          <EntitySet Name="View_PurchaseDetails" EntityType="IMS_TESTModel.View_PurchaseDetails" />
+          <EntitySet Name="View_SaleDetails" EntityType="IMS_TESTModel.View_SaleDetails" />
+          <AssociationSet Name="FK_tbl_ActualPurchaseTaxAndPrice_tbl_batch1" Association="IMS_TESTModel.FK_tbl_ActualPurchaseTaxAndPrice_tbl_batch1">
+            <End Role="tbl_batch" EntitySet="tbl_batch" />
+            <End Role="tbl_ActualPurchaseTaxAndPrice" EntitySet="tbl_ActualPurchaseTaxAndPrice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_ActualPurchaseTaxAndPrice_tbl_product" Association="IMS_TESTModel.FK_tbl_ActualPurchaseTaxAndPrice_tbl_product">
+            <End Role="tbl_product" EntitySet="tbl_product" />
+            <End Role="tbl_ActualPurchaseTaxAndPrice" EntitySet="tbl_ActualPurchaseTaxAndPrice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_ActualPurchaseTaxAndPrice_tbl_purchase" Association="IMS_TESTModel.FK_tbl_ActualPurchaseTaxAndPrice_tbl_purchase">
+            <End Role="tbl_purchase" EntitySet="tbl_purchase" />
+            <End Role="tbl_ActualPurchaseTaxAndPrice" EntitySet="tbl_ActualPurchaseTaxAndPrice" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Actua__produ__5E1FF51F" Association="IMS_TESTModel.FK__tbl_Actua__produ__5E1FF51F">
+            <End Role="tbl_product" EntitySet="tbl_product" />
+            <End Role="tbl_ActualSalesTaxAndPrice" EntitySet="tbl_ActualSalesTaxAndPrice" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_Actua__sale___5D2BD0E6" Association="IMS_TESTModel.FK__tbl_Actua__sale___5D2BD0E6">
+            <End Role="tbl_sale" EntitySet="tbl_sale" />
+            <End Role="tbl_ActualSalesTaxAndPrice" EntitySet="tbl_ActualSalesTaxAndPrice" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_batch__branc__3B75D760" Association="IMS_TESTModel.FK__tbl_batch__branc__3B75D760">
+            <End Role="tbl_branch" EntitySet="tbl_branch" />
+            <End Role="tbl_batch" EntitySet="tbl_batch" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_batch__compa__3A81B327" Association="IMS_TESTModel.FK__tbl_batch__compa__3A81B327">
+            <End Role="tbl_company" EntitySet="tbl_company" />
+            <End Role="tbl_batch" EntitySet="tbl_batch" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_purch__batch__797309D9" Association="IMS_TESTModel.FK__tbl_purch__batch__797309D9">
+            <End Role="tbl_batch" EntitySet="tbl_batch" />
+            <End Role="tbl_purchasedetails" EntitySet="tbl_purchasedetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_stock__batch__619B8048" Association="IMS_TESTModel.FK__tbl_stock__batch__619B8048">
+            <End Role="tbl_batch" EntitySet="tbl_batch" />
+            <End Role="tbl_stock" EntitySet="tbl_stock" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_stock__batch__6754599E" Association="IMS_TESTModel.FK__tbl_stock__batch__6754599E">
+            <End Role="tbl_batch" EntitySet="tbl_batch" />
+            <End Role="tbl_stocktransaction" EntitySet="tbl_stocktransaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_stock__batch__705EA0EB" Association="IMS_TESTModel.FK__tbl_stock__batch__705EA0EB">
+            <End Role="tbl_batch" EntitySet="tbl_batch" />
+            <End Role="tbl_stock" EntitySet="tbl_stock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_purchasereturndetails_tbl_batch" Association="IMS_TESTModel.FK_tbl_purchasereturndetails_tbl_batch">
+            <End Role="tbl_batch" EntitySet="tbl_batch" />
+            <End Role="tbl_purchasereturndetails" EntitySet="tbl_purchasereturndetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_purchasetaxgroup_tbl_batch" Association="IMS_TESTModel.FK_tbl_purchasetaxgroup_tbl_batch">
+            <End Role="tbl_batch" EntitySet="tbl_batch" />
+            <End Role="tbl_purchasetaxgroup" EntitySet="tbl_purchasetaxgroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_saledetails_tbl_batch" Association="IMS_TESTModel.FK_tbl_saledetails_tbl_batch">
+            <End Role="tbl_batch" EntitySet="tbl_batch" />
+            <End Role="tbl_saledetails" EntitySet="tbl_saledetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_salereturndetails_tbl_batch" Association="IMS_TESTModel.FK_tbl_salereturndetails_tbl_batch">
+            <End Role="tbl_batch" EntitySet="tbl_batch" />
+            <End Role="tbl_salereturndetails" EntitySet="tbl_salereturndetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_branc__compa__20C1E124" Association="IMS_TESTModel.FK__tbl_branc__compa__20C1E124">
+            <End Role="tbl_company" EntitySet="tbl_company" />
+            <End Role="tbl_branch" EntitySet="tbl_branch" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_branc__count__21B6055D" Association="IMS_TESTModel.FK__tbl_branc__count__21B6055D">
+            <End Role="tbl_country" EntitySet="tbl_country" />
+            <End Role="tbl_branch" EntitySet="tbl_branch" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_branc__state__22AA2996" Association="IMS_TESTModel.FK__tbl_branc__state__22AA2996">
+            <End Role="tbl_state" EntitySet="tbl_state" />
+            <End Role="tbl_branch" EntitySet="tbl_branch" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_categ__branc__2B3F6F97" Association="IMS_TESTModel.FK__tbl_categ__branc__2B3F6F97">
+            <End Role="tbl_branch" EntitySet="tbl_branch" />
+            <End Role="tbl_category" EntitySet="tbl_category" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_expen__branc__571DF1D5" Association="IMS_TESTModel.FK__tbl_expen__branc__571DF1D5">
+            <End Role="tbl_branch" EntitySet="tbl_branch" />
+            <End Role="tbl_expense" EntitySet="tbl_expense" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_expen__branc__5BE2A6F2" Association="IMS_TESTModel.FK__tbl_expen__branc__5BE2A6F2">
+            <End Role="tbl_branch" EntitySet="tbl_branch" />
+            <End Role="tbl_expenseentry" EntitySet="tbl_expenseentry" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_finan__branc__534D60F1" Association="IMS_TESTModel.FK__tbl_finan__branc__534D60F1">
+            <End Role="tbl_branch" EntitySet="tbl_branch" />
+            <End Role="tbl_financialyear" EntitySet="tbl_financialyear" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_godow__branc__32E0915F" Association="IMS_TESTModel.FK__tbl_godow__branc__32E0915F">
+            <End Role="tbl_branch" EntitySet="tbl_branch" />
+            <End Role="tbl_godown" EntitySet="tbl_godown" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_mony__branch__6B24EA82" Association="IMS_TESTModel.FK__tbl_mony__branch__6B24EA82">
+            <End Role="tbl_branch" EntitySet="tbl_branch" />
+            <End Role="tbl_mony" EntitySet="tbl_mony" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_monyt__branc__6FE99F9F" Association="IMS_TESTModel.FK__tbl_monyt__branc__6FE99F9F">
+            <End Role="tbl_branch" EntitySet="tbl_branch" />
+            <End Role="tbl_monytransaction" EntitySet="tbl_monytransaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_party__branc__3F466844" Association="IMS_TESTModel.FK__tbl_party__branc__3F466844">
+            <End Role="tbl_branch" EntitySet="tbl_branch" />
+            <End Role="tbl_party" EntitySet="tbl_party" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_payme__branc__4F7CD00D" Association="IMS_TESTModel.FK__tbl_payme__branc__4F7CD00D">
+            <End Role="tbl_branch" EntitySet="tbl_branch" />
+            <End Role="tbl_paymentmode" EntitySet="tbl_paymentmode" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_produ__branc__46E78A0C" Association="IMS_TESTModel.FK__tbl_produ__branc__46E78A0C">
+            <End Role="tbl_branch" EntitySet="tbl_branch" />
+            <End Role="tbl_product" EntitySet="tbl_product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_purch__branc__2B0A656D" Association="IMS_TESTModel.FK__tbl_purch__branc__2B0A656D">
+            <End Role="tbl_branch" EntitySet="tbl_branch" />
+            <End Role="tbl_purchase" EntitySet="tbl_purchase" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_purch__branc__60FC61CA" Association="IMS_TESTModel.FK__tbl_purch__branc__60FC61CA">
+            <End Role="tbl_branch" EntitySet="tbl_branch" />
+            <End Role="tbl_purchase" EntitySet="tbl_purchase" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_rack__branch__36B12243" Association="IMS_TESTModel.FK__tbl_rack__branch__36B12243">
+            <End Role="tbl_branch" EntitySet="tbl_branch" />
+            <End Role="tbl_rack" EntitySet="tbl_rack" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_stock__branc__5FB337D6" Association="IMS_TESTModel.FK__tbl_stock__branc__5FB337D6">
+            <End Role="tbl_branch" EntitySet="tbl_branch" />
+            <End Role="tbl_stock" EntitySet="tbl_stock" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_stock__branc__656C112C" Association="IMS_TESTModel.FK__tbl_stock__branc__656C112C">
+            <End Role="tbl_branch" EntitySet="tbl_branch" />
+            <End Role="tbl_stocktransaction" EntitySet="tbl_stocktransaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_stock__branc__7152C524" Association="IMS_TESTModel.FK__tbl_stock__branc__7152C524">
+            <End Role="tbl_branch" EntitySet="tbl_branch" />
+            <End Role="tbl_stock" EntitySet="tbl_stock" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_tax__branch___4316F928" Association="IMS_TESTModel.FK__tbl_tax__branch___4316F928">
+            <End Role="tbl_branch" EntitySet="tbl_branch" />
+            <End Role="tbl_tax" EntitySet="tbl_tax" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_taxgr__branc__3F3159AB" Association="IMS_TESTModel.FK__tbl_taxgr__branc__3F3159AB">
+            <End Role="tbl_branch" EntitySet="tbl_branch" />
+            <End Role="tbl_taxgroup" EntitySet="tbl_taxgroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_taxty__branc__2D12A970" Association="IMS_TESTModel.FK__tbl_taxty__branc__2D12A970">
+            <End Role="tbl_branch" EntitySet="tbl_branch" />
+            <End Role="tbl_taxtype" EntitySet="tbl_taxtype" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_unit__branch__2F10007B" Association="IMS_TESTModel.FK__tbl_unit__branch__2F10007B">
+            <End Role="tbl_branch" EntitySet="tbl_branch" />
+            <End Role="tbl_unit" EntitySet="tbl_unit" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_userb__branc__276EDEB3" Association="IMS_TESTModel.FK__tbl_userb__branc__276EDEB3">
+            <End Role="tbl_branch" EntitySet="tbl_branch" />
+            <End Role="tbl_userbranch" EntitySet="tbl_userbranch" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_purchasereturn_tbl_branch" Association="IMS_TESTModel.FK_tbl_purchasereturn_tbl_branch">
+            <End Role="tbl_branch" EntitySet="tbl_branch" />
+            <End Role="tbl_purchasereturn" EntitySet="tbl_purchasereturn" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_sale_tbl_branch" Association="IMS_TESTModel.FK_tbl_sale_tbl_branch">
+            <End Role="tbl_branch" EntitySet="tbl_branch" />
+            <End Role="tbl_sale" EntitySet="tbl_sale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_salereturn_tbl_branch" Association="IMS_TESTModel.FK_tbl_salereturn_tbl_branch">
+            <End Role="tbl_branch" EntitySet="tbl_branch" />
+            <End Role="tbl_salereturn" EntitySet="tbl_salereturn" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_categ__compa__2A4B4B5E" Association="IMS_TESTModel.FK__tbl_categ__compa__2A4B4B5E">
+            <End Role="tbl_company" EntitySet="tbl_company" />
+            <End Role="tbl_category" EntitySet="tbl_category" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_produ__categ__47DBAE45" Association="IMS_TESTModel.FK__tbl_produ__categ__47DBAE45">
+            <End Role="tbl_category" EntitySet="tbl_category" />
+            <End Role="tbl_product" EntitySet="tbl_product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_compa__count__1CF15040" Association="IMS_TESTModel.FK__tbl_compa__count__1CF15040">
+            <End Role="tbl_country" EntitySet="tbl_country" />
+            <End Role="tbl_company" EntitySet="tbl_company" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_compa__state__1DE57479" Association="IMS_TESTModel.FK__tbl_compa__state__1DE57479">
+            <End Role="tbl_state" EntitySet="tbl_state" />
+            <End Role="tbl_company" EntitySet="tbl_company" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_expen__compa__5629CD9C" Association="IMS_TESTModel.FK__tbl_expen__compa__5629CD9C">
+            <End Role="tbl_company" EntitySet="tbl_company" />
+            <End Role="tbl_expense" EntitySet="tbl_expense" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_expen__compa__5AEE82B9" Association="IMS_TESTModel.FK__tbl_expen__compa__5AEE82B9">
+            <End Role="tbl_company" EntitySet="tbl_company" />
+            <End Role="tbl_expenseentry" EntitySet="tbl_expenseentry" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_finan__compa__52593CB8" Association="IMS_TESTModel.FK__tbl_finan__compa__52593CB8">
+            <End Role="tbl_company" EntitySet="tbl_company" />
+            <End Role="tbl_financialyear" EntitySet="tbl_financialyear" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_godow__compa__31EC6D26" Association="IMS_TESTModel.FK__tbl_godow__compa__31EC6D26">
+            <End Role="tbl_company" EntitySet="tbl_company" />
+            <End Role="tbl_godown" EntitySet="tbl_godown" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_mony__compan__6A30C649" Association="IMS_TESTModel.FK__tbl_mony__compan__6A30C649">
+            <End Role="tbl_company" EntitySet="tbl_company" />
+            <End Role="tbl_mony" EntitySet="tbl_mony" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_monyt__compa__6EF57B66" Association="IMS_TESTModel.FK__tbl_monyt__compa__6EF57B66">
+            <End Role="tbl_company" EntitySet="tbl_company" />
+            <End Role="tbl_monytransaction" EntitySet="tbl_monytransaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_paidp__compa__395884C4" Association="IMS_TESTModel.FK__tbl_paidp__compa__395884C4">
+            <End Role="tbl_company" EntitySet="tbl_company" />
+            <End Role="tbl_paidpayment" EntitySet="tbl_paidpayment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_party__compa__3E52440B" Association="IMS_TESTModel.FK__tbl_party__compa__3E52440B">
+            <End Role="tbl_company" EntitySet="tbl_company" />
+            <End Role="tbl_party" EntitySet="tbl_party" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_payme__compa__4E88ABD4" Association="IMS_TESTModel.FK__tbl_payme__compa__4E88ABD4">
+            <End Role="tbl_company" EntitySet="tbl_company" />
+            <End Role="tbl_paymentmode" EntitySet="tbl_paymentmode" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_produ__compa__45F365D3" Association="IMS_TESTModel.FK__tbl_produ__compa__45F365D3">
+            <End Role="tbl_company" EntitySet="tbl_company" />
+            <End Role="tbl_product" EntitySet="tbl_product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_purch__compa__2A164134" Association="IMS_TESTModel.FK__tbl_purch__compa__2A164134">
+            <End Role="tbl_company" EntitySet="tbl_company" />
+            <End Role="tbl_purchase" EntitySet="tbl_purchase" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_purch__compa__61F08603" Association="IMS_TESTModel.FK__tbl_purch__compa__61F08603">
+            <End Role="tbl_company" EntitySet="tbl_company" />
+            <End Role="tbl_purchase" EntitySet="tbl_purchase" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_rack__compan__35BCFE0A" Association="IMS_TESTModel.FK__tbl_rack__compan__35BCFE0A">
+            <End Role="tbl_company" EntitySet="tbl_company" />
+            <End Role="tbl_rack" EntitySet="tbl_rack" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_stock__compa__5EBF139D" Association="IMS_TESTModel.FK__tbl_stock__compa__5EBF139D">
+            <End Role="tbl_company" EntitySet="tbl_company" />
+            <End Role="tbl_stock" EntitySet="tbl_stock" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_stock__compa__6477ECF3" Association="IMS_TESTModel.FK__tbl_stock__compa__6477ECF3">
+            <End Role="tbl_company" EntitySet="tbl_company" />
+            <End Role="tbl_stocktransaction" EntitySet="tbl_stocktransaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_stock__compa__7246E95D" Association="IMS_TESTModel.FK__tbl_stock__compa__7246E95D">
+            <End Role="tbl_company" EntitySet="tbl_company" />
+            <End Role="tbl_stock" EntitySet="tbl_stock" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_subsc__compa__28ED12D1" Association="IMS_TESTModel.FK__tbl_subsc__compa__28ED12D1">
+            <End Role="tbl_company" EntitySet="tbl_company" />
+            <End Role="tbl_subscription" EntitySet="tbl_subscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_tax__company__4222D4EF" Association="IMS_TESTModel.FK__tbl_tax__company__4222D4EF">
+            <End Role="tbl_company" EntitySet="tbl_company" />
+            <End Role="tbl_tax" EntitySet="tbl_tax" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_taxgr__compa__3E3D3572" Association="IMS_TESTModel.FK__tbl_taxgr__compa__3E3D3572">
+            <End Role="tbl_company" EntitySet="tbl_company" />
+            <End Role="tbl_taxgroup" EntitySet="tbl_taxgroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_taxty__compa__2C1E8537" Association="IMS_TESTModel.FK__tbl_taxty__compa__2C1E8537">
+            <End Role="tbl_company" EntitySet="tbl_company" />
+            <End Role="tbl_taxtype" EntitySet="tbl_taxtype" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_unit__compan__2E1BDC42" Association="IMS_TESTModel.FK__tbl_unit__compan__2E1BDC42">
+            <End Role="tbl_company" EntitySet="tbl_company" />
+            <End Role="tbl_unit" EntitySet="tbl_unit" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_userb__compa__29221CFB" Association="IMS_TESTModel.FK__tbl_userb__compa__29221CFB">
+            <End Role="tbl_company" EntitySet="tbl_company" />
+            <End Role="tbl_userbranch" EntitySet="tbl_userbranch" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_purchasereturn_tbl_company" Association="IMS_TESTModel.FK_tbl_purchasereturn_tbl_company">
+            <End Role="tbl_company" EntitySet="tbl_company" />
+            <End Role="tbl_purchasereturn" EntitySet="tbl_purchasereturn" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_sale_tbl_company" Association="IMS_TESTModel.FK_tbl_sale_tbl_company">
+            <End Role="tbl_company" EntitySet="tbl_company" />
+            <End Role="tbl_sale" EntitySet="tbl_sale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_salereturn_tbl_company" Association="IMS_TESTModel.FK_tbl_salereturn_tbl_company">
+            <End Role="tbl_company" EntitySet="tbl_company" />
+            <End Role="tbl_salereturn" EntitySet="tbl_salereturn" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_state__count__1273C1CD" Association="IMS_TESTModel.FK__tbl_state__count__1273C1CD">
+            <End Role="tbl_country" EntitySet="tbl_country" />
+            <End Role="tbl_state" EntitySet="tbl_state" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_expen__expen__59FA5E80" Association="IMS_TESTModel.FK__tbl_expen__expen__59FA5E80">
+            <End Role="tbl_expense" EntitySet="tbl_expense" />
+            <End Role="tbl_expenseentry" EntitySet="tbl_expenseentry" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_purch__finan__62E4AA3C" Association="IMS_TESTModel.FK__tbl_purch__finan__62E4AA3C">
+            <End Role="tbl_financialyear" EntitySet="tbl_financialyear" />
+            <End Role="tbl_purchase" EntitySet="tbl_purchase" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_purch__finan__74AE54BC" Association="IMS_TESTModel.FK__tbl_purch__finan__74AE54BC">
+            <End Role="tbl_financialyear" EntitySet="tbl_financialyear" />
+            <End Role="tbl_purchase" EntitySet="tbl_purchase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_purchasereturn_tbl_financialyear" Association="IMS_TESTModel.FK_tbl_purchasereturn_tbl_financialyear">
+            <End Role="tbl_financialyear" EntitySet="tbl_financialyear" />
+            <End Role="tbl_purchasereturn" EntitySet="tbl_purchasereturn" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_sale_tbl_financialyear" Association="IMS_TESTModel.FK_tbl_sale_tbl_financialyear">
+            <End Role="tbl_financialyear" EntitySet="tbl_financialyear" />
+            <End Role="tbl_sale" EntitySet="tbl_sale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_salereturn_tbl_financialyear" Association="IMS_TESTModel.FK_tbl_salereturn_tbl_financialyear">
+            <End Role="tbl_financialyear" EntitySet="tbl_financialyear" />
+            <End Role="tbl_salereturn" EntitySet="tbl_salereturn" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_produ__godow__49C3F6B7" Association="IMS_TESTModel.FK__tbl_produ__godow__49C3F6B7">
+            <End Role="tbl_godown" EntitySet="tbl_godown" />
+            <End Role="tbl_product" EntitySet="tbl_product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_rack__godown__37A5467C" Association="IMS_TESTModel.FK__tbl_rack__godown__37A5467C">
+            <End Role="tbl_godown" EntitySet="tbl_godown" />
+            <End Role="tbl_rack" EntitySet="tbl_rack" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_mony__party___6C190EBB" Association="IMS_TESTModel.FK__tbl_mony__party___6C190EBB">
+            <End Role="tbl_party" EntitySet="tbl_party" />
+            <End Role="tbl_mony" EntitySet="tbl_mony" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_monyt__party__2DE6D218" Association="IMS_TESTModel.FK__tbl_monyt__party__2DE6D218">
+            <End Role="tbl_party" EntitySet="tbl_party" />
+            <End Role="tbl_monytransaction" EntitySet="tbl_monytransaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_monyt__payme__70DDC3D8" Association="IMS_TESTModel.FK__tbl_monyt__payme__70DDC3D8">
+            <End Role="tbl_paymentmode" EntitySet="tbl_paymentmode" />
+            <End Role="tbl_monytransaction" EntitySet="tbl_monytransaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_paidp__subsc__37703C52" Association="IMS_TESTModel.FK__tbl_paidp__subsc__37703C52">
+            <End Role="tbl_subscription" EntitySet="tbl_subscription" />
+            <End Role="tbl_paidpayment" EntitySet="tbl_paidpayment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_paidp__user___3864608B" Association="IMS_TESTModel.FK__tbl_paidp__user___3864608B">
+            <End Role="tbl_User" EntitySet="tbl_User" />
+            <End Role="tbl_paidpayment" EntitySet="tbl_paidpayment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_party__state__251C81ED" Association="IMS_TESTModel.FK__tbl_party__state__251C81ED">
+            <End Role="tbl_state" EntitySet="tbl_state" />
+            <End Role="tbl_party" EntitySet="tbl_party" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_purch__party__63D8CE75" Association="IMS_TESTModel.FK__tbl_purch__party__63D8CE75">
+            <End Role="tbl_party" EntitySet="tbl_party" />
+            <End Role="tbl_purchase" EntitySet="tbl_purchase" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_purch__party__73BA3083" Association="IMS_TESTModel.FK__tbl_purch__party__73BA3083">
+            <End Role="tbl_party" EntitySet="tbl_party" />
+            <End Role="tbl_purchase" EntitySet="tbl_purchase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_purchasereturn_tbl_party" Association="IMS_TESTModel.FK_tbl_purchasereturn_tbl_party">
+            <End Role="tbl_party" EntitySet="tbl_party" />
+            <End Role="tbl_purchasereturn" EntitySet="tbl_purchasereturn" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_sale_tbl_party" Association="IMS_TESTModel.FK_tbl_sale_tbl_party">
+            <End Role="tbl_party" EntitySet="tbl_party" />
+            <End Role="tbl_sale" EntitySet="tbl_sale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_salereturn_tbl_party" Association="IMS_TESTModel.FK_tbl_salereturn_tbl_party">
+            <End Role="tbl_party" EntitySet="tbl_party" />
+            <End Role="tbl_salereturn" EntitySet="tbl_salereturn" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_purchase_tbl_paymentmode" Association="IMS_TESTModel.FK_tbl_purchase_tbl_paymentmode">
+            <End Role="tbl_paymentmode" EntitySet="tbl_paymentmode" />
+            <End Role="tbl_purchase" EntitySet="tbl_purchase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_purchasereturn_tbl_paymentmode" Association="IMS_TESTModel.FK_tbl_purchasereturn_tbl_paymentmode">
+            <End Role="tbl_paymentmode" EntitySet="tbl_paymentmode" />
+            <End Role="tbl_purchasereturn" EntitySet="tbl_purchasereturn" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_sale_tbl_paymentmode" Association="IMS_TESTModel.FK_tbl_sale_tbl_paymentmode">
+            <End Role="tbl_paymentmode" EntitySet="tbl_paymentmode" />
+            <End Role="tbl_sale" EntitySet="tbl_sale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_salereturn_tbl_paymentmode" Association="IMS_TESTModel.FK_tbl_salereturn_tbl_paymentmode">
+            <End Role="tbl_paymentmode" EntitySet="tbl_paymentmode" />
+            <End Role="tbl_salereturn" EntitySet="tbl_salereturn" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_subsc__plan___339FAB6E" Association="IMS_TESTModel.FK__tbl_subsc__plan___339FAB6E">
+            <End Role="tbl_plan" EntitySet="tbl_plan" />
+            <End Role="tbl_subscription" EntitySet="tbl_subscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_produ__produ__76818E95" Association="IMS_TESTModel.FK__tbl_produ__produ__76818E95">
+            <End Role="tbl_product" EntitySet="tbl_product" />
+            <End Role="tbl_productTaxGroup" EntitySet="tbl_productTaxGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_produ__unit___48CFD27E" Association="IMS_TESTModel.FK__tbl_produ__unit___48CFD27E">
+            <End Role="tbl_unit" EntitySet="tbl_unit" />
+            <End Role="tbl_product" EntitySet="tbl_product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_purch__produ__787EE5A0" Association="IMS_TESTModel.FK__tbl_purch__produ__787EE5A0">
+            <End Role="tbl_product" EntitySet="tbl_product" />
+            <End Role="tbl_purchasedetails" EntitySet="tbl_purchasedetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_purch__produ__7A521F79" Association="IMS_TESTModel.FK__tbl_purch__produ__7A521F79">
+            <End Role="tbl_product" EntitySet="tbl_product" />
+            <End Role="tbl_purchasetaxgroup" EntitySet="tbl_purchasetaxgroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_stock__produ__60A75C0F" Association="IMS_TESTModel.FK__tbl_stock__produ__60A75C0F">
+            <End Role="tbl_product" EntitySet="tbl_product" />
+            <End Role="tbl_stock" EntitySet="tbl_stock" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_stock__produ__66603565" Association="IMS_TESTModel.FK__tbl_stock__produ__66603565">
+            <End Role="tbl_product" EntitySet="tbl_product" />
+            <End Role="tbl_stocktransaction" EntitySet="tbl_stocktransaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_stock__produ__733B0D96" Association="IMS_TESTModel.FK__tbl_stock__produ__733B0D96">
+            <End Role="tbl_product" EntitySet="tbl_product" />
+            <End Role="tbl_stock" EntitySet="tbl_stock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_purchasereturndetails_tbl_product" Association="IMS_TESTModel.FK_tbl_purchasereturndetails_tbl_product">
+            <End Role="tbl_product" EntitySet="tbl_product" />
+            <End Role="tbl_purchasereturndetails" EntitySet="tbl_purchasereturndetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_saledetails_tbl_product" Association="IMS_TESTModel.FK_tbl_saledetails_tbl_product">
+            <End Role="tbl_product" EntitySet="tbl_product" />
+            <End Role="tbl_saledetails" EntitySet="tbl_saledetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_salereturndetails_tbl_product" Association="IMS_TESTModel.FK_tbl_salereturndetails_tbl_product">
+            <End Role="tbl_product" EntitySet="tbl_product" />
+            <End Role="tbl_salereturndetails" EntitySet="tbl_salereturndetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_saleTaxGroup_tbl_product" Association="IMS_TESTModel.FK_tbl_saleTaxGroup_tbl_product">
+            <End Role="tbl_product" EntitySet="tbl_product" />
+            <End Role="tbl_saleTaxGroup" EntitySet="tbl_saleTaxGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_produ__group__7775B2CE" Association="IMS_TESTModel.FK__tbl_produ__group__7775B2CE">
+            <End Role="tbl_taxgroup" EntitySet="tbl_taxgroup" />
+            <End Role="tbl_productTaxGroup" EntitySet="tbl_productTaxGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_purch__purch__09946309" Association="IMS_TESTModel.FK__tbl_purch__purch__09946309">
+            <End Role="tbl_purchase" EntitySet="tbl_purchase" />
+            <End Role="tbl_purchasetaxgroup" EntitySet="tbl_purchasetaxgroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_purch__purch__778AC167" Association="IMS_TESTModel.FK__tbl_purch__purch__778AC167">
+            <End Role="tbl_purchase" EntitySet="tbl_purchase" />
+            <End Role="tbl_purchasedetails" EntitySet="tbl_purchasedetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_PurchasePaymentDetials_tbl_PurchasePaymentDetials" Association="IMS_TESTModel.FK_tbl_PurchasePaymentDetials_tbl_PurchasePaymentDetials">
+            <End Role="tbl_purchase" EntitySet="tbl_purchase" />
+            <End Role="tbl_PurchasePaymentDetials" EntitySet="tbl_PurchasePaymentDetials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_purchasereturn_tbl_purchasereturn" Association="IMS_TESTModel.FK_tbl_purchasereturn_tbl_purchasereturn">
+            <End Role="tbl_purchase" EntitySet="tbl_purchase" />
+            <End Role="tbl_purchasereturn" EntitySet="tbl_purchasereturn" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_purch__tax_i__7A672E12" Association="IMS_TESTModel.FK__tbl_purch__tax_i__7A672E12">
+            <End Role="tbl_tax" EntitySet="tbl_tax" />
+            <End Role="tbl_purchasedetails" EntitySet="tbl_purchasedetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_purch__unit___7B5B524B" Association="IMS_TESTModel.FK__tbl_purch__unit___7B5B524B">
+            <End Role="tbl_unit" EntitySet="tbl_unit" />
+            <End Role="tbl_purchasedetails" EntitySet="tbl_purchasedetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_PurchasePaymentDetials_tbl_purchasereturn" Association="IMS_TESTModel.FK_tbl_PurchasePaymentDetials_tbl_purchasereturn">
+            <End Role="tbl_purchasereturn" EntitySet="tbl_purchasereturn" />
+            <End Role="tbl_PurchasePaymentDetials" EntitySet="tbl_PurchasePaymentDetials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_purchasereturndetails_tbl_purchasereturn" Association="IMS_TESTModel.FK_tbl_purchasereturndetails_tbl_purchasereturn">
+            <End Role="tbl_purchasereturn" EntitySet="tbl_purchasereturn" />
+            <End Role="tbl_purchasereturndetails" EntitySet="tbl_purchasereturndetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_purchasereturndetails_tbl_unit" Association="IMS_TESTModel.FK_tbl_purchasereturndetails_tbl_unit">
+            <End Role="tbl_unit" EntitySet="tbl_unit" />
+            <End Role="tbl_purchasereturndetails" EntitySet="tbl_purchasereturndetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_purch__group__7B4643B2" Association="IMS_TESTModel.FK__tbl_purch__group__7B4643B2">
+            <End Role="tbl_taxgroup" EntitySet="tbl_taxgroup" />
+            <End Role="tbl_purchasetaxgroup" EntitySet="tbl_purchasetaxgroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_purchasetaxgroupdetails_tbl_purchasetaxgroup" Association="IMS_TESTModel.FK_tbl_purchasetaxgroupdetails_tbl_purchasetaxgroup">
+            <End Role="tbl_purchasetaxgroup" EntitySet="tbl_purchasetaxgroup" />
+            <End Role="tbl_purchasetaxgroupdetails" EntitySet="tbl_purchasetaxgroupdetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_purchasetaxgroupdetails_tbl_taxtype" Association="IMS_TESTModel.FK_tbl_purchasetaxgroupdetails_tbl_taxtype">
+            <End Role="tbl_taxtype" EntitySet="tbl_taxtype" />
+            <End Role="tbl_purchasetaxgroupdetails" EntitySet="tbl_purchasetaxgroupdetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_userb__role___25869641" Association="IMS_TESTModel.FK__tbl_userb__role___25869641">
+            <End Role="tbl_role" EntitySet="tbl_role" />
+            <End Role="tbl_userbranch" EntitySet="tbl_userbranch" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_userr__role___1920BF5C" Association="IMS_TESTModel.FK__tbl_userr__role___1920BF5C">
+            <End Role="tbl_role" EntitySet="tbl_role" />
+            <End Role="tbl_userrole" EntitySet="tbl_userrole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_saledetails_tbl_sale" Association="IMS_TESTModel.FK_tbl_saledetails_tbl_sale">
+            <End Role="tbl_sale" EntitySet="tbl_sale" />
+            <End Role="tbl_saledetails" EntitySet="tbl_saledetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_SalePaymentDetails_tbl_sale" Association="IMS_TESTModel.FK_tbl_SalePaymentDetails_tbl_sale">
+            <End Role="tbl_sale" EntitySet="tbl_sale" />
+            <End Role="tbl_SalePaymentDetails" EntitySet="tbl_SalePaymentDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_salereturn_tbl_sale" Association="IMS_TESTModel.FK_tbl_salereturn_tbl_sale">
+            <End Role="tbl_sale" EntitySet="tbl_sale" />
+            <End Role="tbl_salereturn" EntitySet="tbl_salereturn" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_saleTaxGroup_tbl_sale" Association="IMS_TESTModel.FK_tbl_saleTaxGroup_tbl_sale">
+            <End Role="tbl_sale" EntitySet="tbl_sale" />
+            <End Role="tbl_saleTaxGroup" EntitySet="tbl_saleTaxGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_saledetails_tbl_unit" Association="IMS_TESTModel.FK_tbl_saledetails_tbl_unit">
+            <End Role="tbl_unit" EntitySet="tbl_unit" />
+            <End Role="tbl_saledetails" EntitySet="tbl_saledetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_SalePaymentDetails_tbl_salereturn" Association="IMS_TESTModel.FK_tbl_SalePaymentDetails_tbl_salereturn">
+            <End Role="tbl_salereturn" EntitySet="tbl_salereturn" />
+            <End Role="tbl_SalePaymentDetails" EntitySet="tbl_SalePaymentDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_salereturndetails_tbl_salereturn" Association="IMS_TESTModel.FK_tbl_salereturndetails_tbl_salereturn">
+            <End Role="tbl_salereturn" EntitySet="tbl_salereturn" />
+            <End Role="tbl_salereturndetails" EntitySet="tbl_salereturndetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_salereturndetails_tbl_unit" Association="IMS_TESTModel.FK_tbl_salereturndetails_tbl_unit">
+            <End Role="tbl_unit" EntitySet="tbl_unit" />
+            <End Role="tbl_salereturndetails" EntitySet="tbl_salereturndetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_saleTaxGroup_tbl_taxgroup" Association="IMS_TESTModel.FK_tbl_saleTaxGroup_tbl_taxgroup">
+            <End Role="tbl_taxgroup" EntitySet="tbl_taxgroup" />
+            <End Role="tbl_saleTaxGroup" EntitySet="tbl_saleTaxGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_saleTaxGroupDetailes_tbl_saleTaxGroupDetailes" Association="IMS_TESTModel.FK_tbl_saleTaxGroupDetailes_tbl_saleTaxGroupDetailes">
+            <End Role="tbl_saleTaxGroup" EntitySet="tbl_saleTaxGroup" />
+            <End Role="tbl_saleTaxGroupDetailes" EntitySet="tbl_saleTaxGroupDetailes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_saleTaxGroupDetailes_tbl_taxtype1" Association="IMS_TESTModel.FK_tbl_saleTaxGroupDetailes_tbl_taxtype1">
+            <End Role="tbl_taxtype" EntitySet="tbl_taxtype" />
+            <End Role="tbl_saleTaxGroupDetailes" EntitySet="tbl_saleTaxGroupDetailes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_subsc__user___3493CFA7" Association="IMS_TESTModel.FK__tbl_subsc__user___3493CFA7">
+            <End Role="tbl_User" EntitySet="tbl_User" />
+            <End Role="tbl_subscription" EntitySet="tbl_subscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_taxde__group__420DC656" Association="IMS_TESTModel.FK__tbl_taxde__group__420DC656">
+            <End Role="tbl_taxgroup" EntitySet="tbl_taxgroup" />
+            <End Role="tbl_taxdetails" EntitySet="tbl_taxdetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_taxde__type___4301EA8F" Association="IMS_TESTModel.FK__tbl_taxde__type___4301EA8F">
+            <End Role="tbl_taxtype" EntitySet="tbl_taxtype" />
+            <End Role="tbl_taxdetails" EntitySet="tbl_taxdetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_userb__user___267ABA7A" Association="IMS_TESTModel.FK__tbl_userb__user___267ABA7A">
+            <End Role="tbl_User" EntitySet="tbl_User" />
+            <End Role="tbl_userbranch" EntitySet="tbl_userbranch" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tbl_userr__user___1A14E395" Association="IMS_TESTModel.FK__tbl_userr__user___1A14E395">
+            <End Role="tbl_User" EntitySet="tbl_User" />
+            <End Role="tbl_userrole" EntitySet="tbl_userrole" />
+          </AssociationSet>
           <FunctionImport Name="CommonReport" ReturnType="Collection(IMS_TESTModel.CommonReport_Result)">
             <Parameter Name="ReportType" Mode="In" Type="String" />
             <Parameter Name="CompanyId" Mode="In" Type="Int32" />
@@ -4532,14 +5151,14 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             <Parameter Name="EndDate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="ProductReport" ReturnType="Collection(IMS_TESTModel.ProductReport_Result)">
-          <Parameter Name="CompanyId" Mode="In" Type="Int32" />
+            <Parameter Name="CompanyId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="PurchaseOrPurchaseReturnReport" ReturnType="Collection(IMS_TESTModel.PurchaseOrPurchaseReturnReport_Result)">
             <Parameter Name="Id" Mode="In" Type="Int32" />
             <Parameter Name="FromTable" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SaleOrderReport">
-          <Parameter Name="SaleId" Mode="In" Type="Int32" />
+            <Parameter Name="SaleId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SaleOrPurchaseOrReturnReport" ReturnType="Collection(IMS_TESTModel.SaleOrPurchaseOrReturnReport_Result)">
             <Parameter Name="Id" Mode="In" Type="Int32" />
@@ -4550,7 +5169,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             <Parameter Name="FromTable" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SaleReport" ReturnType="Collection(IMS_TESTModel.SaleReport_Result)">
-          <Parameter Name="saledetails_id" Mode="In" Type="Int32" />
+            <Parameter Name="saledetails_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SelectProductTaxGroup" ReturnType="Collection(IMS_TESTModel.SelectProductTaxGroup_Result)">
             <Parameter Name="groupId" Mode="In" Type="Int32" />
@@ -4624,10 +5243,10 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             <Parameter Name="pid" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_checkuser" ReturnType="Collection(String)">
-          <Parameter Name="user_Emai" Mode="In" Type="String" />
+            <Parameter Name="user_Emai" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_checkusermobil" ReturnType="Collection(String)">
-          <Parameter Name="user_mobieno" Mode="In" Type="String" />
+            <Parameter Name="user_mobieno" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_CompanyInsert">
             <Parameter Name="company_name" Mode="In" Type="String" />
@@ -4647,7 +5266,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             <Parameter Name="definition" Mode="In" Type="Binary" />
           </FunctionImport>
           <FunctionImport Name="sp_dashboarddata" ReturnType="Collection(IMS_TESTModel.sp_dashboarddata_Result)">
-          <Parameter Name="conpanyid" Mode="In" Type="Int32" />
+            <Parameter Name="conpanyid" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Deletebatch">
             <Parameter Name="company_id" Mode="In" Type="Int32" />
@@ -4744,13 +5363,13 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             <Parameter Name="created_date" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="Sp_GetExistsMobile" ReturnType="Collection(String)">
-          <Parameter Name="user_mobieno" Mode="In" Type="String" />
+            <Parameter Name="user_mobieno" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_GetPurchaseDetailsById" ReturnType="Collection(IMS_TESTModel.sp_GetPurchaseDetailsById_Result)">
-          <Parameter Name="purchsae_id" Mode="In" Type="Int32" />
+            <Parameter Name="purchsae_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_GetSaleDetailsById" ReturnType="Collection(IMS_TESTModel.sp_GetSaleDetailsById_Result)">
-          <Parameter Name="saleId" Mode="In" Type="Int32" />
+            <Parameter Name="saleId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_godowninsert">
             <Parameter Name="company_id" Mode="In" Type="Int32" />
@@ -4910,7 +5529,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             <Parameter Name="branch_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_product_relorderlevel_report_forcompany_only" ReturnType="Collection(IMS_TESTModel.sp_product_relorderlevel_report_forcompany_only_Result)">
-          <Parameter Name="company_id" Mode="In" Type="Int32" />
+            <Parameter Name="company_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_ProductInsert">
             <Parameter Name="company_id" Mode="In" Type="Int32" />
@@ -4967,6 +5586,9 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             <Parameter Name="given_amnt" Mode="In" Type="Decimal" />
             <Parameter Name="balance_amnt" Mode="In" Type="Decimal" />
             <Parameter Name="purchase_id" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_purchaseTransationHistory" ReturnType="Collection(IMS_TESTModel.sp_purchaseTransationHistory_Result)">
+            <Parameter Name="Purchase_id" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_rackInsert">
             <Parameter Name="company_id" Mode="In" Type="Int32" />
@@ -5042,7 +5664,10 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             <Parameter Name="sale_id" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_SalesreturnProduct">
-          <Parameter Name="salereturnmain_id" Mode="In" Type="Int32" />
+            <Parameter Name="salereturnmain_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_saleTransationHistory" ReturnType="Collection(IMS_TESTModel.sp_saleTransationHistory_Result)">
+            <Parameter Name="sale_Id" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_saveerror" ReturnType="Collection(Int32)">
             <Parameter Name="company_id" Mode="In" Type="Int32" />
@@ -5066,7 +5691,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             <Parameter Name="product_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_SelectBranch" ReturnType="Collection(IMS_TESTModel.sp_SelectBranch_Result)">
-          <Parameter Name="company_id" Mode="In" Type="Int32" />
+            <Parameter Name="company_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_SelectBranchName" ReturnType="Collection(String)">
             <Parameter Name="company_id" Mode="In" Type="Int32" />
@@ -5077,13 +5702,13 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             <Parameter Name="branch_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_SelectCompany" ReturnType="Collection(IMS_TESTModel.sp_SelectCompany_Result)">
-          <Parameter Name="company_id" Mode="In" Type="Int32" />
+            <Parameter Name="company_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_SelectCompany_name" ReturnType="Collection(String)">
-          <Parameter Name="user_id" Mode="In" Type="Int32" />
+            <Parameter Name="user_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_selectcompanylogo" ReturnType="Collection(String)">
-          <Parameter Name="company_id" Mode="In" Type="Int32" />
+            <Parameter Name="company_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_SelectCountry" ReturnType="Collection(IMS_TESTModel.sp_SelectCountry_Result)" />
           <FunctionImport Name="sp_SelectExpense" ReturnType="Collection(IMS_TESTModel.sp_SelectExpense_Result)">
@@ -5091,7 +5716,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             <Parameter Name="branch_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_SelectFinicialyeardate" ReturnType="Collection(IMS_TESTModel.sp_SelectFinicialyeardate_Result)">
-          <Parameter Name="company_id" Mode="In" Type="Int32" />
+            <Parameter Name="company_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_SelectFY" ReturnType="Collection(IMS_TESTModel.sp_SelectFY_Result)">
             <Parameter Name="company_id" Mode="In" Type="Int32" />
@@ -5118,10 +5743,10 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             <Parameter Name="branch_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_SelectProductbyid" ReturnType="Collection(IMS_TESTModel.sp_SelectProductbyid_Result)">
-          <Parameter Name="purchsae_id" Mode="In" Type="Int32" />
+            <Parameter Name="purchsae_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_SelectPurchase">
-          <Parameter Name="company_id" Mode="In" Type="Int32" />
+            <Parameter Name="company_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_selectpurchasebatch" ReturnType="Collection(IMS_TESTModel.sp_selectpurchasebatch_Result)">
             <Parameter Name="purchase_id" Mode="In" Type="Int32" />
@@ -5152,7 +5777,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             <Parameter Name="company_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Selectsaleproduct">
-          <Parameter Name="sale_id" Mode="In" Type="Int32" />
+            <Parameter Name="sale_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_SelectSalesReport" ReturnType="Collection(IMS_TESTModel.sp_SelectSalesReport_Result)">
             <Parameter Name="company_id" Mode="In" Type="Int32" />
@@ -5162,7 +5787,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             <Parameter Name="enddate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="sp_selectspurchaseproduct" ReturnType="Collection(IMS_TESTModel.sp_selectspurchaseproduct_Result)">
-          <Parameter Name="purchase_id" Mode="In" Type="Int32" />
+            <Parameter Name="purchase_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_SelectTax" ReturnType="Collection(IMS_TESTModel.sp_SelectTax_Result)">
             <Parameter Name="company_id" Mode="In" Type="Int32" />
@@ -5177,7 +5802,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             <Parameter Name="branch_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_SelectUserRole" ReturnType="Collection(IMS_TESTModel.sp_SelectUserRole_Result)">
-          <Parameter Name="company_id" Mode="In" Type="Int32" />
+            <Parameter Name="company_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_taxInsert">
             <Parameter Name="company_id" Mode="In" Type="Int32" />
@@ -5412,7 +6037,7 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             <Parameter Name="password" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spAuthenticateUserRole" ReturnType="Collection(IMS_TESTModel.spAuthenticateUserRole_Result)">
-          <Parameter Name="user_id" Mode="In" Type="Int32" />
+            <Parameter Name="user_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spCheckDoubleInMasters">
             <Parameter Name="companyid" Mode="In" Type="Int32" />
@@ -5422,10 +6047,10 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             <Parameter Name="branch_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SpGetExistsEmail" ReturnType="Collection(String)">
-          <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SpGetExistsMobile" ReturnType="Collection(String)">
-          <Parameter Name="mobileno" Mode="In" Type="String" />
+            <Parameter Name="mobileno" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="Split" IsComposable="true" ReturnType="Collection(IMS_TESTModel.Split_Result)">
             <Parameter Name="List" Mode="In" Type="String" />
@@ -9647,6 +10272,234 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="sp_purchaseTransationHistory_Result">
+          <Property Type="String" Name="InvoiceNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="product_name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="product_code" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="InvoiceNumber1" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="SubTotal" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="BalanceAmnt" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="GivenAmnt" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="DiscountAmount" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="GrandTotal" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="PaidAmnt" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="FromTable" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_saleTransationHistory_Result">
+          <Property Type="String" Name="InvoiceNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="product_name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="product_code" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="InvoiceNumber1" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="SubTotal" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="BalanceAmnt" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="GivenAmnt" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="DiscountAmount" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="GrandTotal" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="PaidAmnt" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="FromTable" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_SelectBatch_Result">
+          <Property Type="Int32" Name="batch_id" Nullable="false" />
+          <Property Type="String" Name="batch_name" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_selectbatchbyproduct_Result">
+          <Property Type="Int32" Name="batch_id" Nullable="true" />
+          <Property Type="String" Name="batch_name" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_selectbatchwisequantity_Result">
+          <Property Type="Int32" Name="batch_id" Nullable="true" />
+          <Property Type="Decimal" Name="StockAvl" Nullable="true" Precision="38" Scale="0" />
+        </ComplexType>
+        <ComplexType Name="sp_SelectBranch_Result">
+          <Property Type="Int32" Name="branch_id" Nullable="false" />
+          <Property Type="String" Name="branch_name" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="branch_address" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="pincode" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="city" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="state_id" Nullable="true" />
+          <Property Type="String" Name="fax_no" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="telephone_no" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="country_id" Nullable="true" />
+          <Property Type="String" Name="country_name" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="state_name" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="sp_SelectCategory_Result">
+          <Property Type="Int32" Name="category_id" Nullable="false" />
+          <Property Type="String" Name="category_name" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_SelectCompany_Result">
+          <Property Type="String" Name="company_name" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="company_address" Nullable="true" MaxLength="1000" />
+          <Property Type="Int32" Name="country_id" Nullable="true" />
+          <Property Type="Int32" Name="state_id" Nullable="true" />
+          <Property Type="String" Name="city" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="telephone_no" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="fax_no" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="pincode" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="GSTIN" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="website" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="first_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="last_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="owner_emailid" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="owner_mobileno" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="country_name" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="state_name" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="sp_SelectCountry_Result">
+          <Property Type="Int32" Name="country_id" Nullable="false" />
+          <Property Type="String" Name="country_name" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="sp_SelectExpense_Result">
+          <Property Type="Int32" Name="expense_id" Nullable="false" />
+          <Property Type="String" Name="expense_name" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_SelectFinicialyeardate_Result">
+          <Property Type="String" Name="start_date" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="end_date" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="sp_SelectFY_Result">
+          <Property Type="Int32" Name="financialyear_id" Nullable="false" />
+          <Property Type="String" Name="start_date" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="end_date" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="sp_Selectgodown_Result">
+          <Property Type="Int32" Name="godown_id" Nullable="false" />
+          <Property Type="String" Name="godown_name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="godown_address" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="contact_no" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="contact_person" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_SelectParty_Result">
+          <Property Type="Int32" Name="party_id" Nullable="false" />
+          <Property Type="String" Name="party_name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="party_address" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="contact_no" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="gstin_no" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="party_type" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="state_id" Nullable="true" />
+          <Property Type="String" Name="state_name" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="sp_SelectPM_Result">
+          <Property Type="Int32" Name="paymentode_id" Nullable="false" />
+          <Property Type="String" Name="paymentmode_name" Nullable="true" MaxLength="1000" />
+        </ComplexType>
+        <ComplexType Name="sp_SelectPrice_Result">
+          <Property Type="Decimal" Name="purchas_price" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="sales_price" Nullable="true" Precision="18" Scale="0" />
+        </ComplexType>
+        <ComplexType Name="sp_SelectProductbyid_Result">
+          <Property Type="Int32" Name="purchasedetails_id" Nullable="false" />
+          <Property Type="Int32" Name="product_id" Nullable="true" />
+          <Property Type="Int32" Name="batch_id" Nullable="true" />
+          <Property Type="Int32" Name="unit_id" Nullable="true" />
+          <Property Type="Int32" Name="tax_id" Nullable="true" />
+          <Property Type="Decimal" Name="amount" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="dicount_amt" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="tax_amt" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="purchase_rate" Nullable="true" Precision="18" Scale="2" />
+          <Property Type="Decimal" Name="sale_price" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="quantity" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="product_name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="unit_name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="batch_name" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="totalTaxPercentage" Nullable="true" Precision="18" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="sp_selectpurchasebatch_Result">
+          <Property Type="Int32" Name="batch_id" Nullable="true" />
+          <Property Type="String" Name="batch_name" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_SelectPurchaseinvoice_Result">
+          <Property Type="Int32" Name="purchase_id" Nullable="false" />
+          <Property Type="Int32" Name="party_id" Nullable="true" />
+          <Property Type="String" Name="InvoiceNumber" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="grand_total" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="Po_Date" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="party_name" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="paidAmnt" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="given_amnt" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="balance_amnt" Nullable="true" Precision="18" Scale="0" />
+        </ComplexType>
+        <ComplexType Name="sp_SelectPurchaseinvoicebyid_Result">
+          <Property Type="Int32" Name="party_id" Nullable="true" />
+          <Property Type="Decimal" Name="actual_amount" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="Date" Nullable="true" MaxLength="30" />
+          <Property Type="Decimal" Name="discount" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="po_no" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="grand_total" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="total_tax" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="party_name" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="balance_amt" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="given_amt" Nullable="true" Precision="18" Scale="0" />
+        </ComplexType>
+        <ComplexType Name="sp_SelectRack_Result">
+          <Property Type="Int32" Name="rack_id" Nullable="true" />
+          <Property Type="String" Name="rack_name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="godown_name" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="godown_id" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_SelectSaleinvoice_Result">
+          <Property Type="Int32" Name="party_id" Nullable="true" />
+          <Property Type="Decimal" Name="actual_amount" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="Date" Nullable="true" MaxLength="30" />
+          <Property Type="Decimal" Name="total_discount" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="InvoiceNumber" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="grand_total" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="total_tax" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="party_name" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="balance_amt" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="given_amt" Nullable="true" Precision="18" Scale="0" />
+        </ComplexType>
+        <ComplexType Name="sp_SelectSalesReport_Result">
+          <Property Type="Int32" Name="sale_id" Nullable="false" />
+          <Property Type="Decimal" Name="PaidAmnt" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="BalanceAmnt" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="GivenAmnt" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="InvoiceNumber" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="party_id" Nullable="false" />
+          <Property Type="String" Name="customerName" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="grand_total" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="date" Nullable="true" MaxLength="20" />
+          <Property Type="Decimal" Name="given_amnt" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="balance_amnt" Nullable="true" Precision="18" Scale="0" />
+        </ComplexType>
+        <ComplexType Name="sp_selectspurchaseproduct_Result">
+          <Property Type="Int32" Name="product_id" Nullable="true" />
+          <Property Type="String" Name="product_name" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_SelectTax_Result">
+          <Property Type="Int32" Name="tax_id" Nullable="false" />
+          <Property Type="String" Name="tax_name" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="tax_percentage" Nullable="true" Precision="18" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="sp_SelectUnit_Result">
+          <Property Type="Int32" Name="unit_id" Nullable="false" />
+          <Property Type="String" Name="unit_name" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_SelectUserRole_Result">
+          <Property Type="Int32" Name="userbranch_id" Nullable="false" />
+          <Property Type="Int32" Name="role_id" Nullable="false" />
+          <Property Type="Int32" Name="branch_id" Nullable="true" />
+          <Property Type="Int32" Name="user_id" Nullable="false" />
+          <Property Type="String" Name="user_Emai" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="password" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="user_mobieno" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="first_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="last_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="role_name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="branch_name" Nullable="true" MaxLength="250" />
+        </ComplexType>
+        <ComplexType Name="spAuthenticateUserRole_Result">
+          <Property Type="Int32" Name="company_id" Nullable="true" />
+          <Property Type="Int32" Name="branch_id" Nullable="true" />
+          <Property Type="String" Name="role_name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="201" />
+        </ComplexType>
+        <ComplexType Name="Split_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Value" Nullable="true" MaxLength="100" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -11672,6 +12525,794 @@ warning 6002: The table/view 'IMS1.0.dbo.View_SaleDetails' does not have a prima
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CommonReport" FunctionName="IMS_TESTModel.Store.CommonReport">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.CommonReport_Result">
+                <ScalarProperty Name="company_id" ColumnName="company_id" />
+                <ScalarProperty Name="Godown" ColumnName="Godown" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="PartyId" ColumnName="PartyId" />
+                <ScalarProperty Name="Product" ColumnName="Product" />
+                <ScalarProperty Name="CompanyAddress" ColumnName="CompanyAddress" />
+                <ScalarProperty Name="Batch" ColumnName="Batch" />
+                <ScalarProperty Name="batch_id" ColumnName="batch_id" />
+                <ScalarProperty Name="product_code" ColumnName="product_code" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="modified_date" ColumnName="modified_date" />
+                <ScalarProperty Name="startDate" ColumnName="startDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Party" ColumnName="Party" />
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="PartyAddress" ColumnName="PartyAddress" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ELMAH_GetErrorsXml" FunctionName="IMS_TESTModel.Store.ELMAH_GetErrorsXml" />
+          <FunctionImportMapping FunctionImportName="ELMAH_GetErrorXml" FunctionName="IMS_TESTModel.Store.ELMAH_GetErrorXml" />
+          <FunctionImportMapping FunctionImportName="ELMAH_LogError" FunctionName="IMS_TESTModel.Store.ELMAH_LogError" />
+          <FunctionImportMapping FunctionImportName="GetBatchwiseQuantity" FunctionName="IMS_TESTModel.Store.GetBatchwiseQuantity" />
+          <FunctionImportMapping FunctionImportName="GetReturnQuantity" FunctionName="IMS_TESTModel.Store.GetReturnQuantity" />
+          <FunctionImportMapping FunctionImportName="InventoryReport" FunctionName="IMS_TESTModel.Store.InventoryReport" />
+          <FunctionImportMapping FunctionImportName="PaymentBalanceReport" FunctionName="IMS_TESTModel.Store.PaymentBalanceReport" />
+          <FunctionImportMapping FunctionImportName="ProductReport" FunctionName="IMS_TESTModel.Store.ProductReport">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.ProductReport_Result">
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="company_id" ColumnName="company_id" />
+                <ScalarProperty Name="branch_id" ColumnName="branch_id" />
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="unit_id" ColumnName="unit_id" />
+                <ScalarProperty Name="godown_id" ColumnName="godown_id" />
+                <ScalarProperty Name="rack_id" ColumnName="rack_id" />
+                <ScalarProperty Name="purchas_price" ColumnName="purchas_price" />
+                <ScalarProperty Name="sales_price" ColumnName="sales_price" />
+                <ScalarProperty Name="reorder_level" ColumnName="reorder_level" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="product_code" ColumnName="product_code" />
+                <ScalarProperty Name="hsn_code" ColumnName="hsn_code" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="modified_date" ColumnName="modified_date" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PurchaseOrPurchaseReturnReport" FunctionName="IMS_TESTModel.Store.PurchaseOrPurchaseReturnReport">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.PurchaseOrPurchaseReturnReport_Result">
+                <ScalarProperty Name="company_name" ColumnName="company_name" />
+                <ScalarProperty Name="party_name" ColumnName="party_name" />
+                <ScalarProperty Name="party_address" ColumnName="party_address" />
+                <ScalarProperty Name="contact_no" ColumnName="contact_no" />
+                <ScalarProperty Name="company_address" ColumnName="company_address" />
+                <ScalarProperty Name="total_tax" ColumnName="total_tax" />
+                <ScalarProperty Name="total_discount" ColumnName="total_discount" />
+                <ScalarProperty Name="total_amount" ColumnName="total_amount" />
+                <ScalarProperty Name="grand_total" ColumnName="grand_total" />
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="paymentmode_name" ColumnName="paymentmode_name" />
+                <ScalarProperty Name="given_amnt" ColumnName="given_amnt" />
+                <ScalarProperty Name="balance_amnt" ColumnName="balance_amnt" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="purchase_rate" ColumnName="purchase_rate" />
+                <ScalarProperty Name="sale_price" ColumnName="sale_price" />
+                <ScalarProperty Name="tax_amt" ColumnName="tax_amt" />
+                <ScalarProperty Name="batch_name" ColumnName="batch_name" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SaleOrderReport" FunctionName="IMS_TESTModel.Store.SaleOrderReport" />
+          <FunctionImportMapping FunctionImportName="SaleOrPurchaseOrReturnReport" FunctionName="IMS_TESTModel.Store.SaleOrPurchaseOrReturnReport">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.SaleOrPurchaseOrReturnReport_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="TaxAmount" ColumnName="TaxAmount" />
+                <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
+                <ScalarProperty Name="GrandTotal" ColumnName="GrandTotal" />
+                <ScalarProperty Name="GivenAmnt" ColumnName="GivenAmnt" />
+                <ScalarProperty Name="BalanceAmnt" ColumnName="BalanceAmnt" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SaleOrSaleReturnReport" FunctionName="IMS_TESTModel.Store.SaleOrSaleReturnReport">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.SaleOrSaleReturnReport_Result">
+                <ScalarProperty Name="company_name" ColumnName="company_name" />
+                <ScalarProperty Name="party_name" ColumnName="party_name" />
+                <ScalarProperty Name="party_address" ColumnName="party_address" />
+                <ScalarProperty Name="contact_no" ColumnName="contact_no" />
+                <ScalarProperty Name="company_address" ColumnName="company_address" />
+                <ScalarProperty Name="total_tax" ColumnName="total_tax" />
+                <ScalarProperty Name="discount_amnt" ColumnName="discount_amnt" />
+                <ScalarProperty Name="total_amount" ColumnName="total_amount" />
+                <ScalarProperty Name="grand_total" ColumnName="grand_total" />
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="paymentmode_name" ColumnName="paymentmode_name" />
+                <ScalarProperty Name="given_amnt" ColumnName="given_amnt" />
+                <ScalarProperty Name="balance_amnt" ColumnName="balance_amnt" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="sale_rate" ColumnName="sale_rate" />
+                <ScalarProperty Name="tax_amt" ColumnName="tax_amt" />
+                <ScalarProperty Name="batch_name" ColumnName="batch_name" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SaleReport" FunctionName="IMS_TESTModel.Store.SaleReport">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.SaleReport_Result">
+                <ScalarProperty Name="saledetails_id" ColumnName="saledetails_id" />
+                <ScalarProperty Name="sale_id" ColumnName="sale_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="batch_id" ColumnName="batch_id" />
+                <ScalarProperty Name="unit_id" ColumnName="unit_id" />
+                <ScalarProperty Name="tax_amt" ColumnName="tax_amt" />
+                <ScalarProperty Name="dicount_amt" ColumnName="dicount_amt" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="modified_date" ColumnName="modified_date" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SelectProductTaxGroup" FunctionName="IMS_TESTModel.Store.SelectProductTaxGroup">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.SelectProductTaxGroup_Result">
+                <ScalarProperty Name="totalTaxPercetage" ColumnName="totalTaxPercetage" />
+                <ScalarProperty Name="totalTaxAmnt" ColumnName="totalTaxAmnt" />
+                <ScalarProperty Name="group_name" ColumnName="group_name" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="type_id" ColumnName="type_id" />
+                <ScalarProperty Name="tax_percentage" ColumnName="tax_percentage" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="purchas_price" ColumnName="purchas_price" />
+                <ScalarProperty Name="type_name" ColumnName="type_name" />
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SelectPurcahseProductTaxGroup" FunctionName="IMS_TESTModel.Store.SelectPurcahseProductTaxGroup">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.SelectPurcahseProductTaxGroup_Result">
+                <ScalarProperty Name="totalTaxPercetage" ColumnName="totalTaxPercetage" />
+                <ScalarProperty Name="totalTaxAmnt" ColumnName="totalTaxAmnt" />
+                <ScalarProperty Name="group_name" ColumnName="group_name" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="type_id" ColumnName="type_id" />
+                <ScalarProperty Name="tax_percentage" ColumnName="tax_percentage" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="purchas_price" ColumnName="purchas_price" />
+                <ScalarProperty Name="type_name" ColumnName="type_name" />
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ActiveUser" FunctionName="IMS_TESTModel.Store.sp_ActiveUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_ActiveUser_Result">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_AddUser2" FunctionName="IMS_TESTModel.Store.sp_AddUser2" />
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="IMS_TESTModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_BatchInsert" FunctionName="IMS_TESTModel.Store.sp_BatchInsert" />
+          <FunctionImportMapping FunctionImportName="sp_CategoryInsert" FunctionName="IMS_TESTModel.Store.sp_CategoryInsert" />
+          <FunctionImportMapping FunctionImportName="sp_checklicense" FunctionName="IMS_TESTModel.Store.sp_checklicense" />
+          <FunctionImportMapping FunctionImportName="sp_checkrackingodown" FunctionName="IMS_TESTModel.Store.sp_checkrackingodown" />
+          <FunctionImportMapping FunctionImportName="Sp_checkResetPwdlink" FunctionName="IMS_TESTModel.Store.Sp_checkResetPwdlink">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.Sp_checkResetPwdlink_Result">
+                <ScalarProperty Name="Passverify_ID" ColumnName="Passverify_ID" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="uniqueidentifier" ColumnName="uniqueidentifier" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_checkuser" FunctionName="IMS_TESTModel.Store.sp_checkuser" />
+          <FunctionImportMapping FunctionImportName="sp_checkusermobil" FunctionName="IMS_TESTModel.Store.sp_checkusermobil" />
+          <FunctionImportMapping FunctionImportName="sp_CompanyInsert" FunctionName="IMS_TESTModel.Store.sp_CompanyInsert" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="IMS_TESTModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dashboarddata" FunctionName="IMS_TESTModel.Store.sp_dashboarddata">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_dashboarddata_Result">
+                <ScalarProperty Name="TotalPurchaseOrder" ColumnName="TotalPurchaseOrder" />
+                <ScalarProperty Name="TotalAmountofPurchase" ColumnName="TotalAmountofPurchase" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Deletebatch" FunctionName="IMS_TESTModel.Store.sp_Deletebatch" />
+          <FunctionImportMapping FunctionImportName="sp_DeleteBranch" FunctionName="IMS_TESTModel.Store.sp_DeleteBranch" />
+          <FunctionImportMapping FunctionImportName="sp_DeleteCategory" FunctionName="IMS_TESTModel.Store.sp_DeleteCategory" />
+          <FunctionImportMapping FunctionImportName="sp_DeleteExpense" FunctionName="IMS_TESTModel.Store.sp_DeleteExpense" />
+          <FunctionImportMapping FunctionImportName="sp_DeleteFyear" FunctionName="IMS_TESTModel.Store.sp_DeleteFyear" />
+          <FunctionImportMapping FunctionImportName="sp_DeleteGodown" FunctionName="IMS_TESTModel.Store.sp_DeleteGodown" />
+          <FunctionImportMapping FunctionImportName="sp_DeleteParty" FunctionName="IMS_TESTModel.Store.sp_DeleteParty" />
+          <FunctionImportMapping FunctionImportName="sp_DeletePMode" FunctionName="IMS_TESTModel.Store.sp_DeletePMode" />
+          <FunctionImportMapping FunctionImportName="sp_DeleteProduct" FunctionName="IMS_TESTModel.Store.sp_DeleteProduct" />
+          <FunctionImportMapping FunctionImportName="sp_DeletePurchasedetailbyreutrn" FunctionName="IMS_TESTModel.Store.sp_DeletePurchasedetailbyreutrn" />
+          <FunctionImportMapping FunctionImportName="sp_DeleteRack" FunctionName="IMS_TESTModel.Store.sp_DeleteRack" />
+          <FunctionImportMapping FunctionImportName="sp_deleteSladetail" FunctionName="IMS_TESTModel.Store.sp_deleteSladetail" />
+          <FunctionImportMapping FunctionImportName="sp_DeleteTax" FunctionName="IMS_TESTModel.Store.sp_DeleteTax" />
+          <FunctionImportMapping FunctionImportName="sp_DeleteUnit" FunctionName="IMS_TESTModel.Store.sp_DeleteUnit" />
+          <FunctionImportMapping FunctionImportName="sp_DeleteUser" FunctionName="IMS_TESTModel.Store.sp_DeleteUser" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="IMS_TESTModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_ExpenseInsert" FunctionName="IMS_TESTModel.Store.sp_ExpenseInsert" />
+          <FunctionImportMapping FunctionImportName="sp_FyInsert" FunctionName="IMS_TESTModel.Store.sp_FyInsert" />
+          <FunctionImportMapping FunctionImportName="Sp_GetExistsMobile" FunctionName="IMS_TESTModel.Store.Sp_GetExistsMobile" />
+          <FunctionImportMapping FunctionImportName="sp_GetPurchaseDetailsById" FunctionName="IMS_TESTModel.Store.sp_GetPurchaseDetailsById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_GetPurchaseDetailsById_Result">
+                <ScalarProperty Name="purchasedetails_id" ColumnName="purchasedetails_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="batch_id" ColumnName="batch_id" />
+                <ScalarProperty Name="unit_id" ColumnName="unit_id" />
+                <ScalarProperty Name="tax_id" ColumnName="tax_id" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="dicount_amt" ColumnName="dicount_amt" />
+                <ScalarProperty Name="tax_amt" ColumnName="tax_amt" />
+                <ScalarProperty Name="purchase_rate" ColumnName="purchase_rate" />
+                <ScalarProperty Name="sale_rate" ColumnName="sale_rate" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="unit_name" ColumnName="unit_name" />
+                <ScalarProperty Name="batch_name" ColumnName="batch_name" />
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
+                <ScalarProperty Name="tax_percentage" ColumnName="tax_percentage" />
+                <ScalarProperty Name="discount_percent" ColumnName="discount_percent" />
+                <ScalarProperty Name="given_amnt" ColumnName="given_amnt" />
+                <ScalarProperty Name="balance_amnt" ColumnName="balance_amnt" />
+                <ScalarProperty Name="total_amnt" ColumnName="total_amnt" />
+                <ScalarProperty Name="total_discount" ColumnName="total_discount" />
+                <ScalarProperty Name="total_tax" ColumnName="total_tax" />
+                <ScalarProperty Name="grand_total" ColumnName="grand_total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetSaleDetailsById" FunctionName="IMS_TESTModel.Store.sp_GetSaleDetailsById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_GetSaleDetailsById_Result">
+                <ScalarProperty Name="saledetails_id" ColumnName="saledetails_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="batch_id" ColumnName="batch_id" />
+                <ScalarProperty Name="unit_id" ColumnName="unit_id" />
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="dicount_amt" ColumnName="dicount_amt" />
+                <ScalarProperty Name="tax_amt" ColumnName="tax_amt" />
+                <ScalarProperty Name="sale_rate" ColumnName="sale_rate" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="unit_name" ColumnName="unit_name" />
+                <ScalarProperty Name="batch_name" ColumnName="batch_name" />
+                <ScalarProperty Name="tax_percentage" ColumnName="tax_percentage" />
+                <ScalarProperty Name="discount_percent" ColumnName="discount_percent" />
+                <ScalarProperty Name="given_amnt" ColumnName="given_amnt" />
+                <ScalarProperty Name="balance_amnt" ColumnName="balance_amnt" />
+                <ScalarProperty Name="total_amnt" ColumnName="total_amnt" />
+                <ScalarProperty Name="total_discount" ColumnName="total_discount" />
+                <ScalarProperty Name="total_tax" ColumnName="total_tax" />
+                <ScalarProperty Name="grand_total" ColumnName="grand_total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_godowninsert" FunctionName="IMS_TESTModel.Store.sp_godowninsert" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="IMS_TESTModel.Store.sp_helpdiagramdefinition" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="IMS_TESTModel.Store.sp_helpdiagrams" />
+          <FunctionImportMapping FunctionImportName="sp_insert_purchase_return" FunctionName="IMS_TESTModel.Store.sp_insert_purchase_return" />
+          <FunctionImportMapping FunctionImportName="sp_InsertBranch" FunctionName="IMS_TESTModel.Store.sp_InsertBranch" />
+          <FunctionImportMapping FunctionImportName="sp_InsertMonyTransaction" FunctionName="IMS_TESTModel.Store.sp_InsertMonyTransaction" />
+          <FunctionImportMapping FunctionImportName="sp_insertpurchasereturnmain" FunctionName="IMS_TESTModel.Store.sp_insertpurchasereturnmain" />
+          <FunctionImportMapping FunctionImportName="Sp_InsertResetPass" FunctionName="IMS_TESTModel.Store.Sp_InsertResetPass">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.Sp_InsertResetPass_Result">
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="uniqueidentifier" ColumnName="uniqueidentifier" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="Passverify_ID" ColumnName="Passverify_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_InsertSaleTransaction" FunctionName="IMS_TESTModel.Store.sp_InsertSaleTransaction" />
+          <FunctionImportMapping FunctionImportName="sp_insertsalreturnmain" FunctionName="IMS_TESTModel.Store.sp_insertsalreturnmain" />
+          <FunctionImportMapping FunctionImportName="sp_InsertTransaction" FunctionName="IMS_TESTModel.Store.sp_InsertTransaction" />
+          <FunctionImportMapping FunctionImportName="sp_last15daysf_year" FunctionName="IMS_TESTModel.Store.sp_last15daysf_year" />
+          <FunctionImportMapping FunctionImportName="sp_mrpSalePurchase" FunctionName="IMS_TESTModel.Store.sp_mrpSalePurchase">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_mrpSalePurchase_Result">
+                <ScalarProperty Name="cnt" ColumnName="cnt" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="batch_name" ColumnName="batch_name" />
+                <ScalarProperty Name="hsn_code" ColumnName="hsn_code" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_PartyInsert" FunctionName="IMS_TESTModel.Store.sp_PartyInsert" />
+          <FunctionImportMapping FunctionImportName="sp_partyprint" FunctionName="IMS_TESTModel.Store.sp_partyprint">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_partyprint_Result">
+                <ScalarProperty Name="party_name" ColumnName="party_name" />
+                <ScalarProperty Name="party_address" ColumnName="party_address" />
+                <ScalarProperty Name="contact_no" ColumnName="contact_no" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_PaymentModeInsert" FunctionName="IMS_TESTModel.Store.sp_PaymentModeInsert" />
+          <FunctionImportMapping FunctionImportName="sp_planall" FunctionName="IMS_TESTModel.Store.sp_planall">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_planall_Result">
+                <ScalarProperty Name="plan_id" ColumnName="plan_id" />
+                <ScalarProperty Name="plan_name" ColumnName="plan_name" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="duration" ColumnName="duration" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="created_date" ColumnName="created_date" />
+                <ScalarProperty Name="modified_by" ColumnName="modified_by" />
+                <ScalarProperty Name="modified_date" ColumnName="modified_date" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_product_relorderlevel_report_companybranch" FunctionName="IMS_TESTModel.Store.sp_product_relorderlevel_report_companybranch">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_product_relorderlevel_report_companybranch_Result">
+                <ScalarProperty Name="stock_id" ColumnName="stock_id" />
+                <ScalarProperty Name="batch_id" ColumnName="batch_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="hsn_code" ColumnName="hsn_code" />
+                <ScalarProperty Name="product_code" ColumnName="product_code" />
+                <ScalarProperty Name="Reorderlevel" ColumnName="Reorderlevel" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="batch_name" ColumnName="batch_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_product_relorderlevel_report_forcompany_only" FunctionName="IMS_TESTModel.Store.sp_product_relorderlevel_report_forcompany_only">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_product_relorderlevel_report_forcompany_only_Result">
+                <ScalarProperty Name="stock_id" ColumnName="stock_id" />
+                <ScalarProperty Name="batch_id" ColumnName="batch_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="hsn_code" ColumnName="hsn_code" />
+                <ScalarProperty Name="product_code" ColumnName="product_code" />
+                <ScalarProperty Name="Reorderlevel" ColumnName="Reorderlevel" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="batch_name" ColumnName="batch_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ProductInsert" FunctionName="IMS_TESTModel.Store.sp_ProductInsert" />
+          <FunctionImportMapping FunctionImportName="sp_productwithquantity" FunctionName="IMS_TESTModel.Store.sp_productwithquantity">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_productwithquantity_Result">
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="product_code" ColumnName="product_code" />
+                <ScalarProperty Name="purchas_price" ColumnName="purchas_price" />
+                <ScalarProperty Name="sales_price" ColumnName="sales_price" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="reorder_level" ColumnName="reorder_level" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_PurchaseDetailinsert" FunctionName="IMS_TESTModel.Store.sp_PurchaseDetailinsert" />
+          <FunctionImportMapping FunctionImportName="sp_Purchaseinsert" FunctionName="IMS_TESTModel.Store.sp_Purchaseinsert" />
+          <FunctionImportMapping FunctionImportName="sp_purchaseTransationHistory" FunctionName="IMS_TESTModel.Store.sp_purchaseTransationHistory">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_purchaseTransationHistory_Result">
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="InvoiceNumber1" ColumnName="InvoiceNumber1" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="BalanceAmnt" ColumnName="BalanceAmnt" />
+                <ScalarProperty Name="GivenAmnt" ColumnName="GivenAmnt" />
+                <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
+                <ScalarProperty Name="GrandTotal" ColumnName="GrandTotal" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="PaidAmnt" ColumnName="PaidAmnt" />
+                <ScalarProperty Name="FromTable" ColumnName="FromTable" />
+                <ScalarProperty Name="company_name" ColumnName="company_name" />
+                <ScalarProperty Name="company_address" ColumnName="company_address" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_rackInsert" FunctionName="IMS_TESTModel.Store.sp_rackInsert" />
+          <FunctionImportMapping FunctionImportName="sp_Register" FunctionName="IMS_TESTModel.Store.sp_Register">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_Register_Result">
+                <ScalarProperty Name="Column1" ColumnName="Column1" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="uniqueidentifier" ColumnName="uniqueidentifier" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="IMS_TESTModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_salereturn" FunctionName="IMS_TESTModel.Store.sp_salereturn" />
+          <FunctionImportMapping FunctionImportName="sp_SalesDetailinsert" FunctionName="IMS_TESTModel.Store.sp_SalesDetailinsert" />
+          <FunctionImportMapping FunctionImportName="sp_Salesinsert" FunctionName="IMS_TESTModel.Store.sp_Salesinsert" />
+          <FunctionImportMapping FunctionImportName="sp_SalesreturnProduct" FunctionName="IMS_TESTModel.Store.sp_SalesreturnProduct" />
+          <FunctionImportMapping FunctionImportName="sp_saleTransationHistory" FunctionName="IMS_TESTModel.Store.sp_saleTransationHistory">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_saleTransationHistory_Result">
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="InvoiceNumber1" ColumnName="InvoiceNumber1" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="BalanceAmnt" ColumnName="BalanceAmnt" />
+                <ScalarProperty Name="GivenAmnt" ColumnName="GivenAmnt" />
+                <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
+                <ScalarProperty Name="GrandTotal" ColumnName="GrandTotal" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="PaidAmnt" ColumnName="PaidAmnt" />
+                <ScalarProperty Name="FromTable" ColumnName="FromTable" />
+                <ScalarProperty Name="company_name" ColumnName="company_name" />
+                <ScalarProperty Name="company_address" ColumnName="company_address" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_saveerror" FunctionName="IMS_TESTModel.Store.sp_saveerror" />
+          <FunctionImportMapping FunctionImportName="sp_SelectBatch" FunctionName="IMS_TESTModel.Store.sp_SelectBatch">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_SelectBatch_Result">
+                <ScalarProperty Name="batch_id" ColumnName="batch_id" />
+                <ScalarProperty Name="batch_name" ColumnName="batch_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_selectbatchbyproduct" FunctionName="IMS_TESTModel.Store.sp_selectbatchbyproduct">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_selectbatchbyproduct_Result">
+                <ScalarProperty Name="batch_id" ColumnName="batch_id" />
+                <ScalarProperty Name="batch_name" ColumnName="batch_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_selectbatchwisequantity" FunctionName="IMS_TESTModel.Store.sp_selectbatchwisequantity">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_selectbatchwisequantity_Result">
+                <ScalarProperty Name="batch_id" ColumnName="batch_id" />
+                <ScalarProperty Name="StockAvl" ColumnName="StockAvl" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_SelectBranch" FunctionName="IMS_TESTModel.Store.sp_SelectBranch">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_SelectBranch_Result">
+                <ScalarProperty Name="branch_id" ColumnName="branch_id" />
+                <ScalarProperty Name="branch_name" ColumnName="branch_name" />
+                <ScalarProperty Name="branch_address" ColumnName="branch_address" />
+                <ScalarProperty Name="pincode" ColumnName="pincode" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="state_id" ColumnName="state_id" />
+                <ScalarProperty Name="fax_no" ColumnName="fax_no" />
+                <ScalarProperty Name="telephone_no" ColumnName="telephone_no" />
+                <ScalarProperty Name="country_id" ColumnName="country_id" />
+                <ScalarProperty Name="country_name" ColumnName="country_name" />
+                <ScalarProperty Name="state_name" ColumnName="state_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_SelectBranchName" FunctionName="IMS_TESTModel.Store.sp_SelectBranchName" />
+          <FunctionImportMapping FunctionImportName="sp_SelectCategory" FunctionName="IMS_TESTModel.Store.sp_SelectCategory">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_SelectCategory_Result">
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="category_name" ColumnName="category_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_SelectCompany" FunctionName="IMS_TESTModel.Store.sp_SelectCompany">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_SelectCompany_Result">
+                <ScalarProperty Name="company_name" ColumnName="company_name" />
+                <ScalarProperty Name="company_address" ColumnName="company_address" />
+                <ScalarProperty Name="country_id" ColumnName="country_id" />
+                <ScalarProperty Name="state_id" ColumnName="state_id" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="telephone_no" ColumnName="telephone_no" />
+                <ScalarProperty Name="fax_no" ColumnName="fax_no" />
+                <ScalarProperty Name="pincode" ColumnName="pincode" />
+                <ScalarProperty Name="GSTIN" ColumnName="GSTIN" />
+                <ScalarProperty Name="website" ColumnName="website" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="owner_emailid" ColumnName="owner_emailid" />
+                <ScalarProperty Name="owner_mobileno" ColumnName="owner_mobileno" />
+                <ScalarProperty Name="country_name" ColumnName="country_name" />
+                <ScalarProperty Name="state_name" ColumnName="state_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_SelectCompany_name" FunctionName="IMS_TESTModel.Store.sp_SelectCompany_name" />
+          <FunctionImportMapping FunctionImportName="sp_selectcompanylogo" FunctionName="IMS_TESTModel.Store.sp_selectcompanylogo" />
+          <FunctionImportMapping FunctionImportName="sp_SelectCountry" FunctionName="IMS_TESTModel.Store.sp_SelectCountry">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_SelectCountry_Result">
+                <ScalarProperty Name="country_id" ColumnName="country_id" />
+                <ScalarProperty Name="country_name" ColumnName="country_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_SelectExpense" FunctionName="IMS_TESTModel.Store.sp_SelectExpense">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_SelectExpense_Result">
+                <ScalarProperty Name="expense_id" ColumnName="expense_id" />
+                <ScalarProperty Name="expense_name" ColumnName="expense_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_SelectFinicialyeardate" FunctionName="IMS_TESTModel.Store.sp_SelectFinicialyeardate">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_SelectFinicialyeardate_Result">
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_SelectFY" FunctionName="IMS_TESTModel.Store.sp_SelectFY">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_SelectFY_Result">
+                <ScalarProperty Name="financialyear_id" ColumnName="financialyear_id" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Selectgodown" FunctionName="IMS_TESTModel.Store.sp_Selectgodown">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_Selectgodown_Result">
+                <ScalarProperty Name="godown_id" ColumnName="godown_id" />
+                <ScalarProperty Name="godown_name" ColumnName="godown_name" />
+                <ScalarProperty Name="godown_address" ColumnName="godown_address" />
+                <ScalarProperty Name="contact_no" ColumnName="contact_no" />
+                <ScalarProperty Name="contact_person" ColumnName="contact_person" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_SelectParty" FunctionName="IMS_TESTModel.Store.sp_SelectParty">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_SelectParty_Result">
+                <ScalarProperty Name="party_id" ColumnName="party_id" />
+                <ScalarProperty Name="party_name" ColumnName="party_name" />
+                <ScalarProperty Name="party_address" ColumnName="party_address" />
+                <ScalarProperty Name="contact_no" ColumnName="contact_no" />
+                <ScalarProperty Name="gstin_no" ColumnName="gstin_no" />
+                <ScalarProperty Name="party_type" ColumnName="party_type" />
+                <ScalarProperty Name="state_id" ColumnName="state_id" />
+                <ScalarProperty Name="state_name" ColumnName="state_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_SelectPM" FunctionName="IMS_TESTModel.Store.sp_SelectPM">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_SelectPM_Result">
+                <ScalarProperty Name="paymentode_id" ColumnName="paymentode_id" />
+                <ScalarProperty Name="paymentmode_name" ColumnName="paymentmode_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_SelectPrice" FunctionName="IMS_TESTModel.Store.sp_SelectPrice">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_SelectPrice_Result">
+                <ScalarProperty Name="purchas_price" ColumnName="purchas_price" />
+                <ScalarProperty Name="sales_price" ColumnName="sales_price" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_SelectProduct" FunctionName="IMS_TESTModel.Store.sp_SelectProduct" />
+          <FunctionImportMapping FunctionImportName="sp_SelectProductbyid" FunctionName="IMS_TESTModel.Store.sp_SelectProductbyid">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_SelectProductbyid_Result">
+                <ScalarProperty Name="purchasedetails_id" ColumnName="purchasedetails_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="batch_id" ColumnName="batch_id" />
+                <ScalarProperty Name="unit_id" ColumnName="unit_id" />
+                <ScalarProperty Name="tax_id" ColumnName="tax_id" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="dicount_amt" ColumnName="dicount_amt" />
+                <ScalarProperty Name="tax_amt" ColumnName="tax_amt" />
+                <ScalarProperty Name="purchase_rate" ColumnName="purchase_rate" />
+                <ScalarProperty Name="sale_price" ColumnName="sale_price" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+                <ScalarProperty Name="unit_name" ColumnName="unit_name" />
+                <ScalarProperty Name="batch_name" ColumnName="batch_name" />
+                <ScalarProperty Name="totalTaxPercentage" ColumnName="totalTaxPercentage" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_SelectPurchase" FunctionName="IMS_TESTModel.Store.sp_SelectPurchase" />
+          <FunctionImportMapping FunctionImportName="sp_selectpurchasebatch" FunctionName="IMS_TESTModel.Store.sp_selectpurchasebatch">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_selectpurchasebatch_Result">
+                <ScalarProperty Name="batch_id" ColumnName="batch_id" />
+                <ScalarProperty Name="batch_name" ColumnName="batch_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_SelectPurchaseinvoice" FunctionName="IMS_TESTModel.Store.sp_SelectPurchaseinvoice">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_SelectPurchaseinvoice_Result">
+                <ScalarProperty Name="purchase_id" ColumnName="purchase_id" />
+                <ScalarProperty Name="party_id" ColumnName="party_id" />
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="grand_total" ColumnName="grand_total" />
+                <ScalarProperty Name="Po_Date" ColumnName="Po_Date" />
+                <ScalarProperty Name="party_name" ColumnName="party_name" />
+                <ScalarProperty Name="paidAmnt" ColumnName="paidAmnt" />
+                <ScalarProperty Name="given_amnt" ColumnName="given_amnt" />
+                <ScalarProperty Name="balance_amnt" ColumnName="balance_amnt" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_SelectPurchaseinvoicebyid" FunctionName="IMS_TESTModel.Store.sp_SelectPurchaseinvoicebyid">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_SelectPurchaseinvoicebyid_Result">
+                <ScalarProperty Name="party_id" ColumnName="party_id" />
+                <ScalarProperty Name="actual_amount" ColumnName="actual_amount" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="discount" ColumnName="discount" />
+                <ScalarProperty Name="po_no" ColumnName="po_no" />
+                <ScalarProperty Name="grand_total" ColumnName="grand_total" />
+                <ScalarProperty Name="total_tax" ColumnName="total_tax" />
+                <ScalarProperty Name="party_name" ColumnName="party_name" />
+                <ScalarProperty Name="balance_amt" ColumnName="balance_amt" />
+                <ScalarProperty Name="given_amt" ColumnName="given_amt" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Selectquantity" FunctionName="IMS_TESTModel.Store.sp_Selectquantity" />
+          <FunctionImportMapping FunctionImportName="sp_SelectRack" FunctionName="IMS_TESTModel.Store.sp_SelectRack">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_SelectRack_Result">
+                <ScalarProperty Name="rack_id" ColumnName="rack_id" />
+                <ScalarProperty Name="rack_name" ColumnName="rack_name" />
+                <ScalarProperty Name="godown_name" ColumnName="godown_name" />
+                <ScalarProperty Name="godown_id" ColumnName="godown_id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Selectsaleid" FunctionName="IMS_TESTModel.Store.sp_Selectsaleid" />
+          <FunctionImportMapping FunctionImportName="sp_SelectSaleinvoice" FunctionName="IMS_TESTModel.Store.sp_SelectSaleinvoice">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_SelectSaleinvoice_Result">
+                <ScalarProperty Name="party_id" ColumnName="party_id" />
+                <ScalarProperty Name="actual_amount" ColumnName="actual_amount" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="total_discount" ColumnName="total_discount" />
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="grand_total" ColumnName="grand_total" />
+                <ScalarProperty Name="total_tax" ColumnName="total_tax" />
+                <ScalarProperty Name="party_name" ColumnName="party_name" />
+                <ScalarProperty Name="balance_amt" ColumnName="balance_amt" />
+                <ScalarProperty Name="given_amt" ColumnName="given_amt" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Selectsaleproduct" FunctionName="IMS_TESTModel.Store.sp_Selectsaleproduct" />
+          <FunctionImportMapping FunctionImportName="sp_SelectSalesReport" FunctionName="IMS_TESTModel.Store.sp_SelectSalesReport">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_SelectSalesReport_Result">
+                <ScalarProperty Name="sale_id" ColumnName="sale_id" />
+                <ScalarProperty Name="PaidAmnt" ColumnName="PaidAmnt" />
+                <ScalarProperty Name="BalanceAmnt" ColumnName="BalanceAmnt" />
+                <ScalarProperty Name="GivenAmnt" ColumnName="GivenAmnt" />
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="party_id" ColumnName="party_id" />
+                <ScalarProperty Name="customerName" ColumnName="customerName" />
+                <ScalarProperty Name="grand_total" ColumnName="grand_total" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="given_amnt" ColumnName="given_amnt" />
+                <ScalarProperty Name="balance_amnt" ColumnName="balance_amnt" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_selectspurchaseproduct" FunctionName="IMS_TESTModel.Store.sp_selectspurchaseproduct">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_selectspurchaseproduct_Result">
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="product_name" ColumnName="product_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_SelectTax" FunctionName="IMS_TESTModel.Store.sp_SelectTax">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_SelectTax_Result">
+                <ScalarProperty Name="tax_id" ColumnName="tax_id" />
+                <ScalarProperty Name="tax_name" ColumnName="tax_name" />
+                <ScalarProperty Name="tax_percentage" ColumnName="tax_percentage" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_SelectTaxpercent" FunctionName="IMS_TESTModel.Store.sp_SelectTaxpercent" />
+          <FunctionImportMapping FunctionImportName="sp_SelectUnit" FunctionName="IMS_TESTModel.Store.sp_SelectUnit">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_SelectUnit_Result">
+                <ScalarProperty Name="unit_id" ColumnName="unit_id" />
+                <ScalarProperty Name="unit_name" ColumnName="unit_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_SelectUserRole" FunctionName="IMS_TESTModel.Store.sp_SelectUserRole">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.sp_SelectUserRole_Result">
+                <ScalarProperty Name="userbranch_id" ColumnName="userbranch_id" />
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="branch_id" ColumnName="branch_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="user_Emai" ColumnName="user_Emai" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="user_mobieno" ColumnName="user_mobieno" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="role_name" ColumnName="role_name" />
+                <ScalarProperty Name="branch_name" ColumnName="branch_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_taxInsert" FunctionName="IMS_TESTModel.Store.sp_taxInsert" />
+          <FunctionImportMapping FunctionImportName="sp_UnitInsert" FunctionName="IMS_TESTModel.Store.sp_UnitInsert" />
+          <FunctionImportMapping FunctionImportName="sp_Updatebatch" FunctionName="IMS_TESTModel.Store.sp_Updatebatch" />
+          <FunctionImportMapping FunctionImportName="sp_UpdateBranch" FunctionName="IMS_TESTModel.Store.sp_UpdateBranch" />
+          <FunctionImportMapping FunctionImportName="sp_UpdateCategory" FunctionName="IMS_TESTModel.Store.sp_UpdateCategory" />
+          <FunctionImportMapping FunctionImportName="sp_UpdateCompany" FunctionName="IMS_TESTModel.Store.sp_UpdateCompany" />
+          <FunctionImportMapping FunctionImportName="sp_UpdateExpense" FunctionName="IMS_TESTModel.Store.sp_UpdateExpense" />
+          <FunctionImportMapping FunctionImportName="sp_UpdateFyear" FunctionName="IMS_TESTModel.Store.sp_UpdateFyear" />
+          <FunctionImportMapping FunctionImportName="sp_UpdateGodown" FunctionName="IMS_TESTModel.Store.sp_UpdateGodown" />
+          <FunctionImportMapping FunctionImportName="sp_UpdateParty" FunctionName="IMS_TESTModel.Store.sp_UpdateParty" />
+          <FunctionImportMapping FunctionImportName="Sp_UpdatePassword" FunctionName="IMS_TESTModel.Store.Sp_UpdatePassword" />
+          <FunctionImportMapping FunctionImportName="sp_UpdatePMode" FunctionName="IMS_TESTModel.Store.sp_UpdatePMode" />
+          <FunctionImportMapping FunctionImportName="sp_UpdatePurchase" FunctionName="IMS_TESTModel.Store.sp_UpdatePurchase" />
+          <FunctionImportMapping FunctionImportName="sp_UpdatePurchasedetails" FunctionName="IMS_TESTModel.Store.sp_UpdatePurchasedetails" />
+          <FunctionImportMapping FunctionImportName="sp_UpdateRack" FunctionName="IMS_TESTModel.Store.sp_UpdateRack" />
+          <FunctionImportMapping FunctionImportName="sp_UpdateSale" FunctionName="IMS_TESTModel.Store.sp_UpdateSale" />
+          <FunctionImportMapping FunctionImportName="sp_Updatesaledetail" FunctionName="IMS_TESTModel.Store.sp_Updatesaledetail" />
+          <FunctionImportMapping FunctionImportName="sp_Updatestockquantity" FunctionName="IMS_TESTModel.Store.sp_Updatestockquantity" />
+          <FunctionImportMapping FunctionImportName="sp_updatesubscription" FunctionName="IMS_TESTModel.Store.sp_updatesubscription" />
+          <FunctionImportMapping FunctionImportName="sp_UpdateTax" FunctionName="IMS_TESTModel.Store.sp_UpdateTax" />
+          <FunctionImportMapping FunctionImportName="sp_UpdateUnit" FunctionName="IMS_TESTModel.Store.sp_UpdateUnit" />
+          <FunctionImportMapping FunctionImportName="sp_UpdateUser" FunctionName="IMS_TESTModel.Store.sp_UpdateUser" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="IMS_TESTModel.Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="spAuthenticateUser" FunctionName="IMS_TESTModel.Store.spAuthenticateUser" />
+          <FunctionImportMapping FunctionImportName="spAuthenticateUserRole" FunctionName="IMS_TESTModel.Store.spAuthenticateUserRole">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.spAuthenticateUserRole_Result">
+                <ScalarProperty Name="company_id" ColumnName="company_id" />
+                <ScalarProperty Name="branch_id" ColumnName="branch_id" />
+                <ScalarProperty Name="role_name" ColumnName="role_name" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spCheckDoubleInMasters" FunctionName="IMS_TESTModel.Store.spCheckDoubleInMasters" />
+          <FunctionImportMapping FunctionImportName="SpGetExistsEmail" FunctionName="IMS_TESTModel.Store.SpGetExistsEmail" />
+          <FunctionImportMapping FunctionImportName="SpGetExistsMobile" FunctionName="IMS_TESTModel.Store.SpGetExistsMobile" />
+          <FunctionImportMapping FunctionImportName="Split" FunctionName="IMS_TESTModel.Store.Split">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IMS_TESTModel.Split_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

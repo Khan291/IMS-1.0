@@ -142,7 +142,7 @@
                                 Vendor Receipt No. 
                             </label>
                             <asp:TextBox ID="txtPONo" runat="server" CssClass="form-control"></asp:TextBox>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*" ForeColor="Red" Text="Please Enter Receipt No" ControlToValidate="txtPONo"></asp:RequiredFieldValidator>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*" ForeColor="Red" Text="Please Enter Receipt No" ControlToValidate="txtPONo" ValidationGroup="purchvalidationgrp"></asp:RequiredFieldValidator>
                         </div>
                     </div>
                     <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px;">
@@ -364,9 +364,15 @@
                             <div class="col-lg-4 pull-right">
                                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 leftpadd0 pull-right" style="padding: 0px;">
                                     <div class="form-group">
-                                        <div class="col-sm-12 leftpadd0">
-                                            <label class="control-label col-sm-9">Other Expenses</label>
-                                            <asp:TextBox ID="txtotherexpence" runat="server" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtotherexpence_TextChanged" onkeypress="return OnlyNumericEntry(event);"></asp:TextBox>
+                                        <div class="col-sm-6 leftpadd0">
+                                            <%--<label class="control-label col-sm-9">Other Expenses</label>--%>
+                                            <asp:TextBox ID="txtOtherExpLabel" runat="server" CssClass="form-control"
+                                                ToolTip="You can change this text as per your need"></asp:TextBox>
+                                        </div>
+                                        <div class="col-sm-6 leftpadd0">
+                                            <asp:TextBox ID="txtotherexpence" runat="server" CssClass="form-control" AutoPostBack="true" 
+                                                placeHolder="Enter Amount" ToolTip="Type Amount to be Add or Minus."
+                                                OnTextChanged="txtotherexpence_TextChanged" onkeypress="return OnlyNumericEntry(event);"></asp:TextBox>
                                         </div>
                                     </div>
                                 </div>
@@ -580,7 +586,7 @@
             </div>
         </div>
         <%--end model popup --%>
-     
+
         <div class="modal fade" role="dialog" id="AddModal" runat="server">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -628,7 +634,7 @@
 
         function OnlyNumericEntry(evt) {
             var charCode = (evt.which) ? evt.which : event.keyCode
-            if (charCode != 46 && charCode > 31
+            if (charCode != 46 && charCode > 31 && charCode != 45
                 && (charCode < 48 || charCode > 57))
                 return false;
             return true;
@@ -668,7 +674,7 @@
             if (val == 'b') {
                 $('#<%= divbatchmodel.ClientID %>').modal('show');
             }
-           
+
           <%--  $('#<%= AddModal.ClientID %>').modal('show');--%>
         }
 

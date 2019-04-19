@@ -20,7 +20,9 @@ namespace IMS.Registration
             if (!Page.IsPostBack)
             {
                 lblWrongOTP.InnerText = "";
-                btnOTP.Text = "Generate OTP";
+                btnOTP.Text = "Re-Generate OTP";
+                SendOtp();
+                otpDiv.Style.Add("display", "normal");
             }
         }
 
