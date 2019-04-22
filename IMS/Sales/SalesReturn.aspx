@@ -135,15 +135,17 @@
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:BoundField DataField="Type" HeaderText="Type"></asp:BoundField>
-                                    <asp:BoundField DataField="Product" HeaderText="Product"></asp:BoundField>
-                                    <asp:BoundField DataField="Batch" HeaderText="Batch" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
+                                  <%--  <asp:BoundField DataField="Product" HeaderText="Product"></asp:BoundField>
+                                    <asp:BoundField DataField="Batch" HeaderText="Batch" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>--%>
                                     <asp:BoundField DataField="Date" HeaderText="Date" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
-                                    <asp:BoundField DataField="Quantity" HeaderText="Quantity"></asp:BoundField>
-                                    <asp:BoundField DataField="SaleRate" HeaderText="Sale Price" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
-                                    <asp:BoundField DataField="DiscountAmnt" HeaderText="Discount" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
-                                    <asp:BoundField DataField="TaxAmnt" HeaderText="Tax" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
-                                    <asp:BoundField DataField="ProductAmount" HeaderText="Total" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
-
+                                   <%-- <asp:BoundField DataField="Quantity" HeaderText="Quantity"></asp:BoundField>--%>
+                                  <%--  <asp:BoundField DataField="SaleRate" HeaderText="Sale Price" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>--%>
+                                    <asp:BoundField DataField="TotalDiscount" HeaderText="Discount" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
+                                    <asp:BoundField DataField="TotalTax" HeaderText="Tax" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
+                                     <asp:BoundField DataField="TotalAmount" HeaderText="Total Amount" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
+                                     <asp:BoundField DataField="GivenAmnt" HeaderText="Given Amount" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
+                                     <asp:BoundField DataField="BalanceAmnt" HeaderText="Balance Amount" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
+                                    <asp:BoundField DataField="GrandTotal" HeaderText="Grand Total" ItemStyle-CssClass="hidden-xs" HeaderStyle-CssClass="hidden-xs"></asp:BoundField>
                                 </Columns>
 
                                 <HeaderStyle BackColor="#428BCA" ForeColor="White" />
