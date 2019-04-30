@@ -464,7 +464,9 @@ namespace IMS
                 purchasePaymentDetail.FromTable = "Return";
                 purchasePaymentDetail.ModifiedBy = user_id;
                 purchasePaymentDetail.ModifiedDate = DateTime.Now;
-                purchase.tbl_PurchasePaymentDetials.Add(purchasePaymentDetail);
+                //purchase.tbl_PurchasePaymentDetials.Add(purchasePaymentDetail);
+
+                purchaseReturn.tbl_PurchasePaymentDetials.Add(purchasePaymentDetail);
 
                 for (int i = 0; i <= gvpurchasedetails.Rows.Count - 1; i++)
                 {
