@@ -19,6 +19,8 @@ namespace IMSBLL.EntityModel
         public Nullable<decimal> SubTotal { get; set; }
         public Nullable<decimal> TaxAmount { get; set; }
         public Nullable<decimal> DiscountAmount { get; set; }
+        public string OtherExpLabel { get; set; }
+        public Nullable<decimal> OtherExp { get; set; }
         public Nullable<decimal> GrandTotal { get; set; }
         public Nullable<decimal> PaidAmnt { get; set; }
         public Nullable<decimal> GivenAmnt { get; set; }
