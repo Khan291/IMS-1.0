@@ -74,7 +74,7 @@
         <div class="panel-heading text-center">
             <h1>Purchase Return</h1>
         </div>
-        <div class="panel-body">
+        <div class="panel-body" style="height:450px; overflow:scroll">
             <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                 <div class="row">
                     <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px;">
