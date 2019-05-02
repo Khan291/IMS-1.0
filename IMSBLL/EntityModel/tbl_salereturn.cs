@@ -14,6 +14,7 @@ namespace IMSBLL.EntityModel
     
     public partial class tbl_salereturn
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tbl_salereturn()
         {
             this.tbl_SalePaymentDetails = new HashSet<tbl_SalePaymentDetails>();
@@ -42,7 +43,9 @@ namespace IMSBLL.EntityModel
         public virtual tbl_party tbl_party { get; set; }
         public virtual tbl_paymentmode tbl_paymentmode { get; set; }
         public virtual tbl_sale tbl_sale { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_SalePaymentDetails> tbl_SalePaymentDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_salereturndetails> tbl_salereturndetails { get; set; }
     }
 }

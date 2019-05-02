@@ -39,7 +39,7 @@
                        break;
                }
            }
-
+   
            var txt = $("<%=txtBatchName.ClientID%>");
 
     txt.focus();
@@ -73,7 +73,7 @@
         <%--<asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary " Text="Save" ValidationGroup="btchvalidationgrp" OnClick="btnSave_Click" OnClientClick="this.disabled='true'; this.value='Processing...';" UseSubmitBehavior="false" />--%>
         <asp:Button ID="btnbtchSave" runat="server" CssClass="btn btn-primary " Text="Save" ValidationGroup="btchvalidationgrp" OnClick="btnbtchSave_Click"  />
         <asp:Button ID="btnbtchUpdate" runat="server" CssClass="btn btn-primary" Text="Update" ValidationGroup="btchvalidationgrp" OnClick="btnbtchUpdate_Click" Visible="false" />
-        <input class="btn btn-primary " type="button" value="Clear" onclick="javascript: window.location = 'Batch.aspx'" />
+        <input class="btn btn-primary " type="button" value="Clear" onclick="cleartextboxes()" />
         <%--<asp:Button ID="btnCancel" runat="server" CssClass="btn btn-default" Text="Cancel" OnClick="btnCancel_Click" Style="float: right" />--%>
     </div>
 

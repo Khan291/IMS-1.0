@@ -17,13 +17,21 @@ namespace IMS.UserControl
 {
     public partial class UC_Product : System.Web.UI.UserControl
     {
+       
         #region properties
         public ListBox Taxdropdown
         {
             get
             {
+                foreach (ListItem item in ddlTaxgroup.Items)
+                {
+                    item.Selected = true;
+                }
                 return this.ddlTaxgroup;
+               
             }
+           
+
         }  
         public string productid
         {
@@ -440,6 +448,7 @@ namespace IMS.UserControl
              {
                  //lblrackerror.Text = string.Empty;
                  int g_id = Convert.ToInt32(ddlGodown.SelectedValue);
+                 ddlRack.Items.Clear();
                  ddlrackbind(g_id);
                  UpdatePanel1.Update();
 
@@ -502,6 +511,11 @@ namespace IMS.UserControl
         }
 
         #endregion
+
+        protected void btnClear_Click(object sender, EventArgs e)
+        {
+            clr();
+        }
 
 
 

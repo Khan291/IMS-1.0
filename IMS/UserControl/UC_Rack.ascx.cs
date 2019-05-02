@@ -235,5 +235,10 @@ namespace IMS.UserControl
         {
             updatecode();
         }
+
+        protected void btnrckClear_Click(object sender, EventArgs e)
+        {
+            clr();
+        }
     }
 }

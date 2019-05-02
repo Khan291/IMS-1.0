@@ -103,7 +103,7 @@
                  </ul>--%>
 
                 <ul class="nav navbar-top-links navbar-right">
-                    <li><a href="Settings.aspx"><i class="fa fa-cog fa-3x"></i></a></li>
+                    <li><a href="../Settings.aspx"><i class="fa fa-cog fa-3x"></i></a></li>
                     <!-- main dropdown -->
                     <%--   <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -368,7 +368,7 @@
                             <a href="../Stock/StockAdjustment.aspx"><i class="fa fa-list-alt fa-fw"></i>Stock Management</a>
                         </li>
                         <li><a href="#" id="btn-1" data-toggle="collapse" data-target="#submenu1" aria-expanded="false"><i class="fa fa-cart-arrow-down fa-fw"></i>Purchase <span class="caret"></span></a>
-                            <ul class="nav collapse" id="submenu1" role="menu" aria-labelledby="btn-1">
+                            <ul class="nav collapse" id="submenu1" style="padding-left: 10%;" role="menu" aria-labelledby="btn-1">
                                 <li id="lipurchase" runat="server">
                                     <a href="../Purchases/Purchase.aspx"><i class="fa fa-list-alt fa-fw"></i>Purchase Order</a>
                                 </li>
@@ -385,7 +385,7 @@
                         </li>
 
                         <li><a href="#" id="btn-2" data-toggle="collapse" data-target="#submenu12" aria-expanded="false"><i class="fa fa-shopping-cart fa-fw"></i>Sales <span class="caret"></span></a>
-                            <ul class="nav collapse" id="submenu12" role="menu" aria-labelledby="btn-2">
+                            <ul class="nav collapse" id="submenu12" style="padding-left: 10%;" role="menu" aria-labelledby="btn-2">
                                 <li id="lisale" runat="server">
                                     <a href="../Sales/Sale.aspx"><i class="fa fa-cart-arrow-down fa-fw"></i>Sale Order</a>
                                 </li>

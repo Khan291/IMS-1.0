@@ -75,7 +75,7 @@
     <div class="panel-footer">
         <asp:Button ID="btnunitsave" runat="server" UseSubmitBehavior="false" ValidationGroup="unitvalidationgroup" CssClass="btn btn-primary " Text="Save" OnClick="btnunitsave_Click"  />
         <asp:Button ID="btnunitUpdate" runat="server" ValidationGroup="unitvalidationgroup" CssClass="btn btn-primary" Text="Update" Visible="false" OnClick="btnunitUpdate_Click" />
-        <input class="btn btn-primary " type="button" value="Clear" />
+        <input class="btn btn-primary " type="button" value="Clear" onclick="cleartextboxes()" />
     </div>
 </div>
 <div class="row">

@@ -14,6 +14,7 @@ namespace IMSBLL.EntityModel
     
     public partial class tbl_saleTaxGroup
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tbl_saleTaxGroup()
         {
             this.tbl_saleTaxGroupDetailes = new HashSet<tbl_saleTaxGroupDetailes>();
@@ -29,6 +30,7 @@ namespace IMSBLL.EntityModel
         public virtual tbl_product tbl_product { get; set; }
         public virtual tbl_sale tbl_sale { get; set; }
         public virtual tbl_taxgroup tbl_taxgroup { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbl_saleTaxGroupDetailes> tbl_saleTaxGroupDetailes { get; set; }
     }
 }

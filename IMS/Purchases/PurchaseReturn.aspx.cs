@@ -431,7 +431,12 @@ namespace IMS
                 tbl_purchase purchase = new tbl_purchase();
                 purchase = context.tbl_purchase.Where(pd => pd.purchase_id == purchaseId && pd.company_id == companyId && pd.branch_id == branchId).FirstOrDefault();
                 decimal remainingBalance = Convert.ToDecimal(lblResultGrndTotal.Text) - Convert.ToDecimal(lblGivenAmnt.Text);
-                decimal paidAmnt = Convert.ToDecimal(txtPaidAmt.Text);
+                decimal paidAmnt = 0;
+                if (!string.IsNullOrEmpty(txtPaidAmt.Text))
+                {
+                   paidAmnt= Convert.ToDecimal(txtPaidAmt.Text);
+                }
+
                 tbl_purchasereturn purchaseReturn = new tbl_purchasereturn();
                 if (fileupMsg)
                 {
@@ -448,6 +453,7 @@ namespace IMS
                 purchaseReturn.party_id = Convert.ToInt32(purchase.party_id);
                 purchaseReturn.created_by = user_id;
                 purchaseReturn.created_date = DateTime.Now;
+                purchaseReturn.Note = txtNotePurchase.Text;
 
                 decimal givenAmnt = 0;
                 if (remainingBalance < paidAmnt)
@@ -469,7 +475,11 @@ namespace IMS
                 purchasePaymentDetail.SubTotal = Convert.ToDecimal(lblResultSubTotal.Text);
                 purchasePaymentDetail.GrandTotal = Convert.ToDecimal(lblResultGrndTotal.Text);
                 purchasePaymentDetail.FromTable = "Return";
-                purchase.tbl_PurchasePaymentDetials.Add(purchasePaymentDetail);
+                purchasePaymentDetail.ModifiedBy = user_id;
+                purchasePaymentDetail.ModifiedDate = DateTime.Now;
+                //purchase.tbl_PurchasePaymentDetials.Add(purchasePaymentDetail);
+
+                purchaseReturn.tbl_PurchasePaymentDetials.Add(purchasePaymentDetail);
 
                 for (int i = 0; i <= gvpurchasedetails.Rows.Count - 1; i++)
                 {

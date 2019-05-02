@@ -118,6 +118,12 @@ namespace IMS
                 string path = "~/Uploads/AttachedFiles/Purchase/"; //path without filename to save file
                 bool fileupMsg = uploadFile(fuAttacheFile, path, "");
                 decimal balanceAmt = 0;// Convert.ToDecimal(txtBalanceAmt.Text);
+                decimal paidAmnt = 0;
+
+                if (!string.IsNullOrEmpty(txtPaidAmt.Text))
+                {
+                    paidAmnt = Convert.ToDecimal(txtPaidAmt.Text);
+                }
 
                 if ( !string.IsNullOrEmpty(txtBalanceAmt.Text))
                 {
@@ -155,8 +161,8 @@ namespace IMS
                 purchasePaymentDetail.DiscountAmount = Convert.ToDecimal(lblDiscountAmt.Text);
                 purchasePaymentDetail.SubTotal = Convert.ToDecimal(lblsubtotal.Text);
                 purchasePaymentDetail.GrandTotal = Convert.ToDecimal(lblGrandTotal.Text);
-                purchasePaymentDetail.PaidAmnt = Convert.ToDecimal(txtPaidAmt.Text);
-                purchasePaymentDetail.GivenAmnt = Convert.ToDecimal(txtPaidAmt.Text);
+                purchasePaymentDetail.PaidAmnt = paidAmnt;
+                purchasePaymentDetail.GivenAmnt = paidAmnt;
                 purchasePaymentDetail.BalanceAmnt = balanceAmt;
                 purchasePaymentDetail.CreatedDate = DateTime.Now;
                 purchasePaymentDetail.CreatedBy = user_id;

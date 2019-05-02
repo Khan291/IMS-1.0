@@ -101,7 +101,7 @@
         <div class="panel-heading text-center">
             <h1>Sale</h1>
         </div>
-        <div class="panel-body">
+        <div class="panel-body" style="height:450px; overflow:scroll">
             <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                 <div class="row">
                     <div class="text-center">
@@ -330,7 +330,7 @@
                                 <div class="form-group">
                                     <div class="col-sm-6 leftpadd0">
                                         <%--<label class="control-label col-sm-9">Other Expenses</label>--%>
-                                        <asp:TextBox ID="txtOtherExpLabel" runat="server" CssClass="form-control"
+                                        <asp:TextBox ID="txtOtherExpenseLabel" runat="server" CssClass="form-control"
                                              ToolTip="You can change this text as per your need"></asp:TextBox>
                                     </div>
                                     <div class="col-sm-6 leftpadd0">

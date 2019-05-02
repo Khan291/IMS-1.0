@@ -10,6 +10,7 @@ using IMSBLL.EntityModel;
 using IMSBLL.DAL;
 using System.Configuration;
 using System.IO;
+using System.Data.Entity;
 
 namespace IMS.Sales
 {
@@ -285,13 +286,17 @@ namespace IMS.Sales
                     ClientScript.RegisterStartupScript(this.GetType(), "Pop", "openalert('Please Enter Sale No','False');", true);
                     return;
                 }
-
+                decimal paidAmt = 0;
+                if (!string.IsNullOrEmpty(txtPaidAmt.Text))
+                {
+                    paidAmt = Convert.ToDecimal(txtPaidAmt.Text);
+                }
                 string path = "~/Uploads/AttachedFiles/Sale/";//path without filename to save file
                 bool fileupMsg = uploadfile(fuAttacheFile, path, "");
 
 
                 decimal remainingBalance = Convert.ToDecimal(lblResultGrndTotal.Text) - Convert.ToDecimal(lblGivenAmnt.Text);
-                decimal paidAmnt = Convert.ToDecimal(txtPaidAmt.Text);
+               // decimal paidAmnt = Convert.ToDecimal(txtPaidAmt.Text);
 
                 var sale = context.tbl_sale.Where(pd => pd.sale_id == saleId && pd.company_id == companyId && pd.branch_id == branchId).FirstOrDefault();
                 tbl_salereturn saleReturn = new tbl_salereturn();
@@ -310,18 +315,19 @@ namespace IMS.Sales
                 saleReturn.party_id = Convert.ToInt32(sale.party_id);
                 saleReturn.created_by = user_id;
                 saleReturn.created_date = DateTime.Now;
+                saleReturn.Note = txtSaleNote.Text;
                 decimal givenAmnt = 0;
-                if (remainingBalance < paidAmnt)
+                if (remainingBalance<paidAmnt)
                 {
-                    givenAmnt = Convert.ToDecimal(lblGivenAmnt.Text) - Convert.ToDecimal(txtPaidAmt.Text);
+                   givenAmnt= Convert.ToDecimal(lblGivenAmnt.Text) - Convert.ToDecimal(txtPaidAmt.Text);
                 }
                 else
                 {
-                    givenAmnt = Convert.ToDecimal(lblGivenAmnt.Text) + Convert.ToDecimal(txtPaidAmt.Text);
+                    givenAmnt= Convert.ToDecimal(lblGivenAmnt.Text) + Convert.ToDecimal(txtPaidAmt.Text);
                 }
                 //Update into Sale Payment Details 
                 tbl_SalePaymentDetails salePaymentDetails = context.tbl_SalePaymentDetails.Where(w => w.SaleId == saleId).FirstOrDefault();
-                salePaymentDetails.PaidAmnt = Convert.ToDecimal(txtPaidAmt.Text);
+                salePaymentDetails.PaidAmnt = paidAmt;
                 salePaymentDetails.TaxAmount = Convert.ToDecimal(lblResultTotalTaxAmnt.Text);
                 salePaymentDetails.DiscountAmount = Convert.ToDecimal(lblResultTotalDiscount.Text);
                 salePaymentDetails.SubTotal = Convert.ToDecimal(lblResultSubTotal.Text);
@@ -329,7 +335,13 @@ namespace IMS.Sales
                 salePaymentDetails.GivenAmnt = givenAmnt;
                 salePaymentDetails.BalanceAmnt = Convert.ToDecimal(txtBalanceAmt.Text);
                 salePaymentDetails.FromTable = "Return";
-                sale.tbl_SalePaymentDetails.Add(salePaymentDetails);
+                salePaymentDetails.ModifiedBy = user_id;
+                salePaymentDetails.ModifiedDate = DateTime.Now;
+                
+                //sale.tbl_SalePaymentDetails.Add(salePaymentDetails);
+               // context.Entry(sale.tbl_SalePaymentDetails).State = EntityState.Deleted;
+                //context.SaveChanges();
+                saleReturn.tbl_SalePaymentDetails.Add(salePaymentDetails);
 
                 for (int i = 0; i <= gvsalesdetails.Rows.Count - 1; i++)
                 {
@@ -349,7 +361,6 @@ namespace IMS.Sales
                     saleeReturnDetails.amount = Convert.ToDecimal(gvsalesdetails.Rows[i].Cells[10].Text);
                     saleeReturnDetails.created_by = Convert.ToString(user_id);
                     saleeReturnDetails.created_date = Convert.ToDateTime(DateTime.Now);
-                    saleeReturnDetails.Sales_taxGroupId = taxGroupId;
                     saleeReturnDetails.status = true;
 
                     tbl_stock stock = new tbl_stock();
@@ -531,7 +542,6 @@ namespace IMS.Sales
                         decimal? quanity = saleDetails.quantity;
                         //decimal? adjustment = saleDetails.oth;
                         decimal subTotal = Convert.ToDecimal(txtquantity.Text) * Convert.ToDecimal(oneproductDetail.FirstOrDefault().sale_rate);
-                        //decimal adjustment = Convert.ToDecimal(oneproductDetail.FirstOrDefault().sale_rate) / quantity;
                         decimal a = subTotal / 100;
                         decimal discount_percent = (Convert.ToDecimal(oneproductDetail.FirstOrDefault().dicount_amt) * 100) / Convert.ToDecimal(oneproductDetail.FirstOrDefault().amount);
                         decimal discountamt = a * Convert.ToDecimal(discount_percent.ToString("0.##"));
@@ -635,7 +645,7 @@ namespace IMS.Sales
             }
             return isfail;
         }
-
+        
 
         protected void gvsalesdetails_RowCommand(object sender, GridViewCommandEventArgs e)
         {
@@ -1010,7 +1020,7 @@ namespace IMS.Sales
         {
             try
             {
-
+               
                 decimal remainingBalance = Convert.ToDecimal(lblResultGrndTotal.Text) - Convert.ToDecimal(lblGivenAmnt.Text);
 
                 decimal grandTotal = Convert.ToDecimal(lblGrandTotal.Text);
