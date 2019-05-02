@@ -355,13 +355,13 @@ namespace IMS {
         protected global::System.Web.UI.WebControls.GridView gvTaxDetailsNew;
         
         /// <summary>
-        /// txtOtherExpenseLabel control.
+        /// txtOtherExpLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtOtherExpenseLabel;
+        protected global::System.Web.UI.WebControls.TextBox txtOtherExpLabel;
         
         /// <summary>
         /// txtotherexpence control.

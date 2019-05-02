@@ -195,11 +195,11 @@ namespace IMS.Sales
 
             lblsubtotal.Text = (Convert.ToDecimal(Convert.ToDecimal(lblsubtotal.Text == "" ? lblsubtotal.Text = "0" : lblsubtotal.Text) + sub_Total).ToString("0.##"));
             lblResultSubTotal.Text = (Convert.ToDecimal(lblTotalAmnt.Text == "" ? lblTotalAmnt.Text = "0" : lblTotalAmnt.Text) - Convert.ToDecimal(lblsubtotal.Text)).ToString("0.##");
-            
+
 
             lblTaxAmount.Text = (Convert.ToDecimal(lblTaxAmount.Text == "" ? lblTaxAmount.Text = "0" : lblTaxAmount.Text) + total_tax).ToString("0.##");
             lblResultTotalTaxAmnt.Text = (Convert.ToDecimal(lblTotalTax.Text == "" ? lblTotalTax.Text = "0" : lblTotalTax.Text) - Convert.ToDecimal(lblTaxAmount.Text)).ToString("0.##");
-            
+
 
             lblDiscountAmt.Text = (Convert.ToDecimal(lblDiscountAmt.Text == "" ? "0" : lblDiscountAmt.Text) + total_discount).ToString("0.##");
             lblResultTotalDiscount.Text = (Convert.ToDecimal(lblTotalDiscount.Text) - Convert.ToDecimal(lblDiscountAmt.Text)).ToString("0.##");
@@ -213,7 +213,7 @@ namespace IMS.Sales
             lblOriginalGrndTotal.Text = (Convert.ToDecimal(lblTotalAmnt.Text == "" ? lblTotalAmnt.Text = "0" : lblTotalAmnt.Text) + Convert.ToDecimal(lblTotalTax.Text == "" ? lblTotalTax.Text = "0" : lblTotalTax.Text) - Convert.ToDecimal(lblTotalDiscount.Text) + Convert.ToDecimal(lblOtherDiscountTextTotal.Text == "" ? "0" : lblOtherDiscountTextTotal.Text)).ToString("0.##");
 
             lblResultGrndTotal.Text = (Convert.ToDecimal(lblOriginalGrndTotal.Text) - Convert.ToDecimal(lblGrandTotal.Text)).ToString("0.##");
-            
+
             txtBalanceAmt.Text = (Convert.ToDecimal(lblResultGrndTotal.Text) - Convert.ToDecimal(lblGivenAmnt.Text)).ToString("0.##");
             if (Convert.ToDecimal(txtBalanceAmt.Text) < 0)
             {
@@ -296,7 +296,7 @@ namespace IMS.Sales
 
 
                 decimal remainingBalance = Convert.ToDecimal(lblResultGrndTotal.Text) - Convert.ToDecimal(lblGivenAmnt.Text);
-               // decimal paidAmnt = Convert.ToDecimal(txtPaidAmt.Text);
+                decimal paidAmnt = Convert.ToDecimal(txtPaidAmt.Text);
 
                 var sale = context.tbl_sale.Where(pd => pd.sale_id == saleId && pd.company_id == companyId && pd.branch_id == branchId).FirstOrDefault();
                 tbl_salereturn saleReturn = new tbl_salereturn();
@@ -317,13 +317,13 @@ namespace IMS.Sales
                 saleReturn.created_date = DateTime.Now;
                 saleReturn.Note = txtSaleNote.Text;
                 decimal givenAmnt = 0;
-                if (remainingBalance<paidAmnt)
+                if (remainingBalance < paidAmnt)
                 {
-                   givenAmnt= Convert.ToDecimal(lblGivenAmnt.Text) - Convert.ToDecimal(txtPaidAmt.Text);
+                    givenAmnt = Convert.ToDecimal(lblGivenAmnt.Text) - Convert.ToDecimal(txtPaidAmt.Text);
                 }
                 else
                 {
-                    givenAmnt= Convert.ToDecimal(lblGivenAmnt.Text) + Convert.ToDecimal(txtPaidAmt.Text);
+                    givenAmnt = Convert.ToDecimal(lblGivenAmnt.Text) + Convert.ToDecimal(txtPaidAmt.Text);
                 }
                 //Update into Sale Payment Details 
                 tbl_SalePaymentDetails salePaymentDetails = context.tbl_SalePaymentDetails.Where(w => w.SaleId == saleId).FirstOrDefault();
@@ -337,9 +337,9 @@ namespace IMS.Sales
                 salePaymentDetails.FromTable = "Return";
                 salePaymentDetails.ModifiedBy = user_id;
                 salePaymentDetails.ModifiedDate = DateTime.Now;
-                
+
                 //sale.tbl_SalePaymentDetails.Add(salePaymentDetails);
-               // context.Entry(sale.tbl_SalePaymentDetails).State = EntityState.Deleted;
+                // context.Entry(sale.tbl_SalePaymentDetails).State = EntityState.Deleted;
                 //context.SaveChanges();
                 saleReturn.tbl_SalePaymentDetails.Add(salePaymentDetails);
 
@@ -537,7 +537,7 @@ namespace IMS.Sales
                                            where sd.sale_id == saleId
                                            select new
                                            {
-                                               quantity=sd.quantity
+                                               quantity = sd.quantity
                                            }).ToList().FirstOrDefault();
                         decimal? quanity = saleDetails.quantity;
                         //decimal? adjustment = saleDetails.oth;
@@ -645,7 +645,7 @@ namespace IMS.Sales
             }
             return isfail;
         }
-        
+
 
         protected void gvsalesdetails_RowCommand(object sender, GridViewCommandEventArgs e)
         {
@@ -1020,7 +1020,7 @@ namespace IMS.Sales
         {
             try
             {
-               
+
                 decimal remainingBalance = Convert.ToDecimal(lblResultGrndTotal.Text) - Convert.ToDecimal(lblGivenAmnt.Text);
 
                 decimal grandTotal = Convert.ToDecimal(lblGrandTotal.Text);
