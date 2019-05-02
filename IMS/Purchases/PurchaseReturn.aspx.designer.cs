@@ -247,6 +247,42 @@ namespace IMS {
         protected global::System.Web.UI.WebControls.Label lblResultTotalDiscount;
         
         /// <summary>
+        /// lblOtherDiscountLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOtherDiscountLabel;
+        
+        /// <summary>
+        /// lblOtherDiscountTextTotal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOtherDiscountTextTotal;
+        
+        /// <summary>
+        /// lblOtherDiscountText control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOtherDiscountText;
+        
+        /// <summary>
+        /// lblOtherDiscountTextResult control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOtherDiscountTextResult;
+        
+        /// <summary>
         /// gvTaxDetails control.
         /// </summary>
         /// <remarks>
@@ -292,6 +328,15 @@ namespace IMS {
         protected global::System.Web.UI.WebControls.Label lblGivenAmnt;
         
         /// <summary>
+        /// fuAttacheFile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fuAttacheFile;
+        
+        /// <summary>
         /// ddlPaymentMode control.
         /// </summary>
         /// <remarks>
@@ -299,15 +344,6 @@ namespace IMS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlPaymentMode;
-        
-        /// <summary>
-        /// btnGetRefund control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGetRefund;
         
         /// <summary>
         /// txtPaidAmt control.
@@ -337,6 +373,15 @@ namespace IMS {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
         
         /// <summary>
+        /// btnGetRefund control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnGetRefund;
+        
+        /// <summary>
         /// txtBalanceAmt control.
         /// </summary>
         /// <remarks>
@@ -353,15 +398,6 @@ namespace IMS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator7;
-        
-        /// <summary>
-        /// fuAttacheFile control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload fuAttacheFile;
         
         /// <summary>
         /// btnSave control.

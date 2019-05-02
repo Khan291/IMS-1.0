@@ -30,7 +30,7 @@ namespace IMS
                 SessionValue();
                 if (!IsPostBack)
                 {
-                    txtOtherExpLabel.Text = "Other Expenses";
+                    txtOtherExpLabel.Text = "Adjustment";
                     if (ViewState["Details"] == null)
                     {
                         DataTable dataTable = new DataTable();
@@ -319,8 +319,8 @@ namespace IMS
                 sale.created_by = User_id;
                 sale.created_date = DateTime.Now;
                 sale.Note = txtSaleNote.Text;
-                sale.OtherExpLabel = txtOtherExpLabel.Text;
-                sale.other_expenses = Convert.ToDecimal(txtotherexpence.Text);
+                //sale.OtherExpLabel = txtOtherExpLabel.Text;
+                //sale.other_expenses = Convert.ToDecimal(txtotherexpence.Text);
 
                 //insert into Sale Payment Details 
                 tbl_SalePaymentDetails salePaymentDetails = new tbl_SalePaymentDetails();
@@ -332,20 +332,24 @@ namespace IMS
                 salePaymentDetails.BalanceAmnt = balanceAmt;
                 salePaymentDetails.FromTable = "Sale";
 
-                string otherExp = txtotherexpence.Text;
-                if (otherExp.Contains("-"))
-                {
-                    var calculatedDiscount = Convert.ToDecimal(lblDiscountAmt.Text);
-                    var overAllDisc = Convert.ToDecimal(otherExp.Substring(otherExp.LastIndexOf('-') + 0));
-                    var totalDiscount = calculatedDiscount - overAllDisc;
+                salePaymentDetails.OtherExpLabel = txtOtherExpLabel.Text;
+                salePaymentDetails.OtherExp = Convert.ToDecimal(txtotherexpence.Text);
 
-                    salePaymentDetails.DiscountAmount = totalDiscount;
-                }
-                else
-                {
-                    salePaymentDetails.DiscountAmount = Convert.ToDecimal(lblDiscountAmt.Text);
-                }
+                //string otherExp = txtotherexpence.Text;
+                //if (otherExp.Contains("-"))
+                //{
+                //    var calculatedDiscount = Convert.ToDecimal(lblDiscountAmt.Text);
+                //    var overAllDisc = Convert.ToDecimal(otherExp.Substring(otherExp.LastIndexOf('-') + 0));
+                //    var totalDiscount = calculatedDiscount - overAllDisc;
 
+                //    salePaymentDetails.DiscountAmount = totalDiscount;
+                //}
+                //else
+                //{
+                //    salePaymentDetails.DiscountAmount = Convert.ToDecimal(lblDiscountAmt.Text);
+                //}
+
+                salePaymentDetails.DiscountAmount = Convert.ToDecimal(lblDiscountAmt.Text);
                 sale.tbl_SalePaymentDetails.Add(salePaymentDetails);
 
                 for (int i = 0; i <= gvSalesdetails.Rows.Count - 1; i++)

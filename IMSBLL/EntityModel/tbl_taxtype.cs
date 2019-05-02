@@ -30,6 +30,7 @@ namespace IMSBLL.EntityModel
         public Nullable<System.DateTime> created_date { get; set; }
         public string modified_by { get; set; }
         public Nullable<System.DateTime> modified_date { get; set; }
+        public Nullable<bool> isdefault { get; set; }
     
         public virtual tbl_branch tbl_branch { get; set; }
         public virtual tbl_company tbl_company { get; set; }

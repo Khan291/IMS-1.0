@@ -19,6 +19,8 @@ namespace IMSBLL.EntityModel
         public Nullable<decimal> SubTotal { get; set; }
         public Nullable<decimal> TaxAmount { get; set; }
         public Nullable<decimal> DiscountAmount { get; set; }
+        public string OtherExpLabel { get; set; }
+        public Nullable<decimal> OtherExp { get; set; }
         public Nullable<decimal> GrandTotal { get; set; }
         public Nullable<decimal> PaidAmnt { get; set; }
         public Nullable<decimal> GivenAmnt { get; set; }
@@ -28,7 +30,9 @@ namespace IMSBLL.EntityModel
         public string CreatedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public string ModifiedBy { get; set; }
+        public Nullable<int> PurchaseReturnId { get; set; }
     
         public virtual tbl_purchase tbl_purchase { get; set; }
+        public virtual tbl_purchasereturn tbl_purchasereturn { get; set; }
     }
 }

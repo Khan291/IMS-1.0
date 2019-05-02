@@ -247,6 +247,42 @@ namespace IMS.Sales {
         protected global::System.Web.UI.WebControls.Label lblResultTotalDiscount;
         
         /// <summary>
+        /// lblOtherDiscountLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOtherDiscountLabel;
+        
+        /// <summary>
+        /// lblOtherDiscountTextTotal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOtherDiscountTextTotal;
+        
+        /// <summary>
+        /// lblOtherDiscountText control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOtherDiscountText;
+        
+        /// <summary>
+        /// lblOtherDiscountTextResult control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOtherDiscountTextResult;
+        
+        /// <summary>
         /// lblOriginalGrndTotal control.
         /// </summary>
         /// <remarks>
@@ -283,6 +319,15 @@ namespace IMS.Sales {
         protected global::System.Web.UI.WebControls.Label lblGivenAmnt;
         
         /// <summary>
+        /// fuAttacheFile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fuAttacheFile;
+        
+        /// <summary>
         /// ddlPaymentMode control.
         /// </summary>
         /// <remarks>
@@ -290,24 +335,6 @@ namespace IMS.Sales {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlPaymentMode;
-        
-        /// <summary>
-        /// btnPayBack control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPayBack;
-        
-        /// <summary>
-        /// RequiredFieldValidator8 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator8;
         
         /// <summary>
         /// txtPaidAmt control.
@@ -319,6 +346,15 @@ namespace IMS.Sales {
         protected global::System.Web.UI.WebControls.TextBox txtPaidAmt;
         
         /// <summary>
+        /// RequiredFieldValidator8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator8;
+        
+        /// <summary>
         /// RegularExpressionValidator1 control.
         /// </summary>
         /// <remarks>
@@ -328,13 +364,13 @@ namespace IMS.Sales {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
         
         /// <summary>
-        /// RequiredFieldValidator7 control.
+        /// btnPayBack control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator7;
+        protected global::System.Web.UI.WebControls.Button btnPayBack;
         
         /// <summary>
         /// txtBalanceAmt control.
@@ -346,13 +382,13 @@ namespace IMS.Sales {
         protected global::System.Web.UI.WebControls.TextBox txtBalanceAmt;
         
         /// <summary>
-        /// fuAttacheFile control.
+        /// RequiredFieldValidator7 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload fuAttacheFile;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator7;
         
         /// <summary>
         /// btnSave control.

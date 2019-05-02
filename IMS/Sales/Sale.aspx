@@ -83,7 +83,7 @@
         }
 
         .scroolClass {
-            height: 100px;
+            max-height: 300px;
             overflow: hidden;
         }
 
@@ -335,7 +335,7 @@
                                     </div>
                                     <div class="col-sm-6 leftpadd0">
                                         <asp:TextBox ID="txtotherexpence" runat="server" CssClass="form-control" 
-                                            placeHolder="Enter Amount" ToolTip="Type Amount to be Add or Minus."
+                                            placeHolder="Enter Amount" ToolTip="Add any ohter +ve or -ve charges that need to be applied to adjust the total amount of the transaction Eg. +10 or -10."
                                             OnTextChanged="txtotherexpence_TextChanged" AutoPostBack="true" onkeypress="return OnlyNumericEntry(event);"></asp:TextBox>
                                     </div>
                                 </div>

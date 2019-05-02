@@ -46,7 +46,7 @@ namespace IMS
                 SessionValue();
                 if (!IsPostBack)
                 {
-                    txtOtherExpLabel.Text = "Other Expenses";
+                    txtOtherExpLabel.Text = "Adjustment";
                    // CalendarExtender1.StartDate = DateTime.Now.Date;
                     //txtdate.Text = DateTime.Now.ToString();
                     if (ViewState["Details"] == null)
@@ -161,19 +161,26 @@ namespace IMS
                 purchasePaymentDetail.CreatedDate = DateTime.Now;
                 purchasePaymentDetail.CreatedBy = user_id;
                 purchasePaymentDetail.FromTable = "Purchase";
-                string otherExp = txtotherexpence.Text;
-                if (otherExp.Contains("-"))
-                {
-                    var calculatedDiscount = Convert.ToDecimal(lblDiscountAmt.Text);
-                    var overAllDisc = Convert.ToDecimal(otherExp.Substring(otherExp.LastIndexOf('-') + 0));
-                    var totalDiscount = calculatedDiscount - overAllDisc;
 
-                    purchasePaymentDetail.DiscountAmount = totalDiscount;
-                }
-                else
-                {
-                    purchasePaymentDetail.DiscountAmount = Convert.ToDecimal(lblDiscountAmt.Text);
-                }
+                purchasePaymentDetail.OtherExpLabel = txtOtherExpLabel.Text;
+                purchasePaymentDetail.OtherExp = Convert.ToDecimal(txtotherexpence.Text);
+
+                //string otherExp = txtotherexpence.Text;
+                //if (otherExp.Contains("-"))
+                //{
+                //    var calculatedDiscount = Convert.ToDecimal(lblDiscountAmt.Text);
+                //    var overAllDisc = Convert.ToDecimal(otherExp.Substring(otherExp.LastIndexOf('-') + 0));
+                //    var totalDiscount = calculatedDiscount - overAllDisc;
+
+                //    purchasePaymentDetail.DiscountAmount = totalDiscount;
+                //}
+                //else
+                //{
+                //    purchasePaymentDetail.DiscountAmount = Convert.ToDecimal(lblDiscountAmt.Text);
+                //}
+
+
+                purchasePaymentDetail.DiscountAmount = Convert.ToDecimal(lblDiscountAmt.Text);
                 purchase.tbl_PurchasePaymentDetials.Add(purchasePaymentDetail);
                 
 

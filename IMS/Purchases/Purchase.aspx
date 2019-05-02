@@ -12,6 +12,14 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <style>
+        .Fixedfooter {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   color: white;
+   text-align: center;
+}
         .input-group-addons {
             padding: 6px 10px;
             font-weight: normal;
@@ -371,7 +379,7 @@
                                         </div>
                                         <div class="col-sm-6 leftpadd0">
                                             <asp:TextBox ID="txtotherexpence" runat="server" CssClass="form-control" AutoPostBack="true" 
-                                                placeHolder="Enter Amount" ToolTip="Type Amount to be Add or Minus."
+                                                placeHolder="Enter Amount" ToolTip="Add any ohter +ve or -ve charges that need to be applied to adjust the total amount of the transaction Eg. +10 or -10."
                                                 OnTextChanged="txtotherexpence_TextChanged" onkeypress="return OnlyNumericEntry(event);"></asp:TextBox>
                                         </div>
                                     </div>
@@ -493,7 +501,8 @@
             </div>
             <%--<div style="border:1px solid black"></div>--%>
         </div>
-        <div class="panel-footer ">
+        <%--<div class="Fixedfooter">--%>
+        <div class="panel-footer leftpadd0">
             <asp:Button ID="btnSave" runat="server" CssClass="btn btn-primary " Text="Save" OnClick="btnSave_Click" ValidationGroup="savesale" OnClientClick="DisableOnSave(this,'savesale');" UseSubmitBehavior="false" />
             <%-- <asp:Button ID="btnCancel" runat="server" CssClass="btn btn-primary " Text="Cancel" OnClick="btnCancel_Click" />--%>
             <asp:Button ID="btnclear" runat="server" CssClass="btn btn-primary " Text="Cancel" OnClick="btnclear_Click" />
