@@ -72,7 +72,7 @@
 
         <asp:Button ID="btnctgrySave123" runat="server" CssClass="btn btn-primary" ValidationGroup="categoryvalidationgroup"  Text="Save" OnClick="btnctgrySave123_Click"  />
         <asp:Button ID="btnctgryUpdate" runat="server" CssClass="btn btn-primary" ValidationGroup="categoryvalidationgroup" Text="Update" Visible="false" OnClick="btnctgryUpdate_Click" />
-        <input class="btn btn-primary " type="button" value="Clear" />
+         <input class="btn btn-primary " type="button" value="Clear" onclick="clearcategory()" />
     </div>
 </div>
 <div class="row">

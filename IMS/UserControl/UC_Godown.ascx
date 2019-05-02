@@ -36,6 +36,9 @@
             if (charCode > 31 && (charCode < 48 || charCode > 57))
                 return false;
         }
+        function cleartextbox() {
+            cleartextboxes();
+        }
 </script>
 
 
@@ -120,7 +123,7 @@
 
         <asp:Button ID="btngodwnSave" runat="server" CssClass="btn btn-primary " Text="Save" OnClick="btngodwnSave_Click"  UseSubmitBehavior="false" ValidationGroup="godwnvalidationgrp" />
         <asp:Button ID="btngodwnUpdate" runat="server" CssClass="btn btn-primary" Text="Update" OnClick="btngodwnUpdate_Click"  Visible="false" ValidationGroup="godwnvalidationgrp" />
-        <input class="btn btn-primary " type="button" value="Clear"  />
+        <input class="btn btn-primary " type="button" value="Clear" onclick="cleartextbox()"  />
         <%--<asp:Button ID="btnCancel" runat="server" CssClass="btn btn-default" Text="Cancel" OnClick="btnCancel_Click" Style="float: right" />--%>
     </div>
 </div>
