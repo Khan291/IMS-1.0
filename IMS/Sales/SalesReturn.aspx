@@ -77,8 +77,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="panel panel-default ">
-        <div class="panel-heading text-center">
-            <h1>Sales Return</h1>
+        <div class="panel">
+            <h4 style="padding-left:5px">Sale Return</h4>
         </div>
         <div class="panel-body" style="height:450px; overflow:scroll">
             <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">

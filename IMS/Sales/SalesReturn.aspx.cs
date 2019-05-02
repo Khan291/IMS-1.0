@@ -315,7 +315,7 @@ namespace IMS.Sales
                 saleReturn.party_id = Convert.ToInt32(sale.party_id);
                 saleReturn.created_by = user_id;
                 saleReturn.created_date = DateTime.Now;
-                saleReturn.Note = txtSaleNote.Text;
+                //saleReturn.Note = txtSaleNote.Text;
                 decimal givenAmnt = 0;
                 if (remainingBalance < paidAmnt)
                 {

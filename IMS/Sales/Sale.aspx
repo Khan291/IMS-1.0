@@ -98,10 +98,10 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="panel panel-default ">
-        <div class="panel-heading text-center">
-            <h1>Sale</h1>
+        <div class="panel">
+            <h4 style="padding-left: 5px">Sale</h4>
         </div>
-        <div class="panel-body" style="height:450px; overflow:scroll">
+        <div class="panel-body" style="height: 450px; overflow: scroll">
             <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                 <div class="row">
                     <div class="text-center">
@@ -331,10 +331,10 @@
                                     <div class="col-sm-6 leftpadd0">
                                         <%--<label class="control-label col-sm-9">Other Expenses</label>--%>
                                         <asp:TextBox ID="txtOtherExpLabel" runat="server" CssClass="form-control"
-                                             ToolTip="You can change this text as per your need"></asp:TextBox>
+                                            ToolTip="You can change this text as per your need" Text="Adjustment"></asp:TextBox>
                                     </div>
                                     <div class="col-sm-6 leftpadd0">
-                                        <asp:TextBox ID="txtotherexpence" runat="server" CssClass="form-control" 
+                                        <asp:TextBox ID="txtotherexpence" runat="server" CssClass="form-control"
                                             placeHolder="Enter Amount" ToolTip="Add any ohter +ve or -ve charges that need to be applied to adjust the total amount of the transaction Eg. +10 or -10."
                                             OnTextChanged="txtotherexpence_TextChanged" AutoPostBack="true" onkeypress="return OnlyNumericEntry(event);"></asp:TextBox>
                                     </div>
@@ -405,18 +405,69 @@
                     <br />
                     <br />
                     <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px; margin-left: 25px;">
+                                    <div class="col-sm-10 leftpadd0">
+                                        <label class="control-label">Attach File</label>
+                                        <asp:FileUpload ID="fuAttacheFile" runat="server" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px; margin-left: 25px;">
+                                    <div class="col-sm-10 leftpadd0">
+                                        <label class="control-label">Note</label>
+                                        <asp:TextBox ID="txtSaleNote" runat="server" TextMode="MultiLine" CssClass="form-control" Style="display: block; resize: none"></asp:TextBox>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-4 col-lg-4">
+                                    <label class="control-label">Payment Mode</label>
+                                </div>
+                                <div class="col-md-6 col-lg-6">
+                                    <asp:DropDownList ID="ddlPaymentMode" runat="server" CssClass="form-control"></asp:DropDownList>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-4 col-lg-34">
+                                    <label class="control-label">Given Amount</label>
+                                </div>
+                                <div class="col-md-6 col-lg-6">
+                                    <asp:TextBox ID="txtGivenAmt" runat="server" CssClass="form-control" ReadOnly="true" onkeypress="return OnlyNumericEntry(event);" OnTextChanged="txtGivenAmt_TextChanged" AutoPostBack="true"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ForeColor="Red" ControlToValidate="txtGivenAmt" ErrorMessage="Please Enter Given Amount" ValidationGroup="savesale"></asp:RequiredFieldValidator>
+                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ForeColor="Red" ControlToValidate="txtGivenAmt" ErrorMessage="Given Amount Should be digits only" ValidationGroup="savesale" ValidationExpression="^\s*(?=.*[1-9])\d*(?:\.\d{1,5})?\s*$" Display="Dynamic">
+                                    </asp:RegularExpressionValidator>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 col-lg-34">
+                                    <label class="control-label">Balance Amount</label>
+                                </div>
+                                <div class="col-md-6 col-lg-6">
+                                    <asp:TextBox ID="txtBalanceAmt" runat="server" CssClass="form-control" ReadOnly="true" onkeypress="return OnlyNumericEntry(event);"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="txtBalanceAmt" ForeColor="Red" ErrorMessage="Please Enter Balance Amount"></asp:RequiredFieldValidator>
+                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ForeColor="Red" ControlToValidate="txtGivenAmt" ErrorMessage="Balance Amount Should be digits only" ValidationExpression="^\s*(?=.*[1-9])\d*(?:\.\d{1,5})?\s*$" Display="Dynamic" ValidationGroup="savesale">
+                                    </asp:RegularExpressionValidator>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <%--<div class="row">
                         <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 pull-right">
                             <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 leftpadd0 pull-right" style="padding: 0px;">
                                 <div class="form-group">
                                     <div class="col-sm-12 leftpadd0">
                                         <label class="control-label col-sm-9">Payment Mode</label>
-                                        <asp:DropDownList ID="ddlPaymentMode" runat="server" CssClass="form-control"></asp:DropDownList>
+                                    <asp:DropDownList ID="ddlPaymentMode" runat="server" CssClass="form-control"></asp:DropDownList>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
+                    </div>--%>
+                    <%-- <div class="row">
                         <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 pull-right">
                             <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 leftpadd0 pull-right" style="padding: 0px;">
                                 <div class="form-group">
@@ -432,8 +483,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
+                    </div>--%>
+                    <%--<div class="row">
                         <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 pull-right">
                             <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 leftpadd0 pull-right" style="padding: 0px;">
                                 <div class="form-group">
@@ -449,26 +500,13 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>--%>
                 </ContentTemplate>
             </asp:UpdatePanel>
         </div>
 
         <!--=====================================================Note field ====================================================================-->
-        <div class="row">
-            <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px; margin-left: 25px;">
-                <div class="col-sm-10 leftpadd0">
-                    <label class="control-label">Attach File</label>
-                    <asp:FileUpload ID="fuAttacheFile" runat="server" />
-                </div>
-            </div>
-            <div class="col-md-2 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px; margin-left: 25px;">
-                <div class="col-sm-10 leftpadd0">
-                    <label class="control-label">Note</label>
-                    <asp:TextBox ID="txtSaleNote" runat="server" TextMode="MultiLine" CssClass="form-control" Style="display: block; resize: none"></asp:TextBox>
-                </div>
-            </div>
-        </div>
+
         <br />
 
 
@@ -563,7 +601,7 @@
 
             $('#<%=lblcheckDoubleError.ClientID%>').text('');
 
-            var charCode = (evt.which) ? evt.which : event.keyCode            
+            var charCode = (evt.which) ? evt.which : event.keyCode
             if (charCode != 46 && charCode > 31 && charCode != 45
                 && (charCode < 48 || charCode > 57))
                 return false;

@@ -382,6 +382,24 @@ namespace IMS {
         protected global::System.Web.UI.WebControls.GridView gvTaxDetailsNew;
         
         /// <summary>
+        /// fuAttacheFile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fuAttacheFile;
+        
+        /// <summary>
+        /// txtSaleNote control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSaleNote;
+        
+        /// <summary>
         /// ddlPaymentMode control.
         /// </summary>
         /// <remarks>
@@ -443,24 +461,6 @@ namespace IMS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
-        
-        /// <summary>
-        /// fuAttacheFile control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload fuAttacheFile;
-        
-        /// <summary>
-        /// txtSaleNote control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSaleNote;
         
         /// <summary>
         /// btnSave control.

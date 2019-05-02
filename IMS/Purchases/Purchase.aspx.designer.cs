@@ -418,6 +418,24 @@ namespace IMS {
         protected global::System.Web.UI.WebControls.HiddenField hdfGrandTotalWithoutExpenses;
         
         /// <summary>
+        /// fuAttacheFile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fuAttacheFile;
+        
+        /// <summary>
+        /// txtNotePurchase control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtNotePurchase;
+        
+        /// <summary>
         /// ddlPaymentMode control.
         /// </summary>
         /// <remarks>
@@ -461,24 +479,6 @@ namespace IMS {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtBalanceAmt;
-        
-        /// <summary>
-        /// fuAttacheFile control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload fuAttacheFile;
-        
-        /// <summary>
-        /// txtNotePurchase control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNotePurchase;
         
         /// <summary>
         /// btnSave control.
