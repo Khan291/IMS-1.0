@@ -104,7 +104,8 @@
                     break;
             }
         }
-
+        
+        cleartextboxes();
 
         var txt = $("<%=txtPartyName.ClientID%>");
 
@@ -228,7 +229,7 @@
     <div class="panel-footer text-center">
         <asp:Button ID="btnprtySave" runat="server" CssClass="btn btn-primary " Text="Save" OnClick="btnprtySave_Click" UseSubmitBehavior="false" ValidationGroup="prtyvalidationgrp" />
         <asp:Button ID="btnprtyUpdate" runat="server" CssClass="btn btn-primary" Text="Update" OnClick="btnprtyUpdate_Click" Visible="false" ValidationGroup="prtyvalidationgrp" />
-        <input class="btn btn-primary " type="button" value="Clear" />
+        <input class="btn btn-primary " type="button" value="Clear" onclick="cleartextboxes()" />
         <%--<asp:Button ID="btnCancel" runat="server" CssClass="btn btn-default" Text="Cancel" OnClick="btnCancel_Click" Style="float: right" />--%>
     </div>
 </div>

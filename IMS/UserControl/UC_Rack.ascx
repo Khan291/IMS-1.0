@@ -77,7 +77,7 @@
     <div class="panel-footer text-center">
         <asp:Button ID="btnrckSave" runat="server" CssClass="btn btn-primary " Text="Save" OnClick="btnrckSave_Click"  UseSubmitBehavior="false" ValidationGroup="rckvalidationgrp" />
         <asp:Button ID="btnrckUpdate" runat="server" CssClass="btn btn-primary" Text="Update" OnClick="btnrckUpdate_Click"  Visible="false" ValidationGroup="rckvalidationgrp" />
-        <input class="btn btn-primary " type="button" value="Clear" onclick="javascript: window.location = 'Rack.aspx'" />
+        <asp:Button ID="btnrckClear" runat="server" CssClass="btn btn-primary" Text="Clear" OnClick="btnrckClear_Click"      />
         <%--<asp:Button ID="btnCancel" runat="server" CssClass="btn btn-default" Text="Cancel" OnClick="btnCancel_Click" Style="float: right" />--%>
     </div>
 

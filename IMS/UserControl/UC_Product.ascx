@@ -95,7 +95,7 @@
                                 <div class="col-sm-7">
                                     <div class="input-group input-group-xs">
                                         <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control">
-                                            <asp:ListItem Text="Choose Category" />
+                                            <asp:ListItem Text="Choose Category" Value="0" />
                                         </asp:DropDownList>
                                         <span class="input-group-addons" id="spncategory" runat="server">
                                             <a href="javascript:AddSrcToIfram('c')">
@@ -116,7 +116,7 @@
                                 <div class="col-sm-7">
                                     <div class="input-group input-group-xs">
                                         <asp:DropDownList ID="ddlUnit" runat="server" CssClass="form-control">
-                                            <asp:ListItem Text="Choose Unit" />
+                                            <asp:ListItem Text="Choose Unit" Value="0" />
                                         </asp:DropDownList>
                                         <span class="input-group-addons" id="spnunit" runat="server">
                                             <a href="javascript:AddSrcToIfram('u')">
@@ -296,8 +296,7 @@
             <div class="panel-footer text-center">
                 <asp:Button ID="btnprdSave" runat="server" CssClass="btn btn-primary " Text="Save" OnClick="btnprdSave_Click"  ValidationGroup="prdvalidationgrp"  UseSubmitBehavior="false" />
                 <asp:Button ID="btnprdUpdate" runat="server" CssClass="btn btn-primary" Text="Update" OnClick="btnprdUpdate_Click" Visible="false" ValidationGroup="prdvalidationgrp" />
-                <input class="btn btn-primary " type="button" value="Clear" onclick="javascript: window.location = 'Product.aspx'" />
-                <%--<asp:Button ID="btnCancel" runat="server" CssClass="btn btn-default" Text="Cancel" OnClick="btnCancel_Click" Style="float: right" />  --%>
+                <asp:Button ID="btnClear" runat="server" CssClass="btn btn-primary" Text="Clear" OnClick="btnClear_Click" />
             </div>
 </div>
  <div class="row">
@@ -427,7 +426,7 @@
         </div>
     </div>
     <%--end model popup --%>
-    <script>
+    <script  type="text/javascript">
        
         function Closepopup() {
             $('#AddModal').modal('close');
@@ -558,6 +557,8 @@
             });
 
         });
+
+        
 
     </script>
 
