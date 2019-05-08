@@ -26,7 +26,8 @@
                                 OnRowEditing="gvStockDetails_RowEditing"
                                 OnRowUpdating="gvStockDetails_RowUpdating"
                                 OnPreRender="gvStockDetails_PreRender"
-                                CssClass="table table-bordered">
+                                CssClass="table table-bordered"
+                                OnRowDataBound="gvStockDetails_RowDataBound"    >
                                 <Columns>
                                     <asp:TemplateField HeaderText="Stock ID" ItemStyle-CssClass="hidden text-center" HeaderStyle-CssClass="hidden text-center">
                                         <ItemTemplate>
