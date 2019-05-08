@@ -483,7 +483,6 @@ namespace IMS.Sales
 
                 lblGivenAmnt.Text = givenAmnt.ToString();
                 //lblBalanceAmnt.Text = dr["BalanceAmnt"].ToString();
-
                 //assign it to the the current return screen as well as the original purchase field
                 lblGivenAmnt.Text = givenAmnt.ToString();
                 lblTotalAmnt.Text = subTotal.ToString();

@@ -117,7 +117,7 @@
             <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                 <div class="row">
                     <div class="text-center">
-                        <asp:Label ID="lblInvoice" runat="server" ForeColor="Red"></asp:Label>
+                        <asp:Label ID="lblInvoice" runat="server" ForeColor="Red"></asp:Label> 
                     </div>
                     <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px;">
                         <div>
