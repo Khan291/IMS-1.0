@@ -78,7 +78,7 @@
                         <div class="wellcome-heading">
                             <h2>IMS BIZZ</h2>
                             <h3>!MS </h3>
-                            <p>Everything You Need. To Start Selling Online Beautifully</p>
+                            <p>Let us manage your business with IMSBIZZ</p>
                         </div>
                         <div class="get-start-area">
                             <!-- Form Start -->
