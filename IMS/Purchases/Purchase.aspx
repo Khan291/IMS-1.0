@@ -151,7 +151,7 @@
                                 Vendor Receipt No. 
                             </label>
                             <asp:TextBox ID="txtPONo" runat="server" CssClass="form-control"></asp:TextBox>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*" ForeColor="Red" Text="Please Enter Receipt No" ControlToValidate="txtPONo" ValidationGroup="purchvalidationgrp"></asp:RequiredFieldValidator>
+                         
                         </div>
                     </div>
                     <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12 leftpadd0" style="padding: 0px;">
